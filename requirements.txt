@@ -1,7 +1,1 @@
-flask
-pandas
-scikit-learn
-python-docx
-PyPDF2
-requests
-gunicorn
+Flask pandas scikit-learn python-docx PyPDF2 requests gunicorn
