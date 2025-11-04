@@ -96,6 +96,7 @@ def home():
     skills_text = ""
     file_error = ""
     job_results = []
+    return render_template('index.html')
 
     if request.method == "POST":
         file = request.files.get("resume_file")
