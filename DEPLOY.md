@@ -42,7 +42,7 @@ Your URL is shown at the top of the service page, like `https://careerpilotai-xx
 - Keep gunicorn at 1 worker (the default; don't add `--workers 4`).
 - Otherwise move to a paid instance with more RAM.
 
-**"Live jobs are unavailable right now".** The jobs come from the Remotive API (`https://remotive.com/api/remote-jobs`). If it is down or takes longer than 4 seconds, the rest of the page still works and the next upload tries again. The Remotive feed is downloaded once and cached for 30 minutes for all careers, so new jobs can take up to 30 minutes to appear. Remotive asks for only a few requests a day; raise `CACHE_SECONDS` in `features/jobs.py` (e.g. to 6 hours) to be safe.
+**"Live jobs are unavailable right now".** The jobs come from the Remotive API (`https://remotive.com/api/remote-jobs`). If it is down or takes longer than 4 seconds, the rest of the page still works and the next upload tries again. The Remotive feed is downloaded once and cached for 6 hours for all careers (at most 4 calls a day, as Remotive's terms advise), so new jobs can take up to 6 hours to appear. Remotive's listings are also delayed by 24 hours.
 
 **Many jobs are marked "Related".** Remotive's free API returns the same ~10 jobs for every search, so for most careers few titles match the career's `job_keywords`.
 

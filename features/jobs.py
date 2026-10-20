@@ -12,7 +12,7 @@ Remotive jobs marked "related": True, so the user still sees something.
 
 Remotive's public API currently returns the same small feed whatever you search for,
 so we download the feed ONCE and filter it for every career ourselves. The feed is
-cached for CACHE_SECONDS; Remotive asks for at most a few requests a day.
+cached for CACHE_SECONDS (6 hours = at most 4 downloads a day, as Remotive's terms advise).
 Failures are NOT cached, so the next request tries again.
 """
 import time
@@ -23,7 +23,7 @@ from features.skills import JOB_KEYWORDS, skill_pattern
 
 REMOTIVE_URL = "https://remotive.com/api/remote-jobs"
 TIMEOUT_SECONDS = 4               # a slow API must never make an upload hang
-CACHE_SECONDS = 30 * 60           # keep the downloaded feed for 30 minutes
+CACHE_SECONDS = 6 * 60 * 60       # keep the downloaded feed for 6 hours (Remotive: max ~4 requests/day)
 MIN_MATCHING = 3                  # fewer matching jobs than this -> fill with "related" jobs
 
 # The one shared feed: {"saved_at": time, "jobs": [...]}

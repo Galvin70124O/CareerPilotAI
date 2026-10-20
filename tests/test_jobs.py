@@ -152,17 +152,22 @@ def test_one_download_serves_every_career(monkeypatch):
     assert len(calls) == 1
 
 
-def test_cache_expires_after_30_minutes(monkeypatch):
+def test_cache_expires_after_6_hours(monkeypatch):
     calls = []
     clock = {"now": 1000.0}
     monkeypatch.setattr(jobs.time, "monotonic", lambda: clock["now"])
     use_feed(monkeypatch, calls=calls)
     jobs.fetch_job_listings("Data Science")
-    clock["now"] += 29 * 60
-    jobs.fetch_job_listings("Data Science")      # still cached
-    clock["now"] += 2 * 60                       # now 31 minutes old
+    clock["now"] += 5 * 60 * 60 + 59 * 60        # 5 h 59 min later: still cached
+    jobs.fetch_job_listings("Data Science")
+    clock["now"] += 2 * 60                       # now 6 h 1 min old
     jobs.fetch_job_listings("Data Science")
     assert len(calls) == 2
+
+
+def test_at_most_4_downloads_a_day():
+    # Remotive's terms advise at most ~4 requests a day
+    assert 24 * 60 * 60 / jobs.CACHE_SECONDS <= 4
 
 
 def test_failures_are_not_cached(monkeypatch):

@@ -13,7 +13,7 @@ A Flask web app that reads your resume (or the skills you type), predicts the ca
 | **Career Roadmap** | Beginner → Intermediate → Job-ready steps for your top career (`roadmaps.json`). Steps you already cover are ticked; missing ones come first. |
 | **Course Recommender** | 1–2 free resources per missing skill (official docs, Kaggle Learn, freeCodeCamp, Microsoft Learn, NPTEL, Khan Academy…). Every link in `courses.json` was checked to return HTTP 200 on 2026-10-20; skills without one get a YouTube search link. |
 | **What-If Simulator** | Tick missing skills, click Simulate, and see before → after for the top 3 careers, confidence, skill gap and resume score. |
-| **Live remote jobs** | Jobs for your top career from the [Remotive API](https://remotive.com/api/remote-jobs) (4 s timeout, feed cached for 30 minutes). Jobs whose title contains one of the career's `job_keywords` (`skills.json`) come first; if fewer than 3 match, other jobs fill the list marked **Related**. If the API fails, the page says "Live jobs are unavailable right now". Note: Remotive's free API currently returns the same ~10 jobs whatever you search for, so many careers only get Related jobs. |
+| **Live remote jobs** | Jobs for your top career from the [Remotive API](https://remotive.com/api/remote-jobs) (4 s timeout, feed cached for 6 hours, i.e. at most 4 calls a day as Remotive's terms advise). Jobs whose title contains one of the career's `job_keywords` (`skills.json`) come first; if fewer than 3 match, other jobs fill the list marked **Related**. If the API fails, the page says "Live jobs are unavailable right now". Note: Remotive's free API currently returns the same ~10 jobs whatever you search for, so many careers only get Related jobs. |
 
 ## Dataset
 
