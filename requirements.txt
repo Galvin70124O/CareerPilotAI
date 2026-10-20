@@ -1,7 +1,10 @@
-flask
-pandas
-scikit-learn
-python-docx
-PyPDF2
-requests
-gunicorn
+flask==3.0.3
+pandas==2.2.3
+numpy==2.0.1
+scikit-learn==1.5.1
+joblib==1.5.2
+python-docx==1.2.0
+PyPDF2==3.0.1
+requests==2.32.5
+gunicorn==23.0.0
+pytest==9.1.1

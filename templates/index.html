@@ -185,6 +185,31 @@
         from { box-shadow: 0 0 19px #33baff, 0 0 26px #29e1ff98;}
         to   { box-shadow: 0 0 7px #0091ff53, 0 0 12px #3f6;}
       }
+      .cp-chip {
+        display: inline-block;
+        background: #1d2a3a;
+        color: var(--label);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 2px 11px;
+        margin: 0 5px 6px 0;
+        font-size: 0.85em;
+      }
+      .cp-chip-missing {
+        background: transparent;
+        color: var(--subtle);
+        border-style: dashed;
+      }
+      .cp-bar {
+        background: var(--input-bg);
+        border-radius: 6px;
+        height: 8px;
+        overflow: hidden;
+      }
+      .cp-bar > div {
+        background: var(--bright-blue);
+        height: 100%;
+      }
       .alert-danger { color: #fff; background: #aa2d2f; border: none; }
       @media (max-width: 800px) {
         .cp-container { max-width:99vw; padding:22px 2vw 28px 2vw;}
@@ -200,27 +225,71 @@
     </div>
     <form method="POST" enctype="multipart/form-data" class="cp-form">
       <div>
-        <label class="cp-label" for="resume_file">Attach resume (.txt, .pdf, .docx, ≤2MB)</label>
-        <input type="file" class="form-control" id="resume_file" name="resume_file" accept=".txt,.pdf,.docx">
-        {% if file_error %}
-          <div class="alert alert-danger py-1 px-2 mt-1">{{ file_error }}</div>
+        <label class="cp-label" for="resume_file">Upload resume (.txt, .pdf, .docx, ≤2MB) — it is analyzed right away</label>
+        <!-- onchange submits the form as soon as a file is picked: one click instead of two -->
+        <input type="file" class="form-control" id="resume_file" name="resume_file" accept=".txt,.pdf,.docx"
+               onchange="this.form.submit()">
+        {% if error %}
+          <div class="alert alert-danger py-1 px-2 mt-1">{{ error }}</div>
         {% endif %}
       </div>
+      <label class="cp-label" for="input_text">…or type / speak your skills</label>
       <textarea class="cp-textarea" id="input_text" name="input_text"
-        placeholder="Type, speak, or paste your skills, or extract directly from resume...">{{ skills_text }}</textarea>
+        placeholder="e.g. python, machine learning, sql">{{ input_text }}</textarea>
       <div>
         <button type="button" class="cp-btn" style="width:32%;" onclick="startDictation()" id="micButton">🎤 Speak</button>
         <span id="micIndicator" class="glow-bar" style="display: none;"><b>● Listening</b></span>
-        <button type="submit" class="cp-btn" style="width:32%;background:var(--blue-fg);box-shadow:0 2.5px 9px #1da5ff78;" name="action" value="predict">Send</button>
-        <button type="submit" class="cp-btn btn-outline-secondary" style="width:32%;" name="action" value="extract">Extract Skills</button>
+        <button type="submit" class="cp-btn" style="width:62%;background:var(--blue-fg);box-shadow:0 2.5px 9px #1da5ff78;">Send</button>
       </div>
     </form>
-    {% if prediction %}
+    {% if source == "resume" %}
       <div class="cp-bot-message">
-        <b>Recommended Career Path:&nbsp;</b> {{ prediction }}
+        <b>Skills found in your resume:</b>
+        <div class="mt-2">
+          {% for skill in found_skills.split(", ") if skill %}
+            <span class="cp-chip">{{ skill }}</span>
+          {% else %}
+            <span style="color:var(--subtle);">No skills from our list were found, but we still analyzed the full text.</span>
+          {% endfor %}
+        </div>
       </div>
     {% endif %}
-    {% if job_results and prediction %}
+    {% if top_careers %}
+      <div class="cp-bot-message">
+        <b>Recommended Career Path:&nbsp;</b> {{ top_careers[0].career }}
+        <div style="font-size:0.85em; color:var(--subtle);" class="mb-2">
+          Based on your {{ "uploaded resume" if source == "resume" else "typed skills" }}. Top 3 matches:
+        </div>
+        {% for item in top_careers %}
+          <div class="d-flex justify-content-between" style="font-size:0.95em;">
+            <span>{{ item.career }}</span><span>{{ item.percent }}%</span>
+          </div>
+          <div class="cp-bar mb-2"><div style="width: {{ item.percent }}%;"></div></div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% if skill_gap and skill_gap.total %}
+      <div class="cp-bot-message">
+        <div class="d-flex justify-content-between">
+          <b>Skill gap for {{ skill_gap.career }}</b>
+          <span>{{ skill_gap.have|length }}/{{ skill_gap.total }} key skills</span>
+        </div>
+        <div class="cp-bar my-2"><div style="width: {{ skill_gap.percent }}%;"></div></div>
+        {% if skill_gap.have %}
+          <div style="font-size:0.9em; color:var(--subtle);">✅ You have</div>
+          <div class="mb-2">
+            {% for skill in skill_gap.have %}<span class="cp-chip">{{ skill }}</span>{% endfor %}
+          </div>
+        {% endif %}
+        {% if skill_gap.missing %}
+          <div style="font-size:0.9em; color:var(--subtle);">📚 To learn next</div>
+          <div>
+            {% for skill in skill_gap.missing %}<span class="cp-chip cp-chip-missing">{{ skill }}</span>{% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+    {% if job_results and top_careers %}
       <div class="cp-jobs-title">Live Job Listings</div>
       <ul class="list-group cp-jobs-list">
         {% for job in job_results %}

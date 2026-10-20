@@ -1,0 +1,14 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: careerpilotai
+    runtime: python
+    plan: free
+    # model.pkl is not in git (see .gitignore), so we build it on every deploy
+    buildCommand: pip install -r requirements.txt && python train.py
+    # gunicorn is a production web server; "app:app" = the "app" object in app.py
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --timeout 60
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.6
