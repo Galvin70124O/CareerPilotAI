@@ -382,16 +382,6 @@
         "url": "https://nodejs.org/en/learn/getting-started/introduction-to-nodejs"
       }
     ],
-    "pandas": [
-      {
-        "title": "pandas: Getting started",
-        "url": "https://pandas.pydata.org/docs/getting_started/index.html"
-      },
-      {
-        "title": "Kaggle Learn: Pandas",
-        "url": "https://www.kaggle.com/learn/pandas"
-      }
-    ],
     "performance tuning": [
       {
         "title": "Use The Index, Luke (free book)",
@@ -566,12 +556,6 @@
       {
         "title": "Cisco Networking Academy",
         "url": "https://www.netacad.com/"
-      }
-    ],
-    "terraform": [
-      {
-        "title": "HashiCorp Terraform tutorials",
-        "url": "https://developer.hashicorp.com/terraform/tutorials"
       }
     ],
     "troubleshooting": [

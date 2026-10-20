@@ -318,13 +318,13 @@
     {% endif %}
     {% if top_careers %}
       <div class="cp-bot-message">
-        <b>Recommended Career Path:&nbsp;</b> {{ top_careers[0].career }}
+        <b>Recommended Career Path:&nbsp;</b> {{ top_careers[0].label }}
         <div style="font-size:0.85em; color:var(--subtle);" class="mb-2">
           Based on your {{ "uploaded resume" if source == "resume" else "typed skills" }}. Top 3 matches:
         </div>
         {% for item in top_careers %}
           <div class="d-flex justify-content-between" style="font-size:0.95em;">
-            <span>{{ item.career }}</span><span>{{ item.percent }}%</span>
+            <span>{{ item.label }}</span><span>{{ item.percent }}%</span>
           </div>
           <div class="cp-bar mb-2"><div style="width: {{ item.percent }}%;"></div></div>
         {% endfor %}
@@ -333,7 +333,7 @@
     {% if skill_gap and skill_gap.total %}
       <div class="cp-bot-message">
         <div class="d-flex justify-content-between">
-          <b>Skill gap for {{ skill_gap.career }}</b>
+          <b>Skill gap for {{ skill_gap.career|display_name }}</b>
           <span>{{ skill_gap.have|length }}/{{ skill_gap.total }} key skills</span>
         </div>
         <div class="cp-bar my-2"><div style="width: {{ skill_gap.percent }}%;"></div></div>

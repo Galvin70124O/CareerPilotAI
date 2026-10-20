@@ -122,3 +122,26 @@ def test_model_records_its_scikit_learn_version():
     # model.pkl is committed and loaded on Render; it must say which scikit-learn trained it
     import sklearn
     assert app.model.trained_with_sklearn == sklearn.__version__
+
+
+ADVOCATE_TEXT = "victim advocate, crisis intervention, court accompaniment, survivors of domestic violence"
+
+
+def test_advocate_shown_with_display_name(monkeypatch):
+    html = post({"input_text": ADVOCATE_TEXT}, monkeypatch)
+    assert "Recommended Career Path:&nbsp;</b> Advocate (Legal &amp; Social Services)" in html
+    assert "Skill gap for Advocate (Legal &amp; Social Services)" in html
+    assert "Roadmap to Advocate (Legal &amp; Social Services)" in html
+
+
+def test_jobs_are_searched_with_the_model_label(monkeypatch):
+    searched = []
+    monkeypatch.setattr(app, "fetch_job_listings", lambda title, limit=5: searched.append(title) or [])
+    app.app.test_client().post("/", data={"input_text": ADVOCATE_TEXT})
+    assert searched == ["Advocate"]
+
+
+def test_simulate_api_returns_display_names(monkeypatch):
+    result = simulate_api({"text": ADVOCATE_TEXT, "career": "Advocate", "skills": ["counseling"]}, monkeypatch).get_json()
+    assert result["career_label"] == "Advocate (Legal & Social Services)"
+    assert all("label" in c for c in result["after"]["top_careers"])

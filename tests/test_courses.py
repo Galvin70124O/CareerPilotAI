@@ -27,3 +27,12 @@ def test_all_links_are_https_with_a_title():
         for item in items:
             assert urlparse(item["url"]).scheme == "https", item
             assert item["title"].strip(), item
+
+
+def test_every_course_skill_is_used_by_some_career():
+    # A course for a skill no career uses could never be shown
+    from features.roadmap import ROADMAPS
+    from features.skills import CAREER_SKILLS
+    used = {s for skills in CAREER_SKILLS.values() for s in skills}
+    used |= {step["skill"] for roadmap in ROADMAPS.values() for stage in roadmap.values() for step in stage}
+    assert set(COURSES) <= used, set(COURSES) - used

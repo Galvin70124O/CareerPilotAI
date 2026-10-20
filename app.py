@@ -8,6 +8,7 @@ from docx import Document
 from pypdf import PdfReader
 import requests
 
+from features.careers import display_name
 from features.courses import recommend_courses
 from features.resume_score import score_resume
 from features.roadmap import build_roadmap
@@ -26,6 +27,8 @@ MAX_SIMULATE_TEXT = 100_000           # characters accepted by /api/simulate
 # -----------------------------
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
+# Lets templates write {{ career|display_name }} to show the user-facing career name
+app.add_template_filter(display_name)
 
 # -----------------------------
 # FILE HANDLING
@@ -101,7 +104,9 @@ def predict_top_careers(input_text, top_n=3):
     # predict_proba gives one probability per career, in the order of model.classes_
     probabilities = model.predict_proba([input_text])[0]
     ranked = sorted(zip(model.classes_, probabilities), key=lambda pair: pair[1], reverse=True)
-    return [{"career": career, "percent": round(prob * 100)} for career, prob in ranked[:top_n]]
+    # "career" is the model's label (used for lookups and job search), "label" is what the user sees
+    return [{"career": career, "label": display_name(career), "percent": round(prob * 100)}
+            for career, prob in ranked[:top_n]]
 
 # -----------------------------
 # ROUTES

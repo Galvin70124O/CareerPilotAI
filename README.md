@@ -7,7 +7,7 @@ A Flask web app that reads your resume (or the skills you type), predicts the ca
 | Feature | What it does |
 |---|---|
 | **One-click resume analysis** | Upload a `.txt`, `.pdf` or `.docx` (max 2 MB). Skills, prediction, score and everything below appear right away. |
-| **Top 3 careers** | 43 career categories, with confidence percentages. Works for uploaded resumes and for typed or spoken skills (🎤, Chrome). |
+| **Top 3 careers** | 42 career categories, with confidence percentages. Works for uploaded resumes and for typed or spoken skills (🎤, Chrome). |
 | **Resume Score** | ATS-style score out of 100 with a breakdown (sections, length & readability, action verbs, measurable impact, skill match, red flags), a ✓/✗ checklist and 3–5 tips that quote your resume. Weights live in `SCORE_WEIGHTS` in `features/resume_score.py`. |
 | **Skill Gap Analyzer** | The 8 key skills of your top career (`skills.json`), split into "you have" and "to learn next". |
 | **Career Roadmap** | Beginner → Intermediate → Job-ready steps for your top career (`roadmaps.json`). Steps you already cover are ticked; missing ones come first. |
@@ -28,9 +28,10 @@ A Flask web app that reads your resume (or the skills you type), predicts the ca
 | Drop resumes under 50 words | 13,312 |
 | Drop texts that appear with two different categories | 12,933 |
 | Drop exact duplicates | 11,847 |
-| Drop near-duplicates (cosine similarity > 0.9) | **10,646** |
+| Drop near-duplicates (cosine similarity > 0.9) | 10,646 |
+| Label fixes: move 86 "Data Science" science-teacher resumes (no data tools) to Education; drop "Management" (309) | **10,337** (42 categories) |
 
-Smallest category: Blockchain (35). Largest: Education (363). The result is saved as `data/resumes.parquet` (20 MB, not committed: `train.py` rebuilds it automatically when it's missing).
+Smallest category: Blockchain (35). Largest: Education (449). The result is saved as `data/resumes.parquet` (20 MB, not committed: `train.py` rebuilds it automatically when it's missing).
 
 ## Model and honest accuracy
 
@@ -38,17 +39,22 @@ TF-IDF on single words + a calibrated LinearSVC, in one scikit-learn `Pipeline`.
 
 Evaluation (`python train.py`): 20% of resumes are locked away as a test set. Models are compared with 3-fold stratified cross-validation on the other 80%, with the whole Pipeline re-fit inside every fold (no leakage).
 
-| Model | CV accuracy | CV macro F1 | CV top-3 accuracy |
+| Model (after label fixes, 42 careers) | CV accuracy | CV macro F1 | CV top-3 accuracy |
 |---|---|---|---|
-| TF-IDF + LogisticRegression | 77.8% | 0.778 | 92.1% |
-| **TF-IDF + calibrated LinearSVC** | **78.9%** | **0.789** | **92.8%** |
+| TF-IDF + LogisticRegression | 79.5% | 0.794 | 93.1% |
+| **TF-IDF + calibrated LinearSVC** | **80.5%** | **0.805** | **94.2%** |
 
-Chosen model on the held-out test set: **80.2% accuracy, macro F1 0.799, top-3 accuracy 93.6%**.
+Chosen model on the held-out test set: **81.8% accuracy, macro F1 0.810, top-3 accuracy 95.2%**.
 
-Weakest categories (test F1): Management 0.35, BPO 0.65, Operations Manager 0.65, Consultant 0.67, Database 0.68. These overlap heavily with other categories.
+Weakest categories (test F1): Blockchain 0.67, React Developer 0.69, Consultant 0.69, BPO 0.70, Web Designing 0.72.
+
+Before the label fixes (43 careers) the same model scored 80.2% / 0.799 / 93.6% on its test set, with Management (F1 0.35) as the weakest category. The two test sets are not identical (labels changed and Management was removed), so the comparison is indicative, not exact.
 
 **Limitations**
-- Some labels are noisy. "Data Science" includes school science teachers, and "Advocate" is mostly victim/customer advocates rather than lawyers.
+- **Label noise we fixed** (rules in `data/prepare_data.py`, `fix_labels`):
+  - "Data Science" contained many school science teachers. A Data Science resume that mentions teaching (teacher, classroom, grade, lesson, students) and **none** of the data tools (python, sql, statistics, R programming, tableau, power bi, data analysis, spark, pandas, machine learning, …) is moved to Education. 86 moved; a random sample of 10 was checked by hand and all were teachers/instructors.
+  - "Management" was dropped: it's a job level found in every industry, not a career path, and the model only got 26% of them right.
+  - "Advocate" mixes lawyers (~28%) and victim/patient/customer advocates (~46%). The labels are kept (the model gets 88% right), but the page shows it as **"Advocate (Legal & Social Services)"** (`features/careers.py`).
 - Using word pairs (bigrams) was about 1–2 points more accurate, but training needed ~930 MB RAM, more than Render's free tier allows.
 - The old version claimed 99.5% on a small dataset where every resume appeared ~6 times. That was data leakage.
 

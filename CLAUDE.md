@@ -20,7 +20,7 @@ A Flask web app that suggests a career path from resume text. Built by a CSE stu
 | `train.py` | Honest evaluation (held-out test + CV inside a Pipeline), trains final model, saves `model.pkl`. `--quick` skips evaluation |
 | `data/prepare_data.py` | Downloads + cleans ResumeAtlas, saves `data/resumes.parquet` (~20 MB, git-ignored; `train.py` rebuilds it if missing) |
 | `model.pkl` | Committed trained model (10 MB). Retrain locally and commit it; Render doesn't train |
-| `skills.json` | 8 key skills per career (43 careers), chosen by how often that category's resumes mention them |
+| `skills.json` | 8 key skills per career (42 careers), chosen by how often that category's resumes mention them |
 | `templates/index.html` | The only page. Bootstrap + custom dark CSS, browser speech-to-text |
 | `tests/` | pytest (`pytest.ini` sets the path) |
 | `chatbot.py` | CLI demo, loads `model.pkl` |
@@ -41,14 +41,16 @@ python -m pytest
 - `CalibratedClassifierCV(LinearSVC(C=0.5, class_weight='balanced'), cv=3, ensemble=False)`
 - Unigrams only because bigrams needed ~930 MB RAM to train. Training peaks at ~434 MB (local only now).
 - `train.py` stores `model.trained_with_sklearn`; `app.py` logs it vs the installed version at startup.
-- Held-out test: 80.2% accuracy, macro F1 0.80, top-3 93.6%.
+- Held-out test (42 careers, after label fixes): 81.8% accuracy, macro F1 0.81, top-3 95.2%.
 
 ## Dataset facts (checked)
 
-- ResumeAtlas (MIT), 13,389 rows, 43 categories → 10,646 after cleaning (Blockchain 35 … Education 363).
+- ResumeAtlas (MIT), 13,389 rows, 43 categories → 10,337 resumes, 42 categories after cleaning + label fixes (Blockchain 35 … Education 449).
 - Text is pre-cleaned by the authors: lowercase, punctuation **deleted** ("asp.net" → "aspnet"). `features/text_cleaning.normalize_text` makes user text match.
 - The name placeholder "claire" appeared in ~60% of resumes and sometimes replaced letters ("wiclaireh"); removed in `prepare_data.py`.
-- Label noise: "Data Science" contains school science teachers, "Advocate" is mostly victim/customer advocates, "Testing" is software testing.
+- Label fixes in `prepare_data.fix_labels`: Data Science science teachers without data tools -> Education (86); "Management" dropped.
+- "Advocate" keeps its label but is shown as "Advocate (Legal & Social Services)" via `features/careers.display_name`. Use `display_name()` / the `display_name` Jinja filter for anything user-facing; keep the model label for lookups and job search.
+- "Testing" is software testing.
 
 ## Rules for working on this project
 

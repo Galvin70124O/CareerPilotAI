@@ -8,6 +8,7 @@ Change SCORE_WEIGHTS to make a category count more or less. They should add up t
 """
 import re
 
+from features.careers import display_name
 from features.skills import analyze_skill_gap
 
 SCORE_WEIGHTS = {
@@ -161,10 +162,10 @@ def score_resume(text, career):
     # 5) Skill match with the predicted career
     gap = analyze_skill_gap(career, text)
     fractions["skill_match"] = gap["percent"] / 100
-    checklist.append({"text": f"Key skills for {career}: {len(gap['have'])}/{gap['total']}", "ok": gap["percent"] >= 50})
+    checklist.append({"text": f"Key skills for {display_name(career)}: {len(gap['have'])}/{gap['total']}", "ok": gap["percent"] >= 50})
     if gap["missing"]:
         tips.append((SCORE_WEIGHTS["skill_match"] * len(gap["missing"]) / max(gap["total"], 1),
-                     f"If you know them, mention these {career} skills: {', '.join(gap['missing'][:4])}."))
+                     f"If you know them, mention these {display_name(career)} skills: {', '.join(gap['missing'][:4])}."))
 
     # 6) Red flags
     has_email = re.search(EMAIL, text) is not None

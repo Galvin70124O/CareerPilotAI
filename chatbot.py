@@ -8,6 +8,8 @@ import os
 
 import joblib
 
+from features.careers import display_name
+
 MODEL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "model.pkl")
 
 if not os.path.exists(MODEL_PATH):
@@ -20,6 +22,6 @@ while True:
         break
     probabilities = model.predict_proba([user_input])[0]
     top3 = sorted(zip(model.classes_, probabilities), key=lambda pair: pair[1], reverse=True)[:3]
-    print(f"Recommended Career Path: {top3[0][0]}")
+    print(f"Recommended Career Path: {display_name(top3[0][0])}")
     for career, prob in top3:
-        print(f"  {career:<28}{prob:.0%}")
+        print(f"  {display_name(career):<36}{prob:.0%}")

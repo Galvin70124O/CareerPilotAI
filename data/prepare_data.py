@@ -59,6 +59,31 @@ def remove_near_duplicates(texts):
     return keep
 
 
+# --- Label fixes (checked by hand, see README "Label noise") ---------------------------
+# 1) Many "Data Science" resumes are school SCIENCE TEACHERS. If a Data Science resume talks
+#    about teaching and mentions none of the data tools below, we move it to "Education".
+#    The tool list is generous on purpose: a real data person should never be moved.
+# (?:...) groups words without "capturing" them; pandas warns about capturing groups
+TEACHING_WORDS = r"\b(?:teacher|classroom|grade|lesson|students)\b"
+DATA_TOOL_WORDS = (r"\b(?:python|machine learning|pandas|numpy|scikitlearn|tensorflow|keras|data scientist|"
+                   r"statistics|sql|r programming|tableau|power bi|powerbi|data analysis|spark)\b")
+# 2) "Management" is a job level found in every industry, not a career path (the model got
+#    only 26% of them right), so the category is dropped.
+DROPPED_CATEGORIES = ["Management"]
+
+
+def fix_labels(data):
+    """Return (fixed_data, moved_mask). moved_mask marks Data Science rows moved to Education."""
+    data = data.copy()
+    is_data_science = data["Category"] == "Data Science"
+    teaches = data["Resume"].str.contains(TEACHING_WORDS)
+    uses_data_tools = data["Resume"].str.contains(DATA_TOOL_WORDS)
+    moved = is_data_science & teaches & ~uses_data_tools
+    data.loc[moved, "Category"] = "Education"
+    keep = ~data["Category"].isin(DROPPED_CATEGORIES)
+    return data[keep].reset_index(drop=True), moved[keep].reset_index(drop=True)
+
+
 def main():
     print(f"Downloading {DATASET_URL} ...")
     data = pd.read_csv(DATASET_URL).rename(columns={"Text": "Resume"})
@@ -92,6 +117,11 @@ def main():
     keep = remove_near_duplicates(data["Resume"])
     data = data[keep].reset_index(drop=True)
     print(f"After dropping near-duplicates:     {len(data)}  ({(~keep).sum()} removed, cosine > {NEAR_DUPLICATE_THRESHOLD})")
+
+    # 5) Label fixes: science teachers -> Education, drop "Management"
+    data, moved = fix_labels(data)
+    print(f"Moved Data Science -> Education:    {moved.sum()} science-teacher resumes without data tools")
+    print(f"After dropping {', '.join(DROPPED_CATEGORIES)}:         {len(data)}")
 
     counts = data["Category"].value_counts()
     print(f"Categories: {len(counts)}  (smallest: {counts.idxmin()} = {counts.min()}, largest: {counts.idxmax()} = {counts.max()})")

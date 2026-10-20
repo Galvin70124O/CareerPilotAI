@@ -29,7 +29,6 @@
   "Human Resources": ["training", "recruitment", "benefits", "compliance", "payroll", "employee relations", "onboarding", "hris"],
   "Information Technology": ["security", "hardware", "troubleshooting", "windows", "servers", "technical support", "networking", "help desk"],
   "Java Developer": ["java", "spring", "javascript", "sql", "hibernate", "j2ee", "junit", "rest"],
-  "Management": ["training", "operations", "communication", "planning", "leadership", "customer service", "reporting", "scheduling"],
   "Mechanical Engineer": ["manufacturing", "solidworks", "cad", "autocad", "mechanical design", "matlab", "fea", "ansys"],
   "Network Security Engineer": ["cisco", "network security", "firewall", "lan", "routing", "vpn", "switching", "tcp/ip"],
   "Operations Manager": ["operations", "quality", "leadership", "inventory", "safety", "scheduling", "logistics", "process improvement"],

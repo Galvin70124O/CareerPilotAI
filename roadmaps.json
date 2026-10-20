@@ -1319,50 +1319,6 @@
       }
     ]
   },
-  "Management": {
-    "Beginner": [
-      {
-        "skill": "communication",
-        "step": "Communicate goals clearly"
-      },
-      {
-        "skill": "planning",
-        "step": "Plan work and set priorities"
-      },
-      {
-        "skill": "scheduling",
-        "step": "Schedule people and shifts"
-      }
-    ],
-    "Intermediate": [
-      {
-        "skill": "leadership",
-        "step": "Lead and motivate a team"
-      },
-      {
-        "skill": "training",
-        "step": "Train and coach team members"
-      },
-      {
-        "skill": "customer service",
-        "step": "Improve customer service results"
-      }
-    ],
-    "Job-ready": [
-      {
-        "skill": "operations",
-        "step": "Run day-to-day operations"
-      },
-      {
-        "skill": "reporting",
-        "step": "Report on KPIs to senior management"
-      },
-      {
-        "skill": "budgeting",
-        "step": "Manage a budget"
-      }
-    ]
-  },
   "Mechanical Engineer": {
     "Beginner": [
       {

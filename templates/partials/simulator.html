@@ -56,12 +56,12 @@ function runSimulation() {
 function showSimulation(result) {
   var before = result.before, after = result.after;
   var rows = [
-    ["Top career", before.top_careers[0].career, after.top_careers[0].career],
+    ["Top career", before.top_careers[0].label, after.top_careers[0].label],
     ["Confidence", before.top_careers[0].percent + "%", after.top_careers[0].percent + "%"],
     ["Top 3",
-      before.top_careers.map(function (c) { return c.career + " " + c.percent + "%"; }).join(", "),
-      after.top_careers.map(function (c) { return c.career + " " + c.percent + "%"; }).join(", ")],
-    ["Skill gap (" + result.career + ")", before.skill_gap_percent + "%", after.skill_gap_percent + "%"]
+      before.top_careers.map(function (c) { return c.label + " " + c.percent + "%"; }).join(", "),
+      after.top_careers.map(function (c) { return c.label + " " + c.percent + "%"; }).join(", ")],
+    ["Skill gap (" + result.career_label + ")", before.skill_gap_percent + "%", after.skill_gap_percent + "%"]
   ];
   if (before.resume_score !== null) {
     rows.push(["Resume score", before.resume_score + "/100", after.resume_score + "/100"]);

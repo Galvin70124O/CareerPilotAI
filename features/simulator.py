@@ -5,6 +5,7 @@ We add the chosen skills to the user's text, run everything again, and return
 before/after numbers. The skill gap and resume score are always measured for the
 SAME target career, so the before/after comparison is fair.
 """
+from features.careers import display_name
 from features.resume_score import score_resume
 from features.skills import analyze_skill_gap
 
@@ -27,6 +28,7 @@ def simulate(text, career, added_skills, is_resume, predict_top_careers):
     new_text = add_skills_to_text(text, added_skills)
     return {
         "career": career,
+        "career_label": display_name(career),
         "added_skills": added_skills,
         "before": snapshot(text, career, is_resume, predict_top_careers),
         "after": snapshot(new_text, career, is_resume, predict_top_careers),
