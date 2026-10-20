@@ -1,0 +1,6 @@
+# Never change line endings inside binary files
+*.pdf binary
+*.parquet binary
+*.pkl binary
+*.docx binary
+*.png binary
