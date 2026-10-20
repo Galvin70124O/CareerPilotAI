@@ -35,3 +35,42 @@ def test_skill_found_with_or_without_punctuation():
 
 def test_c_sharp_not_found_from_plain_c():
     assert "c#" not in analyze_skill_gap("DotNet Developer", "I know C and C++")["have"]
+
+
+# "r" (the R language) is a Data Science key skill, but a single letter matches too much
+import pytest
+
+from features.skills import has_skill
+
+
+@pytest.mark.parametrize("text", [
+    "R programming and statistics",
+    "Languages: R language, Python",
+    "Built dashboards in RStudio",
+    "Python, R, SQL",
+    "SQL / R / Tableau",
+    "Python and R",
+    "R, Python, Excel",
+    "Plots with ggplot2 and dplyr",
+    "Shiny apps in R Shiny",
+])
+def test_r_language_is_found(text):
+    assert has_skill("r", text)
+
+
+@pytest.mark.parametrize("text", [
+    "Worked in the R&D department",
+    "Reference: Mr. R. Kumar",
+    "Grade: R",
+    "C, R and assembly",           # next to C, not to a data tool
+    "Python, R&D projects",        # R&D, not R
+    "I know Python and Java",
+    "Rated R movies",
+])
+def test_r_letter_is_not_counted(text):
+    assert not has_skill("r", text)
+
+
+def test_skill_gap_uses_the_r_rule():
+    assert "r" in analyze_skill_gap("Data Science", "Python, R, SQL")["have"]
+    assert "r" not in analyze_skill_gap("Data Science", "Python and R&D, SQL")["have"]

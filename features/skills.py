@@ -54,8 +54,24 @@ def extract_skills_from_text(text):
     return ", ".join(skills_found)
 
 
+# Some skills are too short to match on their own. "r" alone would match "R&D", "Mr. R. Kumar"
+# or "Grade: R", so we only count R when it clearly means the programming language.
+DATA_TOOLS = r"(python|sql|sas|spss|stata|matlab|julia|scala|excel|tableau|power\s?bi|pandas|numpy|hadoop|spark)"
+NOT_R_AND_D = r"(?!&|\w|\.\w)"   # stops "R&D", "Rated" and initials like "R.K."
+SPECIAL_SKILL_PATTERNS = {
+    "r": re.compile(
+        r"\br\s*(programming|language|studio|shiny|markdown)\b"             # "R programming", "R Studio"
+        r"|\b(rstudio|tidyverse|ggplot2?|dplyr|cran)\b"                     # R's own tools
+        r"|\b" + DATA_TOOLS + r"\s*(,|/|&|\band\b)\s*r" + NOT_R_AND_D +    # "Python, R" or "SAS/R"
+        r"|(?<![\w.&])r\s*(,|/|\band\b)\s*" + DATA_TOOLS + r"\b"            # "R, Python" or "R/SQL"
+    ),
+}
+
+
 def has_skill(skill, text):
     """True if the skill is in the text, written either way: "node.js" or "nodejs", "ci/cd" or "cicd"."""
+    if skill in SPECIAL_SKILL_PATTERNS:
+        return SPECIAL_SKILL_PATTERNS[skill].search(text.lower()) is not None
     if skill_pattern(skill).search(text.lower()):
         return True
     # Also try the punctuation-free form (how the training data writes it).
