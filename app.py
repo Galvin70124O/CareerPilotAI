@@ -3,7 +3,7 @@ import joblib
 import os
 from werkzeug.utils import secure_filename
 from docx import Document
-import PyPDF2
+from pypdf import PdfReader
 import requests
 
 from features.courses import recommend_courses
@@ -39,7 +39,7 @@ def extract_text_from_resume(file_storage):
     if ext == ".txt":
         text = file_storage.read().decode('utf-8', errors='ignore')
     elif ext == ".pdf":
-        pdf_reader = PyPDF2.PdfReader(file_storage)
+        pdf_reader = PdfReader(file_storage)
         for page in pdf_reader.pages:
             if page.extract_text():
                 text += page.extract_text() + "\n"

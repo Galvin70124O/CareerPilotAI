@@ -5,15 +5,18 @@ A Flask web app that suggests a career path from resume text. Built by a CSE stu
 ## What it does
 
 1. The user uploads a resume (.txt / .pdf / .docx, max 2 MB) or types/dictates skills.
-2. A uploaded resume is analyzed in one step: skills found, top-3 careers with confidence, skill gap, remote jobs (Remotive API).
-3. Typed text + **Send** gives the same prediction for typed skills.
+2. An uploaded resume is analyzed in one step: skills found, Resume Score (ATS-style /100), top-3 careers, skill gap, roadmap, free courses, What-If Simulator, remote jobs (Remotive API).
+3. Typed text + **Send** gives the same (minus the Resume Score) for typed skills.
 
 ## Files
 
 | File | Purpose |
 |---|---|
-| `app.py` | Flask app: loads `model.pkl`, reads uploads, top-3 prediction, Remotive job fetch, single `/` route |
-| `features/` | Feature logic, one module per feature (`text_cleaning.py`, `skills.py`, ...) |
+| `app.py` | Flask app: loads `model.pkl`, reads uploads (pypdf, python-docx), top-3 prediction, Remotive jobs; routes `/` and `/api/simulate` |
+| `features/` | One module per feature: `text_cleaning`, `skills`, `resume_score` (weights in `SCORE_WEIGHTS`), `roadmap`, `courses`, `simulator` |
+| `roadmaps.json` | 3 stages x 3 steps per career; each step has a `skill` keyword used to tick it |
+| `courses.json` | Free resources per skill; only URLs verified with HTTP 200 (2026-10-20). Never add unverified links |
+| `templates/partials/` | One Jinja partial per feature card |
 | `train.py` | Honest evaluation (held-out test + CV inside a Pipeline), trains final model, saves `model.pkl`. `--quick` skips evaluation |
 | `data/prepare_data.py` | Downloads + cleans ResumeAtlas, saves `data/resumes.parquet` (committed, ~20 MB) |
 | `skills.json` | 8 key skills per career (43 careers), chosen by how often that category's resumes mention them |

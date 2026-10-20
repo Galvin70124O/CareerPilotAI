@@ -108,3 +108,11 @@ def test_simulator_data_is_safely_escaped(monkeypatch):
     html = post({"resume_file": (io.BytesIO(b"Python dev </script><b>x</b> " * 5), "cv.txt")}, monkeypatch)
     data_block = html.split('id="cp-sim-data">')[1].split("</script>")[0]
     assert "<b>" not in data_block
+
+
+def test_pdf_upload_extracts_and_predicts(monkeypatch):
+    with open("tests/fixtures/resume.pdf", "rb") as f:
+        html = post({"resume_file": (io.BytesIO(f.read()), "cv.pdf")}, monkeypatch)
+    assert "Skills found in your resume" in html
+    assert "machine learning" in html
+    assert 'aria-label="Resume score' in html
