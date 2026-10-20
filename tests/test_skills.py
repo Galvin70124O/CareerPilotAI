@@ -63,3 +63,15 @@ def test_multi_word_skill_across_line_break():
 
 def test_no_skills_returns_empty():
     assert skills("I like cooking.") == []
+
+
+def test_skill_display_names():
+    from features.skills import display_skill
+    assert [display_skill(s) for s in ["r", "c", "c#", "c++", "node.js", "asp.net", "sql", "machine learning"]] == \
+        ["R", "C", "C#", "C++", "Node.js", "ASP.NET", "SQL", "machine learning"]
+
+
+def test_search_links_use_display_names():
+    from features.courses import search_link
+    link = search_link("ci/cd")
+    assert link["title"] == "Search free CI/CD courses on YouTube"

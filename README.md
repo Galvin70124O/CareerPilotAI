@@ -4,13 +4,15 @@ A Flask web app that reads your resume (or the skills you type), predicts the ca
 
 ## Screenshots
 
-| Desktop, light | Desktop, dark |
-|---|---|
-| ![Results dashboard, light mode](docs/screenshots/after-result-desktop-light.png) | ![Results dashboard, dark mode](docs/screenshots/after-result-desktop-dark.png) |
+Screenshots use the sample resume `tests/fixtures/good_resume.txt` and **sample job data** (the live jobs list changes every day).
 
-| Phone (390 px), light | Phone (390 px), dark | Before the redesign |
+| Desktop, light (sample job data) | Desktop, dark (sample job data) |
+|---|---|
+| ![Results dashboard in light mode, with sample job data](docs/screenshots/after-result-desktop-light.png) | ![Results dashboard in dark mode, with sample job data](docs/screenshots/after-result-desktop-dark.png) |
+
+| Phone 390 px, light (sample job data) | Phone 390 px, dark (sample job data) | Before the redesign (sample job data) |
 |---|---|---|
-| <img src="docs/screenshots/after-result-mobile-light.png" alt="Results on a phone, light mode" width="240"> | <img src="docs/screenshots/after-result-mobile-dark.png" alt="Results on a phone, dark mode" width="240"> | <img src="docs/screenshots/before-result-mobile-dark.png" alt="The old single-column design" width="240"> |
+| <img src="docs/screenshots/after-result-mobile-light.png" alt="Results on a phone in light mode, with sample job data" width="240"> | <img src="docs/screenshots/after-result-mobile-dark.png" alt="Results on a phone in dark mode, with sample job data" width="240"> | <img src="docs/screenshots/before-result-mobile-dark.png" alt="The old single-column design, with sample job data" width="240"> |
 
 All screenshots (before/after, 1440 px and 390 px, light and dark) are in [`docs/screenshots/`](docs/screenshots/).
 

@@ -13,7 +13,7 @@ from features.jobs import fetch_job_listings
 from features.resume_score import score_resume
 from features.roadmap import build_roadmap
 from features.simulator import simulate
-from features.skills import CAREER_SKILLS, analyze_skill_gap, extract_skills_from_text
+from features.skills import CAREER_SKILLS, analyze_skill_gap, display_skill, extract_skills_from_text
 
 # -----------------------------
 # CONFIGURATION
@@ -29,6 +29,8 @@ app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
 # Lets templates write {{ career|display_name }} to show the user-facing career name
 app.add_template_filter(display_name)
+# {{ skill|display_skill }} shows "R" for "r", "Node.js" for "node.js", ...
+app.add_template_filter(display_skill)
 
 # -----------------------------
 # FILE HANDLING
@@ -93,6 +95,7 @@ def predict_top_careers(input_text, top_n=3):
 @app.route("/", methods=["GET", "POST"])
 def home():
     input_text = ""      # what the user typed (shown again in the text box)
+    uploaded_name = ""   # file name of the uploaded resume, shown in the results bar
     found_skills = ""    # skills found in the uploaded resume
     top_careers = []     # [{"career": ..., "percent": ...}, ...]
     job_results = []     # live jobs; None means the jobs API failed
@@ -126,6 +129,7 @@ def home():
                         # Predict from the FULL resume, the same kind of text the model was trained on
                         text_to_predict = resume_text
                         source = "resume"
+                        uploaded_name = file.filename
                 except Exception as e:
                     error = "Error reading file: " + str(e)
 
@@ -162,7 +166,8 @@ def home():
         courses=courses,
         simulator_data=simulator_data,
         error=error,
-        source=source
+        source=source,
+        uploaded_name=uploaded_name
     )
 
 @app.route("/health")

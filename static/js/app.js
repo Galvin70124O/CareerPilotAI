@@ -1,6 +1,6 @@
 /* CareerPilot AI - page behaviour (no framework).
    1. Theme toggle        4. Loading state      7. What-If Simulator
-   2. Tabs                5. Microphone
+   2. Tabs                5. Microphone         8. Results bar ("Edit skills")
    3. Drop zone           6. Scroll to results                                  */
 (function () {
   "use strict";
@@ -42,6 +42,8 @@
   }
 
   /* ---------- 2. Tabs (ARIA tabs: click, arrow keys, Home/End) ---------- */
+  var selectTab = function () {};   // set by initTabs, also used by "Edit skills"
+
   function initTabs() {
     var tabs = $$('[role="tab"]');
     if (!tabs.length) return;
@@ -55,6 +57,7 @@
       });
       if (focus) tab.focus();
     }
+    selectTab = select;
 
     tabs.forEach(function (tab, index) {
       tab.addEventListener("click", function () { select(tab, false); });
@@ -271,7 +274,7 @@
     table.className = "sim-table";
     var caption = table.createCaption();
     caption.className = "sr-only";
-    caption.textContent = "Before and after adding " + result.added_skills.join(", ");
+    caption.textContent = "Before and after adding " + result.added_skill_labels.join(", ");
     var head = table.createTHead().insertRow();
     ["", "Before", "After"].forEach(function (text) {
       var th = document.createElement("th");
@@ -355,6 +358,25 @@
     });
   }
 
+  /* ---------- 8. Results bar: "Edit skills" opens the input card above the results ---------- */
+  function initEditSkills() {
+    var button = $("#edit-skills");
+    var panel = $("#analyze-panel");
+    if (!button || !panel) return;
+    button.addEventListener("click", function () {
+      var opening = panel.hidden;
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+      if (opening) {
+        selectTab($("#tab-text"), false);
+        var textarea = $("#input_text");
+        textarea.focus({ preventScroll: true });
+        textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+        panel.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest" });
+      }
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     initTheme();
     initTabs();
@@ -362,6 +384,7 @@
     initForm();
     initMic();
     initSimulator();
+    initEditSkills();
     initResults();
   });
 })();

@@ -1,5 +1,5 @@
 {% from "partials/macros.html" import icon %}
-{# Free courses, grouped by missing skill. Needs: courses #}
+{# Free courses: one row per missing skill, its 1-2 links right next to the chip. Needs: courses #}
 <article class="card fade-in" data-card="courses" aria-labelledby="courses-title">
   <header class="card-header">
     <span class="card-icon">{{ icon("graduation-cap", 18) }}</span>
@@ -8,10 +8,17 @@
       <p class="card-subtitle">Official docs and well-known free courses</p>
     </div>
   </header>
-  <ul class="course-groups">
+
+  {% if courses|length == 1 %}
+    <p class="course-note course-note-good" data-course-note>{{ icon("circle-check", 16) }} Good news: only 1 skill to learn.</p>
+  {% else %}
+    <p class="course-note" data-course-note>{{ courses|length }} skills to learn, starting with the most important.</p>
+  {% endif %}
+
+  <ul class="course-rows">
     {% for item in courses %}
-      <li class="course-group">
-        <span><span class="chip chip-missing">{{ item.skill }}</span></span>
+      <li class="course-row">
+        <span class="chip chip-missing course-skill">{{ item.skill|display_skill }}</span>
         <ul class="course-links">
           {% for r in item.resources %}
             <li>

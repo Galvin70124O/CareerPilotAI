@@ -1,37 +1,56 @@
 {% from "partials/macros.html" import icon %}
 {#
-  Results dashboard. DOM order = mobile order:
-  summary -> careers -> score -> gap -> roadmap -> courses -> what-if -> jobs.
-  On desktop the two .dashboard-col columns sit side by side.
+  Results dashboard.
+  The cards are direct children of one grid, in mobile / screen-reader order:
+    summary -> careers -> score -> gap -> roadmap -> courses -> what-if -> jobs
+  On desktop (>= 1024px) CSS grid-template-areas place them in rows:
+    [careers | gap] [score | roadmap] [courses | what-if] [jobs]
+  without changing the DOM order. If a card is missing (e.g. no resume score for typed
+  skills), "dashboard--auto" lets the cards flow into two columns instead.
 #}
+{% set has_score = resume_score is not none %}
+{% set has_gap = skill_gap and skill_gap.total %}
+{% set has_courses = courses|length > 0 %}
+{% set has_whatif = simulator_data and skill_gap and skill_gap.missing %}
+{% set full_layout = has_score and has_gap and roadmap and has_courses and has_whatif %}
+
 <section class="results" id="results" tabindex="-1" aria-labelledby="results-title" aria-live="polite">
   <div class="container">
-    <div class="results-header">
-      <div>
-        <h2 class="results-title" id="results-title">Your results</h2>
-        <p class="results-subtitle">Based on your {{ "uploaded resume" if source == "resume" else "typed skills" }}</p>
+    <h1 class="sr-only" id="results-title">Your results</h1>
+
+    {# Compact bar: what was analyzed + actions. Replaces the big hero once there are results. #}
+    <div class="compact-bar fade-in" data-compact-bar>
+      <span class="card-icon">{{ icon("file-text" if source == "resume" else "keyboard", 18) }}</span>
+      <div class="compact-bar-text">
+        <p class="compact-bar-label">{{ "Analyzed resume" if source == "resume" else "Typed skills" }}</p>
+        <p class="compact-bar-value" data-compact-value>
+          {%- if source == "resume" -%}{{ uploaded_name or "Your resume" }}{%- else -%}{{ input_text }}{%- endif -%}
+        </p>
       </div>
-      <a class="btn btn-secondary" href="{{ url_for('home') }}" data-analyze-another>
-        {{ icon("rotate-ccw", 16) }} Analyze another {{ "resume" if source == "resume" else "set of skills" }}
-      </a>
+      <div class="compact-bar-actions">
+        <button type="button" class="btn btn-secondary" id="edit-skills" aria-expanded="false" aria-controls="analyze-panel">
+          {{ icon("keyboard", 16) }} Edit skills
+        </button>
+        <a class="btn btn-primary" href="{{ url_for('home') }}" data-analyze-another>
+          {{ icon("rotate-ccw", 16) }} Analyze another
+        </a>
+      </div>
+    </div>
+
+    {# "Edit skills" opens the same input card (form) here, with the skills filled in #}
+    <div class="analyze-panel" id="analyze-panel" hidden>
+      {% include "partials/input_card.html" %}
     </div>
 
     {% include "partials/summary.html" %}
 
-    <div class="dashboard">
-      <div class="dashboard-col">
-        {% include "partials/careers.html" %}
-        {% if resume_score %}{% include "partials/resume_score.html" %}{% endif %}
-        {% if skill_gap and skill_gap.total %}{% include "partials/skill_gap.html" %}{% endif %}
-      </div>
-      <div class="dashboard-col">
-        {% if roadmap %}{% include "partials/roadmap.html" %}{% endif %}
-        {% if courses %}{% include "partials/courses.html" %}{% endif %}
-        {% if simulator_data and skill_gap and skill_gap.missing %}{% include "partials/simulator.html" %}{% endif %}
-      </div>
-    </div>
-
-    <div class="dashboard-full">
+    <div class="dashboard {{ 'dashboard--full' if full_layout else 'dashboard--auto' }}">
+      {% include "partials/careers.html" %}
+      {% if has_score %}{% include "partials/resume_score.html" %}{% endif %}
+      {% if has_gap %}{% include "partials/skill_gap.html" %}{% endif %}
+      {% if roadmap %}{% include "partials/roadmap.html" %}{% endif %}
+      {% if has_courses %}{% include "partials/courses.html" %}{% endif %}
+      {% if has_whatif %}{% include "partials/simulator.html" %}{% endif %}
       {% include "partials/jobs.html" %}
     </div>
   </div>

@@ -44,7 +44,7 @@ def test_typed_skills_have_no_score_card_but_keep_the_order(monkeypatch):
 
 def test_summary_strip_has_the_four_numbers(monkeypatch):
     html = resume_page(monkeypatch)
-    summary = html.split('data-card="summary"')[1].split('class="dashboard"')[0]
+    summary = html.split('data-card="summary"')[1].split('class="dashboard ')[0]
     for label in ["Recommended career path", "Confidence", "Resume score", "Key skills covered"]:
         assert label in summary
     assert 'aria-label="Resume score' in summary            # the small ring
@@ -109,7 +109,7 @@ def test_loading_state_is_ready_but_hidden(monkeypatch):
 def test_results_are_announced_and_can_be_restarted(monkeypatch):
     html = resume_page(monkeypatch)
     assert re.search(r'id="results"[^>]*aria-live="polite"', html)
-    assert "data-analyze-another" in html and "Analyze another resume" in html
+    assert "data-analyze-another" in html and "Analyze another" in html
 
 
 def test_footer_credits(monkeypatch):
@@ -173,3 +173,120 @@ def test_css_and_js_are_linked_and_served(monkeypatch):
 def test_bars_are_progress_elements(monkeypatch):
     html = resume_page(monkeypatch)
     assert html.count('<progress class="bar') >= 3 + 6 + 1   # top 3 + score breakdown + skill gap
+
+
+# --- polish round: compact bar, grid areas, skill names, bar colours, courses -------
+
+def test_results_page_has_compact_bar_instead_of_hero(monkeypatch):
+    html = resume_page(monkeypatch)
+    bar = html.split("data-compact-bar")[1].split('id="analyze-panel"')[0]
+    assert "Analyzed resume" in bar and "cv.txt" in bar
+    assert 'id="edit-skills" aria-expanded="false" aria-controls="analyze-panel"' in bar
+    assert "data-analyze-another" in bar and "Analyze another" in bar
+    assert 'class="hero"' not in html and "Find the career your resume is built for" not in html
+    assert re.search(r'id="analyze-panel" hidden', html)                  # editor closed until asked
+    assert html.index("data-compact-bar") < html.index('data-card="summary"')
+
+
+def test_compact_bar_for_typed_skills(monkeypatch):
+    html = page(monkeypatch, {"input_text": "linux, aws"})
+    bar = html.split("data-compact-bar")[1].split('id="analyze-panel"')[0]
+    assert "Typed skills" in bar and "linux, aws" in bar
+
+
+def test_edit_skills_panel_is_prefilled_with_found_skills(monkeypatch):
+    html = resume_page(monkeypatch)
+    textarea = re.search(r'<textarea[^>]*id="input_text"[^>]*>(.*?)</textarea>', html, re.S).group(1)
+    assert "python" in textarea and "sql" in textarea
+
+
+def test_full_hero_only_without_results(monkeypatch):
+    html = page(monkeypatch)
+    assert 'class="hero"' in html and "data-compact-bar" not in html
+
+
+def test_dashboard_is_one_grid_in_mobile_order(monkeypatch):
+    html = resume_page(monkeypatch)
+    assert 'class="dashboard dashboard--full"' in html
+    assert "dashboard-col" not in html                                    # no column wrappers / DOM reordering
+    grid = html.split('class="dashboard dashboard--full"')[1]
+    assert re.findall(r'data-card="(\w+)"', grid) == ["careers", "score", "gap", "roadmap", "courses", "whatif", "jobs"]
+
+
+def test_missing_cards_use_the_auto_layout(monkeypatch):
+    html = page(monkeypatch, {"input_text": "linux, aws"})               # typed: no resume score
+    assert 'class="dashboard dashboard--auto"' in html
+
+
+def test_desktop_grid_areas_in_css():
+    css = app.app.test_client().get("/static/css/app.css").get_data(as_text=True)
+    desktop = css.split("@media (min-width: 1024px)")[1]
+    areas = re.sub(r"\s+", " ", desktop.split("grid-template-areas:")[1].split(";")[0])
+    assert areas.strip() == '"careers gap" "score roadmap" "courses whatif" "jobs jobs"'
+    for card in ["careers", "gap", "score", "roadmap", "courses", "whatif", "jobs"]:
+        assert f'.dashboard--full > [data-card="{card}"] {{ grid-area: {card}; }}' in desktop
+
+
+def test_skill_names_are_shown_with_display_names(monkeypatch):
+    html = resume_page(monkeypatch)
+    gap = html.split('data-card="gap"')[1].split('data-card="roadmap"')[0]
+    assert '<li class="chip chip-missing">R</li>' in gap                    # not "r"
+    assert ">Python</li>" in gap and ">SQL</li>" in gap
+    whatif = html.split('data-card="whatif"')[1]
+    assert '<input type="checkbox" value="r">' in whatif                   # the value stays the internal name
+    assert "</svg>R</span>" in whatif
+
+
+def test_breakdown_bars_are_coloured_by_ratio(monkeypatch):
+    html = resume_page(monkeypatch)
+    # good_resume.txt: Sections 20/20, Length 10/15 (67%), Skill match 22/25 (88%)
+    assert re.search(r'breakdown-good">\s*<div class="breakdown-row">\s*<span>Sections</span>', html)
+    assert re.search(r'breakdown-ok">\s*<div class="breakdown-row">\s*<span>Length &amp; readability</span>', html)
+    assert re.search(r'breakdown-ok">\s*<div class="breakdown-row">\s*<span>Skill match</span>', html)
+
+
+def test_breakdown_red_for_a_weak_resume(monkeypatch):
+    with open("tests/fixtures/weak_resume.txt", "rb") as f:
+        html = page(monkeypatch, {"resume_file": (io.BytesIO(f.read()), "weak.txt")})
+    assert html.count("breakdown-low") >= 4
+
+
+def test_bar_colours_use_the_ring_tokens():
+    css = app.app.test_client().get("/static/css/app.css").get_data(as_text=True)
+    assert ".breakdown-good .bar::-webkit-progress-value { background: var(--success); }" in css
+    assert ".breakdown-ok .bar::-webkit-progress-value { background: var(--warning); }" in css
+    assert ".breakdown-low .bar::-webkit-progress-value { background: var(--danger); }" in css
+    assert ".ring-good .ring-value { stroke: var(--success); }" in css
+
+
+def test_single_letter_chips_have_a_min_width():
+    css = app.app.test_client().get("/static/css/app.css").get_data(as_text=True)
+    chip = css.split(".chip {")[1].split("}")[0]
+    assert "min-width:" in chip
+
+
+def test_courses_one_row_per_skill_and_good_news_note(monkeypatch):
+    html = resume_page(monkeypatch)                                       # only "r" is missing
+    courses = html.split('data-card="courses"')[1].split('data-card="whatif"')[0]
+    assert courses.count('class="course-row"') == 1
+    assert "Good news: only 1 skill to learn." in courses
+    assert '<span class="chip chip-missing course-skill">R</span>' in courses
+
+
+def test_courses_note_for_several_skills(monkeypatch):
+    html = page(monkeypatch, {"input_text": "linux, aws"})
+    courses = html.split('data-card="courses"')[1].split('data-card="whatif"')[0]
+    rows = courses.count('class="course-row"')
+    assert rows > 1 and f"{rows} skills to learn" in courses
+
+
+def test_readme_screenshot_captions_say_sample_job_data():
+    with open("README.md", encoding="utf-8") as f:
+        readme = f.read()
+    screenshots = readme.split("## Screenshots")[1].split("## Features")[0]
+    assert screenshots.count("sample job data") >= 2
+
+
+def test_auto_layout_has_no_empty_cell_before_jobs():
+    css = app.app.test_client().get("/static/css/app.css").get_data(as_text=True)
+    assert ".dashboard--auto > :nth-child(odd):nth-last-child(2) { grid-column: 1 / -1; }" in css

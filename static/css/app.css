@@ -312,9 +312,11 @@ button, input, textarea { font: inherit; color: inherit; }
 .chip {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   min-height: 28px;
-  padding: 2px 10px;
+  min-width: 44px;   /* so one-letter skills ("R", "C") don't become tiny circles */
+  padding: 2px 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius-full);
   background: var(--surface-2);
@@ -622,8 +624,27 @@ button, input, textarea { font: inherit; color: inherit; }
 .preview-item p { margin-top: var(--space-1); font-size: var(--text-sm); color: var(--text-muted); }
 
 /* Results */
-.results { padding: var(--space-8) 0 var(--space-16); scroll-margin-top: calc(var(--topbar-height) + var(--space-4)); }
+.results { padding: var(--space-6) 0 var(--space-16); scroll-margin-top: calc(var(--topbar-height) + var(--space-4)); }
 .results:focus { outline: none; }
+
+/* Compact bar at the top of the results (the full hero only shows before there are results) */
+.compact-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+.compact-bar-text { flex: 1; min-width: 0; }
+.compact-bar-label { font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-subtle); }
+.compact-bar-value { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.compact-bar-actions { display: flex; gap: var(--space-2); flex-shrink: 0; }
+.analyze-panel { margin-bottom: var(--space-6); }
+.analyze-panel .input-card { max-width: none; box-shadow: var(--shadow-md); }
 .results-header { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-6); }
 .results-title { font-size: var(--text-2xl); font-weight: 700; }
 .results-subtitle { margin-top: var(--space-1); color: var(--text-muted); font-size: var(--text-sm); }
@@ -648,10 +669,9 @@ button, input, textarea { font: inherit; color: inherit; }
 .stat-with-ring { display: flex; align-items: center; gap: var(--space-4); }
 .stat .bar { margin-top: var(--space-3); }
 
-/* Dashboard: two columns on desktop, stacked in reading order on mobile */
-.dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items: start; }
-.dashboard-col { display: flex; flex-direction: column; gap: var(--space-6); min-width: 0; }
-.dashboard-full { margin-top: var(--space-6); }
+/* Dashboard: ONE grid. The DOM order is the mobile / screen-reader order; on desktop
+   grid-template-areas (below, in the >= 1024px media query) place the cards in rows. */
+.dashboard { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
 
 /* Top 3 careers */
 .career-list { list-style: none; display: grid; gap: var(--space-4); }
@@ -669,6 +689,13 @@ button, input, textarea { font: inherit; color: inherit; }
 .breakdown { flex: 1; min-width: 0; list-style: none; display: grid; gap: var(--space-3); }
 .breakdown-row { display: flex; justify-content: space-between; gap: var(--space-2); font-size: var(--text-sm); margin-bottom: 6px; }
 .breakdown-value { color: var(--text-muted); font-variant-numeric: tabular-nums; }
+/* Same colours as the score ring: >= 90% green, 60-89% amber, < 60% red */
+.breakdown-good .bar::-webkit-progress-value { background: var(--success); }
+.breakdown-good .bar::-moz-progress-bar { background: var(--success); }
+.breakdown-ok .bar::-webkit-progress-value { background: var(--warning); }
+.breakdown-ok .bar::-moz-progress-bar { background: var(--warning); }
+.breakdown-low .bar::-webkit-progress-value { background: var(--danger); }
+.breakdown-low .bar::-moz-progress-bar { background: var(--danger); }
 .tips { list-style: none; counter-reset: tip; display: grid; gap: var(--space-3); }
 .tips li { counter-increment: tip; display: grid; grid-template-columns: 24px 1fr; gap: var(--space-3); font-size: var(--text-sm); }
 .tips li::before {
@@ -750,11 +777,15 @@ button, input, textarea { font: inherit; color: inherit; }
 .step.done .icon { color: var(--success); }
 .step.todo .icon { color: var(--text-subtle); }
 
-/* Courses */
-.course-groups { list-style: none; display: grid; gap: var(--space-4); }
-.course-group { display: grid; grid-template-columns: 132px 1fr; gap: var(--space-4); align-items: start; }
-.course-group + .course-group { padding-top: var(--space-4); border-top: 1px solid var(--border); }
-.course-links { list-style: none; display: grid; gap: var(--space-2); }
+/* Courses: one row per skill, the links right next to the chip */
+.course-note { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); font-size: var(--text-sm); color: var(--text-muted); }
+.course-note-good { padding: var(--space-3) var(--space-4); border: 1px solid var(--success-border); border-radius: var(--radius-md); background: var(--success-soft); color: var(--text); }
+.course-note-good .icon { color: var(--success); }
+.course-rows { list-style: none; display: grid; gap: var(--space-3); }
+.course-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); }
+.course-row + .course-row { padding-top: var(--space-3); border-top: 1px solid var(--border); }
+.course-skill { flex-shrink: 0; }
+.course-links { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
 .course-link { display: inline-flex; align-items: flex-start; gap: 6px; font-size: var(--text-sm); font-weight: 500; }
 .course-link .icon { margin-top: 3px; }
 .course-link-search { color: var(--text-muted); font-weight: 400; }
@@ -766,9 +797,11 @@ button, input, textarea { font: inherit; color: inherit; }
 .option-chip span {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   min-height: 32px;
-  padding: 4px 12px;
+  min-width: 48px;
+  padding: 4px 14px;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-full);
   font-size: var(--text-sm);
@@ -820,9 +853,10 @@ button, input, textarea { font: inherit; color: inherit; }
 
 /* ---------- 5. Motion + responsive -------------------------------------- */
 .fade-in { animation: fade-up 0.45s ease both; }
-.dashboard-col > .fade-in:nth-child(2) { animation-delay: 0.06s; }
-.dashboard-col > .fade-in:nth-child(3) { animation-delay: 0.12s; }
-.dashboard-col:last-child > .fade-in { animation-delay: 0.08s; }
+.dashboard > .fade-in:nth-child(2) { animation-delay: 0.05s; }
+.dashboard > .fade-in:nth-child(3) { animation-delay: 0.1s; }
+.dashboard > .fade-in:nth-child(4) { animation-delay: 0.15s; }
+.dashboard > .fade-in:nth-child(n + 5) { animation-delay: 0.2s; }
 @keyframes fade-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 @media (prefers-reduced-motion: reduce) {
@@ -836,8 +870,27 @@ button, input, textarea { font: inherit; color: inherit; }
   .stat:nth-child(n + 3) { border-top: 1px solid var(--border); }
 }
 
-@media (max-width: 860px) {
-  .dashboard { grid-template-columns: 1fr; }
+@media (min-width: 1024px) {
+  .dashboard { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Rows on desktop. Cards in a row stretch to the same height (grid's default). */
+  .dashboard--full {
+    grid-template-areas:
+      "careers gap"
+      "score   roadmap"
+      "courses whatif"
+      "jobs    jobs";
+  }
+  .dashboard--full > [data-card="careers"] { grid-area: careers; }
+  .dashboard--full > [data-card="gap"] { grid-area: gap; }
+  .dashboard--full > [data-card="score"] { grid-area: score; }
+  .dashboard--full > [data-card="roadmap"] { grid-area: roadmap; }
+  .dashboard--full > [data-card="courses"] { grid-area: courses; }
+  .dashboard--full > [data-card="whatif"] { grid-area: whatif; }
+  .dashboard--full > [data-card="jobs"] { grid-area: jobs; }
+  /* Some cards missing (e.g. typed skills have no resume score): flow in two columns */
+  .dashboard--auto > [data-card="jobs"] { grid-column: 1 / -1; }
+  /* An odd card left alone before Jobs takes the full row, so there's no empty cell */
+  .dashboard--auto > :nth-child(odd):nth-last-child(2) { grid-column: 1 / -1; }
 }
 
 @media (max-width: 560px) {
@@ -861,7 +914,10 @@ button, input, textarea { font: inherit; color: inherit; }
   .score-top { flex-direction: column; align-items: stretch; }
   .score-top .ring { margin: 0 auto; }
   .checklist { grid-template-columns: 1fr; }
-  .course-group { grid-template-columns: 1fr; gap: var(--space-2); }
   .results-header .btn { width: 100%; }
+  .compact-bar { flex-wrap: wrap; padding: var(--space-4); }
+  .compact-bar-text { flex-basis: calc(100% - 60px); }
+  .compact-bar-actions { width: 100%; }
+  .compact-bar-actions .btn { flex: 1; }
   .brand-name-long { display: none; }
 }

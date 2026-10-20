@@ -7,12 +7,17 @@ SAME target career, so the before/after comparison is fair.
 """
 from features.careers import display_name
 from features.resume_score import score_resume
-from features.skills import analyze_skill_gap
+from features.skills import analyze_skill_gap, display_skill
+
+# How a skill is written into the text. A bare "r" isn't counted as the R language
+# (see has_skill in features/skills.py), so the simulator writes it out in full.
+TEXT_FORMS = {"r": "R programming"}
 
 
 def add_skills_to_text(text, skills):
     # A new "Skills:" line at the end, like a person would add to their resume
-    return text.rstrip() + "\n\nSkills: " + ", ".join(skills) + "\n"
+    written = [TEXT_FORMS.get(skill, skill) for skill in skills]
+    return text.rstrip() + "\n\nSkills: " + ", ".join(written) + "\n"
 
 
 def snapshot(text, career, is_resume, predict_top_careers):
@@ -30,6 +35,7 @@ def simulate(text, career, added_skills, is_resume, predict_top_careers):
         "career": career,
         "career_label": display_name(career),
         "added_skills": added_skills,
+        "added_skill_labels": [display_skill(skill) for skill in added_skills],
         "before": snapshot(text, career, is_resume, predict_top_careers),
         "after": snapshot(new_text, career, is_resume, predict_top_careers),
     }

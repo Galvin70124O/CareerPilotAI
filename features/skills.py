@@ -85,6 +85,38 @@ def has_skill(skill, text):
     return skill_pattern(clean_skill).search(normalize_text(text)) is not None
 
 
+# How skill names are SHOWN to the user. Internally (skills.json, matching, the model) skills
+# stay lowercase; this only fixes names that look wrong in lowercase (r -> R, c# -> C#, ...).
+SKILL_DISPLAY_NAMES = {
+    "r": "R", "c": "C", "c#": "C#", "c++": "C++", "node.js": "Node.js", "asp.net": "ASP.NET",
+    "javascript": "JavaScript", "typescript": "TypeScript", "jquery": "jQuery", "react": "React", "redux": "Redux",
+    "html": "HTML", "css": "CSS", "python": "Python", "java": "Java", "j2ee": "J2EE", "django": "Django",
+    "flask": "Flask", "spring": "Spring", "hibernate": "Hibernate", "junit": "JUnit", "rest": "REST",
+    "sql": "SQL", "mysql": "MySQL", "sql server": "SQL Server", "t-sql": "T-SQL", "ssis": "SSIS", "ssrs": "SSRS",
+    "etl": "ETL", "oracle": "Oracle", "mongodb": "MongoDB", "unix": "Unix", "linux": "Linux", "windows": "Windows",
+    "aws": "AWS", "azure": "Azure", "google cloud": "Google Cloud", "docker": "Docker", "kubernetes": "Kubernetes",
+    "jenkins": "Jenkins", "ansible": "Ansible", "ci/cd": "CI/CD", "git": "Git", "github": "GitHub",
+    "nlp": "NLP", "tableau": "Tableau", "excel": "Excel", "powerpoint": "PowerPoint", "kaggle": "Kaggle",
+    "mvc": "MVC", "wcf": "WCF", "entity framework": "Entity Framework", "visual studio": "Visual Studio",
+    "web api": "Web API", "solidity": "Solidity", "ethereum": "Ethereum", "bitcoin": "Bitcoin",
+    "autocad": "AutoCAD", "civil 3d": "Civil 3D", "revit": "Revit", "sketchup": "SketchUp", "rhino": "Rhino",
+    "adobe": "Adobe", "photoshop": "Photoshop", "illustrator": "Illustrator", "indesign": "InDesign",
+    "wordpress": "WordPress", "seo": "SEO", "google analytics": "Google Analytics",
+    "solidworks": "SolidWorks", "matlab": "MATLAB", "labview": "LabVIEW", "cad": "CAD", "fea": "FEA",
+    "ansys": "ANSYS", "gd&t": "GD&T", "plc": "PLC", "cisco": "Cisco", "lan": "LAN", "vpn": "VPN",
+    "tcp/ip": "TCP/IP", "sap": "SAP", "abap": "ABAP", "hana": "HANA", "fiori": "Fiori", "netweaver": "NetWeaver",
+    "sap sd": "SAP SD", "alv": "ALV", "bapi": "BAPI", "pmo": "PMO", "crm": "CRM", "hris": "HRIS",
+    "osha": "OSHA", "cpr": "CPR", "iep": "IEP", "brd": "BRD", "jira": "Jira", "agile": "Agile", "scrum": "Scrum",
+    "selenium": "Selenium", "istqb": "ISTQB", "ase": "ASE", "arduino": "Arduino", "raspberry pi": "Raspberry Pi",
+    "qa/qc": "QA/QC", "llb": "LLB",
+}
+
+
+def display_skill(skill):
+    """The name to show for a skill: "r" -> "R", "node.js" -> "Node.js"; other skills unchanged."""
+    return SKILL_DISPLAY_NAMES.get(skill, skill)
+
+
 def analyze_skill_gap(career, text):
     key_skills = CAREER_SKILLS.get(career, [])
     have = [skill for skill in key_skills if has_skill(skill, text)]

@@ -22,3 +22,12 @@ def test_before_and_after_change():
 def test_resume_score_included_for_resumes():
     result = simulate("Education\nB.Tech\nSkills\nlinux", "DevOps", ["docker"], True, fake_predict)
     assert result["after"]["resume_score"] >= result["before"]["resume_score"]
+
+
+def test_r_is_written_as_r_programming_so_it_counts():
+    from features.skills import analyze_skill_gap
+    assert "R programming" in add_skills_to_text("Python, SQL", ["r"])
+    result = simulate("python sql statistics", "Data Science", ["r"], False, fake_predict)
+    assert result["after"]["skill_gap_percent"] > result["before"]["skill_gap_percent"]
+    assert result["added_skill_labels"] == ["R"]
+    assert "r" in analyze_skill_gap("Data Science", add_skills_to_text("python", ["r"]))["have"]

@@ -13,7 +13,7 @@
     {% for skill in skill_gap.missing %}
       <label class="option-chip">
         <input type="checkbox" value="{{ skill }}">
-        <span>{{ icon("check", 14) }}{{ skill }}</span>
+        <span>{{ icon("check", 14) }}{{ skill|display_skill }}</span>
       </label>
     {% endfor %}
   </fieldset>

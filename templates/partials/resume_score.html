@@ -15,7 +15,9 @@
       {{ score_ring(resume_score.total, "lg") }}
       <ul class="breakdown" aria-label="Score breakdown">
         {% for c in resume_score.categories %}
-          <li>
+          {% set ratio = c.score / c.max %}
+          {# Same colours as the ring: >= 90% green, 60-89% amber, < 60% red #}
+          <li class="breakdown-item breakdown-{{ 'good' if ratio >= 0.9 else 'ok' if ratio >= 0.6 else 'low' }}">
             <div class="breakdown-row">
               <span>{{ c.label }}</span>
               <span class="breakdown-value">{{ c.score }} / {{ c.max }}</span>

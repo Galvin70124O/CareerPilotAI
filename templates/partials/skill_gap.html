@@ -18,7 +18,7 @@
     <div class="card-section">
       <p class="section-label">You have</p>
       <ul class="chips">
-        {% for skill in skill_gap.have %}<li class="chip chip-success">{{ icon("check", 14) }}{{ skill }}</li>{% endfor %}
+        {% for skill in skill_gap.have %}<li class="chip chip-success">{{ icon("check", 14) }}{{ skill|display_skill }}</li>{% endfor %}
       </ul>
     </div>
   {% endif %}
@@ -26,7 +26,7 @@
     <div class="card-section">
       <p class="section-label">To learn next</p>
       <ul class="chips">
-        {% for skill in skill_gap.missing %}<li class="chip chip-missing">{{ skill }}</li>{% endfor %}
+        {% for skill in skill_gap.missing %}<li class="chip chip-missing">{{ skill|display_skill }}</li>{% endfor %}
       </ul>
     </div>
   {% endif %}
@@ -35,7 +35,7 @@
       <p class="section-label">Skills found in your resume</p>
       {% set found = found_skills.split(", ") if found_skills else [] %}
       {% if found %}
-        <ul class="chips">{% for skill in found %}<li class="chip">{{ skill }}</li>{% endfor %}</ul>
+        <ul class="chips">{% for skill in found %}<li class="chip">{{ skill|display_skill }}</li>{% endfor %}</ul>
       {% else %}
         <p class="muted">No skills from our list were found, but we still analyzed the full text.</p>
       {% endif %}

@@ -24,11 +24,13 @@
   {% include "partials/topbar.html" %}
 
   <main id="main">
-    {% include "partials/hero.html" %}
-    {% include "partials/loading.html" %}
+    {# The full hero only shows before there are results; afterwards results.html has a compact bar #}
     {% if top_careers %}
+      {% include "partials/loading.html" %}
       {% include "partials/results.html" %}
     {% else %}
+      {% include "partials/hero.html" %}
+      {% include "partials/loading.html" %}
       {% include "partials/preview.html" %}
     {% endif %}
   </main>

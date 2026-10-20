@@ -8,6 +8,8 @@ import json
 import os
 from urllib.parse import quote_plus
 
+from features.skills import display_skill
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 with open(os.path.join(PROJECT_DIR, "courses.json"), encoding="utf-8") as f:
     COURSES = json.load(f)["courses"]
@@ -16,8 +18,9 @@ MAX_PER_SKILL = 2
 
 
 def search_link(skill):
-    return {"title": f"Search free {skill} courses on YouTube",
-            "url": "https://www.youtube.com/results?search_query=" + quote_plus(f"{skill} free course"),
+    name = display_skill(skill)
+    return {"title": f"Search free {name} courses on YouTube",
+            "url": "https://www.youtube.com/results?search_query=" + quote_plus(f"{name} free course"),
             "is_search": True}
 
 
