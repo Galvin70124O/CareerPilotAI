@@ -1,0 +1,38 @@
+{% from "partials/macros.html" import score_ring %}
+{# Summary strip: the four numbers that matter most #}
+{% set best = top_careers[0] %}
+<div class="summary fade-in" data-card="summary">
+  <div class="stat stat-primary">
+    <p class="stat-label">Recommended career path</p>
+    <p class="stat-value stat-career" data-summary-career>{{ best.label }}</p>
+    {% if top_careers|length > 1 %}
+      <p class="stat-note">Runner-up: {{ top_careers[1].label }}</p>
+    {% endif %}
+  </div>
+  <div class="stat">
+    <p class="stat-label">Confidence</p>
+    <p class="stat-value">{{ best.percent }}%</p>
+    <progress class="bar bar-thin" max="100" value="{{ best.percent }}" aria-label="Confidence {{ best.percent }}%">{{ best.percent }}%</progress>
+  </div>
+  <div class="stat">
+    <p class="stat-label">Resume score</p>
+    {% if resume_score %}
+      <div class="stat-with-ring">
+        {{ score_ring(resume_score.total, "sm") }}
+        <p class="stat-note">{{ "Strong" if resume_score.total >= 75 else "Needs work" if resume_score.total >= 50 else "Weak" }}</p>
+      </div>
+    {% else %}
+      <p class="stat-value subtle">–</p>
+      <p class="stat-note">Upload a resume to get a score</p>
+    {% endif %}
+  </div>
+  <div class="stat">
+    <p class="stat-label">Key skills covered</p>
+    {% if skill_gap and skill_gap.total %}
+      <p class="stat-value">{{ skill_gap.percent }}%</p>
+      <p class="stat-note">{{ skill_gap.have|length }} of {{ skill_gap.total }} for {{ skill_gap.career|display_name }}</p>
+    {% else %}
+      <p class="stat-value subtle">–</p>
+    {% endif %}
+  </div>
+</div>

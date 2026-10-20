@@ -1,0 +1,21 @@
+{% from "partials/macros.html" import icon %}
+<article class="card fade-in" data-card="careers" aria-labelledby="careers-title">
+  <header class="card-header">
+    <span class="card-icon">{{ icon("target", 18) }}</span>
+    <div>
+      <h3 class="card-title" id="careers-title">Top 3 career matches</h3>
+      <p class="card-subtitle">{{ "How closely your resume matches each career" if source == "resume" else "How closely your skills match each career" }}</p>
+    </div>
+  </header>
+  <ol class="career-list">
+    {% for item in top_careers %}
+      <li class="career-row">
+        <div class="career-row-top">
+          <span class="career-name"><span class="career-rank">{{ loop.index }}</span>{{ item.label }}</span>
+          <span class="career-percent">{{ item.percent }}%</span>
+        </div>
+        <progress class="bar" max="100" value="{{ item.percent }}" aria-label="{{ item.label }}: {{ item.percent }}%">{{ item.percent }}%</progress>
+      </li>
+    {% endfor %}
+  </ol>
+</article>

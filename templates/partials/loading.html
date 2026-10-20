@@ -1,0 +1,30 @@
+{# Shown by app.js while the form is being analyzed, so the page never looks frozen #}
+<section class="results" id="loading" hidden aria-labelledby="loading-title">
+  <div class="container">
+    <div class="results-header">
+      <div>
+        <h2 class="results-title" id="loading-title">Analyzing…</h2>
+        <p class="results-subtitle" role="status" data-loading-status>Reading your resume and comparing it with 42 careers</p>
+      </div>
+    </div>
+    <div class="summary" aria-hidden="true">
+      {% for _ in range(4) %}
+        <div class="stat"><div class="skeleton skeleton-line w-40"></div><div class="skeleton skeleton-title"></div></div>
+      {% endfor %}
+    </div>
+    <div class="dashboard" aria-hidden="true">
+      {% for _ in range(2) %}
+        <div class="dashboard-col">
+          {% for _ in range(2) %}
+            <div class="card">
+              <div class="skeleton skeleton-title"></div>
+              <div class="skeleton skeleton-line w-80"></div>
+              <div class="skeleton skeleton-line w-60"></div>
+              <div class="skeleton skeleton-block"></div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

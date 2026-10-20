@@ -18,8 +18,8 @@ RESUME = "Skills: Python, pandas, scikit-learn, machine learning, deep learning,
 
 def test_typed_skills_give_top_3(monkeypatch):
     html = post({"input_text": "python machine learning pandas"}, monkeypatch)
-    assert "Recommended Career Path" in html
-    assert html.count('class="cp-bar mb-2"') == 3
+    assert "Recommended career path" in html
+    assert html.count('class="career-row"') == 3          # one row per top-3 career
     assert "Skill gap for" in html
 
 
@@ -38,7 +38,7 @@ def test_docx_upload_extracts_and_predicts(monkeypatch):
     buffer.seek(0)
     html = post({"resume_file": (buffer, "cv.docx")}, monkeypatch)
     assert "Skills found in your resume" in html
-    assert "Recommended Career Path" in html
+    assert "Recommended career path" in html
 
 
 def test_wrong_file_type_shows_error(monkeypatch):
@@ -129,7 +129,7 @@ ADVOCATE_TEXT = "victim advocate, crisis intervention, court accompaniment, surv
 
 def test_advocate_shown_with_display_name(monkeypatch):
     html = post({"input_text": ADVOCATE_TEXT}, monkeypatch)
-    assert "Recommended Career Path:&nbsp;</b> Advocate (Legal &amp; Social Services)" in html
+    assert "data-summary-career>Advocate (Legal &amp; Social Services)</p>" in html
     assert "Skill gap for Advocate (Legal &amp; Social Services)" in html
     assert "Roadmap to Advocate (Legal &amp; Social Services)" in html
 
@@ -171,7 +171,7 @@ def page_with_jobs(monkeypatch, fake_result):
 def test_jobs_api_failure_shows_unavailable_message(monkeypatch):
     html = page_with_jobs(monkeypatch, None)
     assert "Live jobs are unavailable right now" in html
-    assert "Recommended Career Path" in html          # the rest of the page still works
+    assert "Recommended career path" in html          # the rest of the page still works
 
 
 def test_jobs_are_listed_when_api_works(monkeypatch):
@@ -190,5 +190,5 @@ def test_related_jobs_are_labelled_and_remotive_is_credited(monkeypatch):
         {"title": "Java Engineer", "company": "Acme", "url": "https://example.com/1", "location": "EU", "related": False},
         {"title": "Office Assistant", "company": "Beta", "url": "https://example.com/2", "location": "EU", "related": True},
     ])
-    assert html.count('class="cp-related"') == 1
+    assert html.count("data-related") == 1
     assert 'href="https://remotive.com"' in html

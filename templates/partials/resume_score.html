@@ -1,34 +1,53 @@
-{# Resume Score card: big ring, per-category bars, checklist, tips. Needs: resume_score #}
-{% set total = resume_score.total %}
-{% set level = "good" if total >= 75 else "ok" if total >= 50 else "low" %}
-<div class="cp-bot-message">
-  <b>Resume Score</b>
-  <div class="cp-score-row">
-    <!-- The ring is a conic-gradient: --p% of the circle is coloured -->
-    <div class="cp-ring cp-ring-{{ level }}" style="--p: {{ total }};" role="img" aria-label="Resume score {{ total }} out of 100">
-      <div class="cp-ring-inner"><span class="cp-ring-number">{{ total }}</span><span class="cp-ring-max">/100</span></div>
+{% from "partials/macros.html" import icon, score_ring %}
+{# Resume Score card: ring, per-category breakdown, tips, checklist. Needs: resume_score #}
+{% set passed = resume_score.checklist|selectattr("ok")|list|length %}
+<article class="card fade-in" data-card="score" aria-labelledby="score-title">
+  <header class="card-header">
+    <span class="card-icon">{{ icon("gauge", 18) }}</span>
+    <div>
+      <h3 class="card-title" id="score-title">Resume Score</h3>
+      <p class="card-subtitle">How an applicant tracking system (ATS) might rate it</p>
     </div>
-    <div class="cp-score-breakdown">
-      {% for c in resume_score.categories %}
-        <div class="d-flex justify-content-between" style="font-size:0.9em;">
-          <span>{{ c.label }}</span><span>{{ c.score }}/{{ c.max }}</span>
-        </div>
-        <div class="cp-bar mb-2"><div style="width: {{ (c.score / c.max * 100)|round }}%;"></div></div>
-      {% endfor %}
+  </header>
+
+  <div class="card-section">
+    <div class="score-top">
+      {{ score_ring(resume_score.total, "lg") }}
+      <ul class="breakdown" aria-label="Score breakdown">
+        {% for c in resume_score.categories %}
+          <li>
+            <div class="breakdown-row">
+              <span>{{ c.label }}</span>
+              <span class="breakdown-value">{{ c.score }} / {{ c.max }}</span>
+            </div>
+            <progress class="bar bar-thin" max="{{ c.max }}" value="{{ c.score }}" aria-label="{{ c.label }}: {{ c.score }} of {{ c.max }}">{{ c.score }}</progress>
+          </li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
 
-  <details class="mt-2">
-    <summary style="color:var(--label); cursor:pointer;">Checklist ({{ resume_score.checklist|selectattr("ok")|list|length }}/{{ resume_score.checklist|length }} passed)</summary>
-    <ul class="cp-checklist">
-      {% for item in resume_score.checklist %}
-        <li class="{{ 'ok' if item.ok else 'fail' }}">{{ "✓" if item.ok else "✗" }} {{ item.text }}</li>
-      {% endfor %}
-    </ul>
-  </details>
+  <div class="card-section">
+    <p class="section-label">{{ icon("lightbulb", 14) }} Tips to improve</p>
+    <ol class="tips">
+      {% for tip in resume_score.tips %}<li><span>{{ tip }}</span></li>{% endfor %}
+    </ol>
+  </div>
 
-  <div class="mt-2" style="font-size:0.9em; color:var(--subtle);">💡 Tips to improve</div>
-  <ol class="cp-tips">
-    {% for tip in resume_score.tips %}<li>{{ tip }}</li>{% endfor %}
-  </ol>
-</div>
+  <div class="card-section">
+    <details class="disclosure">
+      <summary>
+        <span>Checklist · {{ passed }} of {{ resume_score.checklist|length }} passed</span>
+        {{ icon("chevron-down", 16, class="chevron") }}
+      </summary>
+      <ul class="checklist">
+        {% for item in resume_score.checklist %}
+          <li class="{{ 'ok' if item.ok else 'fail' }}">
+            {{ icon("circle-check" if item.ok else "circle-x", 16, label="Passed" if item.ok else "Not passed") }}
+            <span>{{ item.text }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </details>
+  </div>
+</article>

@@ -2,6 +2,18 @@
 
 A Flask web app that reads your resume (or the skills you type), predicts the career it fits best, scores the resume like an ATS would, and shows what to learn next, with free resources and a "what if" simulator.
 
+## Screenshots
+
+| Desktop, light | Desktop, dark |
+|---|---|
+| ![Results dashboard, light mode](docs/screenshots/after-result-desktop-light.png) | ![Results dashboard, dark mode](docs/screenshots/after-result-desktop-dark.png) |
+
+| Phone (390 px), light | Phone (390 px), dark | Before the redesign |
+|---|---|---|
+| <img src="docs/screenshots/after-result-mobile-light.png" alt="Results on a phone, light mode" width="240"> | <img src="docs/screenshots/after-result-mobile-dark.png" alt="Results on a phone, dark mode" width="240"> | <img src="docs/screenshots/before-result-mobile-dark.png" alt="The old single-column design" width="240"> |
+
+All screenshots (before/after, 1440 px and 390 px, light and dark) are in [`docs/screenshots/`](docs/screenshots/).
+
 ## Features
 
 | Feature | What it does |
@@ -98,7 +110,9 @@ To rebuild the dataset from Hugging Face: `python data/prepare_data.py`
 | `train.py` | Evaluation + training, saves `model.pkl` |
 | `data/prepare_data.py` | Downloads and cleans ResumeAtlas |
 | `skills.json`, `roadmaps.json`, `courses.json` | Per career: key `skills` + `job_keywords`; roadmaps; free courses per skill |
-| `templates/` | `index.html` + one partial per feature card |
+| `templates/` | `index.html` (layout) + `partials/` (one file per section/card, `macros.html` for icons and the score ring) |
+| `static/css/app.css` | The design system: color/spacing/radius/shadow/type tokens, light + dark themes, all components |
+| `static/js/app.js` | Theme toggle, tabs, drag-and-drop upload, loading state, microphone, What-If Simulator |
 | `tests/` | pytest tests |
 | `chatbot.py` | Command-line version |
 | `render.yaml` | Render deployment |

@@ -1,0 +1,29 @@
+{% from "partials/macros.html" import icon %}
+{# Empty state before anything is analyzed: what the user will get #}
+<section class="preview" aria-labelledby="preview-title">
+  <div class="container">
+    <h2 class="sr-only" id="preview-title">What you get</h2>
+    <ul class="preview-grid">
+      <li class="preview-item">
+        <span class="card-icon">{{ icon("target", 18) }}</span>
+        <h3>Career match</h3>
+        <p>Your top 3 careers out of 42, with confidence.</p>
+      </li>
+      <li class="preview-item">
+        <span class="card-icon">{{ icon("gauge", 18) }}</span>
+        <h3>Resume score</h3>
+        <p>An ATS-style score with a checklist and concrete tips.</p>
+      </li>
+      <li class="preview-item">
+        <span class="card-icon">{{ icon("map", 18) }}</span>
+        <h3>Skill gap &amp; roadmap</h3>
+        <p>What you have, what's missing and free resources to learn it.</p>
+      </li>
+      <li class="preview-item">
+        <span class="card-icon">{{ icon("sparkles", 18) }}</span>
+        <h3>What-if simulator</h3>
+        <p>See how learning a skill would change your results.</p>
+      </li>
+    </ul>
+  </div>
+</section>

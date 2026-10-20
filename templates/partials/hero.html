@@ -1,0 +1,78 @@
+{% from "partials/macros.html" import icon %}
+{# Input section: upload (drag and drop) or type/speak skills. Both are one form. #}
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container">
+    <div class="hero-text">
+      <span class="eyebrow">{{ icon("sparkles", 14) }} 42 careers · trained on 10,000+ resumes</span>
+      <h1 class="hero-title" id="hero-title">Find the career your resume is built for</h1>
+      <p class="hero-subtitle">Upload your resume to get a career match, an ATS-style score and a plan for what to learn next.</p>
+    </div>
+
+    <div class="card input-card" id="analyze">
+      {% if error %}
+        <div class="alert" role="alert">
+          {{ icon("alert", 18) }}
+          <div>
+            <p class="alert-title">We couldn't analyze that</p>
+            <p>{{ error }}</p>
+          </div>
+        </div>
+      {% endif %}
+
+      <form method="POST" enctype="multipart/form-data" id="analyze-form" novalidate>
+        <div class="tabs" role="tablist" aria-label="How do you want to add your details?">
+          <button type="button" class="tab" role="tab" id="tab-upload" aria-controls="panel-upload"
+                  aria-selected="{{ 'false' if source == 'text' else 'true' }}" tabindex="{{ '-1' if source == 'text' else '0' }}">
+            {{ icon("file-text", 16) }} Upload resume
+          </button>
+          <button type="button" class="tab" role="tab" id="tab-text" aria-controls="panel-text"
+                  aria-selected="{{ 'true' if source == 'text' else 'false' }}" tabindex="{{ '0' if source == 'text' else '-1' }}">
+            {{ icon("keyboard", 16) }} Type or speak
+          </button>
+        </div>
+
+        <div class="tab-panel" role="tabpanel" id="panel-upload" aria-labelledby="tab-upload" {% if source == 'text' %}hidden{% endif %}>
+          {# The whole zone is the label, so clicking anywhere opens the file picker #}
+          <label class="dropzone" for="resume_file" data-dropzone>
+            <input class="dropzone-input" type="file" id="resume_file" name="resume_file"
+                   accept=".pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"
+                   aria-describedby="dropzone-hint upload-error">
+            <span class="dropzone-icon">{{ icon("upload", 22) }}</span>
+            <span class="dropzone-title">Drop your resume here or <span class="link">browse</span></span>
+            <span class="dropzone-hint" id="dropzone-hint">PDF, DOCX or TXT · up to 2 MB · analyzed as soon as you pick it</span>
+            <span class="dropzone-file" aria-live="polite">
+              {{ icon("file-text", 20, class="subtle") }}
+              <span>
+                <span class="dropzone-file-name" data-file-name></span>
+                <span class="dropzone-file-size" data-file-size></span>
+              </span>
+              {{ icon("loader", 18, class="spinner") }}
+            </span>
+          </label>
+          <p class="field-error" id="upload-error" role="alert"></p>
+          <noscript><button type="submit" class="btn btn-primary btn-lg">Analyze resume</button></noscript>
+        </div>
+
+        <div class="tab-panel" role="tabpanel" id="panel-text" aria-labelledby="tab-text" {% if source != 'text' %}hidden{% endif %}>
+          <label class="field-label" for="input_text">Your skills</label>
+          <p class="field-hint" id="input-hint">List skills, tools and roles, separated by commas, or press Speak and say them.</p>
+          <textarea class="textarea" id="input_text" name="input_text" aria-describedby="input-hint"
+                    placeholder="e.g. python, machine learning, sql, tableau">{{ input_text }}</textarea>
+          <div class="field-actions">
+            <div>
+              <button type="button" class="btn btn-secondary btn-mic" id="mic-button" aria-pressed="false">
+                {{ icon("mic", 16) }} <span data-mic-label>Speak</span>
+              </button>
+              <span class="mic-status" id="mic-status" role="status"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg" id="analyze-text-button">
+              {{ icon("sparkles", 16, class="btn-icon-idle") }}{{ icon("loader", 16, class="spinner") }}
+              <span data-button-label>Analyze skills</span>
+            </button>
+          </div>
+        </div>
+      </form>
+      <p class="input-footnote">{{ icon("shield", 14) }} Your resume is analyzed on the fly and never stored.</p>
+    </div>
+  </div>
+</section>

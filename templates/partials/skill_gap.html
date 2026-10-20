@@ -1,0 +1,44 @@
+{% from "partials/macros.html" import icon %}
+<article class="card fade-in" data-card="gap" aria-labelledby="gap-title">
+  <header class="card-header">
+    <span class="card-icon">{{ icon("chart", 18) }}</span>
+    <div>
+      <h3 class="card-title" id="gap-title">Skill gap for {{ skill_gap.career|display_name }}</h3>
+      <p class="card-subtitle">The {{ skill_gap.total }} skills that resumes in this career mention most</p>
+    </div>
+  </header>
+
+  <div class="gap-meter">
+    <progress class="bar" max="{{ skill_gap.total }}" value="{{ skill_gap.have|length }}"
+              aria-label="{{ skill_gap.have|length }} of {{ skill_gap.total }} key skills">{{ skill_gap.percent }}%</progress>
+    <span class="gap-percent">{{ skill_gap.have|length }} / {{ skill_gap.total }}</span>
+  </div>
+
+  {% if skill_gap.have %}
+    <div class="card-section">
+      <p class="section-label">You have</p>
+      <ul class="chips">
+        {% for skill in skill_gap.have %}<li class="chip chip-success">{{ icon("check", 14) }}{{ skill }}</li>{% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  {% if skill_gap.missing %}
+    <div class="card-section">
+      <p class="section-label">To learn next</p>
+      <ul class="chips">
+        {% for skill in skill_gap.missing %}<li class="chip chip-missing">{{ skill }}</li>{% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  {% if source == "resume" %}
+    <div class="card-section">
+      <p class="section-label">Skills found in your resume</p>
+      {% set found = found_skills.split(", ") if found_skills else [] %}
+      {% if found %}
+        <ul class="chips">{% for skill in found %}<li class="chip">{{ skill }}</li>{% endfor %}</ul>
+      {% else %}
+        <p class="muted">No skills from our list were found, but we still analyzed the full text.</p>
+      {% endif %}
+    </div>
+  {% endif %}
+</article>

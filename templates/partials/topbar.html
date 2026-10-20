@@ -1,0 +1,16 @@
+{% from "partials/macros.html" import icon %}
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a class="brand" href="{{ url_for('home') }}" aria-label="CareerPilot AI home">
+      <span class="brand-mark">{{ icon("compass", 18) }}</span>
+      <span class="brand-name">CareerPilot <span>AI</span></span>
+    </a>
+    <nav class="topbar-actions" aria-label="Site">
+      <a class="btn btn-ghost btn-icon" href="https://github.com/Galvin70124O/CareerPilotAI" target="_blank" rel="noopener"
+         aria-label="CareerPilot AI on GitHub (opens in a new tab)">{{ icon("github", 18) }}</a>
+      <button type="button" class="btn btn-ghost btn-icon theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        {{ icon("moon", 18, class="icon-moon") }}{{ icon("sun", 18, class="icon-sun") }}
+      </button>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,45 @@
+{% from "partials/macros.html" import icon %}
+{# Live jobs. Needs: job_results (None = API failed), jobs_unavailable, top_careers #}
+<article class="card fade-in" data-card="jobs" aria-labelledby="jobs-title">
+  <header class="card-header">
+    <span class="card-icon">{{ icon("briefcase", 18) }}</span>
+    <div>
+      <h3 class="card-title" id="jobs-title">Live remote jobs</h3>
+      <p class="card-subtitle">Openings for {{ top_careers[0].label }}</p>
+    </div>
+  </header>
+
+  {% if jobs_unavailable %}
+    <div class="empty">
+      <span class="empty-icon">{{ icon("cloud-off", 20) }}</span>
+      <p class="empty-title">Live jobs are unavailable right now</p>
+      <p>Please try again later. The rest of your results are not affected.</p>
+    </div>
+  {% elif not job_results %}
+    <div class="empty">
+      <span class="empty-icon">{{ icon("search", 20) }}</span>
+      <p class="empty-title">No remote jobs found for {{ top_careers[0].label }} right now</p>
+      <p>New listings appear every day, so check back soon.</p>
+    </div>
+  {% else %}
+    <ul class="job-grid">
+      {% for job in job_results %}
+        <li class="job">
+          <div class="job-top">
+            <a class="job-title" href="{{ job.url }}" target="_blank" rel="noopener">{{ job.title }}</a>
+            {% if job.related %}
+              <span class="badge" data-related title="Doesn't match a {{ top_careers[0].label }} job title, shown because few matches were found">Related</span>
+            {% endif %}
+          </div>
+          <p class="job-meta">{{ icon("building", 14) }} {{ job.company }}</p>
+          <p class="job-meta">{{ icon("map-pin", 14) }} {{ job.location }}</p>
+          <a class="job-apply" href="{{ job.url }}" target="_blank" rel="noopener">
+            View job {{ icon("arrow-right", 14) }}<span class="sr-only"> (opens in a new tab)</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    <!-- Remotive's API terms ask us to name them as the source and link back -->
+    <p class="jobs-credit">Jobs from <a href="https://remotive.com" target="_blank" rel="noopener">Remotive</a> · listings are delayed by 24 hours.</p>
+  {% endif %}
+</article>

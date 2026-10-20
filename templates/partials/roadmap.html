@@ -1,21 +1,36 @@
-{# Career Roadmap card. Needs: roadmap #}
-<div class="cp-bot-message">
-  <div class="d-flex justify-content-between">
-    <b>🗺️ Roadmap to {{ roadmap.career|display_name }}</b>
-    <span style="font-size:0.9em; color:var(--subtle);">{{ roadmap.done }}/{{ roadmap.total }} steps done</span>
-  </div>
-  <div class="cp-roadmap">
+{% from "partials/macros.html" import icon %}
+{# Career Roadmap: vertical timeline with 3 stages. Needs: roadmap #}
+{% set ns = namespace(current_found=false) %}
+<article class="card fade-in" data-card="roadmap" aria-labelledby="roadmap-title">
+  <header class="card-header">
+    <span class="card-icon">{{ icon("map", 18) }}</span>
+    <div>
+      <h3 class="card-title" id="roadmap-title">Roadmap to {{ roadmap.career|display_name }}</h3>
+      <p class="card-subtitle">Steps you still need come first in each stage</p>
+    </div>
+    <span class="card-meta">{{ roadmap.done }} / {{ roadmap.total }} done</span>
+  </header>
+  <ol class="timeline">
     {% for stage in roadmap.stages %}
-      <div class="cp-stage">
-        <div class="cp-stage-name">{{ loop.index }}. {{ stage.name }}</div>
-        <ul>
+      {% set done = stage.steps|selectattr("done")|list|length %}
+      {% set complete = done == stage.steps|length %}
+      {% set current = not complete and not ns.current_found %}
+      {% if current %}{% set ns.current_found = true %}{% endif %}
+      <li class="timeline-stage{{ ' is-complete' if complete }}{{ ' is-current' if current }}">
+        <span class="timeline-node" aria-hidden="true">{% if complete %}{{ icon("check", 14) }}{% else %}{{ loop.index }}{% endif %}</span>
+        <div class="timeline-head">
+          <h4 class="timeline-title">{{ stage.name }}{% if complete %}<span class="sr-only"> (complete)</span>{% endif %}</h4>
+          <span class="timeline-count">{{ done }} / {{ stage.steps|length }}</span>
+        </div>
+        <ul class="steps">
           {% for step in stage.steps %}
-            <li class="{{ 'done' if step.done else 'todo' }}">
-              <span class="cp-step-mark">{{ "✓" if step.done else "○" }}</span> {{ step.step }}
+            <li class="step {{ 'done' if step.done else 'todo' }}">
+              {{ icon("circle-check" if step.done else "circle", 16, label="Done" if step.done else "To do") }}
+              <span>{{ step.step }}</span>
             </li>
           {% endfor %}
         </ul>
-      </div>
+      </li>
     {% endfor %}
-  </div>
-</div>
+  </ol>
+</article>

@@ -1,0 +1,38 @@
+{% from "partials/macros.html" import icon %}
+{#
+  Results dashboard. DOM order = mobile order:
+  summary -> careers -> score -> gap -> roadmap -> courses -> what-if -> jobs.
+  On desktop the two .dashboard-col columns sit side by side.
+#}
+<section class="results" id="results" tabindex="-1" aria-labelledby="results-title" aria-live="polite">
+  <div class="container">
+    <div class="results-header">
+      <div>
+        <h2 class="results-title" id="results-title">Your results</h2>
+        <p class="results-subtitle">Based on your {{ "uploaded resume" if source == "resume" else "typed skills" }}</p>
+      </div>
+      <a class="btn btn-secondary" href="{{ url_for('home') }}" data-analyze-another>
+        {{ icon("rotate-ccw", 16) }} Analyze another {{ "resume" if source == "resume" else "set of skills" }}
+      </a>
+    </div>
+
+    {% include "partials/summary.html" %}
+
+    <div class="dashboard">
+      <div class="dashboard-col">
+        {% include "partials/careers.html" %}
+        {% if resume_score %}{% include "partials/resume_score.html" %}{% endif %}
+        {% if skill_gap and skill_gap.total %}{% include "partials/skill_gap.html" %}{% endif %}
+      </div>
+      <div class="dashboard-col">
+        {% if roadmap %}{% include "partials/roadmap.html" %}{% endif %}
+        {% if courses %}{% include "partials/courses.html" %}{% endif %}
+        {% if simulator_data and skill_gap and skill_gap.missing %}{% include "partials/simulator.html" %}{% endif %}
+      </div>
+    </div>
+
+    <div class="dashboard-full">
+      {% include "partials/jobs.html" %}
+    </div>
+  </div>
+</section>

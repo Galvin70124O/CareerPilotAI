@@ -1,14 +1,28 @@
-{# Free courses for each missing skill. Needs: courses #}
-<div class="cp-bot-message">
-  <b>🎓 Free resources for your missing skills</b>
-  <ul class="cp-courses">
+{% from "partials/macros.html" import icon %}
+{# Free courses, grouped by missing skill. Needs: courses #}
+<article class="card fade-in" data-card="courses" aria-labelledby="courses-title">
+  <header class="card-header">
+    <span class="card-icon">{{ icon("graduation-cap", 18) }}</span>
+    <div>
+      <h3 class="card-title" id="courses-title">Free resources for your missing skills</h3>
+      <p class="card-subtitle">Official docs and well-known free courses</p>
+    </div>
+  </header>
+  <ul class="course-groups">
     {% for item in courses %}
-      <li>
-        <span class="cp-chip cp-chip-missing">{{ item.skill }}</span>
-        {% for r in item.resources %}
-          <a class="cp-course-link{{ ' cp-course-search' if r.is_search }}" href="{{ r.url }}" target="_blank" rel="noopener">{{ r.title }} ↗</a>
-        {% endfor %}
+      <li class="course-group">
+        <span><span class="chip chip-missing">{{ item.skill }}</span></span>
+        <ul class="course-links">
+          {% for r in item.resources %}
+            <li>
+              <a class="course-link{{ ' course-link-search' if r.is_search }}" href="{{ r.url }}" target="_blank" rel="noopener">
+                {{ icon("search" if r.is_search else "external-link", 14) }}
+                <span>{{ r.title }}<span class="sr-only"> (opens in a new tab)</span></span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
       </li>
     {% endfor %}
   </ul>
-</div>
+</article>
