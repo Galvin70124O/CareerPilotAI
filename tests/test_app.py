@@ -62,3 +62,8 @@ def test_uploaded_resume_gets_a_score(monkeypatch):
 def test_typed_skills_get_no_resume_score(monkeypatch):
     html = post({"input_text": "python sql"}, monkeypatch)
     assert 'aria-label="Resume score' not in html
+
+
+def test_roadmap_shown_for_typed_skills(monkeypatch):
+    html = post({"input_text": "java spring hibernate"}, monkeypatch)
+    assert "Roadmap to Java Developer" in html

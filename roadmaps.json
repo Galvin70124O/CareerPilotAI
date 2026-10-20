@@ -1,0 +1,1894 @@
+{
+  "Accountant": {
+    "Beginner": [
+      {
+        "skill": "accounting",
+        "step": "Learn accounting basics: debits, credits, the accounting equation"
+      },
+      {
+        "skill": "excel",
+        "step": "Excel for accounting: formulas, pivot tables, lookups"
+      },
+      {
+        "skill": "financial statements",
+        "step": "Read the 3 financial statements: income, balance sheet, cash flow"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "general ledger",
+        "step": "Post journal entries and maintain a general ledger"
+      },
+      {
+        "skill": "reconciliation",
+        "step": "Do bank and account reconciliations"
+      },
+      {
+        "skill": "accounts payable",
+        "step": "Handle accounts payable and receivable"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "tax",
+        "step": "Prepare basic tax returns and know local tax rules"
+      },
+      {
+        "skill": "payroll",
+        "step": "Run payroll end to end"
+      },
+      {
+        "skill": "quickbooks",
+        "step": "Use accounting software (QuickBooks, Tally or SAP) on a practice company"
+      }
+    ]
+  },
+  "Advocate": {
+    "Beginner": [
+      {
+        "skill": "communication",
+        "step": "Practise clear, empathetic communication"
+      },
+      {
+        "skill": "customer service",
+        "step": "Learn client service basics: listening, follow-up"
+      },
+      {
+        "skill": "documentation",
+        "step": "Keep accurate case notes and records"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "legal",
+        "step": "Learn the legal basics for your field (rights, procedures)"
+      },
+      {
+        "skill": "advocacy",
+        "step": "Advocate for a client: plan, act, follow up"
+      },
+      {
+        "skill": "referrals",
+        "step": "Build a referral network of local services"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "counseling",
+        "step": "Get trained in counseling or crisis intervention"
+      },
+      {
+        "skill": "court",
+        "step": "Understand court procedures and accompany clients"
+      },
+      {
+        "skill": "case management",
+        "step": "Manage a full caseload with case-management tools"
+      }
+    ]
+  },
+  "Agriculture": {
+    "Beginner": [
+      {
+        "skill": "agriculture",
+        "step": "Learn agriculture basics: crops, seasons, farm systems"
+      },
+      {
+        "skill": "soil",
+        "step": "Understand soil types, testing and fertility"
+      },
+      {
+        "skill": "crop",
+        "step": "Learn crop planning and rotation"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "irrigation",
+        "step": "Plan and maintain irrigation systems"
+      },
+      {
+        "skill": "livestock",
+        "step": "Learn livestock care and feeding"
+      },
+      {
+        "skill": "farming",
+        "step": "Work on a farm or field station for hands-on practice"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "research",
+        "step": "Run a field trial or research project and record results"
+      },
+      {
+        "skill": "harvest",
+        "step": "Manage harvest and post-harvest handling"
+      },
+      {
+        "skill": "pest management",
+        "step": "Apply integrated pest management"
+      }
+    ]
+  },
+  "Apparel": {
+    "Beginner": [
+      {
+        "skill": "customer service",
+        "step": "Learn retail customer service"
+      },
+      {
+        "skill": "retail",
+        "step": "Understand how a retail store runs day to day"
+      },
+      {
+        "skill": "fashion",
+        "step": "Follow fashion trends, fabrics and fits"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "sales",
+        "step": "Hit personal sales goals with product knowledge"
+      },
+      {
+        "skill": "stock",
+        "step": "Manage stock: receiving, back-stock, replenishment"
+      },
+      {
+        "skill": "pricing",
+        "step": "Handle pricing, tags and markdowns"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "merchandising",
+        "step": "Plan merchandising and store displays"
+      },
+      {
+        "skill": "inventory",
+        "step": "Track inventory and shrink with a POS system"
+      },
+      {
+        "skill": "visual merchandising",
+        "step": "Build a visual merchandising portfolio (photos of your displays)"
+      }
+    ]
+  },
+  "Architecture": {
+    "Beginner": [
+      {
+        "skill": "architectural design",
+        "step": "Learn design fundamentals: form, space, scale"
+      },
+      {
+        "skill": "autocad",
+        "step": "Draw 2D plans in AutoCAD"
+      },
+      {
+        "skill": "sketchup",
+        "step": "Model simple buildings in SketchUp"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "revit",
+        "step": "Learn BIM with Revit"
+      },
+      {
+        "skill": "adobe",
+        "step": "Present work with Adobe Photoshop / InDesign"
+      },
+      {
+        "skill": "rhino",
+        "step": "Explore complex forms with Rhino"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "construction documents",
+        "step": "Prepare a full set of construction documents"
+      },
+      {
+        "skill": "building codes",
+        "step": "Learn building codes and accessibility rules"
+      },
+      {
+        "skill": "portfolio",
+        "step": "Build a strong architecture portfolio"
+      }
+    ]
+  },
+  "Arts": {
+    "Beginner": [
+      {
+        "skill": "art",
+        "step": "Build core art skills: drawing, colour, composition"
+      },
+      {
+        "skill": "painting",
+        "step": "Practise painting in at least one medium"
+      },
+      {
+        "skill": "music",
+        "step": "Explore another art form (music, theatre or dance)"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "adobe",
+        "step": "Learn digital tools such as Adobe Photoshop or Illustrator"
+      },
+      {
+        "skill": "teaching",
+        "step": "Teach a workshop or tutor beginners"
+      },
+      {
+        "skill": "lesson planning",
+        "step": "Write lesson plans with clear goals"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "curriculum",
+        "step": "Design a short arts curriculum"
+      },
+      {
+        "skill": "classroom management",
+        "step": "Learn classroom management techniques"
+      },
+      {
+        "skill": "portfolio",
+        "step": "Build a portfolio of your best work"
+      }
+    ]
+  },
+  "Automobile": {
+    "Beginner": [
+      {
+        "skill": "automotive",
+        "step": "Learn how cars work: engine, drivetrain, electrics"
+      },
+      {
+        "skill": "maintenance",
+        "step": "Do routine maintenance: oil, filters, tyres"
+      },
+      {
+        "skill": "customer service",
+        "step": "Explain repairs clearly to customers"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "brakes",
+        "step": "Service brake systems"
+      },
+      {
+        "skill": "engine",
+        "step": "Diagnose and repair engine problems"
+      },
+      {
+        "skill": "repair",
+        "step": "Work in a workshop on real repairs"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "diagnostics",
+        "step": "Use scan tools for computer diagnostics"
+      },
+      {
+        "skill": "electrical systems",
+        "step": "Troubleshoot vehicle electrical systems"
+      },
+      {
+        "skill": "ase",
+        "step": "Earn an industry certification (e.g. ASE)"
+      }
+    ]
+  },
+  "Aviation": {
+    "Beginner": [
+      {
+        "skill": "aviation",
+        "step": "Learn aviation basics: aircraft parts, airspace"
+      },
+      {
+        "skill": "safety",
+        "step": "Learn aviation safety culture and procedures"
+      },
+      {
+        "skill": "regulations",
+        "step": "Study aviation regulations (FAA / DGCA / EASA)"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "aircraft",
+        "step": "Learn aircraft systems in depth"
+      },
+      {
+        "skill": "maintenance",
+        "step": "Perform supervised aircraft maintenance"
+      },
+      {
+        "skill": "inspection",
+        "step": "Do pre-flight and scheduled inspections"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "troubleshooting",
+        "step": "Troubleshoot aircraft faults with manuals"
+      },
+      {
+        "skill": "flight",
+        "step": "Log flight or flight-line hours"
+      },
+      {
+        "skill": "license",
+        "step": "Get a licence or type rating for your role"
+      }
+    ]
+  },
+  "BPO": {
+    "Beginner": [
+      {
+        "skill": "communication",
+        "step": "Improve spoken and written English"
+      },
+      {
+        "skill": "customer service",
+        "step": "Learn customer service basics"
+      },
+      {
+        "skill": "data entry",
+        "step": "Type fast and accurately (data entry)"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "call center",
+        "step": "Handle calls with scripts and call-centre tools"
+      },
+      {
+        "skill": "crm",
+        "step": "Use a CRM to log and track tickets"
+      },
+      {
+        "skill": "problem solving",
+        "step": "Solve customer problems on the first call"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "quality",
+        "step": "Meet quality scores (CSAT, AHT)"
+      },
+      {
+        "skill": "escalations",
+        "step": "Handle escalations and angry customers calmly"
+      },
+      {
+        "skill": "team lead",
+        "step": "Mentor new agents or act as team lead"
+      }
+    ]
+  },
+  "Banking": {
+    "Beginner": [
+      {
+        "skill": "banking",
+        "step": "Learn how banks work: deposits, loans, payments"
+      },
+      {
+        "skill": "customer service",
+        "step": "Serve customers at a branch or call centre"
+      },
+      {
+        "skill": "sales",
+        "step": "Learn to recommend banking products"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "credit",
+        "step": "Understand credit scores and credit analysis"
+      },
+      {
+        "skill": "loans",
+        "step": "Process loan applications"
+      },
+      {
+        "skill": "compliance",
+        "step": "Learn compliance rules: KYC and AML"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "financial analysis",
+        "step": "Analyse a company's financial statements"
+      },
+      {
+        "skill": "risk",
+        "step": "Understand credit, market and operational risk"
+      },
+      {
+        "skill": "certification",
+        "step": "Earn a banking certification (e.g. JAIIB / CAIIB or similar)"
+      }
+    ]
+  },
+  "Blockchain": {
+    "Beginner": [
+      {
+        "skill": "javascript",
+        "step": "Learn JavaScript well"
+      },
+      {
+        "skill": "blockchain",
+        "step": "Understand how a blockchain works: blocks, hashing, consensus"
+      },
+      {
+        "skill": "bitcoin",
+        "step": "Learn how Bitcoin transactions work"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "ethereum",
+        "step": "Learn Ethereum and the EVM"
+      },
+      {
+        "skill": "solidity",
+        "step": "Write smart contracts in Solidity"
+      },
+      {
+        "skill": "smart contracts",
+        "step": "Test and deploy smart contracts to a testnet"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "decentralized",
+        "step": "Build a full decentralized app (dApp) with a web front end"
+      },
+      {
+        "skill": "cryptocurrency",
+        "step": "Understand tokens, wallets and DeFi"
+      },
+      {
+        "skill": "security",
+        "step": "Learn smart contract security and audits"
+      }
+    ]
+  },
+  "Building and Construction": {
+    "Beginner": [
+      {
+        "skill": "safety",
+        "step": "Learn site safety"
+      },
+      {
+        "skill": "osha",
+        "step": "Get a safety certification (e.g. OSHA 10/30)"
+      },
+      {
+        "skill": "blueprints",
+        "step": "Read blueprints and drawings"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "carpentry",
+        "step": "Practise carpentry and framing"
+      },
+      {
+        "skill": "concrete",
+        "step": "Learn concrete work: forms, pouring, curing"
+      },
+      {
+        "skill": "plumbing",
+        "step": "Learn basic plumbing and electrical rough-in"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "scheduling",
+        "step": "Plan and schedule a construction job"
+      },
+      {
+        "skill": "construction",
+        "step": "Lead a small construction crew"
+      },
+      {
+        "skill": "estimating",
+        "step": "Estimate materials and costs"
+      }
+    ]
+  },
+  "Business Analyst": {
+    "Beginner": [
+      {
+        "skill": "excel",
+        "step": "Excel for analysis: pivot tables, charts"
+      },
+      {
+        "skill": "sql",
+        "step": "Write SQL queries to answer business questions"
+      },
+      {
+        "skill": "stakeholders",
+        "step": "Interview stakeholders and take clear notes"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "requirements gathering",
+        "step": "Gather and write requirements (BRD / user stories)"
+      },
+      {
+        "skill": "use cases",
+        "step": "Write use cases and draw process diagrams"
+      },
+      {
+        "skill": "gap analysis",
+        "step": "Do a gap analysis: current vs. future process"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "agile",
+        "step": "Work in Agile / Scrum teams"
+      },
+      {
+        "skill": "jira",
+        "step": "Manage a backlog in Jira"
+      },
+      {
+        "skill": "tableau",
+        "step": "Build a dashboard in Tableau or Power BI"
+      }
+    ]
+  },
+  "Civil Engineer": {
+    "Beginner": [
+      {
+        "skill": "civil engineering",
+        "step": "Revise core civil engineering: mechanics, materials"
+      },
+      {
+        "skill": "autocad",
+        "step": "Draw plans in AutoCAD"
+      },
+      {
+        "skill": "construction",
+        "step": "Visit or intern at a construction site"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "structural",
+        "step": "Learn structural analysis and design"
+      },
+      {
+        "skill": "drainage",
+        "step": "Design drainage and stormwater systems"
+      },
+      {
+        "skill": "civil 3d",
+        "step": "Learn Civil 3D for site design"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "project management",
+        "step": "Plan a project: schedule, cost, quality"
+      },
+      {
+        "skill": "inspection",
+        "step": "Inspect work against drawings and codes"
+      },
+      {
+        "skill": "license",
+        "step": "Prepare for a professional licence (FE/PE or local equivalent)"
+      }
+    ]
+  },
+  "Consultant": {
+    "Beginner": [
+      {
+        "skill": "communication",
+        "step": "Write clear emails and short reports"
+      },
+      {
+        "skill": "excel",
+        "step": "Excel modelling for business problems"
+      },
+      {
+        "skill": "presentations",
+        "step": "Make clear slide presentations"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "consulting",
+        "step": "Learn problem-solving frameworks (issue trees, hypotheses)"
+      },
+      {
+        "skill": "stakeholders",
+        "step": "Manage stakeholders and expectations"
+      },
+      {
+        "skill": "strategy",
+        "step": "Learn business strategy basics"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "project management",
+        "step": "Run a project from start to finish"
+      },
+      {
+        "skill": "change management",
+        "step": "Learn change management"
+      },
+      {
+        "skill": "case studies",
+        "step": "Practise case interviews and case studies"
+      }
+    ]
+  },
+  "Data Science": {
+    "Beginner": [
+      {
+        "skill": "python",
+        "step": "Learn Python basics"
+      },
+      {
+        "skill": "statistics",
+        "step": "Learn statistics: distributions, hypothesis tests"
+      },
+      {
+        "skill": "sql",
+        "step": "Query data with SQL"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "data analysis",
+        "step": "Analyse real datasets with pandas"
+      },
+      {
+        "skill": "visualization",
+        "step": "Make clear charts (matplotlib / seaborn)"
+      },
+      {
+        "skill": "machine learning",
+        "step": "Learn machine learning with scikit-learn"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "tableau",
+        "step": "Build a dashboard in Tableau or Power BI"
+      },
+      {
+        "skill": "r",
+        "step": "Learn R (useful in many analytics teams)"
+      },
+      {
+        "skill": "kaggle",
+        "step": "Do Kaggle competitions or end-to-end portfolio projects"
+      }
+    ]
+  },
+  "Database": {
+    "Beginner": [
+      {
+        "skill": "sql",
+        "step": "Learn SQL well"
+      },
+      {
+        "skill": "mysql",
+        "step": "Install and run MySQL or PostgreSQL"
+      },
+      {
+        "skill": "linux",
+        "step": "Learn Linux basics for servers"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "oracle",
+        "step": "Learn Oracle Database administration"
+      },
+      {
+        "skill": "backup",
+        "step": "Set up backups"
+      },
+      {
+        "skill": "recovery",
+        "step": "Practise restoring and recovering a database"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "performance tuning",
+        "step": "Tune slow queries and indexes"
+      },
+      {
+        "skill": "replication",
+        "step": "Set up replication and high availability"
+      },
+      {
+        "skill": "certification",
+        "step": "Earn a DBA certification (e.g. Oracle OCA)"
+      }
+    ]
+  },
+  "Designing": {
+    "Beginner": [
+      {
+        "skill": "graphic design",
+        "step": "Learn design principles: layout, colour, typography"
+      },
+      {
+        "skill": "photoshop",
+        "step": "Learn Photoshop"
+      },
+      {
+        "skill": "illustrator",
+        "step": "Learn Illustrator"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "adobe",
+        "step": "Use the Adobe suite together on real projects"
+      },
+      {
+        "skill": "indesign",
+        "step": "Lay out print documents in InDesign"
+      },
+      {
+        "skill": "branding",
+        "step": "Create a full brand identity (logo, colours, fonts)"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "interior design",
+        "step": "Try a specialisation (interior, UX or product design)"
+      },
+      {
+        "skill": "autocad",
+        "step": "Learn AutoCAD for spatial design"
+      },
+      {
+        "skill": "portfolio",
+        "step": "Build a portfolio on Behance or a personal site"
+      }
+    ]
+  },
+  "DevOps": {
+    "Beginner": [
+      {
+        "skill": "linux",
+        "step": "Learn Linux and the command line"
+      },
+      {
+        "skill": "git",
+        "step": "Learn Git and GitHub"
+      },
+      {
+        "skill": "python",
+        "step": "Learn a scripting language (Bash / Python)"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "docker",
+        "step": "Containerise an app with Docker"
+      },
+      {
+        "skill": "jenkins",
+        "step": "Build a CI pipeline (Jenkins or GitHub Actions)"
+      },
+      {
+        "skill": "aws",
+        "step": "Learn a cloud: AWS, Azure or GCP"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "kubernetes",
+        "step": "Run apps on Kubernetes"
+      },
+      {
+        "skill": "ansible",
+        "step": "Automate servers with Ansible / Terraform"
+      },
+      {
+        "skill": "ci/cd",
+        "step": "Build a full CI/CD pipeline project end to end"
+      }
+    ]
+  },
+  "Digital Media": {
+    "Beginner": [
+      {
+        "skill": "social media",
+        "step": "Run social media accounts with a plan"
+      },
+      {
+        "skill": "content",
+        "step": "Create content: writing, images, short video"
+      },
+      {
+        "skill": "adobe",
+        "step": "Learn Adobe tools (Photoshop, Premiere)"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "seo",
+        "step": "Learn SEO basics"
+      },
+      {
+        "skill": "google analytics",
+        "step": "Measure results with Google Analytics"
+      },
+      {
+        "skill": "email marketing",
+        "step": "Run email marketing campaigns"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "digital marketing",
+        "step": "Plan a full digital marketing strategy"
+      },
+      {
+        "skill": "campaigns",
+        "step": "Run paid campaigns and report ROI"
+      },
+      {
+        "skill": "certification",
+        "step": "Earn a free certificate (Google or HubSpot)"
+      }
+    ]
+  },
+  "DotNet Developer": {
+    "Beginner": [
+      {
+        "skill": "c#",
+        "step": "Learn C# fundamentals"
+      },
+      {
+        "skill": "visual studio",
+        "step": "Use Visual Studio and the debugger"
+      },
+      {
+        "skill": "sql server",
+        "step": "Learn SQL Server basics"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "asp.net",
+        "step": "Build web apps with ASP.NET Core"
+      },
+      {
+        "skill": "mvc",
+        "step": "Use the MVC pattern"
+      },
+      {
+        "skill": "entity framework",
+        "step": "Access data with Entity Framework"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "javascript",
+        "step": "Add JavaScript to your front end"
+      },
+      {
+        "skill": "web api",
+        "step": "Build a REST Web API"
+      },
+      {
+        "skill": "wcf",
+        "step": "Learn about WCF and legacy .NET for older projects"
+      }
+    ]
+  },
+  "ETL Developer": {
+    "Beginner": [
+      {
+        "skill": "sql",
+        "step": "Learn advanced SQL"
+      },
+      {
+        "skill": "unix",
+        "step": "Learn Unix/Linux shell basics"
+      },
+      {
+        "skill": "oracle",
+        "step": "Work with Oracle or another relational database"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "etl",
+        "step": "Understand ETL concepts: extract, transform, load"
+      },
+      {
+        "skill": "data warehouse",
+        "step": "Learn data warehouse design (star schema)"
+      },
+      {
+        "skill": "mappings",
+        "step": "Build mappings and transformations"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "informatica",
+        "step": "Learn an ETL tool: Informatica"
+      },
+      {
+        "skill": "ssis",
+        "step": "Learn another ETL tool: SSIS or Talend"
+      },
+      {
+        "skill": "python",
+        "step": "Automate data pipelines with Python"
+      }
+    ]
+  },
+  "Education": {
+    "Beginner": [
+      {
+        "skill": "teaching",
+        "step": "Learn teaching basics and learning theories"
+      },
+      {
+        "skill": "communication",
+        "step": "Communicate clearly with students and parents"
+      },
+      {
+        "skill": "instruction",
+        "step": "Practise delivering instruction"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "curriculum",
+        "step": "Plan curriculum and lessons"
+      },
+      {
+        "skill": "classroom management",
+        "step": "Learn classroom management"
+      },
+      {
+        "skill": "differentiated",
+        "step": "Use differentiated instruction"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "special education",
+        "step": "Learn special education basics"
+      },
+      {
+        "skill": "iep",
+        "step": "Understand and write IEPs"
+      },
+      {
+        "skill": "certification",
+        "step": "Earn a teaching certification for your region"
+      }
+    ]
+  },
+  "Electrical Engineering": {
+    "Beginner": [
+      {
+        "skill": "electrical",
+        "step": "Learn electrical fundamentals: Ohm's law, AC/DC"
+      },
+      {
+        "skill": "safety",
+        "step": "Learn electrical safety"
+      },
+      {
+        "skill": "circuit",
+        "step": "Read and build circuits"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "wiring",
+        "step": "Do wiring to code"
+      },
+      {
+        "skill": "panels",
+        "step": "Install and service panels and breakers"
+      },
+      {
+        "skill": "motors",
+        "step": "Work with motors and motor controls"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "troubleshooting",
+        "step": "Troubleshoot electrical faults"
+      },
+      {
+        "skill": "maintenance",
+        "step": "Plan preventive maintenance"
+      },
+      {
+        "skill": "plc",
+        "step": "Learn PLC programming"
+      }
+    ]
+  },
+  "Finance": {
+    "Beginner": [
+      {
+        "skill": "accounting",
+        "step": "Learn accounting basics"
+      },
+      {
+        "skill": "excel",
+        "step": "Master Excel for finance"
+      },
+      {
+        "skill": "financial reporting",
+        "step": "Read and prepare financial reports"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "financial analysis",
+        "step": "Do ratio analysis and company analysis"
+      },
+      {
+        "skill": "budgeting",
+        "step": "Build a budget"
+      },
+      {
+        "skill": "forecasting",
+        "step": "Build forecasts and financial models"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "investment",
+        "step": "Learn investment valuation (DCF)"
+      },
+      {
+        "skill": "audit",
+        "step": "Understand audit and internal controls"
+      },
+      {
+        "skill": "cfa",
+        "step": "Work towards a certification (CFA / CA / CPA)"
+      }
+    ]
+  },
+  "Food and Beverages": {
+    "Beginner": [
+      {
+        "skill": "customer service",
+        "step": "Learn hospitality customer service"
+      },
+      {
+        "skill": "sanitation",
+        "step": "Learn food safety and sanitation"
+      },
+      {
+        "skill": "menu",
+        "step": "Know the menu and pairings"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "beverage",
+        "step": "Learn beverage service (coffee, bar)"
+      },
+      {
+        "skill": "restaurant",
+        "step": "Work in different restaurant roles"
+      },
+      {
+        "skill": "inventory",
+        "step": "Control inventory and food cost"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "hospitality",
+        "step": "Lead a shift and train staff"
+      },
+      {
+        "skill": "catering",
+        "step": "Plan and run catering events"
+      },
+      {
+        "skill": "food safety",
+        "step": "Earn a food safety certification"
+      }
+    ]
+  },
+  "Health and Fitness": {
+    "Beginner": [
+      {
+        "skill": "fitness",
+        "step": "Learn fitness basics: anatomy, training principles"
+      },
+      {
+        "skill": "exercise",
+        "step": "Coach exercises with good form"
+      },
+      {
+        "skill": "cpr",
+        "step": "Get CPR / first aid certified"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "nutrition",
+        "step": "Learn nutrition basics"
+      },
+      {
+        "skill": "group fitness",
+        "step": "Lead group fitness classes"
+      },
+      {
+        "skill": "wellness",
+        "step": "Plan wellness programmes"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "personal training",
+        "step": "Earn a personal training certification (e.g. ACE, NASM)"
+      },
+      {
+        "skill": "coaching",
+        "step": "Coach clients towards goals and track progress"
+      },
+      {
+        "skill": "clients",
+        "step": "Build a client base"
+      }
+    ]
+  },
+  "Human Resources": {
+    "Beginner": [
+      {
+        "skill": "communication",
+        "step": "Communicate clearly and confidentially"
+      },
+      {
+        "skill": "recruitment",
+        "step": "Learn recruitment: job ads, screening, interviews"
+      },
+      {
+        "skill": "onboarding",
+        "step": "Run onboarding for new hires"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "payroll",
+        "step": "Understand payroll"
+      },
+      {
+        "skill": "benefits",
+        "step": "Administer employee benefits"
+      },
+      {
+        "skill": "employee relations",
+        "step": "Handle employee relations issues"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "compliance",
+        "step": "Learn employment law and compliance"
+      },
+      {
+        "skill": "hris",
+        "step": "Use an HRIS (e.g. Workday, BambooHR)"
+      },
+      {
+        "skill": "training",
+        "step": "Plan training and development"
+      }
+    ]
+  },
+  "Information Technology": {
+    "Beginner": [
+      {
+        "skill": "hardware",
+        "step": "Learn computer hardware"
+      },
+      {
+        "skill": "windows",
+        "step": "Support Windows PCs"
+      },
+      {
+        "skill": "networking",
+        "step": "Learn networking basics"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "troubleshooting",
+        "step": "Troubleshoot step by step and document fixes"
+      },
+      {
+        "skill": "help desk",
+        "step": "Work a help desk with a ticketing system"
+      },
+      {
+        "skill": "technical support",
+        "step": "Provide technical support to users"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "servers",
+        "step": "Manage servers and Active Directory"
+      },
+      {
+        "skill": "security",
+        "step": "Learn IT security basics"
+      },
+      {
+        "skill": "certification",
+        "step": "Earn certifications (e.g. CompTIA A+, Network+)"
+      }
+    ]
+  },
+  "Java Developer": {
+    "Beginner": [
+      {
+        "skill": "java",
+        "step": "Learn core Java and OOP"
+      },
+      {
+        "skill": "sql",
+        "step": "Learn SQL"
+      },
+      {
+        "skill": "git",
+        "step": "Use Git"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "spring",
+        "step": "Build apps with Spring / Spring Boot"
+      },
+      {
+        "skill": "hibernate",
+        "step": "Persist data with Hibernate / JPA"
+      },
+      {
+        "skill": "junit",
+        "step": "Write tests with JUnit"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "rest",
+        "step": "Build a REST API"
+      },
+      {
+        "skill": "javascript",
+        "step": "Learn front-end basics (JavaScript)"
+      },
+      {
+        "skill": "j2ee",
+        "step": "Learn enterprise Java (Jakarta EE / J2EE)"
+      }
+    ]
+  },
+  "Management": {
+    "Beginner": [
+      {
+        "skill": "communication",
+        "step": "Communicate goals clearly"
+      },
+      {
+        "skill": "planning",
+        "step": "Plan work and set priorities"
+      },
+      {
+        "skill": "scheduling",
+        "step": "Schedule people and shifts"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "leadership",
+        "step": "Lead and motivate a team"
+      },
+      {
+        "skill": "training",
+        "step": "Train and coach team members"
+      },
+      {
+        "skill": "customer service",
+        "step": "Improve customer service results"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "operations",
+        "step": "Run day-to-day operations"
+      },
+      {
+        "skill": "reporting",
+        "step": "Report on KPIs to senior management"
+      },
+      {
+        "skill": "budgeting",
+        "step": "Manage a budget"
+      }
+    ]
+  },
+  "Mechanical Engineer": {
+    "Beginner": [
+      {
+        "skill": "cad",
+        "step": "Learn engineering drawing and CAD basics"
+      },
+      {
+        "skill": "autocad",
+        "step": "Draw parts in AutoCAD"
+      },
+      {
+        "skill": "matlab",
+        "step": "Solve engineering problems in MATLAB"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "solidworks",
+        "step": "Model assemblies in SolidWorks"
+      },
+      {
+        "skill": "mechanical design",
+        "step": "Design a mechanical part end to end"
+      },
+      {
+        "skill": "manufacturing",
+        "step": "Learn manufacturing processes"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "fea",
+        "step": "Learn FEA (finite element analysis)"
+      },
+      {
+        "skill": "ansys",
+        "step": "Run simulations in ANSYS"
+      },
+      {
+        "skill": "gd&t",
+        "step": "Learn GD&T"
+      }
+    ]
+  },
+  "Network Security Engineer": {
+    "Beginner": [
+      {
+        "skill": "tcp/ip",
+        "step": "Learn TCP/IP and the OSI model"
+      },
+      {
+        "skill": "lan",
+        "step": "Build a LAN with VLANs"
+      },
+      {
+        "skill": "routing",
+        "step": "Learn routing"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "switching",
+        "step": "Learn switching"
+      },
+      {
+        "skill": "cisco",
+        "step": "Configure Cisco devices (CCNA level)"
+      },
+      {
+        "skill": "vpn",
+        "step": "Set up VPNs"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "firewall",
+        "step": "Configure firewalls"
+      },
+      {
+        "skill": "network security",
+        "step": "Learn network security monitoring and hardening"
+      },
+      {
+        "skill": "certification",
+        "step": "Earn a certification (CCNA, Security+)"
+      }
+    ]
+  },
+  "Operations Manager": {
+    "Beginner": [
+      {
+        "skill": "operations",
+        "step": "Understand how operations work end to end"
+      },
+      {
+        "skill": "scheduling",
+        "step": "Schedule people and resources"
+      },
+      {
+        "skill": "safety",
+        "step": "Run safe operations"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "inventory",
+        "step": "Control inventory"
+      },
+      {
+        "skill": "logistics",
+        "step": "Learn logistics and supply chain"
+      },
+      {
+        "skill": "quality",
+        "step": "Manage quality"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "process improvement",
+        "step": "Lead process improvement (Lean / Six Sigma)"
+      },
+      {
+        "skill": "leadership",
+        "step": "Lead teams and managers"
+      },
+      {
+        "skill": "budgeting",
+        "step": "Own an operations budget"
+      }
+    ]
+  },
+  "PMO": {
+    "Beginner": [
+      {
+        "skill": "project management",
+        "step": "Learn project management basics"
+      },
+      {
+        "skill": "reporting",
+        "step": "Build status reports and dashboards"
+      },
+      {
+        "skill": "stakeholders",
+        "step": "Communicate with stakeholders"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "agile",
+        "step": "Learn Agile"
+      },
+      {
+        "skill": "scrum",
+        "step": "Learn Scrum"
+      },
+      {
+        "skill": "governance",
+        "step": "Set up project governance and templates"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "portfolio",
+        "step": "Manage a portfolio of projects"
+      },
+      {
+        "skill": "pmo",
+        "step": "Run PMO processes"
+      },
+      {
+        "skill": "certification",
+        "step": "Earn a certification (CAPM / PMP / PRINCE2)"
+      }
+    ]
+  },
+  "Public Relations": {
+    "Beginner": [
+      {
+        "skill": "writing",
+        "step": "Write clearly and quickly"
+      },
+      {
+        "skill": "communications",
+        "step": "Learn communications basics"
+      },
+      {
+        "skill": "social media",
+        "step": "Manage social media"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "press releases",
+        "step": "Write press releases"
+      },
+      {
+        "skill": "media relations",
+        "step": "Build relationships with journalists"
+      },
+      {
+        "skill": "editing",
+        "step": "Edit copy for style and accuracy"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "public relations",
+        "step": "Plan a full PR campaign"
+      },
+      {
+        "skill": "marketing",
+        "step": "Coordinate with marketing"
+      },
+      {
+        "skill": "crisis communications",
+        "step": "Plan crisis communications"
+      }
+    ]
+  },
+  "Python Developer": {
+    "Beginner": [
+      {
+        "skill": "python",
+        "step": "Learn Python"
+      },
+      {
+        "skill": "git",
+        "step": "Use Git and GitHub"
+      },
+      {
+        "skill": "linux",
+        "step": "Learn Linux command line"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "sql",
+        "step": "Learn SQL and databases"
+      },
+      {
+        "skill": "flask",
+        "step": "Build a web app with Flask"
+      },
+      {
+        "skill": "django",
+        "step": "Build a bigger app with Django"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "javascript",
+        "step": "Learn front-end basics (JavaScript)"
+      },
+      {
+        "skill": "aws",
+        "step": "Deploy to the cloud (AWS / Render)"
+      },
+      {
+        "skill": "rest",
+        "step": "Build and document a REST API"
+      }
+    ]
+  },
+  "React Developer": {
+    "Beginner": [
+      {
+        "skill": "html",
+        "step": "Learn HTML"
+      },
+      {
+        "skill": "css",
+        "step": "Learn CSS and responsive layout"
+      },
+      {
+        "skill": "javascript",
+        "step": "Learn modern JavaScript (ES6+)"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "react",
+        "step": "Build apps with React"
+      },
+      {
+        "skill": "git",
+        "step": "Use Git and GitHub"
+      },
+      {
+        "skill": "rest",
+        "step": "Fetch data from REST APIs"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "redux",
+        "step": "Manage state with Redux"
+      },
+      {
+        "skill": "node.js",
+        "step": "Learn Node.js for the back end"
+      },
+      {
+        "skill": "typescript",
+        "step": "Learn TypeScript"
+      }
+    ]
+  },
+  "SAP Developer": {
+    "Beginner": [
+      {
+        "skill": "sap",
+        "step": "Learn SAP basics and navigation"
+      },
+      {
+        "skill": "abap",
+        "step": "Learn ABAP"
+      },
+      {
+        "skill": "alv",
+        "step": "Build ALV reports"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "bapi",
+        "step": "Use BAPIs and function modules"
+      },
+      {
+        "skill": "sap sd",
+        "step": "Learn one module's processes (SD or MM)"
+      },
+      {
+        "skill": "netweaver",
+        "step": "Learn SAP NetWeaver basics"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "hana",
+        "step": "Learn SAP HANA"
+      },
+      {
+        "skill": "fiori",
+        "step": "Build Fiori apps"
+      },
+      {
+        "skill": "certification",
+        "step": "Earn an SAP certification"
+      }
+    ]
+  },
+  "SQL Developer": {
+    "Beginner": [
+      {
+        "skill": "sql",
+        "step": "Learn SQL: SELECT, JOIN, GROUP BY"
+      },
+      {
+        "skill": "sql server",
+        "step": "Install and use SQL Server"
+      },
+      {
+        "skill": "t-sql",
+        "step": "Learn T-SQL"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "stored procedures",
+        "step": "Write stored procedures and functions"
+      },
+      {
+        "skill": "indexes",
+        "step": "Design indexes"
+      },
+      {
+        "skill": "etl",
+        "step": "Learn ETL concepts"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "ssis",
+        "step": "Build ETL packages with SSIS"
+      },
+      {
+        "skill": "ssrs",
+        "step": "Build reports with SSRS or Power BI"
+      },
+      {
+        "skill": "performance tuning",
+        "step": "Tune slow queries"
+      }
+    ]
+  },
+  "Sales": {
+    "Beginner": [
+      {
+        "skill": "communication",
+        "step": "Communicate clearly and listen well"
+      },
+      {
+        "skill": "customer service",
+        "step": "Learn customer service"
+      },
+      {
+        "skill": "retail",
+        "step": "Get sales experience (retail or phone)"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "sales",
+        "step": "Learn a sales process: prospect, pitch, close"
+      },
+      {
+        "skill": "negotiation",
+        "step": "Practise negotiation"
+      },
+      {
+        "skill": "crm",
+        "step": "Use a CRM such as Salesforce or HubSpot"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "targets",
+        "step": "Hit and track sales targets"
+      },
+      {
+        "skill": "account management",
+        "step": "Manage key accounts"
+      },
+      {
+        "skill": "marketing",
+        "step": "Work with marketing on leads"
+      }
+    ]
+  },
+  "Testing": {
+    "Beginner": [
+      {
+        "skill": "manual testing",
+        "step": "Learn manual testing and the testing life cycle"
+      },
+      {
+        "skill": "test cases",
+        "step": "Write clear test cases"
+      },
+      {
+        "skill": "sql",
+        "step": "Learn SQL to check data"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "test plans",
+        "step": "Write test plans"
+      },
+      {
+        "skill": "jira",
+        "step": "Track bugs in Jira"
+      },
+      {
+        "skill": "regression testing",
+        "step": "Run regression testing"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "selenium",
+        "step": "Automate tests with Selenium"
+      },
+      {
+        "skill": "automation",
+        "step": "Build an automation framework"
+      },
+      {
+        "skill": "agile",
+        "step": "Test in Agile teams"
+      }
+    ]
+  },
+  "Web Designing": {
+    "Beginner": [
+      {
+        "skill": "html",
+        "step": "Learn HTML"
+      },
+      {
+        "skill": "css",
+        "step": "Learn CSS"
+      },
+      {
+        "skill": "photoshop",
+        "step": "Learn a design tool (Figma or Photoshop)"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "javascript",
+        "step": "Learn JavaScript"
+      },
+      {
+        "skill": "responsive",
+        "step": "Make responsive, mobile-first layouts"
+      },
+      {
+        "skill": "jquery",
+        "step": "Learn jQuery for older sites"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "wordpress",
+        "step": "Build sites with WordPress"
+      },
+      {
+        "skill": "seo",
+        "step": "Learn SEO basics"
+      },
+      {
+        "skill": "portfolio",
+        "step": "Build a portfolio of 3+ sites"
+      }
+    ]
+  }
+}

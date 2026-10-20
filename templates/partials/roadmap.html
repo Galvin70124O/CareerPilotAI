@@ -1,0 +1,21 @@
+{# Career Roadmap card. Needs: roadmap #}
+<div class="cp-bot-message">
+  <div class="d-flex justify-content-between">
+    <b>🗺️ Roadmap to {{ roadmap.career }}</b>
+    <span style="font-size:0.9em; color:var(--subtle);">{{ roadmap.done }}/{{ roadmap.total }} steps done</span>
+  </div>
+  <div class="cp-roadmap">
+    {% for stage in roadmap.stages %}
+      <div class="cp-stage">
+        <div class="cp-stage-name">{{ loop.index }}. {{ stage.name }}</div>
+        <ul>
+          {% for step in stage.steps %}
+            <li class="{{ 'done' if step.done else 'todo' }}">
+              <span class="cp-step-mark">{{ "✓" if step.done else "○" }}</span> {{ step.step }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+</div>
