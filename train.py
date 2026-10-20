@@ -2,7 +2,7 @@
 Evaluate and train the career prediction model, then save it to model.pkl.
 
     python train.py           # full honest evaluation (~10 min), then train + save
-    python train.py --quick   # skip evaluation, just train + save (used on Render)
+    python train.py --quick   # skip evaluation, just train + save
 
 The data comes from data/resumes.parquet (made by data/prepare_data.py).
 If that file is missing, it is downloaded and prepared automatically.
@@ -13,6 +13,7 @@ import time
 
 import joblib
 import pandas as pd
+import sklearn
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
@@ -120,6 +121,9 @@ def main():
     # Finally, train on ALL the data (more examples = slightly better model) and save it
     start = time.time()
     model = build_pipeline(FINAL_MODEL).fit(data["Resume"], data["Category"])
+    # Remember which scikit-learn made this model: a pickle may not load (or may behave
+    # differently) in another version, and app.py checks this when it starts
+    model.trained_with_sklearn = sklearn.__version__
     joblib.dump(model, MODEL_PATH, compress=3)
     print(f"\nFinal model trained on {len(data)} resumes in {time.time() - start:.0f}s "
           f"and saved to {MODEL_PATH} ({os.path.getsize(MODEL_PATH) / 1e6:.1f} MB)")

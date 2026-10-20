@@ -7,6 +7,6 @@
 - Code: https://github.com/noran-mohamed/Resume-Classification-Dataset
 - Licence: MIT (as stated on the dataset card). Credit goes to the original authors.
 
-`prepare_data.py` rebuilds `resumes.parquet` from the source. It removes very short resumes,
+`resumes.parquet` is not committed (git-ignored). `prepare_data.py` rebuilds it from the source, and `train.py` runs it automatically when the file is missing. It removes very short resumes,
 texts with conflicting labels, exact and near-duplicates (cosine > 0.9), and the "claire"
 name-placeholder junk.

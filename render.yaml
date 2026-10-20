@@ -4,12 +4,13 @@ services:
     name: careerpilotai
     runtime: python
     plan: free
-    # model.pkl is not in git (see .gitignore), so we build it on every deploy.
-    # --quick skips the 10-minute evaluation; training uses ~450 MB RAM (free tier: 512 MB)
-    buildCommand: pip install -r requirements.txt && python train.py --quick
+    # model.pkl is committed, so Render does NOT train (training needs ~450 MB RAM).
+    # Retrain locally with "python train.py", then commit the new model.pkl.
+    buildCommand: pip install -r requirements.txt
     # gunicorn is a production web server; "app:app" = the "app" object in app.py
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --timeout 60
     healthCheckPath: /
     envVars:
+      # Same Python as the machine that trained model.pkl (see also .python-version)
       - key: PYTHON_VERSION
         value: 3.12.6

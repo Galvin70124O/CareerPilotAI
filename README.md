@@ -30,7 +30,7 @@ A Flask web app that reads your resume (or the skills you type), predicts the ca
 | Drop exact duplicates | 11,847 |
 | Drop near-duplicates (cosine similarity > 0.9) | **10,646** |
 
-Smallest category: Blockchain (35). Largest: Education (363). The result is saved as `data/resumes.parquet` (20 MB).
+Smallest category: Blockchain (35). Largest: Education (363). The result is saved as `data/resumes.parquet` (20 MB, not committed: `train.py` rebuilds it automatically when it's missing).
 
 ## Model and honest accuracy
 
@@ -61,6 +61,8 @@ python -m venv venv
 .\venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 
+# model.pkl is already in the repo, so you can skip training.
+# To retrain (downloads the dataset the first time):
 python train.py           # full evaluation (~4 min) + creates model.pkl
 # or: python train.py --quick   (no evaluation, ~1 min)
 python app.py             # open http://localhost:10000
@@ -76,8 +78,10 @@ To rebuild the dataset from Hugging Face: `python data/prepare_data.py`
 
 `render.yaml` is a Render Blueprint. On Render: **New → Blueprint → pick this repo**.
 
-- Build: `pip install -r requirements.txt && python train.py --quick` (about 1 minute, peak ~434 MB RAM, creates a 10 MB `model.pkl`)
+- Build: `pip install -r requirements.txt` only. Render does **not** train; it uses the committed `model.pkl` (10 MB).
 - Start: `gunicorn app:app --bind 0.0.0.0:$PORT`
+- Python is pinned to 3.12.6 (`PYTHON_VERSION` in `render.yaml` and `.python-version`), and `requirements.txt` pins scikit-learn 1.5.1, the same versions that trained `model.pkl`. At startup the app logs `Model trained with scikit-learn X, installed scikit-learn Y` and warns if they differ.
+- After retraining locally, commit the new `model.pkl`.
 
 ## Project files
 

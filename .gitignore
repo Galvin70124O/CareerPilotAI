@@ -7,9 +7,15 @@ venv/
 .venv/
 env/
 
-# Trained model files (rebuild them with: python train.py)
+# Trained model files. model.pkl IS committed, so Render can serve it without training.
+# After retraining (python train.py), commit the new model.pkl.
 *.pkl
+!model.pkl
 *.joblib
+
+# Prepared dataset (~20 MB). Rebuilt by: python data/prepare_data.py
+# (train.py also does this automatically when the file is missing)
+data/resumes.parquet
 
 # Secrets / local settings
 .env

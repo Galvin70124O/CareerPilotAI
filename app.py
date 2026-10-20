@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request, render_template
 import joblib
+import logging
 import os
+import sklearn
 from werkzeug.utils import secure_filename
 from docx import Document
 from pypdf import PdfReader
@@ -79,10 +81,19 @@ def fetch_job_listings(job_title, limit=5):
 MODEL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "model.pkl")
 MODEL_MISSING_MESSAGE = "Model file not found. Run 'python train.py' first, then restart the app."
 
+logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
+logger = logging.getLogger("careerpilot")
+
 if os.path.exists(MODEL_PATH):
     model = joblib.load(MODEL_PATH)
+    # model.pkl is committed and loaded as-is on Render, so the scikit-learn versions must match
+    trained_with = getattr(model, "trained_with_sklearn", "unknown")
+    logger.info("Model trained with scikit-learn %s, installed scikit-learn %s", trained_with, sklearn.__version__)
+    if trained_with != sklearn.__version__:
+        logger.warning("scikit-learn version mismatch! Install scikit-learn==%s or retrain with: python train.py",
+                       trained_with)
 else:
-    print("⚠️", MODEL_MISSING_MESSAGE)
+    logger.warning(MODEL_MISSING_MESSAGE)
     model = None
 
 

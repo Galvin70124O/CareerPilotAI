@@ -116,3 +116,9 @@ def test_pdf_upload_extracts_and_predicts(monkeypatch):
     assert "Skills found in your resume" in html
     assert "machine learning" in html
     assert 'aria-label="Resume score' in html
+
+
+def test_model_records_its_scikit_learn_version():
+    # model.pkl is committed and loaded on Render; it must say which scikit-learn trained it
+    import sklearn
+    assert app.model.trained_with_sklearn == sklearn.__version__

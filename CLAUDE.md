@@ -18,12 +18,13 @@ A Flask web app that suggests a career path from resume text. Built by a CSE stu
 | `courses.json` | Free resources per skill; only URLs verified with HTTP 200 (2026-10-20). Never add unverified links |
 | `templates/partials/` | One Jinja partial per feature card |
 | `train.py` | Honest evaluation (held-out test + CV inside a Pipeline), trains final model, saves `model.pkl`. `--quick` skips evaluation |
-| `data/prepare_data.py` | Downloads + cleans ResumeAtlas, saves `data/resumes.parquet` (committed, ~20 MB) |
+| `data/prepare_data.py` | Downloads + cleans ResumeAtlas, saves `data/resumes.parquet` (~20 MB, git-ignored; `train.py` rebuilds it if missing) |
+| `model.pkl` | Committed trained model (10 MB). Retrain locally and commit it; Render doesn't train |
 | `skills.json` | 8 key skills per career (43 careers), chosen by how often that category's resumes mention them |
 | `templates/index.html` | The only page. Bootstrap + custom dark CSS, browser speech-to-text |
 | `tests/` | pytest (`pytest.ini` sets the path) |
 | `chatbot.py` | CLI demo, loads `model.pkl` |
-| `render.yaml` | Render blueprint: build runs `train.py --quick`, start runs gunicorn on `$PORT` |
+| `render.yaml` | Render blueprint: build is only `pip install`, start runs gunicorn on `$PORT`; Python pinned to 3.12.6 (also `.python-version`) to match the training machine |
 
 ## How to run
 
@@ -38,7 +39,8 @@ python -m pytest
 
 - `TfidfVectorizer(preprocessor=normalize_text, stop_words='english', ngram_range=(1, 1), sublinear_tf=True, min_df=2, max_features=50000)`
 - `CalibratedClassifierCV(LinearSVC(C=0.5, class_weight='balanced'), cv=3, ensemble=False)`
-- Unigrams only because bigrams needed ~930 MB RAM to train (Render free tier: 512 MB). Deploy training peaks at ~434 MB.
+- Unigrams only because bigrams needed ~930 MB RAM to train. Training peaks at ~434 MB (local only now).
+- `train.py` stores `model.trained_with_sklearn`; `app.py` logs it vs the installed version at startup.
 - Held-out test: 80.2% accuracy, macro F1 0.80, top-3 93.6%.
 
 ## Dataset facts (checked)
