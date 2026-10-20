@@ -185,6 +185,12 @@ def home():
         source=source
     )
 
+@app.route("/health")
+def health():
+    # Render calls this to check the app is alive. Keep it tiny: no model, no API calls.
+    return "ok", 200
+
+
 @app.route("/api/simulate", methods=["POST"])
 def api_simulate():
     """What-If Simulator. Input JSON: {"text", "career", "skills": [...], "is_resume"}."""

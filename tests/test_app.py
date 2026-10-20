@@ -145,3 +145,19 @@ def test_simulate_api_returns_display_names(monkeypatch):
     result = simulate_api({"text": ADVOCATE_TEXT, "career": "Advocate", "skills": ["counseling"]}, monkeypatch).get_json()
     assert result["career_label"] == "Advocate (Legal & Social Services)"
     assert all("label" in c for c in result["after"]["top_careers"])
+
+
+def test_health_route():
+    response = app.app.test_client().get("/health")
+    assert response.status_code == 200
+    assert response.get_data(as_text=True) == "ok"
+
+
+def test_render_yaml_uses_health_route_and_no_training():
+    with open("render.yaml", encoding="utf-8") as f:
+        render = f.read()
+    assert "healthCheckPath: /health" in render
+    assert "buildCommand: pip install -r requirements.txt\n" in render
+    assert "train.py" not in render.split("buildCommand:")[1].split("\n")[0]
+    assert "gunicorn app:app --bind 0.0.0.0:$PORT" in render
+    assert "value: 3.12.6" in render

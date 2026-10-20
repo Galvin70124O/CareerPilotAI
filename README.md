@@ -82,7 +82,7 @@ To rebuild the dataset from Hugging Face: `python data/prepare_data.py`
 
 ## Deploy to Render
 
-`render.yaml` is a Render Blueprint. On Render: **New → Blueprint → pick this repo**.
+`render.yaml` is a Render Blueprint. Step-by-step instructions: [DEPLOY.md](DEPLOY.md). Short version: **New → Blueprint → pick this repo**.
 
 - Build: `pip install -r requirements.txt` only. Render does **not** train; it uses the committed `model.pkl` (10 MB).
 - Start: `gunicorn app:app --bind 0.0.0.0:$PORT`
