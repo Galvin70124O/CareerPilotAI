@@ -73,3 +73,38 @@ def test_courses_shown_for_missing_skills(monkeypatch):
     html = post({"input_text": "java"}, monkeypatch)
     assert "Free resources for your missing skills" in html
     assert "spring.io/guides" in html
+
+
+def simulate_api(payload, monkeypatch):
+    monkeypatch.setattr(app, "fetch_job_listings", lambda title, limit=5: [])
+    return app.app.test_client().post("/api/simulate", json=payload)
+
+
+def test_simulator_shown_with_missing_skills(monkeypatch):
+    html = post({"input_text": "java"}, monkeypatch)
+    assert "What if you learned" in html
+    assert 'id="cp-sim-data"' in html
+
+
+def test_simulate_api_before_after(monkeypatch):
+    response = simulate_api({"text": "java", "career": "Java Developer",
+                             "skills": ["spring", "hibernate"], "is_resume": False}, monkeypatch)
+    assert response.status_code == 200
+    result = response.get_json()
+    assert result["after"]["skill_gap_percent"] > result["before"]["skill_gap_percent"]
+    assert result["before"]["resume_score"] is None
+    assert len(result["after"]["top_careers"]) == 3
+
+
+def test_simulate_api_rejects_bad_input(monkeypatch):
+    assert simulate_api({"text": "java", "career": "Astronaut", "skills": ["x"]}, monkeypatch).status_code == 400
+    assert simulate_api({"text": "java", "career": "Java Developer", "skills": ["not-a-key-skill"]}, monkeypatch).status_code == 400
+    assert simulate_api({"text": "", "career": "Java Developer", "skills": ["spring"]}, monkeypatch).status_code == 400
+    assert simulate_api({"career": "Java Developer"}, monkeypatch).status_code == 400
+
+
+def test_simulator_data_is_safely_escaped(monkeypatch):
+    # A resume containing </script> must not break out of the JSON <script> block
+    html = post({"resume_file": (io.BytesIO(b"Python dev </script><b>x</b> " * 5), "cv.txt")}, monkeypatch)
+    data_block = html.split('id="cp-sim-data">')[1].split("</script>")[0]
+    assert "<b>" not in data_block

@@ -1,0 +1,88 @@
+{# What-If Simulator. Needs: skill_gap (for the missing skills) and simulator_data #}
+<div class="cp-bot-message" id="cp-simulator">
+  <b>🔮 What if you learned…?</b>
+  <div style="font-size:0.85em; color:var(--subtle);">Tick skills you could add, then see how your results would change.</div>
+  <div class="cp-sim-options">
+    {% for skill in skill_gap.missing %}
+      <label class="cp-sim-option"><input type="checkbox" value="{{ skill }}"> {{ skill }}</label>
+    {% endfor %}
+  </div>
+  <button type="button" class="cp-btn" id="cp-sim-button" style="width:100%;" onclick="runSimulation()">Simulate</button>
+  <div id="cp-sim-error" class="alert alert-danger py-1 px-2 mt-2" style="display:none;"></div>
+  <div id="cp-sim-result" class="mt-2"></div>
+</div>
+
+<!-- tojson safely puts the data into the page for the script below -->
+<script type="application/json" id="cp-sim-data">{{ simulator_data|tojson }}</script>
+<script>
+function runSimulation() {
+  var data = JSON.parse(document.getElementById("cp-sim-data").textContent);
+  var boxes = document.querySelectorAll("#cp-simulator input[type=checkbox]:checked");
+  var skills = Array.from(boxes).map(function (box) { return box.value; });
+  var errorBox = document.getElementById("cp-sim-error");
+  errorBox.style.display = "none";
+  if (skills.length === 0) {
+    errorBox.textContent = "Tick at least one skill first.";
+    errorBox.style.display = "block";
+    return;
+  }
+  var button = document.getElementById("cp-sim-button");
+  button.disabled = true;
+  button.textContent = "Simulating…";
+
+  fetch("/api/simulate", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({text: data.text, career: data.career, skills: skills, is_resume: data.is_resume})
+  })
+    .then(function (response) {
+      return response.json().then(function (body) {
+        if (!response.ok) { throw new Error(body.error || "Something went wrong."); }
+        return body;
+      });
+    })
+    .then(showSimulation)
+    .catch(function (error) {
+      errorBox.textContent = error.message;
+      errorBox.style.display = "block";
+    })
+    .finally(function () {
+      button.disabled = false;
+      button.textContent = "Simulate";
+    });
+}
+
+// Build the before -> after table with textContent (never innerHTML), so no text is treated as HTML
+function showSimulation(result) {
+  var before = result.before, after = result.after;
+  var rows = [
+    ["Top career", before.top_careers[0].career, after.top_careers[0].career],
+    ["Confidence", before.top_careers[0].percent + "%", after.top_careers[0].percent + "%"],
+    ["Top 3",
+      before.top_careers.map(function (c) { return c.career + " " + c.percent + "%"; }).join(", "),
+      after.top_careers.map(function (c) { return c.career + " " + c.percent + "%"; }).join(", ")],
+    ["Skill gap (" + result.career + ")", before.skill_gap_percent + "%", after.skill_gap_percent + "%"]
+  ];
+  if (before.resume_score !== null) {
+    rows.push(["Resume score", before.resume_score + "/100", after.resume_score + "/100"]);
+  }
+  var table = document.createElement("table");
+  table.className = "cp-sim-table";
+  var header = table.insertRow();
+  ["", "Before", "After"].forEach(function (text) {
+    var th = document.createElement("th");
+    th.textContent = text;
+    header.appendChild(th);
+  });
+  rows.forEach(function (row) {
+    var tr = table.insertRow();
+    row.forEach(function (text, i) {
+      var cell = tr.insertCell();
+      cell.textContent = text;
+      if (i === 2 && row[1] !== row[2]) { cell.className = "changed"; }
+    });
+  });
+  var box = document.getElementById("cp-sim-result");
+  box.replaceChildren(table);
+}
+</script>

@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, jsonify, request, render_template
 import joblib
 import os
 from werkzeug.utils import secure_filename
@@ -9,13 +9,15 @@ import requests
 from features.courses import recommend_courses
 from features.resume_score import score_resume
 from features.roadmap import build_roadmap
-from features.skills import analyze_skill_gap, extract_skills_from_text
+from features.simulator import simulate
+from features.skills import CAREER_SKILLS, analyze_skill_gap, extract_skills_from_text
 
 # -----------------------------
 # CONFIGURATION
 # -----------------------------
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'docx'}
 MAX_CONTENT_LENGTH = 2 * 1024 * 1024  # 2MB
+MAX_SIMULATE_TEXT = 100_000           # characters accepted by /api/simulate
 
 # -----------------------------
 # FLASK SETUP
@@ -103,6 +105,7 @@ def home():
     resume_score = None  # result of score_resume (only for uploaded resumes)
     roadmap = None       # result of build_roadmap for the top career
     courses = []         # free resources for each missing skill
+    simulator_data = None  # what the What-If Simulator needs to send back to /api/simulate
     error = ""
     source = ""          # "resume" or "text", so the page can say what we predicted from
 
@@ -144,6 +147,8 @@ def home():
             skill_gap = analyze_skill_gap(top_careers[0]["career"], text_to_predict)
             roadmap = build_roadmap(top_careers[0]["career"], text_to_predict)
             courses = recommend_courses(skill_gap["missing"])
+            simulator_data = {"text": text_to_predict, "career": top_careers[0]["career"],
+                              "is_resume": source == "resume"}
             job_results = fetch_job_listings(top_careers[0]["career"])
             if source == "resume":
                 # The score needs the RAW resume (line breaks, bullets, emails), not cleaned text
@@ -159,9 +164,31 @@ def home():
         resume_score=resume_score,
         roadmap=roadmap,
         courses=courses,
+        simulator_data=simulator_data,
         error=error,
         source=source
     )
+
+@app.route("/api/simulate", methods=["POST"])
+def api_simulate():
+    """What-If Simulator. Input JSON: {"text", "career", "skills": [...], "is_resume"}."""
+    if model is None:
+        return jsonify({"error": MODEL_MISSING_MESSAGE}), 503
+    data = request.get_json(silent=True) or {}
+    text = data.get("text")
+    career = data.get("career")
+    skills = data.get("skills")
+
+    # Check the input: only accept skills from this career's key skill list
+    if not isinstance(text, str) or not text.strip() or len(text) > MAX_SIMULATE_TEXT:
+        return jsonify({"error": "Missing or too long text."}), 400
+    if career not in CAREER_SKILLS:
+        return jsonify({"error": "Unknown career."}), 400
+    if not isinstance(skills, list) or not skills or any(s not in CAREER_SKILLS[career] for s in skills):
+        return jsonify({"error": "Pick at least one skill from the list."}), 400
+
+    result = simulate(text, career, skills, bool(data.get("is_resume")), predict_top_careers)
+    return jsonify(result)
 
 # -----------------------------
 # APP START
