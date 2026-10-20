@@ -67,8 +67,24 @@ def test_no_skills_returns_empty():
 
 def test_skill_display_names():
     from features.skills import display_skill
-    assert [display_skill(s) for s in ["r", "c", "c#", "c++", "node.js", "asp.net", "sql", "machine learning"]] == \
-        ["R", "C", "C#", "C++", "Node.js", "ASP.NET", "SQL", "machine learning"]
+    assert [display_skill(s) for s in ["r", "c", "c#", "c++", "node.js", "asp.net", "sql"]] == \
+        ["R", "C", "C#", "C++", "Node.js", "ASP.NET", "SQL"]
+
+
+def test_title_case_fallback_for_other_skills():
+    from features.skills import display_skill
+    assert display_skill("machine learning") == "Machine Learning"
+    assert display_skill("data science") == "Data Science"
+    assert display_skill("self-motivation") == "Self-Motivation"
+    assert display_skill("health and fitness") == "Health and Fitness"   # small words stay lowercase
+    assert display_skill("sql server") == "SQL Server"                   # the mapping wins over Title Case
+
+
+def test_every_found_skill_is_properly_cased():
+    from features.skills import KNOWN_SKILLS, display_skill
+    for skill in KNOWN_SKILLS:
+        shown = display_skill(skill)
+        assert shown[0].isupper() or not shown[0].isalpha(), (skill, shown)
 
 
 def test_search_links_use_display_names():

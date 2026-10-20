@@ -14,7 +14,7 @@ def test_known_skill_gets_real_resources():
 def test_unknown_skill_gets_search_link():
     result = recommend_courses(["underwater basket weaving"])[0]
     assert result["resources"][0]["is_search"]
-    assert "youtube.com/results?search_query=underwater+basket+weaving" in result["resources"][0]["url"]
+    assert "youtube.com/results?search_query=underwater+basket+weaving" in result["resources"][0]["url"].lower()
 
 
 def test_order_is_kept():

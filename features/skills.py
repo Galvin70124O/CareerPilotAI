@@ -108,13 +108,31 @@ SKILL_DISPLAY_NAMES = {
     "sap sd": "SAP SD", "alv": "ALV", "bapi": "BAPI", "pmo": "PMO", "crm": "CRM", "hris": "HRIS",
     "osha": "OSHA", "cpr": "CPR", "iep": "IEP", "brd": "BRD", "jira": "Jira", "agile": "Agile", "scrum": "Scrum",
     "selenium": "Selenium", "istqb": "ISTQB", "ase": "ASE", "arduino": "Arduino", "raspberry pi": "Raspberry Pi",
-    "qa/qc": "QA/QC", "llb": "LLB",
+    "qa/qc": "QA/QC", "llb": "LLB", "3d modeling": "3D Modeling", "ux": "UX", "ui": "UI", "sla": "SLA",
+    "kyc": "KYC", "aml": "AML", "ppc": "PPC", "kpi": "KPI", "ms project": "MS Project", "power bi": "Power BI",
+    "nec": "NEC", "bpo": "BPO", "hr": "HR", "it": "IT", "api": "API", "sdk": "SDK", "ai": "AI", "ml": "ML",
+    # Words the model sees without punctuation (see features/text_cleaning.py)
+    "scikitlearn": "scikit-learn", "nodejs": "Node.js", "aspnet": "ASP.NET", "cicd": "CI/CD", "reactjs": "React",
 }
+
+SMALL_WORDS = {"and", "or", "of", "for", "in", "on", "the", "a", "an", "to", "with"}
+
+
+def title_case(name):
+    """ "machine learning" -> "Machine Learning", "self-motivation" -> "Self-Motivation",
+    "health and fitness" -> "Health and Fitness" (small words stay lowercase). """
+    words = []
+    for i, word in enumerate(name.split()):
+        if i > 0 and word in SMALL_WORDS:
+            words.append(word)
+        else:
+            words.append("-".join(part[:1].upper() + part[1:] for part in word.split("-")))
+    return " ".join(words)
 
 
 def display_skill(skill):
-    """The name to show for a skill: "r" -> "R", "node.js" -> "Node.js"; other skills unchanged."""
-    return SKILL_DISPLAY_NAMES.get(skill, skill)
+    """The name to show for a skill: the mapping above ("r" -> "R", "c#" -> "C#"), else Title Case."""
+    return SKILL_DISPLAY_NAMES.get(skill, title_case(skill))
 
 
 def analyze_skill_gap(career, text):

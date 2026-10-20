@@ -9,6 +9,7 @@ from pypdf import PdfReader
 
 from features.careers import display_name
 from features.courses import recommend_courses
+from features.explain import top_contributing_terms
 from features.jobs import fetch_job_listings
 from features.resume_score import score_resume
 from features.roadmap import build_roadmap
@@ -102,6 +103,7 @@ def home():
     skill_gap = None     # result of analyze_skill_gap for the top career
     resume_score = None  # result of score_resume (only for uploaded resumes)
     roadmap = None       # result of build_roadmap for the top career
+    why_terms = []       # words in the text that pushed the top career the most
     courses = []         # free resources for each missing skill
     simulator_data = None  # what the What-If Simulator needs to send back to /api/simulate
     error = ""
@@ -144,6 +146,7 @@ def home():
         if text_to_predict:
             top_careers = predict_top_careers(text_to_predict)
             skill_gap = analyze_skill_gap(top_careers[0]["career"], text_to_predict)
+            why_terms = top_contributing_terms(model, text_to_predict, top_careers[0]["career"])
             roadmap = build_roadmap(top_careers[0]["career"], text_to_predict)
             courses = recommend_courses(skill_gap["missing"])
             simulator_data = {"text": text_to_predict, "career": top_careers[0]["career"],
@@ -163,6 +166,7 @@ def home():
         skill_gap=skill_gap,
         resume_score=resume_score,
         roadmap=roadmap,
+        why_terms=why_terms,
         courses=courses,
         simulator_data=simulator_data,
         error=error,

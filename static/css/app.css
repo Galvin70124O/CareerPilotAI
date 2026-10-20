@@ -327,6 +327,7 @@ button, input, textarea { font: inherit; color: inherit; }
 .chip-success { background: var(--success-soft); border-color: var(--success-border); }
 .chip-success .icon { color: var(--success); }
 .chip-missing { background: transparent; border-style: dashed; border-color: var(--border-strong); color: var(--text-muted); }
+.chip-accent { background: var(--accent-soft); border-color: var(--accent-border); color: var(--accent-text); }
 
 /* Badges */
 .badge {
@@ -679,6 +680,9 @@ button, input, textarea { font: inherit; color: inherit; }
 .career-name { font-weight: 500; }
 .career-rank { color: var(--text-subtle); font-variant-numeric: tabular-nums; margin-right: var(--space-2); }
 .career-percent { font-variant-numeric: tabular-nums; color: var(--text-muted); }
+.why-match { margin-top: var(--space-6); }
+.why-match-text { font-size: var(--text-sm); color: var(--text-muted); margin-bottom: var(--space-3); }
+.why-match-text strong { color: var(--text); font-weight: 600; }
 .career-row:not(:first-child) .bar::-webkit-progress-value { background: var(--accent-border); }
 .career-row:not(:first-child) .bar::-moz-progress-bar { background: var(--accent-border); }
 :root[data-theme="dark"] .career-row:not(:first-child) .bar::-webkit-progress-value { background: #4b4f9c; }

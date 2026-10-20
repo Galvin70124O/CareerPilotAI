@@ -18,4 +18,16 @@
       </li>
     {% endfor %}
   </ol>
+
+  {% if why_terms %}
+    {# The words that pushed the top career most (features/explain.py: TF-IDF value x model weight) #}
+    <div class="card-section why-match" data-why-match>
+      <p class="section-label">{{ icon("lightbulb", 14) }} Why this match</p>
+      <p class="why-match-text">Words in your {{ "resume" if source == "resume" else "skills" }} that pushed
+        <strong>{{ top_careers[0].label }}</strong> the most:</p>
+      <ul class="chips">
+        {% for term in why_terms %}<li class="chip chip-accent">{{ term|display_skill }}</li>{% endfor %}
+      </ul>
+    </div>
+  {% endif %}
 </article>
