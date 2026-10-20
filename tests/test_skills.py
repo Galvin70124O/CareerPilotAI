@@ -1,4 +1,4 @@
-from app import extract_skills_from_text
+from features.skills import extract_skills_from_text
 
 
 def skills(text):
