@@ -12,8 +12,8 @@ A Flask web app that suggests a career path from resume text. Built by a CSE stu
 
 | File | Purpose |
 |---|---|
-| `app.py` | Flask app: loads `model.pkl`, reads uploads (pypdf, python-docx), top-3 prediction, Remotive jobs; routes `/` and `/api/simulate` |
-| `features/` | One module per feature: `text_cleaning`, `skills`, `resume_score` (weights in `SCORE_WEIGHTS`), `roadmap`, `courses`, `simulator` |
+| `app.py` | Flask app: loads `model.pkl`, reads uploads (pypdf, python-docx), top-3 prediction; routes `/`, `/api/simulate`, `/health` |
+| `features/` | One module per feature: `text_cleaning`, `skills`, `resume_score` (weights in `SCORE_WEIGHTS`), `roadmap`, `courses`, `simulator`, `jobs` (Remotive, 4 s timeout, 30-min cache, `None` = API failed), `careers` (display names) |
 | `roadmaps.json` | 3 stages x 3 steps per career; each step has a `skill` keyword used to tick it |
 | `courses.json` | Free resources per skill; only URLs verified with HTTP 200 (2026-10-20). Never add unverified links |
 | `templates/partials/` | One Jinja partial per feature card |

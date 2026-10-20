@@ -13,7 +13,7 @@ A Flask web app that reads your resume (or the skills you type), predicts the ca
 | **Career Roadmap** | Beginner → Intermediate → Job-ready steps for your top career (`roadmaps.json`). Steps you already cover are ticked; missing ones come first. |
 | **Course Recommender** | 1–2 free resources per missing skill (official docs, Kaggle Learn, freeCodeCamp, Microsoft Learn, NPTEL, Khan Academy…). Every link in `courses.json` was checked to return HTTP 200 on 2026-10-20; skills without one get a YouTube search link. |
 | **What-If Simulator** | Tick missing skills, click Simulate, and see before → after for the top 3 careers, confidence, skill gap and resume score. |
-| **Live remote jobs** | Jobs for your top career from the [Remotive API](https://remotive.com/api/remote-jobs). |
+| **Live remote jobs** | Jobs for your top career from the [Remotive API](https://remotive.com/api/remote-jobs) (4 s timeout, cached per career for 30 minutes). If the API fails, the page says "Live jobs are unavailable right now". |
 
 ## Dataset
 
@@ -94,7 +94,7 @@ To rebuild the dataset from Hugging Face: `python data/prepare_data.py`
 | Path | Purpose |
 |---|---|
 | `app.py` | Flask routes: `/` (the page) and `/api/simulate` (What-If Simulator) |
-| `features/` | One module per feature: `text_cleaning`, `skills`, `resume_score`, `roadmap`, `courses`, `simulator` |
+| `features/` | One module per feature: `text_cleaning`, `skills`, `resume_score`, `roadmap`, `courses`, `simulator`, `jobs`, `careers` |
 | `train.py` | Evaluation + training, saves `model.pkl` |
 | `data/prepare_data.py` | Downloads and cleans ResumeAtlas |
 | `skills.json`, `roadmaps.json`, `courses.json` | Key skills, roadmaps and free courses per career |

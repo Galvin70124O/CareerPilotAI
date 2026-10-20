@@ -6,10 +6,10 @@ import sklearn
 from werkzeug.utils import secure_filename
 from docx import Document
 from pypdf import PdfReader
-import requests
 
 from features.careers import display_name
 from features.courses import recommend_courses
+from features.jobs import fetch_job_listings
 from features.resume_score import score_resume
 from features.roadmap import build_roadmap
 from features.simulator import simulate
@@ -56,27 +56,6 @@ def extract_text_from_resume(file_storage):
     return text.strip()
 
 
-def fetch_job_listings(job_title, limit=5):
-    try:
-        response = requests.get(
-            "https://remotive.io/api/remote-jobs",
-            params={"search": job_title, "limit": str(limit)},
-            timeout=10
-        )
-        jobs = []
-        if response.ok:
-            job_data = response.json()
-            for job in job_data.get("jobs", [])[:limit]:
-                jobs.append({
-                    "title": job["title"],
-                    "company": job["company_name"],
-                    "url": job["url"],
-                    "location": job["candidate_required_location"]
-                })
-        return jobs
-    except Exception:
-        return []
-
 # -----------------------------
 # MODEL LOADING
 # -----------------------------
@@ -116,7 +95,7 @@ def home():
     input_text = ""      # what the user typed (shown again in the text box)
     found_skills = ""    # skills found in the uploaded resume
     top_careers = []     # [{"career": ..., "percent": ...}, ...]
-    job_results = []
+    job_results = []     # live jobs; None means the jobs API failed
     skill_gap = None     # result of analyze_skill_gap for the top career
     resume_score = None  # result of score_resume (only for uploaded resumes)
     roadmap = None       # result of build_roadmap for the top career
@@ -176,6 +155,7 @@ def home():
         found_skills=found_skills,
         top_careers=top_careers,
         job_results=job_results,
+        jobs_unavailable=job_results is None,
         skill_gap=skill_gap,
         resume_score=resume_score,
         roadmap=roadmap,

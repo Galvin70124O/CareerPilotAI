@@ -261,6 +261,7 @@
       .cp-sim-table td { padding: 5px 4px; border-top: 1px solid var(--border); vertical-align: top; word-wrap: break-word; }
       .cp-sim-table td:first-child { color: var(--label); width: 34%; word-wrap: normal; hyphens: auto; }
       .cp-sim-table td.changed { color: #3ecf8e; font-weight: 600; }
+      .cp-jobs-note { color: var(--subtle); font-size: 0.92em; padding: 6px 0; }
       .alert-danger { color: #fff; background: #aa2d2f; border: none; }
       @media (max-width: 800px) {
         .cp-container { max-width: 100%; margin: 16px; padding: 22px 16px 28px 16px; }
@@ -360,7 +361,13 @@
     {% if simulator_data and skill_gap and skill_gap.missing %}
       {% include "partials/simulator.html" %}
     {% endif %}
-    {% if job_results and top_careers %}
+    {% if top_careers and jobs_unavailable %}
+      <div class="cp-jobs-title">Live Job Listings</div>
+      <div class="cp-jobs-note">Live jobs are unavailable right now. Please try again later.</div>
+    {% elif top_careers and not job_results %}
+      <div class="cp-jobs-title">Live Job Listings</div>
+      <div class="cp-jobs-note">No remote jobs found for {{ top_careers[0].label }} right now.</div>
+    {% elif job_results and top_careers %}
       <div class="cp-jobs-title">Live Job Listings</div>
       <ul class="list-group cp-jobs-list">
         {% for job in job_results %}

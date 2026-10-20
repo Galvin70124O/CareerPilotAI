@@ -42,7 +42,7 @@ Your URL is shown at the top of the service page, like `https://careerpilotai-xx
 - Keep gunicorn at 1 worker (the default; don't add `--workers 4`).
 - Otherwise move to a paid instance with more RAM.
 
-**No "Live Job Listings".** The jobs come from the Remotive API; if it is down or slow, the page still works, just without jobs.
+**"Live jobs are unavailable right now".** The jobs come from the Remotive API (`https://remotive.com/api/remote-jobs`). If it is down or takes longer than 4 seconds, the rest of the page still works and the next upload tries again. Successful results are cached for 30 minutes per career, so new jobs can take up to 30 minutes to appear.
 
 ## Updating the app
 

@@ -161,3 +161,25 @@ def test_render_yaml_uses_health_route_and_no_training():
     assert "train.py" not in render.split("buildCommand:")[1].split("\n")[0]
     assert "gunicorn app:app --bind 0.0.0.0:$PORT" in render
     assert "value: 3.12.6" in render
+
+
+def page_with_jobs(monkeypatch, fake_result):
+    monkeypatch.setattr(app, "fetch_job_listings", lambda title, limit=5: fake_result)
+    return app.app.test_client().post("/", data={"input_text": "java spring"}).get_data(as_text=True)
+
+
+def test_jobs_api_failure_shows_unavailable_message(monkeypatch):
+    html = page_with_jobs(monkeypatch, None)
+    assert "Live jobs are unavailable right now" in html
+    assert "Recommended Career Path" in html          # the rest of the page still works
+
+
+def test_jobs_are_listed_when_api_works(monkeypatch):
+    html = page_with_jobs(monkeypatch, [{"title": "Java Engineer", "company": "Acme",
+                                         "url": "https://example.com/j", "location": "Europe"}])
+    assert "Java Engineer" in html and "unavailable" not in html
+
+
+def test_no_jobs_found_message(monkeypatch):
+    html = page_with_jobs(monkeypatch, [])
+    assert "No remote jobs found for Java Developer right now" in html
