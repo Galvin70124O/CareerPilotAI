@@ -13,14 +13,14 @@ A Flask web app that suggests a career path from resume text. Built by a CSE stu
 | File | Purpose |
 |---|---|
 | `app.py` | Flask app: loads `model.pkl`, reads uploads (pypdf, python-docx), top-3 prediction; routes `/`, `/api/simulate`, `/health` |
-| `features/` | One module per feature: `text_cleaning`, `skills`, `resume_score` (weights in `SCORE_WEIGHTS`), `roadmap`, `courses`, `simulator`, `jobs` (Remotive, 4 s timeout, 30-min cache, `None` = API failed), `careers` (display names) |
+| `features/` | One module per feature: `text_cleaning`, `skills`, `resume_score` (weights in `SCORE_WEIGHTS`), `roadmap`, `courses`, `simulator`, `jobs` (Remotive: one shared feed, 4 s timeout, 30-min cache, `None` = API failed; filters titles by `job_keywords`, fills with `related` jobs if < 3 match; page must credit Remotive), `careers` (display names) |
 | `roadmaps.json` | 3 stages x 3 steps per career; each step has a `skill` keyword used to tick it |
 | `courses.json` | Free resources per skill; only URLs verified with HTTP 200 (2026-10-20). Never add unverified links |
 | `templates/partials/` | One Jinja partial per feature card |
 | `train.py` | Honest evaluation (held-out test + CV inside a Pipeline), trains final model, saves `model.pkl`. `--quick` skips evaluation |
 | `data/prepare_data.py` | Downloads + cleans ResumeAtlas, saves `data/resumes.parquet` (~20 MB, git-ignored; `train.py` rebuilds it if missing) |
 | `model.pkl` | Committed trained model (10 MB). Retrain locally and commit it; Render doesn't train |
-| `skills.json` | 8 key skills per career (42 careers), chosen by how often that category's resumes mention them |
+| `skills.json` | Per career: `skills` (8 key skills, chosen by how often that category's resumes mention them) and `job_keywords` (job-title words). Loaded only by `features/skills.py` (`CAREER_SKILLS`, `JOB_KEYWORDS`) |
 | `templates/index.html` | The only page. Bootstrap + custom dark CSS, browser speech-to-text |
 | `tests/` | pytest (`pytest.ini` sets the path) |
 | `chatbot.py` | CLI demo, loads `model.pkl` |

@@ -183,3 +183,12 @@ def test_jobs_are_listed_when_api_works(monkeypatch):
 def test_no_jobs_found_message(monkeypatch):
     html = page_with_jobs(monkeypatch, [])
     assert "No remote jobs found for Java Developer right now" in html
+
+
+def test_related_jobs_are_labelled_and_remotive_is_credited(monkeypatch):
+    html = page_with_jobs(monkeypatch, [
+        {"title": "Java Engineer", "company": "Acme", "url": "https://example.com/1", "location": "EU", "related": False},
+        {"title": "Office Assistant", "company": "Beta", "url": "https://example.com/2", "location": "EU", "related": True},
+    ])
+    assert html.count('class="cp-related"') == 1
+    assert 'href="https://remotive.com"' in html

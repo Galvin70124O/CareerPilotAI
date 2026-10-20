@@ -24,10 +24,13 @@ KNOWN_SKILLS = [
     "organization", "project management", "interpersonal skills"
 ]
 
-# skills.json lists 8 key skills for each career, checked against what resumes
-# in that category of the dataset actually mention
+# skills.json has, for each career:
+#   "skills":       8 key skills, checked against what resumes in that category actually mention
+#   "job_keywords": words a matching job TITLE contains (used to filter live jobs)
 with open(os.path.join(PROJECT_DIR, "skills.json"), encoding="utf-8") as f:
-    CAREER_SKILLS = json.load(f)
+    _careers = json.load(f)
+CAREER_SKILLS = {career: info["skills"] for career, info in _careers.items()}
+JOB_KEYWORDS = {career: info["job_keywords"] for career, info in _careers.items()}
 
 
 def skill_pattern(skill):

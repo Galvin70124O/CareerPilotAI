@@ -2,9 +2,24 @@ import pytest
 import requests
 
 from features import jobs
+from features.skills import CAREER_SKILLS, JOB_KEYWORDS
 
-ONE_JOB = {"jobs": [{"title": "Data Analyst", "company_name": "Acme", "url": "https://example.com/1",
-                     "candidate_required_location": "Worldwide", "salary": "ignored"}]}
+
+def remotive_job(title, company="Acme"):
+    # The shape of one job in Remotive's JSON answer (extra fields are ignored)
+    return {"title": title, "company_name": company, "url": f"https://remotive.com/job/{title.replace(' ', '-')}",
+            "candidate_required_location": "Worldwide", "salary": "ignored"}
+
+
+FEED = {"jobs": [
+    remotive_job("Senior Data Scientist"),
+    remotive_job("Remote Office Assistant"),
+    remotive_job("Data Analyst (SQL)"),
+    remotive_job("Freelance Copywriter"),
+    remotive_job("Machine Learning Engineer"),
+    remotive_job("Smart Contract Engineer"),
+    remotive_job("Analytics Lead"),
+]}
 
 
 class FakeResponse:
@@ -32,26 +47,81 @@ def fresh_cache():
 def fake_get(response=None, error=None, calls=None):
     def get(url, params=None, timeout=None):
         if calls is not None:
-            calls.append({"url": url, "params": params, "timeout": timeout})
+            calls.append({"url": url, "timeout": timeout})
         if error:
             raise error
         return response
     return get
 
 
-def test_success_returns_jobs_and_uses_new_url_and_short_timeout(monkeypatch):
-    calls = []
-    monkeypatch.setattr(jobs.requests, "get", fake_get(FakeResponse(200, ONE_JOB), calls=calls))
+def use_feed(monkeypatch, body=FEED, calls=None):
+    monkeypatch.setattr(jobs.requests, "get", fake_get(FakeResponse(200, body), calls=calls))
+
+
+# --- job_keywords in skills.json -------------------------------------------------
+
+def test_every_career_has_job_keywords():
+    assert set(JOB_KEYWORDS) == set(CAREER_SKILLS)
+    for career, keywords in JOB_KEYWORDS.items():
+        assert keywords, career
+        assert all(k == k.lower() and k.strip() == k for k in keywords), career
+
+
+# --- relevance -------------------------------------------------------------------
+
+def test_only_matching_titles_when_enough_match(monkeypatch):
+    use_feed(monkeypatch)
     result = jobs.fetch_job_listings("Data Science")
-    assert result == [{"title": "Data Analyst", "company": "Acme", "url": "https://example.com/1", "location": "Worldwide"}]
-    assert calls[0]["url"] == "https://remotive.com/api/remote-jobs"
-    assert calls[0]["timeout"] == 4
-    assert calls[0]["params"]["search"] == "Data Science"
+    assert [j["title"] for j in result] == ["Senior Data Scientist", "Data Analyst (SQL)",
+                                            "Machine Learning Engineer", "Analytics Lead"]
+    assert not any(j["related"] for j in result)
 
 
-def test_success_with_no_jobs_returns_empty_list(monkeypatch):
-    monkeypatch.setattr(jobs.requests, "get", fake_get(FakeResponse(200, {"jobs": []})))
-    assert jobs.fetch_job_listings("Astronaut") == []
+def test_few_matches_are_filled_with_related_jobs(monkeypatch):
+    use_feed(monkeypatch)
+    result = jobs.fetch_job_listings("Digital Media")        # only "Freelance Copywriter" matches
+    assert len(result) == 5
+    assert result[0]["title"] == "Freelance Copywriter" and result[0]["related"] is False
+    assert all(j["related"] for j in result[1:])            # the rest are labelled "Related"
+
+
+def test_no_matches_gives_only_related_jobs(monkeypatch):
+    use_feed(monkeypatch)
+    result = jobs.fetch_job_listings("Aviation")
+    assert len(result) == 5 and all(j["related"] for j in result)
+
+
+def test_keywords_match_whole_words_only(monkeypatch):
+    # "art" (Arts) must not match "Smart Contract Engineer"; "ml" must not match "html"
+    assert not jobs.title_matches("Smart Contract Engineer", ["art"])
+    assert not jobs.title_matches("HTML Email Developer", ["ml engineer", "ml"])
+    assert jobs.title_matches("Senior .NET Developer", [".net"])
+    assert jobs.title_matches("ML Engineer", ["ml engineer"])
+
+
+def test_limit_is_respected(monkeypatch):
+    use_feed(monkeypatch)
+    assert len(jobs.fetch_job_listings("Data Science", limit=2)) == 2
+
+
+def test_unknown_career_gets_related_jobs(monkeypatch):
+    use_feed(monkeypatch)
+    result = jobs.fetch_job_listings("Astronaut")
+    assert result and all(j["related"] for j in result)
+
+
+# --- API success / failure -----------------------------------------------------
+
+def test_success_uses_new_url_and_short_timeout(monkeypatch):
+    calls = []
+    use_feed(monkeypatch, calls=calls)
+    jobs.fetch_job_listings("Data Science")
+    assert calls == [{"url": "https://remotive.com/api/remote-jobs", "timeout": 4}]
+
+
+def test_empty_feed_returns_empty_list(monkeypatch):
+    use_feed(monkeypatch, body={"jobs": []})
+    assert jobs.fetch_job_listings("Data Science") == []
 
 
 def test_timeout_returns_none(monkeypatch):
@@ -71,20 +141,22 @@ def test_failures_return_none(monkeypatch, response, error):
     assert jobs.fetch_job_listings("Data Science") is None
 
 
-def test_results_are_cached_per_career(monkeypatch):
+# --- cache -------------------------------------------------------------------------
+
+def test_one_download_serves_every_career(monkeypatch):
     calls = []
-    monkeypatch.setattr(jobs.requests, "get", fake_get(FakeResponse(200, ONE_JOB), calls=calls))
+    use_feed(monkeypatch, calls=calls)
     jobs.fetch_job_listings("Data Science")
-    jobs.fetch_job_listings("Data Science")      # from the cache
-    jobs.fetch_job_listings("Java Developer")    # different career -> new call
-    assert [c["params"]["search"] for c in calls] == ["Data Science", "Java Developer"]
+    jobs.fetch_job_listings("Data Science")
+    jobs.fetch_job_listings("Java Developer")
+    assert len(calls) == 1
 
 
 def test_cache_expires_after_30_minutes(monkeypatch):
     calls = []
     clock = {"now": 1000.0}
     monkeypatch.setattr(jobs.time, "monotonic", lambda: clock["now"])
-    monkeypatch.setattr(jobs.requests, "get", fake_get(FakeResponse(200, ONE_JOB), calls=calls))
+    use_feed(monkeypatch, calls=calls)
     jobs.fetch_job_listings("Data Science")
     clock["now"] += 29 * 60
     jobs.fetch_job_listings("Data Science")      # still cached
@@ -96,5 +168,5 @@ def test_cache_expires_after_30_minutes(monkeypatch):
 def test_failures_are_not_cached(monkeypatch):
     monkeypatch.setattr(jobs.requests, "get", fake_get(error=requests.Timeout()))
     assert jobs.fetch_job_listings("Data Science") is None
-    monkeypatch.setattr(jobs.requests, "get", fake_get(FakeResponse(200, ONE_JOB)))
-    assert len(jobs.fetch_job_listings("Data Science")) == 1
+    use_feed(monkeypatch)
+    assert len(jobs.fetch_job_listings("Data Science")) == 4

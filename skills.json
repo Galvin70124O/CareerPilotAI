@@ -1,44 +1,170 @@
 {
-  "Accountant": ["accounting", "tax", "payroll", "reconciliation", "financial statements", "accounts payable", "general ledger", "excel"],
-  "Advocate": ["communication", "customer service", "documentation", "legal", "court", "advocacy", "referrals", "counseling"],
-  "Agriculture": ["agriculture", "crop", "soil", "research", "irrigation", "farming", "livestock", "harvest"],
-  "Apparel": ["sales", "merchandising", "customer service", "inventory", "retail", "stock", "pricing", "fashion"],
-  "Architecture": ["autocad", "revit", "sketchup", "adobe", "architectural design", "construction documents", "rhino", "building codes"],
-  "Arts": ["art", "teaching", "curriculum", "classroom management", "adobe", "music", "painting", "lesson planning"],
-  "Automobile": ["customer service", "maintenance", "repair", "automotive", "engine", "brakes", "diagnostics", "electrical systems"],
-  "Aviation": ["aviation", "aircraft", "safety", "maintenance", "flight", "regulations", "inspection", "troubleshooting"],
-  "BPO": ["customer service", "communication", "quality", "call center", "problem solving", "data entry", "crm", "escalations"],
-  "Banking": ["banking", "sales", "credit", "customer service", "compliance", "risk", "loans", "financial analysis"],
-  "Blockchain": ["blockchain", "ethereum", "cryptocurrency", "smart contracts", "decentralized", "solidity", "javascript", "bitcoin"],
-  "Building and Construction": ["construction", "safety", "osha", "carpentry", "plumbing", "scheduling", "blueprints", "concrete"],
-  "Business Analyst": ["stakeholders", "sql", "excel", "agile", "gap analysis", "use cases", "requirements gathering", "jira"],
-  "Civil Engineer": ["construction", "civil engineering", "autocad", "structural", "project management", "inspection", "drainage", "civil 3d"],
-  "Consultant": ["communication", "project management", "consulting", "strategy", "presentations", "stakeholders", "excel", "change management"],
-  "Data Science": ["python", "machine learning", "sql", "r", "visualization", "data analysis", "statistics", "tableau"],
-  "Database": ["sql", "oracle", "backup", "recovery", "performance tuning", "linux", "replication", "mysql"],
-  "Designing": ["adobe", "photoshop", "illustrator", "graphic design", "indesign", "branding", "interior design", "autocad"],
-  "DevOps": ["aws", "jenkins", "docker", "linux", "git", "ansible", "ci/cd", "kubernetes"],
-  "Digital Media": ["content", "social media", "campaigns", "digital marketing", "adobe", "seo", "google analytics", "email marketing"],
-  "DotNet Developer": ["c#", "asp.net", "sql server", "javascript", "mvc", "visual studio", "wcf", "entity framework"],
-  "ETL Developer": ["etl", "sql", "oracle", "data warehouse", "informatica", "mappings", "unix", "ssis"],
-  "Education": ["teaching", "curriculum", "communication", "instruction", "special education", "classroom management", "differentiated", "iep"],
-  "Electrical Engineering": ["electrical", "safety", "maintenance", "troubleshooting", "wiring", "circuit", "panels", "motors"],
-  "Finance": ["accounting", "excel", "forecasting", "financial reporting", "budgeting", "financial analysis", "audit", "investment"],
-  "Food and Beverages": ["beverage", "inventory", "restaurant", "customer service", "menu", "hospitality", "catering", "sanitation"],
-  "Health and Fitness": ["fitness", "exercise", "wellness", "nutrition", "personal training", "group fitness", "coaching", "cpr"],
-  "Human Resources": ["training", "recruitment", "benefits", "compliance", "payroll", "employee relations", "onboarding", "hris"],
-  "Information Technology": ["security", "hardware", "troubleshooting", "windows", "servers", "technical support", "networking", "help desk"],
-  "Java Developer": ["java", "spring", "javascript", "sql", "hibernate", "j2ee", "junit", "rest"],
-  "Mechanical Engineer": ["manufacturing", "solidworks", "cad", "autocad", "mechanical design", "matlab", "fea", "ansys"],
-  "Network Security Engineer": ["cisco", "network security", "firewall", "lan", "routing", "vpn", "switching", "tcp/ip"],
-  "Operations Manager": ["operations", "quality", "leadership", "inventory", "safety", "scheduling", "logistics", "process improvement"],
-  "PMO": ["pmo", "project management", "reporting", "stakeholders", "agile", "portfolio", "governance", "scrum"],
-  "Public Relations": ["public relations", "communications", "marketing", "social media", "press releases", "writing", "media relations", "editing"],
-  "Python Developer": ["python", "sql", "javascript", "django", "git", "aws", "linux", "flask"],
-  "React Developer": ["javascript", "react", "html", "css", "git", "redux", "node.js", "rest"],
-  "SAP Developer": ["sap", "abap", "hana", "fiori", "netweaver", "sap sd", "alv", "bapi"],
-  "SQL Developer": ["sql", "sql server", "stored procedures", "t-sql", "ssis", "indexes", "etl", "ssrs"],
-  "Sales": ["sales", "customer service", "communication", "marketing", "retail", "targets", "negotiation", "account management"],
-  "Testing": ["test cases", "automation", "test plans", "sql", "agile", "jira", "regression testing", "selenium"],
-  "Web Designing": ["html", "javascript", "css", "photoshop", "wordpress", "jquery", "responsive", "seo"]
+  "Accountant": {
+    "skills": ["accounting", "tax", "payroll", "reconciliation", "financial statements", "accounts payable", "general ledger", "excel"],
+    "job_keywords": ["accountant", "accounting", "bookkeeper", "bookkeeping", "controller", "accounts payable", "accounts receivable", "tax", "auditor"]
+  },
+  "Advocate": {
+    "skills": ["communication", "customer service", "documentation", "legal", "court", "advocacy", "referrals", "counseling"],
+    "job_keywords": ["advocate", "lawyer", "attorney", "paralegal", "legal", "counsel", "case manager", "victim"]
+  },
+  "Agriculture": {
+    "skills": ["agriculture", "crop", "soil", "research", "irrigation", "farming", "livestock", "harvest"],
+    "job_keywords": ["agriculture", "agricultural", "agronomist", "farm", "crop", "horticulture", "food scientist"]
+  },
+  "Apparel": {
+    "skills": ["sales", "merchandising", "customer service", "inventory", "retail", "stock", "pricing", "fashion"],
+    "job_keywords": ["apparel", "fashion", "merchandiser", "retail", "stylist", "clothing", "textile"]
+  },
+  "Architecture": {
+    "skills": ["autocad", "revit", "sketchup", "adobe", "architectural design", "construction documents", "rhino", "building codes"],
+    "job_keywords": ["architect", "architectural", "bim", "revit", "urban planner", "landscape"]
+  },
+  "Arts": {
+    "skills": ["art", "teaching", "curriculum", "classroom management", "adobe", "music", "painting", "lesson planning"],
+    "job_keywords": ["artist", "art", "illustrator", "animator", "music", "creative"]
+  },
+  "Automobile": {
+    "skills": ["customer service", "maintenance", "repair", "automotive", "engine", "brakes", "diagnostics", "electrical systems"],
+    "job_keywords": ["automotive", "mechanic", "vehicle", "auto", "car"]
+  },
+  "Aviation": {
+    "skills": ["aviation", "aircraft", "safety", "maintenance", "flight", "regulations", "inspection", "troubleshooting"],
+    "job_keywords": ["aviation", "aircraft", "pilot", "flight", "aerospace", "avionics", "airline"]
+  },
+  "BPO": {
+    "skills": ["customer service", "communication", "quality", "call center", "problem solving", "data entry", "crm", "escalations"],
+    "job_keywords": ["customer service", "customer support", "call center", "support agent", "customer success", "chat support"]
+  },
+  "Banking": {
+    "skills": ["banking", "sales", "credit", "customer service", "compliance", "risk", "loans", "financial analysis"],
+    "job_keywords": ["banking", "bank", "banker", "loan", "credit analyst", "teller", "lending", "kyc", "aml"]
+  },
+  "Blockchain": {
+    "skills": ["blockchain", "ethereum", "cryptocurrency", "smart contracts", "decentralized", "solidity", "javascript", "bitcoin"],
+    "job_keywords": ["blockchain", "web3", "solidity", "smart contract", "crypto", "defi", "ethereum"]
+  },
+  "Building and Construction": {
+    "skills": ["construction", "safety", "osha", "carpentry", "plumbing", "scheduling", "blueprints", "concrete"],
+    "job_keywords": ["construction", "carpenter", "estimator", "superintendent", "building", "site manager"]
+  },
+  "Business Analyst": {
+    "skills": ["stakeholders", "sql", "excel", "agile", "gap analysis", "use cases", "requirements gathering", "jira"],
+    "job_keywords": ["business analyst", "business analysis", "requirements", "product analyst", "systems analyst"]
+  },
+  "Civil Engineer": {
+    "skills": ["construction", "civil engineering", "autocad", "structural", "project management", "inspection", "drainage", "civil 3d"],
+    "job_keywords": ["civil engineer", "civil", "structural engineer", "site engineer", "geotechnical"]
+  },
+  "Consultant": {
+    "skills": ["communication", "project management", "consulting", "strategy", "presentations", "stakeholders", "excel", "change management"],
+    "job_keywords": ["consultant", "consulting", "advisor", "advisory"]
+  },
+  "Data Science": {
+    "skills": ["python", "machine learning", "sql", "r", "visualization", "data analysis", "statistics", "tableau"],
+    "job_keywords": ["data scientist", "data science", "data analyst", "machine learning", "ml engineer", "analytics"]
+  },
+  "Database": {
+    "skills": ["sql", "oracle", "backup", "recovery", "performance tuning", "linux", "replication", "mysql"],
+    "job_keywords": ["database", "dba", "database administrator", "postgres", "postgresql", "oracle"]
+  },
+  "Designing": {
+    "skills": ["adobe", "photoshop", "illustrator", "graphic design", "indesign", "branding", "interior design", "autocad"],
+    "job_keywords": ["designer", "ui", "ux", "graphic", "product designer", "visual designer"]
+  },
+  "DevOps": {
+    "skills": ["aws", "jenkins", "docker", "linux", "git", "ansible", "ci/cd", "kubernetes"],
+    "job_keywords": ["devops", "sre", "site reliability", "platform engineer", "cloud engineer", "infrastructure", "kubernetes"]
+  },
+  "Digital Media": {
+    "skills": ["content", "social media", "campaigns", "digital marketing", "adobe", "seo", "google analytics", "email marketing"],
+    "job_keywords": ["digital marketing", "social media", "content", "seo", "marketing", "media", "copywriter"]
+  },
+  "DotNet Developer": {
+    "skills": ["c#", "asp.net", "sql server", "javascript", "mvc", "visual studio", "wcf", "entity framework"],
+    "job_keywords": [".net", "c#", "dotnet", "asp.net", "net developer"]
+  },
+  "ETL Developer": {
+    "skills": ["etl", "sql", "oracle", "data warehouse", "informatica", "mappings", "unix", "ssis"],
+    "job_keywords": ["etl", "data engineer", "informatica", "data warehouse", "data integration"]
+  },
+  "Education": {
+    "skills": ["teaching", "curriculum", "communication", "instruction", "special education", "classroom management", "differentiated", "iep"],
+    "job_keywords": ["teacher", "tutor", "instructor", "education", "curriculum", "teaching", "academic"]
+  },
+  "Electrical Engineering": {
+    "skills": ["electrical", "safety", "maintenance", "troubleshooting", "wiring", "circuit", "panels", "motors"],
+    "job_keywords": ["electrical", "electrician", "electrical engineer", "power systems", "controls engineer", "hardware engineer"]
+  },
+  "Finance": {
+    "skills": ["accounting", "excel", "forecasting", "financial reporting", "budgeting", "financial analysis", "audit", "investment"],
+    "job_keywords": ["finance", "financial analyst", "financial", "fp&a", "investment", "treasury"]
+  },
+  "Food and Beverages": {
+    "skills": ["beverage", "inventory", "restaurant", "customer service", "menu", "hospitality", "catering", "sanitation"],
+    "job_keywords": ["food", "beverage", "restaurant", "chef", "cook", "hospitality", "barista"]
+  },
+  "Health and Fitness": {
+    "skills": ["fitness", "exercise", "wellness", "nutrition", "personal training", "group fitness", "coaching", "cpr"],
+    "job_keywords": ["fitness", "trainer", "coach", "wellness", "health coach", "nutrition"]
+  },
+  "Human Resources": {
+    "skills": ["training", "recruitment", "benefits", "compliance", "payroll", "employee relations", "onboarding", "hris"],
+    "job_keywords": ["hr", "human resources", "recruiter", "recruiting", "talent acquisition", "people operations", "people partner"]
+  },
+  "Information Technology": {
+    "skills": ["security", "hardware", "troubleshooting", "windows", "servers", "technical support", "networking", "help desk"],
+    "job_keywords": ["it support", "it specialist", "system administrator", "sysadmin", "help desk", "service desk", "it technician", "network administrator"]
+  },
+  "Java Developer": {
+    "skills": ["java", "spring", "javascript", "sql", "hibernate", "j2ee", "junit", "rest"],
+    "job_keywords": ["java", "spring", "jvm", "kotlin", "back-end", "backend"]
+  },
+  "Mechanical Engineer": {
+    "skills": ["manufacturing", "solidworks", "cad", "autocad", "mechanical design", "matlab", "fea", "ansys"],
+    "job_keywords": ["mechanical", "mechanical engineer", "cad", "manufacturing engineer", "design engineer"]
+  },
+  "Network Security Engineer": {
+    "skills": ["cisco", "network security", "firewall", "lan", "routing", "vpn", "switching", "tcp/ip"],
+    "job_keywords": ["network engineer", "security engineer", "cybersecurity", "security", "soc analyst", "firewall", "network"]
+  },
+  "Operations Manager": {
+    "skills": ["operations", "quality", "leadership", "inventory", "safety", "scheduling", "logistics", "process improvement"],
+    "job_keywords": ["operations", "operations manager", "logistics", "supply chain", "ops"]
+  },
+  "PMO": {
+    "skills": ["pmo", "project management", "reporting", "stakeholders", "agile", "portfolio", "governance", "scrum"],
+    "job_keywords": ["project manager", "program manager", "pmo", "project coordinator", "scrum master", "delivery manager"]
+  },
+  "Public Relations": {
+    "skills": ["public relations", "communications", "marketing", "social media", "press releases", "writing", "media relations", "editing"],
+    "job_keywords": ["public relations", "pr", "communications", "media relations", "publicist", "writer"]
+  },
+  "Python Developer": {
+    "skills": ["python", "sql", "javascript", "django", "git", "aws", "linux", "flask"],
+    "job_keywords": ["python", "django", "flask", "back-end", "backend"]
+  },
+  "React Developer": {
+    "skills": ["javascript", "react", "html", "css", "git", "redux", "node.js", "rest"],
+    "job_keywords": ["react", "frontend", "front-end", "javascript", "react native", "full-stack"]
+  },
+  "SAP Developer": {
+    "skills": ["sap", "abap", "hana", "fiori", "netweaver", "sap sd", "alv", "bapi"],
+    "job_keywords": ["sap", "abap", "fiori", "s/4hana"]
+  },
+  "SQL Developer": {
+    "skills": ["sql", "sql server", "stored procedures", "t-sql", "ssis", "indexes", "etl", "ssrs"],
+    "job_keywords": ["sql", "database developer", "bi developer", "sql server", "data analyst"]
+  },
+  "Sales": {
+    "skills": ["sales", "customer service", "communication", "marketing", "retail", "targets", "negotiation", "account management"],
+    "job_keywords": ["sales", "account executive", "business development", "sdr", "bdr", "account manager"]
+  },
+  "Testing": {
+    "skills": ["test cases", "automation", "test plans", "sql", "agile", "jira", "regression testing", "selenium"],
+    "job_keywords": ["qa", "quality assurance", "tester", "test engineer", "sdet", "test automation"]
+  },
+  "Web Designing": {
+    "skills": ["html", "javascript", "css", "photoshop", "wordpress", "jquery", "responsive", "seo"],
+    "job_keywords": ["web designer", "web developer", "wordpress", "webflow", "ui", "frontend"]
+  }
 }

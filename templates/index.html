@@ -262,6 +262,11 @@
       .cp-sim-table td:first-child { color: var(--label); width: 34%; word-wrap: normal; hyphens: auto; }
       .cp-sim-table td.changed { color: #3ecf8e; font-weight: 600; }
       .cp-jobs-note { color: var(--subtle); font-size: 0.92em; padding: 6px 0; }
+      .cp-related {
+        display: inline-block; margin-left: 6px; padding: 0 8px;
+        border: 1px dashed var(--border); border-radius: 10px;
+        color: var(--subtle); font-size: 0.75em; vertical-align: middle;
+      }
       .alert-danger { color: #fff; background: #aa2d2f; border: none; }
       @media (max-width: 800px) {
         .cp-container { max-width: 100%; margin: 16px; padding: 22px 16px 28px 16px; }
@@ -373,13 +378,16 @@
         {% for job in job_results %}
           <li class="list-group-item">
             <b>{{ job.title }}</b> at <span>{{ job.company }}</span>
+            {% if job.related %}<span class="cp-related" title="Doesn't match a {{ top_careers[0].label }} job title, shown because few matches were found">Related</span>{% endif %}
             <div style="font-size:0.99em; color:#d1d8ff;">
               📍{{ job.location }}<br>
-              <a class="cp-job-link" href="{{ job.url }}" target="_blank">Apply/View ↗</a>
+              <a class="cp-job-link" href="{{ job.url }}" target="_blank" rel="noopener">Apply/View ↗</a>
             </div>
           </li>
         {% endfor %}
       </ul>
+      <!-- Remotive's API terms ask us to name them as the source and link back -->
+      <div class="cp-jobs-note">Jobs from <a class="cp-job-link" href="https://remotive.com" target="_blank" rel="noopener">Remotive</a> (listings are delayed by 24 hours).</div>
     {% endif %}
   </div>
   <script>
