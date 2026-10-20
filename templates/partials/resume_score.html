@@ -1,0 +1,34 @@
+{# Resume Score card: big ring, per-category bars, checklist, tips. Needs: resume_score #}
+{% set total = resume_score.total %}
+{% set level = "good" if total >= 75 else "ok" if total >= 50 else "low" %}
+<div class="cp-bot-message">
+  <b>Resume Score</b>
+  <div class="cp-score-row">
+    <!-- The ring is a conic-gradient: --p% of the circle is coloured -->
+    <div class="cp-ring cp-ring-{{ level }}" style="--p: {{ total }};" role="img" aria-label="Resume score {{ total }} out of 100">
+      <div class="cp-ring-inner"><span class="cp-ring-number">{{ total }}</span><span class="cp-ring-max">/100</span></div>
+    </div>
+    <div class="cp-score-breakdown">
+      {% for c in resume_score.categories %}
+        <div class="d-flex justify-content-between" style="font-size:0.9em;">
+          <span>{{ c.label }}</span><span>{{ c.score }}/{{ c.max }}</span>
+        </div>
+        <div class="cp-bar mb-2"><div style="width: {{ (c.score / c.max * 100)|round }}%;"></div></div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <details class="mt-2">
+    <summary style="color:var(--label); cursor:pointer;">Checklist ({{ resume_score.checklist|selectattr("ok")|list|length }}/{{ resume_score.checklist|length }} passed)</summary>
+    <ul class="cp-checklist">
+      {% for item in resume_score.checklist %}
+        <li class="{{ 'ok' if item.ok else 'fail' }}">{{ "✓" if item.ok else "✗" }} {{ item.text }}</li>
+      {% endfor %}
+    </ul>
+  </details>
+
+  <div class="mt-2" style="font-size:0.9em; color:var(--subtle);">💡 Tips to improve</div>
+  <ol class="cp-tips">
+    {% for tip in resume_score.tips %}<li>{{ tip }}</li>{% endfor %}
+  </ol>
+</div>

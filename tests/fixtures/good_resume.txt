@@ -1,0 +1,25 @@
+Asha Kumar
+asha.kumar@example.com | +91 98765 43210 | github.com/ashak | linkedin.com/in/ashak
+
+Education
+B.Tech in Computer Science, XYZ Institute of Technology, 2021-2025, CGPA 8.7
+
+Skills
+Python, SQL, pandas, scikit-learn, machine learning, Tableau, statistics, Git, data analysis, visualization
+
+Projects
+- Built a resume classifier in Python with scikit-learn that reached 80% accuracy on 10,000 resumes
+- Developed a Tableau dashboard tracking sales for 3 stores, used weekly by 12 managers
+- Automated data cleaning with pandas, which reduced report preparation time by 40%
+- Designed a SQL database for a college library with 5,000+ books and 800 students
+
+Experience
+Data Science Intern, ABC Analytics (May 2024 - Jul 2024)
+- Analyzed 2 million transactions and found churn drivers that improved retention by 5%
+- Implemented a forecasting model in Python that cut stock-outs by 18%
+- Presented findings to the product team and mentored 2 junior interns
+- Led weekly data reviews and optimized 6 slow SQL queries
+
+Achievements
+- Won 1st place in a college hackathon among 40 teams
+- Published a short paper on text classification

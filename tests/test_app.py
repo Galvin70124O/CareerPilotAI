@@ -50,3 +50,15 @@ def test_wrong_file_type_shows_error(monkeypatch):
 def test_empty_form_shows_error(monkeypatch):
     html = post({"input_text": ""}, monkeypatch)
     assert "Please upload a resume or type some skills" in html
+
+
+def test_uploaded_resume_gets_a_score(monkeypatch):
+    with open("tests/fixtures/good_resume.txt", "rb") as f:
+        html = post({"resume_file": (io.BytesIO(f.read()), "cv.txt")}, monkeypatch)
+    assert 'aria-label="Resume score' in html
+    assert "Tips to improve" in html
+
+
+def test_typed_skills_get_no_resume_score(monkeypatch):
+    html = post({"input_text": "python sql"}, monkeypatch)
+    assert 'aria-label="Resume score' not in html
