@@ -18,6 +18,9 @@ A Flask web app that suggests a career path from resume text. Built by a CSE stu
 | `courses.json` | Free resources per skill; only URLs verified with HTTP 200 (2026-10-20). Never add unverified links |
 | `templates/partials/` | One Jinja partial per section/card; `macros.html` has `icon()` (Lucide SVGs) and `score_ring()` |
 | `static/css/app.css` | Design system: CSS variables (colors, spacing, radius, shadows, type), light + dark (`data-theme` + `prefers-color-scheme`) |
+| `static/img/` + `tools/make_brand_assets.py` | Logo, favicons, OG image (rebuild with the script, don't hand-edit the PNGs) |
+| `features/report.py` | PDF report (fpdf2, core Helvetica: text goes through `latin1()`); route `POST /report` in app.py |
+| `data/sample_resume.txt` | Fictional sample resume for "Try with a sample resume" (`sample=1` form value) |
 | `static/js/app.js` | All page JS: theme toggle (localStorage), ARIA tabs, drop zone, loading skeleton, mic, smooth scroll, simulator fetch |
 | `train.py` | Honest evaluation (held-out test + CV inside a Pipeline), trains final model, saves `model.pkl`. `--quick` skips evaluation |
 | `data/prepare_data.py` | Downloads + cleans ResumeAtlas, saves `data/resumes.parquet` (~20 MB, git-ignored; `train.py` rebuilds it if missing) |

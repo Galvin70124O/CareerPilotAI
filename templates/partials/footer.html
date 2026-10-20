@@ -1,7 +1,8 @@
-{% from "partials/macros.html" import icon %}
+{% from "partials/macros.html" import icon, logo_mark %}
 <footer class="footer">
   <div class="container footer-inner">
-    <p>
+    <div class="footer-brand">{{ logo_mark(24) }}<span>CareerPilot <span>AI</span></span></div>
+    <p class="footer-credits">
       Career data: <a href="https://huggingface.co/datasets/ahmedheakl/resume-atlas" target="_blank" rel="noopener">ResumeAtlas</a>
       (Heakl et al., MIT licence). Jobs from <a href="https://remotive.com" target="_blank" rel="noopener">Remotive</a>.
       Icons by <a href="https://lucide.dev" target="_blank" rel="noopener">Lucide</a>.

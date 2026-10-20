@@ -1,26 +1,31 @@
-{# Shown by app.js while the form is being analyzed, so the page never looks frozen #}
+{% from "partials/macros.html" import icon %}
+{#
+  Shown by app.js while the form is being analyzed, so the page never looks frozen.
+  app.js moves through the steps one by one (data-step: pending -> active -> done);
+  with prefers-reduced-motion the steps still update, just without animation.
+#}
 <section class="results" id="loading" hidden aria-labelledby="loading-title">
   <div class="container">
-    <div class="results-header">
-      <div>
-        <h2 class="results-title" id="loading-title">Analyzing…</h2>
-        <p class="results-subtitle" role="status" data-loading-status>Reading your resume and comparing it with 42 careers</p>
-      </div>
-    </div>
-    <div class="summary" aria-hidden="true">
-      {% for _ in range(4) %}
-        <div class="stat"><div class="skeleton skeleton-line w-40"></div><div class="skeleton skeleton-title"></div></div>
-      {% endfor %}
-    </div>
-    <div class="dashboard dashboard--auto" aria-hidden="true">
-      {% for _ in range(4) %}
-        <div class="card">
-          <div class="skeleton skeleton-title"></div>
-          <div class="skeleton skeleton-line w-80"></div>
-          <div class="skeleton skeleton-line w-60"></div>
-          <div class="skeleton skeleton-block"></div>
+    <div class="loading-card">
+      <div class="loading-head">
+        <span class="loading-spinner">{{ icon("loader", 22, class="spinner") }}</span>
+        <div>
+          <h2 class="loading-title" id="loading-title">Analyzing…</h2>
+          <p class="loading-subtitle" role="status" data-loading-status>Reading your resume and comparing it with 42 careers</p>
         </div>
-      {% endfor %}
+      </div>
+      <ol class="loading-steps" data-loading-steps>
+        {% for step in ["Reading your resume", "Matching 42 careers", "Scoring your resume", "Building your roadmap"] %}
+          <li class="loading-step" data-step="pending">
+            <span class="loading-step-icon" aria-hidden="true">
+              {{ icon("circle-check", 18, class="icon-done") }}{{ icon("loader", 18, class="icon-active spinner") }}{{ icon("circle", 18, class="icon-pending") }}
+            </span>
+            <span class="loading-step-label">{{ step }}</span>
+            <span class="sr-only loading-step-state">waiting</span>
+          </li>
+        {% endfor %}
+      </ol>
+      <div class="loading-progress" aria-hidden="true"><span></span></div>
     </div>
   </div>
 </section>

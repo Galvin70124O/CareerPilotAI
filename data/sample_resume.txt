@@ -1,0 +1,32 @@
+Alex Morgan
+alex.morgan@example.com | +1 555 010 2030 | github.com/alexmorgan-demo | linkedin.com/in/alexmorgan-demo
+
+Summary
+Data analyst moving into data science. Two years of experience turning messy business data into dashboards, forecasts and clear recommendations.
+
+Education
+B.Sc. in Statistics, Example State University, 2019-2023, GPA 3.7
+
+Skills
+Python, SQL, pandas, NumPy, scikit-learn, Tableau, Excel, statistics, data analysis, visualization, Git
+
+Experience
+Data Analyst, Northwind Retail (Jul 2023 - present)
+- Built a weekly sales dashboard in Tableau used by 40 store managers
+- Automated data cleaning in Python and pandas, which cut report preparation time by 60%
+- Analyzed 1.2 million transactions to find the top churn drivers, which improved retention by 4%
+- Wrote SQL queries and views that reduced dashboard load time from 30 to 8 seconds
+- Presented monthly findings to the leadership team
+
+Data Intern, Fabrikam Logistics (Jun 2022 - Aug 2022)
+- Developed a demand forecasting model in Python that lowered stock-outs by 15%
+- Designed an Excel model to compare 3 delivery routes, saving 120 driver hours per month
+
+Projects
+- Customer segmentation: clustered 50,000 customers with scikit-learn and presented 4 personas to marketing
+- House price prediction: trained a regression model with 0.89 R-squared on public data
+- Resume classifier: an NLP project that sorts resumes into 25 job categories with 80% accuracy
+
+Achievements
+- Won 2nd place among 60 teams at a university data hackathon
+- Mentored 5 first-year students in Python

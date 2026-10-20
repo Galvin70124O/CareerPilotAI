@@ -1,6 +1,7 @@
 /* CareerPilot AI - page behaviour (no framework).
    1. Theme toggle        4. Loading state      7. What-If Simulator
    2. Tabs                5. Microphone         8. Results bar ("Edit skills")
+                                                9. Download report (PDF)
    3. Drop zone           6. Scroll to results                                  */
 (function () {
   "use strict";
@@ -131,7 +132,30 @@
     });
   }
 
-  /* ---------- 4. Loading state: skeleton dashboard + disabled buttons ---------- */
+  /* ---------- 4. Loading state: animated step list + disabled buttons ---------- */
+  var STEP_MS = 900;   // time per step; the real answer usually arrives in 1-3 seconds
+
+  function setStep(step, state) {
+    step.setAttribute("data-step", state);
+    $(".loading-step-state", step).textContent = state === "done" ? "done" : state === "active" ? "in progress" : "waiting";
+  }
+
+  // Move through "Reading your resume -> Matching 42 careers -> ...". The last step stays
+  // "in progress" until the server's answer (the results page) arrives.
+  function runSteps() {
+    var steps = $$("[data-loading-steps] .loading-step");
+    if (!steps.length) return;
+    var current = 0;
+    steps.forEach(function (step, i) { setStep(step, i === 0 ? "active" : "pending"); });
+    var timer = setInterval(function () {
+      if (current >= steps.length - 1) { clearInterval(timer); return; }
+      setStep(steps[current], "done");
+      current += 1;
+      setStep(steps[current], "active");
+      $("[data-loading-status]").textContent = $(".loading-step-label", steps[current]).textContent + "…";
+    }, STEP_MS);
+  }
+
   function startLoading(message) {
     var loading = $("#loading");
     var results = $("#results");
@@ -142,15 +166,23 @@
       if (message) $("[data-loading-status]", loading).textContent = message;
       loading.hidden = false;
       loading.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      runSteps();
     }
     var form = $("#analyze-form");
     if (form) form.setAttribute("aria-busy", "true");
-    $$("#analyze-form button[type=submit]").forEach(function (button) {
-      button.disabled = true;
-      button.classList.add("is-loading");
-      var label = $("[data-button-label]", button);
-      if (label) label.textContent = "Analyzing…";
-    });
+    // Wait until the browser has collected the form data: a button that is already disabled
+    // would be left out (and the "sample" button's value is what tells the server to use the sample)
+    setTimeout(function () {
+      $$("#analyze-form button[type=submit]").forEach(function (button) {
+        button.disabled = true;
+        button.classList.add("is-loading");
+        var label = $("[data-button-label]", button);
+        if (label) {
+          label.setAttribute("data-idle-label", label.textContent);
+          label.textContent = "Analyzing…";
+        }
+      });
+    }, 0);
   }
 
   function initForm() {
@@ -159,6 +191,11 @@
     form.addEventListener("submit", function (event) {
       var textPanel = $("#panel-text");
       var text = $("#input_text").value.trim();
+      // "Try with a sample resume": the server reads the built-in sample, nothing to check here
+      if (event.submitter && event.submitter.name === "sample") {
+        startLoading("Reading the sample resume and comparing it with 42 careers");
+        return;
+      }
       // Typing tab: don't send an empty form
       if (textPanel && !textPanel.hidden && !text) {
         event.preventDefault();
@@ -175,7 +212,7 @@
         button.disabled = false;
         button.classList.remove("is-loading");
         var label = $("[data-button-label]", button);
-        if (label) label.textContent = "Analyze skills";
+        if (label && label.getAttribute("data-idle-label")) label.textContent = label.getAttribute("data-idle-label");
       });
     });
   }
@@ -358,6 +395,23 @@
     });
   }
 
+  /* ---------- 9. Download report: a normal form POST; show it's working for a moment ---------- */
+  function initReport() {
+    var form = $("[data-report-form]");
+    if (!form) return;
+    form.addEventListener("submit", function () {
+      var button = $("#download-report");
+      var label = $("[data-button-label]", button);
+      button.classList.add("is-loading");
+      label.textContent = "Preparing PDF…";
+      // The browser downloads the file and stays on this page, so restore the button
+      setTimeout(function () {
+        button.classList.remove("is-loading");
+        label.textContent = "Download report (PDF)";
+      }, 2500);
+    });
+  }
+
   /* ---------- 8. Results bar: "Edit skills" opens the input card above the results ---------- */
   function initEditSkills() {
     var button = $("#edit-skills");
@@ -385,6 +439,7 @@
     initMic();
     initSimulator();
     initEditSkills();
+    initReport();
     initResults();
   });
 })();

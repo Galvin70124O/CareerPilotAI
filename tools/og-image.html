@@ -1,0 +1,47 @@
+<!doctype html>
+<!-- Source of static/img/og-image.png (1200 x 630). Rebuild with: python tools/make_brand_assets.py -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    font-family: "Inter", "Segoe UI", sans-serif; color: #18181b;
+    background:
+      radial-gradient(900px 500px at 85% 15%, rgba(99, 102, 241, 0.18), transparent 60%),
+      radial-gradient(700px 420px at 0% 100%, rgba(79, 70, 229, 0.10), transparent 60%),
+      #fafafa;
+  }
+  .frame { position: absolute; inset: 40px; border: 1px solid #e4e4e7; border-radius: 28px; background: rgba(255, 255, 255, 0.72); }
+  .content { position: absolute; left: 104px; top: 108px; right: 104px; }
+  .brand { display: flex; align-items: center; gap: 22px; }
+  .brand svg { width: 88px; height: 88px; }
+  .name { font-size: 44px; font-weight: 700; letter-spacing: -0.03em; }
+  .name span { color: #4f46e5; }
+  h1 { margin: 56px 0 0; font-size: 68px; line-height: 1.08; font-weight: 700; letter-spacing: -0.04em; max-width: 900px; }
+  .chips { display: flex; gap: 14px; margin-top: 44px; }
+  .chip { padding: 10px 20px; border-radius: 999px; border: 1px solid #c7d2fe; background: #eef2ff; color: #4338ca; font-size: 22px; font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="frame"></div>
+  <div class="content">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="8" fill="#4F46E5"/>
+        <circle cx="16" cy="16" r="10" fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="2"/>
+        <polygon points="8.5,23.5 13.6,13.6 18.4,18.4" fill="#fff" fill-opacity="0.5"/>
+        <polygon points="25,7 13.6,13.6 18.4,18.4" fill="#fff"/>
+      </svg>
+      <div class="name">CareerPilot <span>AI</span></div>
+    </div>
+    <h1>Find the career your resume is built for</h1>
+    <div class="chips">
+      <span class="chip">Career match</span><span class="chip">Resume score</span>
+      <span class="chip">Skill gap</span><span class="chip">Roadmap</span>
+    </div>
+  </div>
+</body>
+</html>

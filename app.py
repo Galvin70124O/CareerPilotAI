@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, Response, jsonify, request, render_template
 import joblib
 import logging
 import os
@@ -10,6 +10,7 @@ from pypdf import PdfReader
 from features.careers import display_name
 from features.courses import recommend_courses
 from features.explain import top_contributing_terms
+from features.report import build_report_pdf
 from features.jobs import fetch_job_listings
 from features.resume_score import score_resume
 from features.roadmap import build_roadmap
@@ -21,7 +22,10 @@ from features.skills import CAREER_SKILLS, analyze_skill_gap, display_skill, ext
 # -----------------------------
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'docx'}
 MAX_CONTENT_LENGTH = 2 * 1024 * 1024  # 2MB
-MAX_SIMULATE_TEXT = 100_000           # characters accepted by /api/simulate
+MAX_SIMULATE_TEXT = 100_000           # characters accepted by /api/simulate and /report
+# "Try with a sample resume" analyzes this built-in, fictional resume
+SAMPLE_RESUME_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "sample_resume.txt")
+SAMPLE_RESUME_NAME = "Sample resume (Alex Morgan)"
 
 # -----------------------------
 # FLASK SETUP
@@ -117,6 +121,14 @@ def home():
         if model is None:
             error = MODEL_MISSING_MESSAGE
 
+        # 0) "Try with a sample resume": analyze the built-in sample like an uploaded resume
+        elif request.form.get("sample") == "1":
+            with open(SAMPLE_RESUME_PATH, encoding="utf-8") as f:
+                text_to_predict = f.read()
+            found_skills = extract_skills_from_text(text_to_predict)
+            source = "resume"
+            uploaded_name = SAMPLE_RESUME_NAME
+
         # 1) A resume was uploaded: extract skills AND predict in one step
         elif file and file.filename:
             if not allowed_file(file.filename):
@@ -178,6 +190,38 @@ def home():
 def health():
     # Render calls this to check the app is alive. Keep it tiny: no model, no API calls.
     return "ok", 200
+
+
+def report_data(text, is_resume, source_label):
+    """Everything the PDF report shows, computed with the same functions as the page."""
+    top_careers = predict_top_careers(text)
+    career = top_careers[0]["career"]
+    skill_gap = analyze_skill_gap(career, text)
+    return {
+        "source_label": source_label,
+        "top_careers": top_careers,
+        "why_terms": top_contributing_terms(model, text, career),
+        "resume_score": score_resume(text, career) if is_resume else None,
+        "skill_gap": skill_gap,
+        "roadmap": build_roadmap(career, text),
+        "courses": recommend_courses(skill_gap["missing"]),
+    }
+
+
+@app.route("/report", methods=["POST"])
+def download_report():
+    """'Download report (PDF)': the results bar posts the analyzed text here."""
+    if model is None:
+        return MODEL_MISSING_MESSAGE, 503
+    text = request.form.get("text", "")
+    if not text.strip() or len(text) > MAX_SIMULATE_TEXT:
+        return "Missing or too long text.", 400
+    is_resume = request.form.get("is_resume") == "1"
+    name = request.form.get("name", "").strip()[:120]
+    source_label = f"Resume: {name}" if is_resume and name else ("Resume" if is_resume else "Typed skills")
+    pdf = build_report_pdf(report_data(text, is_resume, source_label))
+    return Response(pdf, mimetype="application/pdf",
+                    headers={"Content-Disposition": 'attachment; filename="careerpilot-report.pdf"'})
 
 
 @app.route("/api/simulate", methods=["POST"])

@@ -183,7 +183,7 @@ def test_results_page_has_compact_bar_instead_of_hero(monkeypatch):
     assert "Analyzed resume" in bar and "cv.txt" in bar
     assert 'id="edit-skills" aria-expanded="false" aria-controls="analyze-panel"' in bar
     assert "data-analyze-another" in bar and "Analyze another" in bar
-    assert 'class="hero"' not in html and "Find the career your resume is built for" not in html
+    assert 'class="hero"' not in html and 'id="hero-title"' not in html   # (the tagline is still in the og: meta tags)
     assert re.search(r'id="analyze-panel" hidden', html)                  # editor closed until asked
     assert html.index("data-compact-bar") < html.index('data-card="summary"')
 

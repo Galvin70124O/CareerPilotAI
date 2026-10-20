@@ -2,6 +2,8 @@
 
 A Flask web app that reads your resume (or the skills you type), predicts the career it fits best, scores the resume like an ATS would, and shows what to learn next, with free resources and a "what if" simulator.
 
+**Live:** https://careerpilot-web-production-20ac.up.railway.app
+
 ## Screenshots
 
 Screenshots use the sample resume `tests/fixtures/good_resume.txt` and **sample job data** (the live jobs list changes every day).
@@ -14,6 +16,10 @@ Screenshots use the sample resume `tests/fixtures/good_resume.txt` and **sample 
 |---|---|---|
 | <img src="docs/screenshots/after-result-mobile-light.png" alt="Results on a phone in light mode, with sample job data" width="240"> | <img src="docs/screenshots/after-result-mobile-dark.png" alt="Results on a phone in dark mode, with sample job data" width="240"> | <img src="docs/screenshots/before-result-mobile-dark.png" alt="The old single-column design, with sample job data" width="240"> |
 
+| Loading steps | Link preview image (Open Graph, 1200 x 630) |
+|---|---|
+| ![Loading state with steps](docs/screenshots/after-loading-desktop-light.png) | ![Link preview card](docs/screenshots/og-image.png) |
+
 All screenshots (before/after, 1440 px and 390 px, light and dark) are in [`docs/screenshots/`](docs/screenshots/).
 
 ## Features
@@ -21,6 +27,8 @@ All screenshots (before/after, 1440 px and 390 px, light and dark) are in [`docs
 | Feature | What it does |
 |---|---|
 | **One-click resume analysis** | Upload a `.txt`, `.pdf` or `.docx` (max 2 MB). Skills, prediction, score and everything below appear right away. |
+| **Try with a sample resume** | One click analyzes a built-in, fictional resume (`data/sample_resume.txt`), so visitors can see everything without uploading. |
+| **Download report (PDF)** | A clean 1-2 page PDF of the results (career matches, score + tips, skill gap, roadmap, courses), built with fpdf2 at `POST /report`. |
 | **Top 3 careers** | 42 career categories, with confidence percentages. Works for uploaded resumes and for typed or spoken skills (🎤, Chrome). |
 | **Resume Score** | ATS-style score out of 100 with a breakdown (sections, length & readability, action verbs, measurable impact, skill match, red flags), a ✓/✗ checklist and 3–5 tips that quote your resume. Weights live in `SCORE_WEIGHTS` in `features/resume_score.py`. |
 | **Skill Gap Analyzer** | The 8 key skills of your top career (`skills.json`), split into "you have" and "to learn next". |
@@ -114,6 +122,8 @@ To rebuild the dataset from Hugging Face: `python data/prepare_data.py`
 | `skills.json`, `roadmaps.json`, `courses.json` | Per career: key `skills` + `job_keywords`; roadmaps; free courses per skill |
 | `templates/` | `index.html` (layout) + `partials/` (one file per section/card, `macros.html` for icons and the score ring) |
 | `static/css/app.css` | The design system: color/spacing/radius/shadow/type tokens, light + dark themes, all components |
+| `static/img/` | Logo (`logo.svg`, `logo-dark.svg`), favicons (`favicon.svg`, 32 px PNG, 180 px apple-touch-icon) and the 1200 x 630 link preview `og-image.png` |
+| `tools/` | `make_brand_assets.py` rebuilds everything in `static/img/` (dev only, needs Pillow); `og-image.html` is the source of the link preview |
 | `static/js/app.js` | Theme toggle, tabs, drag-and-drop upload, loading state, microphone, What-If Simulator |
 | `tests/` | pytest tests |
 | `chatbot.py` | Command-line version |

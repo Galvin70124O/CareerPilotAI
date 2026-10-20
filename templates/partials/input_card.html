@@ -43,6 +43,14 @@
         </span>
       </label>
       <p class="field-error" id="upload-error" role="alert"></p>
+      <div class="sample-row">
+        <span class="subtle">No resume at hand?</span>
+        {# A normal submit button: works without JavaScript too. app.py reads data/sample_resume.txt #}
+        <button type="submit" class="btn btn-secondary" name="sample" value="1" id="sample-button" formnovalidate>
+          {{ icon("file-text", 16, class="btn-icon-idle") }}{{ icon("loader", 16, class="spinner") }}
+          <span data-button-label>Try with a sample resume</span>
+        </button>
+      </div>
       <noscript><button type="submit" class="btn btn-primary btn-lg">Analyze resume</button></noscript>
     </div>
 

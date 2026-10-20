@@ -28,6 +28,16 @@
         </p>
       </div>
       <div class="compact-bar-actions">
+        {# The PDF is built on the server from the same text (POST /report), so it works without JavaScript #}
+        <form method="POST" action="{{ url_for('download_report') }}" class="report-form" data-report-form>
+          <input type="hidden" name="text" value="{{ simulator_data.text }}">
+          <input type="hidden" name="is_resume" value="{{ '1' if source == 'resume' else '0' }}">
+          <input type="hidden" name="name" value="{{ uploaded_name }}">
+          <button type="submit" class="btn btn-secondary" id="download-report">
+            {{ icon("download", 16, class="btn-icon-idle") }}{{ icon("loader", 16, class="spinner") }}
+            <span data-button-label>Download report (PDF)</span>
+          </button>
+        </form>
         <button type="button" class="btn btn-secondary" id="edit-skills" aria-expanded="false" aria-controls="analyze-panel">
           {{ icon("keyboard", 16) }} Edit skills
         </button>
