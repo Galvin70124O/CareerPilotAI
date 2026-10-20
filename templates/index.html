@@ -246,6 +246,12 @@
       .cp-stage li.done { color: var(--subtle); }
       .cp-stage li.done .cp-step-mark { color: #3ecf8e; }
       .cp-stage li.todo .cp-step-mark { color: var(--bright-blue); }
+      /* Course Recommender */
+      .cp-courses { list-style: none; padding-left: 0; margin: 10px 0 0 0; font-size: 0.9em; }
+      .cp-courses li { padding: 6px 0; border-bottom: 1px solid var(--border); }
+      .cp-courses li:last-child { border-bottom: none; }
+      .cp-course-link { color: var(--blue-fg); margin-right: 12px; display: inline-block; }
+      .cp-course-search { color: var(--subtle); }
       .alert-danger { color: #fff; background: #aa2d2f; border: none; }
       @media (max-width: 800px) {
         .cp-container { max-width: 100%; margin: 16px; padding: 22px 16px 28px 16px; }
@@ -338,6 +344,9 @@
     {% endif %}
     {% if roadmap %}
       {% include "partials/roadmap.html" %}
+    {% endif %}
+    {% if courses %}
+      {% include "partials/courses.html" %}
     {% endif %}
     {% if job_results and top_careers %}
       <div class="cp-jobs-title">Live Job Listings</div>

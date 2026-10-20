@@ -67,3 +67,9 @@ def test_typed_skills_get_no_resume_score(monkeypatch):
 def test_roadmap_shown_for_typed_skills(monkeypatch):
     html = post({"input_text": "java spring hibernate"}, monkeypatch)
     assert "Roadmap to Java Developer" in html
+
+
+def test_courses_shown_for_missing_skills(monkeypatch):
+    html = post({"input_text": "java"}, monkeypatch)
+    assert "Free resources for your missing skills" in html
+    assert "spring.io/guides" in html

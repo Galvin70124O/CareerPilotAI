@@ -6,6 +6,7 @@ from docx import Document
 import PyPDF2
 import requests
 
+from features.courses import recommend_courses
 from features.resume_score import score_resume
 from features.roadmap import build_roadmap
 from features.skills import analyze_skill_gap, extract_skills_from_text
@@ -101,6 +102,7 @@ def home():
     skill_gap = None     # result of analyze_skill_gap for the top career
     resume_score = None  # result of score_resume (only for uploaded resumes)
     roadmap = None       # result of build_roadmap for the top career
+    courses = []         # free resources for each missing skill
     error = ""
     source = ""          # "resume" or "text", so the page can say what we predicted from
 
@@ -141,6 +143,7 @@ def home():
             top_careers = predict_top_careers(text_to_predict)
             skill_gap = analyze_skill_gap(top_careers[0]["career"], text_to_predict)
             roadmap = build_roadmap(top_careers[0]["career"], text_to_predict)
+            courses = recommend_courses(skill_gap["missing"])
             job_results = fetch_job_listings(top_careers[0]["career"])
             if source == "resume":
                 # The score needs the RAW resume (line breaks, bullets, emails), not cleaned text
@@ -155,6 +158,7 @@ def home():
         skill_gap=skill_gap,
         resume_score=resume_score,
         roadmap=roadmap,
+        courses=courses,
         error=error,
         source=source
     )

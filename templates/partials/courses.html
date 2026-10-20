@@ -1,0 +1,14 @@
+{# Free courses for each missing skill. Needs: courses #}
+<div class="cp-bot-message">
+  <b>🎓 Free resources for your missing skills</b>
+  <ul class="cp-courses">
+    {% for item in courses %}
+      <li>
+        <span class="cp-chip cp-chip-missing">{{ item.skill }}</span>
+        {% for r in item.resources %}
+          <a class="cp-course-link{{ ' cp-course-search' if r.is_search }}" href="{{ r.url }}" target="_blank" rel="noopener">{{ r.title }} ↗</a>
+        {% endfor %}
+      </li>
+    {% endfor %}
+  </ul>
+</div>
