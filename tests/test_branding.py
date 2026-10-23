@@ -8,7 +8,7 @@ from PIL import Image
 import app
 
 STATIC = os.path.join(os.path.dirname(os.path.dirname(__file__)), "static", "img")
-SITE = "https://careerpilot-web-production-20ac.up.railway.app"
+SITE = "https://careerpilotai-1.onrender.com"
 
 
 def home(monkeypatch):
