@@ -2,7 +2,7 @@
 
 A Flask web app that reads your resume (or the skills you type), predicts the career it fits best, scores the resume like an ATS would, and shows what to learn next, with free resources and a "what if" simulator.
 
-**Live:** https://careerpilot-web-production-20ac.up.railway.app
+**Live:** https://careerpilotai-1.onrender.com
 
 ## Screenshots
 
