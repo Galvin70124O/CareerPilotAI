@@ -1,79 +1,70 @@
 /* =========================================================================
-   CareerPilot AI theme: the FairSplit design tokens (see DESIGN_SYSTEM.md in
-   the FairSplit repo). This is the ONLY file that defines colours, type,
-   spacing, radius and shadows. app.css uses these variables and never
-   hard-codes a colour.
-   1. FairSplit tokens (light on :root, dark on [data-theme="dark"])
-   2. CareerPilot names -> FairSplit tokens (the names app.css already uses)
+   CareerPilot AI theme: "printed career report".
+   Warm off-white paper, black ink, one Prussian-blue accent that is used ONLY
+   for the resume score figure, the career-match bars and the confidence figure.
+   This is the ONLY file that defines colours, type, spacing and radius;
+   app.css uses these variables and never hard-codes a value.
+   1. Tokens (light on :root, dark on [data-theme="dark"] + the no-JS fallback)
+   2. CareerPilot names -> tokens (the names app.css uses)
    ========================================================================= */
 
-/* ---------- 1. FairSplit tokens ----------------------------------------- */
-/* FairSplit design tokens. Light on :root, dark on [data-theme="dark"]. */
+/* ---------- 1. Tokens ---------------------------------------------------- */
 :root {
   color-scheme: light;
 
-  /* Surfaces */
-  --bg: #f7f7f8;
-  --panel: #ffffff;
-  --panel-2: #fafafa;
-  --fill: #f4f4f5;
-  --border: #e4e4e7;
-  --border-strong: #d4d4d8;
+  /* Paper and ink */
+  --bg: #f7f5f0;            /* page ground: warm paper */
+  --panel: #fcfbf8;         /* the report sheet, input card */
+  --panel-2: #f2efe9;       /* one tone step down: chips, drop zone */
+  --fill: #ebe8e2;          /* bar and ring tracks */
+  --border: #e5e3df;        /* hairline rules */
+  --border-strong: #c8c4be; /* input borders, dashed chips */
+  --rule: #1a1917;          /* the strong rule above each report section */
 
-  /* Text */
-  --text: #18181b;
-  --text-2: #52525b;
-  --text-3: #71717a;
+  --text: #1a1917;          /* ink: 16:1 on paper */
+  --text-2: #55524b;        /* secondary: 7.2:1 */
+  --text-3: #6e6a62;        /* muted: 4.9:1 */
 
-  /* Brand */
-  --brand: #0f766e;
-  --brand-hover: #115e59;
-  --brand-ink: #ffffff;
-  --chart: #00897b;
-  /* Derived tints (follow the theme automatically) */
-  --brand-soft: color-mix(in srgb, var(--brand) 10%, var(--panel));
-  --brand-border: color-mix(in srgb, var(--brand) 35%, var(--panel));
-  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--brand) 18%, transparent);
+  /* Ink buttons (primary actions are black ink, not the accent) */
+  --ink: #1a1917;
+  --ink-hover: #3a3833;
+  --on-ink: #fcfbf8;
 
-  /* Status */
-  --pos: #15803d;
-  --pos-bg: #f0fdf4;
-  --warn: #a16207;
-  --warn-bg: #fefce8;
-  --neg: #b91c1c;
-  --neg-bg: #fef2f2;
-  --danger-ink: #ffffff;
+  /* The one accent: Prussian blue (8.1:1 on paper) */
+  --brand: #1e4d78;
+  --brand-ink: #fcfbf8;
 
-  /* Inverted (toasts) */
-  --inverse-bg: #18181b;
-  --inverse-text: #fafafa;
+  /* Score levels: they carry meaning (strong / needs work / weak), so they stay */
+  --pos: #2d6a3e;
+  --pos-bg: #e8efe7;
+  --warn: #8a5a00;
+  --warn-bg: #f5ecda;
+  --neg: #b0281f;
+  --neg-bg: #f7e6e3;
 
-  /* Elevation */
-  --overlay: rgba(24, 24, 27, .4);
-  --menu-shadow: 0 4px 16px rgba(24, 24, 27, .08), 0 1px 3px rgba(24, 24, 27, .06);
+  /* Inverted (tooltip) */
+  --inverse-bg: #1a1917;
+  --inverse-text: #f7f5f0;
 
-  /* Typography */
-  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
-  --fs-xs: 11px;
-  --fs-sm: 12px;
-  --fs-ui: 13px;
-  --fs-base: 14px;
-  --fs-h2: 16px;
-  --fs-figure: 20px;
-  --fs-h1: 24px;
-  --fs-hero: 40px;
-  --lh-sm: 16px;
-  --lh-base: 20px;
-  --lh-h2: 24px;
-  --lh-figure: 28px;
-  --lh-h1: 32px;
-  --lh-hero: 48px;
-  --fw-regular: 400;
-  --fw-medium: 500;
-  --fw-semibold: 600;
+  /* Elevation: only things that float (the tooltip) get a shadow */
+  --menu-shadow: 0 6px 20px rgba(26, 25, 23, 0.12), 0 1px 3px rgba(26, 25, 23, 0.08);
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--text);
 
-  /* Spacing: 8px grid, named in 4px steps (--space-6 = 24px) */
+  /* Typography: Newsreader (Google Fonts) for display and figures,
+     the system UI face for reading text and controls */
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fs-xs: 13px;      /* badges, credits */
+  --fs-sm: 14px;      /* secondary text */
+  --fs-base: 16px;    /* reading text */
+  --fs-h3: 24px;      /* report section headings */
+  --fs-h1: 40px;      /* report title, big figures */
+  --fs-hero: 60px;    /* home headline */
+  --lh-body: 1.55;
+  --lh-heading: 1.2;
+  --lh-display: 1.04;
+
+  /* Spacing: 4px grid (--space-6 = 24px) */
   --space-half: 2px;
   --space-1: 4px;
   --space-2: 8px;
@@ -87,78 +78,80 @@
   --space-16: 64px;
   --space-20: 80px;
 
-  /* Radius */
-  --radius-xs: 2px;
+  /* Radius scale: square for print (bars, sections, rows), 4 chips, 8 controls,
+     12 for the one card that floats (input card, loading panel). No pills. */
+  --radius-0: 0;
   --radius-sm: 4px;
-  --radius: 6px;
-  --radius-lg: 8px;
-  --radius-full: 9999px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --radius-round: 50%;   /* true circles only: score ring, roadmap step markers */
 
   /* Sizes */
-  --control-h: 36px;
-  --control-h-sm: 32px;
-  --header-h: 56px;
+  --control-h: 40px;
+  --tap: 44px;           /* minimum touch target */
+  --header-h: 60px;
   --page-max: 1120px;
-  --side-col: 320px;
 
   /* Motion */
-  --dur-fast: .12s;
-  --dur-sheet: .18s;
-  --ease: ease;
+  --dur-fast: 0.12s;
+  --dur-sheet: 0.18s;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  --bg: #18181b;
-  --panel: #1f1f23;
-  --panel-2: #26262b;
-  --fill: #2c2c31;
-  --border: #34343a;
-  --border-strong: #45454c;
+  --bg: #171614;
+  --panel: #1f1e1b;
+  --panel-2: #262521;
+  --fill: #2c2a26;
+  --border: #34322e;
+  --border-strong: #4a4741;
+  --rule: #b8b3a8;          /* full-strength ink rules glare in the dark */
 
-  --text: #f4f4f5;
-  --text-2: #d4d4d8;
-  --text-3: #a1a1aa;
+  --text: #eeebe4;
+  --text-2: #b8b3a8;
+  --text-3: #9a958a;
 
-  --brand: #3ab0a2;
-  --brand-hover: #4cc0b2;
-  --brand-ink: #0b1f1d;
-  --chart: #1fa595;
+  --ink: #eeebe4;
+  --ink-hover: #d6d2c9;
+  --on-ink: #171614;
 
-  --pos: #4fb874;
-  --pos-bg: rgba(79, 184, 116, .14);
-  --warn: #d6a738;
-  --warn-bg: rgba(214, 167, 56, .14);
-  --neg: #f07070;
-  --neg-bg: rgba(240, 112, 112, .14);
-  --danger-ink: #1f0707;
+  --brand: #8db6dd;
+  --brand-ink: #171614;
 
-  --inverse-bg: #f4f4f5;
-  --inverse-text: #18181b;
+  --pos: #7cc08c;
+  --pos-bg: rgba(124, 192, 140, 0.13);
+  --warn: #d9a640;
+  --warn-bg: rgba(217, 166, 64, 0.13);
+  --neg: #ef8a7f;
+  --neg-bg: rgba(239, 138, 127, 0.13);
 
-  --overlay: rgba(0, 0, 0, .55);
-  --menu-shadow: 0 8px 24px rgba(0, 0, 0, .35);
+  --inverse-bg: #eeebe4;
+  --inverse-text: #171614;
+
+  --menu-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 /* No-JS fallback: follow the OS when no data-theme has been set (same values as above). */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     color-scheme: dark;
-    --bg: #18181b; --panel: #1f1f23; --panel-2: #26262b; --fill: #2c2c31;
-    --border: #34343a; --border-strong: #45454c;
-    --text: #f4f4f5; --text-2: #d4d4d8; --text-3: #a1a1aa;
-    --brand: #3ab0a2; --brand-hover: #4cc0b2; --brand-ink: #0b1f1d; --chart: #1fa595;
-    --pos: #4fb874; --pos-bg: rgba(79, 184, 116, .14);
-    --warn: #d6a738; --warn-bg: rgba(214, 167, 56, .14);
-    --neg: #f07070; --neg-bg: rgba(240, 112, 112, .14); --danger-ink: #1f0707;
-    --inverse-bg: #f4f4f5; --inverse-text: #18181b;
-    --overlay: rgba(0, 0, 0, .55); --menu-shadow: 0 8px 24px rgba(0, 0, 0, .35);
+    --bg: #171614; --panel: #1f1e1b; --panel-2: #262521; --fill: #2c2a26;
+    --border: #34322e; --border-strong: #4a4741; --rule: #b8b3a8;
+    --text: #eeebe4; --text-2: #b8b3a8; --text-3: #9a958a;
+    --ink: #eeebe4; --ink-hover: #d6d2c9; --on-ink: #171614;
+    --brand: #8db6dd; --brand-ink: #171614;
+    --pos: #7cc08c; --pos-bg: rgba(124, 192, 140, 0.13);
+    --warn: #d9a640; --warn-bg: rgba(217, 166, 64, 0.13);
+    --neg: #ef8a7f; --neg-bg: rgba(239, 138, 127, 0.13);
+    --inverse-bg: #eeebe4; --inverse-text: #171614;
+    --menu-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   }
 }
 
 @media (max-width: 760px) {
-  :root { --header-h: 52px; --fs-h1: 20px; --lh-h1: 28px; --fs-hero: 28px; --lh-hero: 36px; }
+  :root { --header-h: 56px; --fs-hero: 38px; --fs-h1: 30px; --fs-h3: 22px; }
 }
 
 /* ---------- 2. CareerPilot names ---------------------------------------- */
@@ -166,15 +159,15 @@
 :root {
   /* Type */
   --font-sans: var(--font);
-  --text-xs: var(--fs-sm);       /* 12px */
-  --text-sm: var(--fs-ui);       /* 13px */
-  --text-base: var(--fs-base);   /* 14px */
-  --text-lg: var(--fs-h2);       /* 16px */
-  --text-xl: var(--fs-figure);   /* 20px */
-  --text-2xl: var(--fs-h1);      /* 24px (20px on phones) */
-  --text-3xl: var(--fs-hero);    /* 40px (28px on phones) */
-  --leading-tight: 1.3;
-  --leading-normal: 1.43;        /* 20px on 14px text */
+  --text-xs: var(--fs-xs);
+  --text-sm: var(--fs-sm);
+  --text-base: var(--fs-base);
+  --text-lg: 18px;
+  --text-xl: var(--fs-h3);
+  --text-2xl: var(--fs-h1);
+  --text-3xl: var(--fs-hero);
+  --leading-tight: var(--lh-heading);
+  --leading-normal: var(--lh-body);
 
   /* Neutrals */
   --surface: var(--panel);
@@ -184,24 +177,21 @@
   --text-muted: var(--text-2);
   --text-subtle: var(--text-3);
 
-  /* The one accent: FairSplit teal */
+  /* The one accent (score figure, career-match bars, confidence figure) */
   --accent: var(--brand);
-  --accent-hover: var(--brand-hover);
-  --accent-text: var(--brand);
-  --accent-soft: var(--brand-soft);
-  --accent-border: var(--brand-border);
   --on-accent: var(--brand-ink);
+  --chart: var(--brand);
 
   /* Scores and states */
   --success: var(--pos);
   --success-soft: var(--pos-bg);
-  --success-border: color-mix(in srgb, var(--pos) 30%, var(--panel));
+  --success-border: color-mix(in srgb, var(--pos) 35%, var(--panel));
   --warning: var(--warn);
   --warning-soft: var(--warn-bg);
-  --warning-border: color-mix(in srgb, var(--warn) 30%, var(--panel));
+  --warning-border: color-mix(in srgb, var(--warn) 35%, var(--panel));
   --danger: var(--neg);
   --danger-soft: var(--neg-bg);
-  --danger-border: color-mix(in srgb, var(--neg) 30%, var(--panel));
+  --danger-border: color-mix(in srgb, var(--neg) 35%, var(--panel));
 
   /* Layout */
   --topbar-height: var(--header-h);
