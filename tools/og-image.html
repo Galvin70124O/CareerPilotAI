@@ -1,46 +1,41 @@
 <!doctype html>
 <!-- Source of static/img/og-image.png (1200 x 630). Rebuild with: python tools/make_brand_assets.py
-     Colours are the FairSplit tokens from static/css/theme.css (light theme). -->
+     Colours are the light-theme tokens from static/css/theme.css (paper, ink); Newsreader is the display face. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400..600&display=block" rel="stylesheet">
 <style>
   html, body { margin: 0; }
   body {
     width: 1200px; height: 630px; overflow: hidden;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    color: #18181b;
-    background: #f7f7f8;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1917;
+    background: #f7f5f0;
     -webkit-font-smoothing: antialiased;
   }
-  .frame { position: absolute; inset: 40px; border: 1px solid #e4e4e7; border-radius: 16px; background: #ffffff; }
-  .content { position: absolute; left: 104px; top: 108px; right: 104px; }
-  .brand { display: flex; align-items: center; gap: 20px; }
-  .brand svg { width: 80px; height: 80px; }
-  .name { font-size: 42px; font-weight: 600; letter-spacing: -0.01em; }
-  .name span { color: #0f766e; }
-  h1 { margin: 56px 0 0; font-size: 66px; line-height: 1.1; font-weight: 600; letter-spacing: -0.02em; max-width: 900px; }
-  .chips { display: flex; gap: 12px; margin-top: 44px; }
-  .chip { padding: 10px 20px; border-radius: 8px; border: 1px solid #d4d4d8; background: #fafafa; color: #52525b; font-size: 22px; font-weight: 500; }
+  .content { position: absolute; left: 96px; top: 84px; right: 96px; }
+  .brand { display: flex; align-items: center; gap: 16px; }
+  .brand svg { width: 56px; height: 56px; color: #1a1917; }
+  .name { font-size: 30px; font-weight: 600; letter-spacing: -0.01em; }
+  .rule { height: 2px; background: #1a1917; margin-top: 40px; }
+  h1 { margin: 44px 0 0; font-family: "Newsreader", Georgia, serif; font-size: 84px; line-height: 1.02; font-weight: 500; letter-spacing: -0.025em; max-width: 980px; }
+  .contents { margin-top: 40px; padding-top: 22px; border-top: 1px solid #c8c4be; color: #55524b; font-size: 26px; }
 </style>
 </head>
 <body>
-  <div class="frame"></div>
   <div class="content">
     <div class="brand">
       <svg viewBox="0 0 32 32" aria-hidden="true">
-        <rect width="32" height="32" rx="8" fill="#0F766E"/>
-        <circle cx="16" cy="16" r="10" fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="2"/>
-        <polygon points="8.5,23.5 13.6,13.6 18.4,18.4" fill="#fff" fill-opacity="0.5"/>
-        <polygon points="25,7 13.6,13.6 18.4,18.4" fill="#fff"/>
+        <circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-opacity="0.4" stroke-width="2"/>
+        <polygon points="7,25 13.1,13.1 18.9,18.9" fill="currentColor" fill-opacity="0.45"/>
+        <polygon points="26.8,5.2 13.1,13.1 18.9,18.9" fill="currentColor"/>
       </svg>
-      <div class="name">CareerPilot <span>AI</span></div>
+      <div class="name">CareerPilot AI</div>
     </div>
+    <div class="rule"></div>
     <h1>Find the career your resume is built for</h1>
-    <div class="chips">
-      <span class="chip">Career match</span><span class="chip">Resume score</span>
-      <span class="chip">Skill gap</span><span class="chip">Roadmap</span>
-    </div>
+    <p class="contents">Career match · Resume score · Skill gap · Roadmap</p>
   </div>
 </body>
 </html>

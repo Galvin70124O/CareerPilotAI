@@ -1,11 +1,10 @@
-{% from "partials/macros.html" import icon %}
 {# Input section: upload (drag and drop) or type/speak skills. Both are one form. #}
 <section class="hero" aria-labelledby="hero-title">
-  <div class="container">
+  <div class="container hero-inner">
     <div class="hero-text">
-      <span class="eyebrow">{{ icon("sparkles", 14) }} 42 careers · trained on 10,000+ resumes</span>
       <h1 class="hero-title" id="hero-title">Find the career your resume is built for</h1>
       <p class="hero-subtitle">Upload your resume to get a career match, an ATS-style score and a plan for what to learn next.</p>
+      <p class="hero-facts">42 careers, trained on 10,000+ resumes.</p>
     </div>
 
     {% include "partials/input_card.html" %}
