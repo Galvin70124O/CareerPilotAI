@@ -1,12 +1,12 @@
 {% from "partials/macros.html" import icon %}
 {#
-  Results dashboard.
-  The cards are direct children of one grid, in mobile / screen-reader order:
+  Results, laid out like a printed career report.
+  The sections are direct children of one grid, in mobile / screen-reader order:
     summary -> careers -> score -> gap -> roadmap -> courses -> what-if -> jobs
-  On desktop (>= 1024px) CSS grid-template-areas place them in rows:
+  On desktop (>= 1024px) CSS grid-template-areas place them as a two-column spread:
     [careers | gap] [score | roadmap] [courses | what-if] [jobs]
-  without changing the DOM order. If a card is missing (e.g. no resume score for typed
-  skills), "dashboard--auto" lets the cards flow into two columns instead.
+  without changing the DOM order. If a section is missing (e.g. no resume score for typed
+  skills), "dashboard--auto" lets the sections flow into two columns instead.
 #}
 {% set has_score = resume_score is not none %}
 {% set has_gap = skill_gap and skill_gap.total %}
@@ -16,15 +16,15 @@
 
 <section class="results" id="results" tabindex="-1" aria-labelledby="results-title" aria-live="polite">
   <div class="container">
-    <h1 class="sr-only" id="results-title">Your results</h1>
-
-    {# Compact bar: what was analyzed + actions. Replaces the big hero once there are results. #}
-    <div class="compact-bar fade-in" data-compact-bar>
-      <span class="card-icon">{{ icon("file-text" if source == "resume" else "keyboard", 18) }}</span>
+    {# Masthead: the report title, what was analyzed, and the actions. Replaces the big hero once there are results. #}
+    <header class="compact-bar fade-in" data-compact-bar>
       <div class="compact-bar-text">
-        <p class="compact-bar-label">{{ "Analyzed resume" if source == "resume" else "Typed skills" }}</p>
-        <p class="compact-bar-value" data-compact-value>
-          {%- if source == "resume" -%}{{ uploaded_name or "Your resume" }}{%- else -%}{{ input_text }}{%- endif -%}
+        <h1 class="results-title" id="results-title">Career report</h1>
+        <p class="compact-bar-meta">
+          <span class="compact-bar-label">{{ "Analyzed resume" if source == "resume" else "Typed skills" }}</span>
+          <span class="compact-bar-value" data-compact-value>
+            {%- if source == "resume" -%}{{ uploaded_name or "Your resume" }}{%- else -%}{{ input_text }}{%- endif -%}
+          </span>
         </p>
       </div>
       <div class="compact-bar-actions">
@@ -45,7 +45,7 @@
           {{ icon("rotate-ccw", 16) }} Analyze another
         </a>
       </div>
-    </div>
+    </header>
 
     {# "Edit skills" opens the same input card (form) here, with the skills filled in #}
     <div class="analyze-panel" id="analyze-panel" hidden>

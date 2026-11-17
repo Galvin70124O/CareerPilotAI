@@ -3,9 +3,8 @@
 {% set passed = resume_score.checklist|selectattr("ok")|list|length %}
 <article class="card fade-in" data-card="score" aria-labelledby="score-title">
   <header class="card-header">
-    <span class="card-icon">{{ icon("gauge", 18) }}</span>
     <div>
-      <h3 class="card-title" id="score-title">Resume Score</h3>
+      <h3 class="card-title" id="score-title">Resume score</h3>
       <p class="card-subtitle">How an applicant tracking system (ATS) might rate it</p>
     </div>
   </header>
@@ -30,7 +29,7 @@
   </div>
 
   <div class="card-section">
-    <p class="section-label">{{ icon("lightbulb", 14) }} Tips to improve</p>
+    <h4 class="subhead">Tips to improve</h4>
     <ol class="tips">
       {% for tip in resume_score.tips %}<li><span>{{ tip }}</span></li>{% endfor %}
     </ol>
