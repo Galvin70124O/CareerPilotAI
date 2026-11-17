@@ -3,7 +3,7 @@
  "sources": {
   "esco": "ESCO classification v1.2.1, European Commission (esco.ec.europa.eu), alternative labels",
   "onet": "O*NET 31.0 Database, U.S. Department of Labor/ETA, CC BY 4.0 (onetcenter.org), Software Skills",
-  "india": "Hand-written list of how Indian resumes write degrees, courses and common skills"
+  "india": "Hand-written list of how Indian resumes write degrees, courses and skills (incl. common short forms like OOPs, BOQ, MS Excel)"
  },
  "synonyms": {
   "abap": {
@@ -19,6 +19,11 @@
   "accounting": {
    "esco": [
     "bookkeeping"
+   ]
+  },
+  "active directory": {
+   "onet": [
+    "microsoft active directory"
    ]
   },
   "ansible": {
@@ -62,6 +67,17 @@
     "technical plans"
    ]
   },
+  "bug reporting": {
+   "india": [
+    "bug report",
+    "bug reports",
+    "defect reporting",
+    "defect tracking",
+    "bug tracking",
+    "defect logging",
+    "defect reports"
+   ]
+  },
   "building codes": {
    "esco": [
     "building laws",
@@ -75,9 +91,24 @@
     "construction standards"
    ]
   },
+  "business intelligence": {
+   "esco": [
+    "business analytics",
+    "business intelligence tools"
+   ],
+   "onet": [
+    "sap business intelligence"
+   ]
+  },
   "c#": {
    "esco": [
     "c sharp"
+   ]
+  },
+  "c++": {
+   "esco": [
+    "c++ framework",
+    "c++ software"
    ]
   },
   "carpentry": {
@@ -89,6 +120,13 @@
    "india": [
     "sgpa",
     "cgpa/percentage"
+   ]
+  },
+  "circuit analysis": {
+   "india": [
+    "circuit diagrams",
+    "circuit design",
+    "circuit theory"
    ]
   },
   "cisco": {
@@ -103,6 +141,26 @@
     "civil engineering applications",
     "civil engineering fieldwork",
     "civil engineering work"
+   ]
+  },
+  "construction methods": {
+   "esco": [
+    "construction approaches",
+    "construction methodology",
+    "construction procedures",
+    "construction processes",
+    "construction systems",
+    "construction techniques"
+   ],
+   "india": [
+    "construction techniques",
+    "construction technology"
+   ]
+  },
+  "creo": {
+   "india": [
+    "ptc creo",
+    "creo parametric"
    ]
   },
   "cryptocurrency": {
@@ -127,6 +185,19 @@
     "customer support"
    ]
   },
+  "dashboards": {
+   "india": [
+    "dashboard"
+   ]
+  },
+  "data cleaning": {
+   "india": [
+    "data cleansing",
+    "data wrangling",
+    "data preprocessing",
+    "data pre-processing"
+   ]
+  },
   "data structures and algorithms": {
    "india": [
     "dsa",
@@ -137,11 +208,90 @@
     "algorithms and data structures"
    ]
   },
+  "data visualization": {
+   "india": [
+    "data visualisation",
+    "data viz"
+   ]
+  },
   "data warehouse": {
    "esco": [
     "data repository",
     "data warehouse solutions",
     "enterprise data storage"
+   ]
+  },
+  "debugging": {
+   "india": [
+    "debug",
+    "debugged"
+   ]
+  },
+  "electrical engineering": {
+   "esco": [
+    "application of electricity",
+    "application of electromagnetism",
+    "application of electronics",
+    "field of electrical engineering",
+    "fundamentals of electrical engineering",
+    "principles of electrical engineering",
+    "scope of electrical engineering"
+   ]
+  },
+  "electrical machines": {
+   "esco": [
+    "electric-generating machines",
+    "electrical apparatus",
+    "machines for electricity"
+   ],
+   "india": [
+    "electric machines",
+    "electric motors",
+    "induction motors"
+   ]
+  },
+  "electrical safety": {
+   "india": [
+    "electrical safety norms",
+    "lockout/tagout",
+    "lockout tagout"
+   ]
+  },
+  "electrical testing": {
+   "india": [
+    "megger testing",
+    "insulation resistance testing",
+    "testing and commissioning"
+   ]
+  },
+  "electrical wiring": {
+   "india": [
+    "wiring diagrams",
+    "house wiring",
+    "panel wiring"
+   ]
+  },
+  "electronics": {
+   "esco": [
+    "aspects of electronics",
+    "characteristics of electronic equipment",
+    "characteristics of electronic systems",
+    "electronic apparatus",
+    "electronic components",
+    "electronic devices",
+    "electronic equipment",
+    "electronic systems",
+    "features of electronics",
+    "functioning of electronics",
+    "functions of electronic systems",
+    "principles of electronic systems"
+   ]
+  },
+  "engineering drawing": {
+   "india": [
+    "engineering drawings",
+    "technical drawing",
+    "machine drawing"
    ]
   },
   "excel": {
@@ -161,11 +311,29 @@
     "statements on finances"
    ]
   },
+  "fluid mechanics": {
+   "esco": [
+    "liquefied mechanics",
+    "liquefied mechanisms",
+    "liquid mechanics",
+    "liquid mechanisms",
+    "plasma mechanics",
+    "plasma mechanisms",
+    "solvent mechanics",
+    "solvent mechanisms"
+   ]
+  },
   "graphic design": {
    "esco": [
     "graphic designing",
     "graphic designs",
     "visual design"
+   ]
+  },
+  "help desk": {
+   "india": [
+    "helpdesk",
+    "service desk"
    ]
   },
   "hris": {
@@ -312,6 +480,14 @@
     "nptel online certification"
    ]
   },
+  "object-oriented programming": {
+   "india": [
+    "oops",
+    "oop",
+    "object oriented programming",
+    "oops concepts"
+   ]
+  },
   "photoshop": {
    "onet": [
     "adobe photoshop"
@@ -326,6 +502,13 @@
     "power-bi"
    ]
   },
+  "power systems": {
+   "india": [
+    "power system",
+    "power distribution",
+    "power transmission"
+   ]
+  },
   "powerpoint": {
    "onet": [
     "microsoft powerpoint"
@@ -334,6 +517,12 @@
     "ms powerpoint",
     "ms-powerpoint",
     "ppt"
+   ]
+  },
+  "primavera": {
+   "india": [
+    "primavera p6",
+    "oracle primavera"
    ]
   },
   "project management": {
@@ -355,6 +544,18 @@
     "python 3k"
    ]
   },
+  "quantity surveying": {
+   "esco": [
+    "quantity surveying techniques"
+   ],
+   "india": [
+    "quantity estimation",
+    "estimation and costing",
+    "boq",
+    "bill of quantities",
+    "rate analysis"
+   ]
+  },
   "quickbooks": {
    "onet": [
     "intuit quickbooks"
@@ -368,6 +569,13 @@
   "revit": {
    "onet": [
     "autodesk revit"
+   ]
+  },
+  "site supervision": {
+   "india": [
+    "site execution",
+    "site inspection",
+    "site supervisor"
    ]
   },
   "solidity": {
@@ -418,9 +626,41 @@
     "stats"
    ]
   },
+  "strength of materials": {
+   "india": [
+    "mechanics of materials",
+    "mechanics of solids"
+   ]
+  },
+  "surveying": {
+   "esco": [
+    "land survey",
+    "land surveying"
+   ],
+   "india": [
+    "total station",
+    "auto level",
+    "land surveying"
+   ]
+  },
+  "ticketing": {
+   "india": [
+    "ticketing system",
+    "ticketing tool",
+    "servicenow",
+    "zendesk",
+    "freshdesk"
+   ]
+  },
   "typescript": {
    "esco": [
     "typescript programming language"
+   ]
+  },
+  "unit testing": {
+   "india": [
+    "unit test",
+    "unit tests"
    ]
   },
   "visual studio": {

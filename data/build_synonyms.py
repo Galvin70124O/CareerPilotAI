@@ -53,6 +53,8 @@ ESCO_BLOCKLIST = {
     # others
     "transport", "diet", "public image", "network magic", "customer well being", "customer satisfaction",
     "architectural project", "architectural proposal", "design architecture",
+    # new-career skills: "transformers" is also an NLP model, "generators" and "survey" are everyday words
+    "transformers", "generators", "survey",
 }
 MAX_WORDS = 4         # longer ESCO labels are descriptions, not words people write on a resume
 MIN_LENGTH = 3        # shorter ones ("r", "go") are handled by context rules in features/skills.py
@@ -73,6 +75,32 @@ INDIA = {
     "staad pro": ["staad.pro", "staad"],
     "power bi": ["powerbi", "power-bi"],
     "manual testing": ["manual tester"],
+    # skill names used by the new careers in career_profiles.json
+    "object-oriented programming": ["oops", "oop", "object oriented programming", "oops concepts"],
+    "debugging": ["debug", "debugged"],
+    "data cleaning": ["data cleansing", "data wrangling", "data preprocessing", "data pre-processing"],
+    "data visualization": ["data visualisation", "data viz"],
+    "dashboards": ["dashboard"],
+    "bug reporting": ["bug report", "bug reports", "defect reporting", "defect tracking", "bug tracking",
+                      "defect logging", "defect reports"],
+    "unit testing": ["unit test", "unit tests"],
+    "ticketing": ["ticketing system", "ticketing tool", "servicenow", "zendesk", "freshdesk"],
+    "help desk": ["helpdesk", "service desk"],
+    "engineering drawing": ["engineering drawings", "technical drawing", "machine drawing"],
+    "strength of materials": ["mechanics of materials", "mechanics of solids"],
+    "creo": ["ptc creo", "creo parametric"],
+    "circuit analysis": ["circuit diagrams", "circuit design", "circuit theory"],
+    "electrical machines": ["electric machines", "electric motors", "induction motors"],
+    "power systems": ["power system", "power distribution", "power transmission"],
+    "electrical wiring": ["wiring diagrams", "house wiring", "panel wiring"],
+    "electrical testing": ["megger testing", "insulation resistance testing", "testing and commissioning"],
+    "electrical safety": ["electrical safety norms", "lockout/tagout", "lockout tagout"],
+    "quantity surveying": ["quantity estimation", "estimation and costing", "boq", "bill of quantities",
+                           "rate analysis"],
+    "surveying": ["total station", "auto level", "land surveying"],
+    "construction methods": ["construction techniques", "construction technology"],
+    "site supervision": ["site execution", "site inspection", "site supervisor"],
+    "primavera": ["primavera p6", "oracle primavera"],
 }
 
 
@@ -172,7 +200,8 @@ def main():
         "sources": {
             "esco": "ESCO classification v1.2.1, European Commission (esco.ec.europa.eu), alternative labels",
             "onet": "O*NET 31.0 Database, U.S. Department of Labor/ETA, CC BY 4.0 (onetcenter.org), Software Skills",
-            "india": "Hand-written list of how Indian resumes write degrees, courses and common skills",
+            "india": "Hand-written list of how Indian resumes write degrees, courses and skills "
+                     "(incl. common short forms like OOPs, BOQ, MS Excel)",
         },
         "synonyms": dict(sorted(combined.items())),
     }
