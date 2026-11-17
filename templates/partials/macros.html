@@ -49,6 +49,17 @@
 </svg>
 {%- endmacro %}
 
+{# Long lists show the first SHOW_FIRST items; the rest sit in a <details> (works without JavaScript) #}
+{% set SHOW_FIRST = 10 %}
+
+{# The <summary> of that <details>: "Show all N" when closed, "Show fewer" when open (switched by CSS) #}
+{% macro show_all(total) -%}
+<summary class="show-all-toggle">
+  <span class="show-more">Show all {{ total }}</span><span class="show-less">Show fewer</span>
+  {{ icon("chevron-down", 16, class="chevron") }}
+</summary>
+{%- endmacro %}
+
 {#
   Score ring: an SVG circle. pathLength="100" lets stroke-dasharray="<score> 100" draw
   exactly <score>% of the circle, with no inline styles.

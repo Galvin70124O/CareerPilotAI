@@ -643,6 +643,31 @@ button, input, textarea { font: inherit; color: inherit; }
 .course-link .icon { margin-top: 3px; }
 .course-link-search { color: var(--text-muted); font-weight: 400; }
 
+/* "Show all N": long lists show the first 10; the rest sit in a <details> (no JavaScript needed) */
+.show-all { margin-top: var(--space-3); }
+.show-all-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap);          /* 44px target */
+  cursor: pointer;
+  list-style: none;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--border-control);
+  text-underline-offset: 3px;
+}
+.show-all-toggle::-webkit-details-marker { display: none; }
+.show-all-toggle .show-less { display: none; }
+.show-all[open] > .show-all-toggle .show-more { display: none; }
+.show-all[open] > .show-all-toggle .show-less { display: inline; }
+.show-all-toggle .chevron { color: var(--text-subtle); transition: transform var(--dur-sheet) var(--ease-out); }
+.show-all[open] > .show-all-toggle .chevron { transform: rotate(180deg); }
+.show-all > .course-rows { padding-top: var(--space-3); border-top: 1px solid var(--border); }
+.option-chips > .show-all { flex-basis: 100%; margin-top: 0; }
+.option-chips-more { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
+
 /* What-if simulator */
 .option-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-5); }
 .option-chip { position: relative; }
