@@ -37,12 +37,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; line-height
 ul, ol { margin: 0; padding: 0; }
 fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
 img, svg { display: block; }
-a { color: var(--accent-text); text-decoration: none; }
-a:hover { text-decoration: underline; text-underline-offset: 3px; }
+/* Links are ink and underlined, as in print; the underline darkens on hover */
+a { color: var(--text); text-decoration: underline; text-decoration-thickness: 1px; text-decoration-color: var(--border-strong); text-underline-offset: 3px; transition: text-decoration-color var(--dur-fast); }
+a:hover { text-decoration-color: currentColor; }
 button, input, textarea { font: inherit; color: inherit; }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--text);
   outline-offset: 2px;
   border-radius: var(--radius);
 }
@@ -72,8 +73,8 @@ button, input, textarea { font: inherit; color: inherit; }
   top: -48px;
   z-index: 100;
   padding: var(--space-2) var(--space-4);
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--ink);
+  color: var(--on-ink);
   border-radius: var(--radius);
 }
 .skip-link:focus { top: var(--space-3); }
@@ -101,12 +102,13 @@ button, input, textarea { font: inherit; color: inherit; }
   white-space: nowrap;
   transition: background-color var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast), box-shadow var(--dur-fast);
 }
-.btn:hover { text-decoration: none; }
+.btn, .btn:hover, .brand { text-decoration: none; }
 .btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
 .btn:disabled, .btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
 
-.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
-.btn-primary:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+/* Primary actions are black ink: the blue accent is kept for the score and career matches */
+.btn-primary { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
+.btn-primary:hover:not(:disabled) { background: var(--ink-hover); border-color: var(--ink-hover); }
 
 .btn-secondary { background: var(--surface); border-color: var(--border-strong); color: var(--text); }
 .btn-secondary:hover:not(:disabled) { background: var(--surface-hover); }
@@ -174,7 +176,7 @@ button, input, textarea { font: inherit; color: inherit; }
 .chip-success { background: var(--success-soft); border-color: var(--success-border); }
 .chip-success .icon { color: var(--success); }
 .chip-missing { background: transparent; border-style: dashed; border-color: var(--border-strong); color: var(--text-muted); }
-.chip-accent { background: var(--accent-soft); border-color: var(--accent-border); color: var(--accent-text); }
+.chip-accent { background: var(--surface-2); border-color: transparent; color: var(--text); font-weight: 600; }   /* "Why this match" words: ink, weight for emphasis */
 
 /* Badges */
 .badge {
@@ -192,7 +194,7 @@ button, input, textarea { font: inherit; color: inherit; }
   background: var(--fill);
   white-space: nowrap;
 }
-.badge-accent { background: var(--accent-soft); border-color: var(--accent-border); color: var(--accent-text); }
+.badge-accent { background: var(--text); color: var(--bg); }
 .badge-up { background: var(--success-soft); border-color: var(--success-border); color: var(--success); }
 .badge-down { background: var(--danger-soft); border-color: var(--danger-border); color: var(--danger); }
 
@@ -207,11 +209,14 @@ button, input, textarea { font: inherit; color: inherit; }
   border-radius: var(--radius-0);
   background: var(--track);
   overflow: hidden;
-  color: var(--chart);
+  color: var(--text);
 }
 .bar::-webkit-progress-bar { background: var(--track); border-radius: var(--radius-0); }
-.bar::-webkit-progress-value { background: var(--chart); border-radius: var(--radius-0); transition: width 0.6s var(--ease-out); }
-.bar::-moz-progress-bar { background: var(--chart); border-radius: var(--radius-0); }
+.bar::-webkit-progress-value { background: var(--text); border-radius: var(--radius-0); transition: width 0.6s var(--ease-out); }
+.bar::-moz-progress-bar { background: var(--text); border-radius: var(--radius-0); }
+/* The blue accent: career-match bars and the confidence bar only */
+.career-row .bar::-webkit-progress-value, .stat .bar::-webkit-progress-value { background: var(--chart); }
+.career-row .bar::-moz-progress-bar, .stat .bar::-moz-progress-bar { background: var(--chart); }
 .bar-thin { height: 4px; }
 .bar-muted::-webkit-progress-value { background: var(--text-subtle); }
 .bar-muted::-moz-progress-bar { background: var(--text-subtle); }
@@ -318,8 +323,8 @@ button, input, textarea { font: inherit; color: inherit; }
   cursor: pointer;
   transition: border-color var(--dur-fast), background-color var(--dur-fast);
 }
-.dropzone:hover, .dropzone.is-dragover { border-color: var(--accent); background: var(--accent-soft); }
-.dropzone:focus-within { border-color: var(--accent); box-shadow: var(--focus-ring); }
+.dropzone:hover, .dropzone.is-dragover { border-color: var(--text-3); background: var(--fill); }
+.dropzone:focus-within { border-color: var(--text); box-shadow: var(--focus-ring); }
 .dropzone-input {
   position: absolute;
   width: 1px;
@@ -329,7 +334,7 @@ button, input, textarea { font: inherit; color: inherit; }
 }
 .dropzone-icon { margin-bottom: var(--space-2); color: var(--text-2); }
 .dropzone-title { font-weight: 600; font-size: var(--text-base); }
-.dropzone-title .link { color: var(--accent-text); }
+.dropzone-title .link { text-decoration: underline; text-underline-offset: 3px; }
 .dropzone-hint { font-size: var(--text-sm); color: var(--text-muted); }
 .dropzone-file {
   display: none;
@@ -346,7 +351,7 @@ button, input, textarea { font: inherit; color: inherit; }
 .dropzone.has-file .dropzone-file { display: flex; }
 .dropzone-file-name { font-weight: 500; font-size: var(--text-sm); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dropzone-file-size { font-size: var(--text-xs); color: var(--text-muted); }
-.dropzone-file .spinner { color: var(--accent-text); }
+.dropzone-file .spinner { color: var(--text); }
 .field-error { margin-top: var(--space-3); color: var(--danger); font-size: var(--text-sm); }
 .sample-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-2) var(--space-3); margin-top: var(--space-4); font-size: var(--text-sm); }
 .field-error:empty { display: none; }
@@ -368,7 +373,7 @@ button, input, textarea { font: inherit; color: inherit; }
   resize: vertical;
 }
 .textarea::placeholder { color: var(--text-subtle); }
-.textarea:focus { outline: none; border-color: var(--accent); box-shadow: var(--focus-ring); }
+.textarea:focus { outline: none; border-color: var(--text); box-shadow: 0 0 0 1px var(--text); }
 .field-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: space-between; align-items: center; margin-top: var(--space-4); }
 .mic-status { font-size: var(--text-sm); color: var(--text-muted); }
 .btn-mic[aria-pressed="true"] { border-color: var(--danger-border); background: var(--danger-soft); color: var(--danger); }
@@ -458,12 +463,12 @@ button, input, textarea { font: inherit; color: inherit; }
 .loading-step-icon .icon { display: none; }
 .loading-step[data-step="pending"] .icon-pending { display: block; color: var(--border-strong); }
 .loading-step[data-step="active"] { color: var(--text); font-weight: 600; }
-.loading-step[data-step="active"] .icon-active { display: block; color: var(--accent-text); }
+.loading-step[data-step="active"] .icon-active { display: block; color: var(--text); }
 .loading-step[data-step="done"] { color: var(--text-muted); }
 .loading-step[data-step="done"] .icon-done { display: block; color: var(--success); animation: pop 0.25s ease; }
 @keyframes pop { from { transform: scale(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
 .loading-progress { margin-top: var(--space-6); height: 4px; border-radius: var(--radius-0); background: var(--track); overflow: hidden; }
-.loading-progress span { display: block; height: 100%; width: 40%; border-radius: inherit; background: var(--accent); animation: indeterminate 1.4s ease-in-out infinite; }
+.loading-progress span { display: block; height: 100%; width: 40%; border-radius: inherit; background: var(--text); animation: indeterminate 1.4s ease-in-out infinite; }
 @keyframes indeterminate { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
 
 /* Results */
@@ -610,7 +615,7 @@ button, input, textarea { font: inherit; color: inherit; }
   color: var(--text-muted);
 }
 .timeline-stage.is-complete .timeline-node { border-color: var(--success); background: var(--success); color: var(--surface); }
-.timeline-stage.is-current .timeline-node { border-color: var(--accent); color: var(--accent-text); box-shadow: 0 0 0 4px var(--accent-soft); }
+.timeline-stage.is-current .timeline-node { border-color: var(--text); color: var(--text); }
 .timeline-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); min-height: 28px; }
 .timeline-title { font-weight: 600; font-size: var(--text-base); }
 .timeline-count { font-size: var(--text-xs); color: var(--text-subtle); font-variant-numeric: tabular-nums; }
@@ -655,7 +660,7 @@ button, input, textarea { font: inherit; color: inherit; }
 }
 .option-chip span .icon { display: none; }
 .option-chip span:hover { background: var(--surface-2); }
-.option-chip input:checked + span { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-text); }
+.option-chip input:checked + span { background: var(--text); border-color: var(--text); color: var(--bg); }
 .option-chip input:checked + span .icon { display: block; }
 .option-chip input:focus-visible + span { box-shadow: var(--focus-ring); }
 .sim-error { margin-top: var(--space-3); color: var(--danger); font-size: var(--text-sm); }
