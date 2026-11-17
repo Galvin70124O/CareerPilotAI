@@ -31,7 +31,7 @@ A Flask web app that suggests a career path from resume text. Built by a CSE stu
 | `data/build_profiles.py` + `career_profiles.json` | Weighted key skills for all 49 careers, each with its evidence. New careers: ESCO essential 1.0 / optional 0.6 + O*NET hot 0.5 / listed 0.25 (else India-list 0.5), plus `parents` (the classifier careers they grow out of). Existing: share of TRAINING-split resumes + O*NET bonus. Rebuild with the script; it stops on a made-up ESCO citation |
 | `evaluation/india_test_set.jsonl` | FROZEN 60-resume India test set (sha256 in MODEL_CARD.md). Never edit, never tune on it |
 | `model.pkl` | Committed trained model (10 MB). Retrain locally and commit it; Render doesn't train |
-| `skills.json` | Per career: `skills` (8 key skills, chosen by how often that category's resumes mention them) and `job_keywords` (job-title words). Loaded only by `features/skills.py` (`CAREER_SKILLS`, `JOB_KEYWORDS`) |
+| `skills.json` | Per career: `skills` (8 key skills; the 42 classifier careers: chosen by how often that category's resumes mention them; the 7 new careers: the top 8 by weight in `career_profiles.json`) and `job_keywords` (job-title words). Loaded only by `features/skills.py` (`CAREER_SKILLS`, `JOB_KEYWORDS`) |
 | `templates/index.html` | Page layout (head, top bar, hero, results/preview, footer) |
 | `tests/` | pytest (`pytest.ini` sets the path) |
 | `chatbot.py` | CLI demo, loads `model.pkl` |

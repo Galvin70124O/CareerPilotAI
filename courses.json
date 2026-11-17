@@ -1,6 +1,6 @@
 {
   "_note": "Only free resources whose URL returned HTTP 200 when checked. Skills not listed here get a search link.",
-  "verified_on": "2026-10-20",
+  "verified_on": "2026-10-20 (new-career links: 2026-11-17)",
   "courses": {
     "abap": [
       {
@@ -604,6 +604,142 @@
       {
         "title": "Learn WordPress (official)",
         "url": "https://learn.wordpress.org/"
+      }
+    ],
+    "c++": [
+      {
+        "title": "LearnCpp.com: free C++ tutorials",
+        "url": "https://www.learncpp.com/"
+      }
+    ],
+    "object-oriented programming": [
+      {
+        "title": "Python docs: Classes (official tutorial)",
+        "url": "https://docs.python.org/3/tutorial/classes.html"
+      }
+    ],
+    "debugging": [
+      {
+        "title": "VS Code docs: Debugging",
+        "url": "https://code.visualstudio.com/docs/debugtest/debugging"
+      }
+    ],
+    "data structures and algorithms": [
+      {
+        "title": "NPTEL: Programming, Data Structures and Algorithms using Python (CMI)",
+        "url": "https://nptel.ac.in/courses/106106145"
+      },
+      {
+        "title": "Competitive Programmer's Handbook (free PDF)",
+        "url": "https://cses.fi/book/book.pdf"
+      }
+    ],
+    "power bi": [
+      {
+        "title": "Microsoft Learn: Power BI training",
+        "url": "https://learn.microsoft.com/en-us/training/powerplatform/power-bi"
+      }
+    ],
+    "data cleaning": [
+      {
+        "title": "Kaggle Learn: Data Cleaning",
+        "url": "https://www.kaggle.com/learn/data-cleaning"
+      }
+    ],
+    "data visualization": [
+      {
+        "title": "Kaggle Learn: Data Visualization",
+        "url": "https://www.kaggle.com/learn/data-visualization"
+      }
+    ],
+    "manual testing": [
+      {
+        "title": "NPTEL: Software Testing (IIIT Bangalore)",
+        "url": "https://nptel.ac.in/courses/106101163"
+      }
+    ],
+    "unit testing": [
+      {
+        "title": "pytest: Get started",
+        "url": "https://docs.pytest.org/en/stable/getting-started.html"
+      }
+    ],
+    "bug reporting": [
+      {
+        "title": "Mozilla: Bug writing guidelines",
+        "url": "https://bugzilla.mozilla.org/page.cgi?id=bug-writing.html"
+      }
+    ],
+    "test cases": [
+      {
+        "title": "ISTQB Certified Tester Foundation Level (free syllabus)",
+        "url": "https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
+      }
+    ],
+    "technical support": [
+      {
+        "title": "Google IT Support Professional Certificate (Coursera, free to audit)",
+        "url": "https://www.coursera.org/professional-certificates/google-it-support"
+      }
+    ],
+    "engineering drawing": [
+      {
+        "title": "NPTEL: Engineering Drawing (IIT Kanpur)",
+        "url": "https://nptel.ac.in/courses/112104172"
+      }
+    ],
+    "fluid mechanics": [
+      {
+        "title": "NPTEL: Introduction to Fluid Mechanics and Fluid Engineering (IIT Kharagpur)",
+        "url": "https://nptel.ac.in/courses/112105183"
+      }
+    ],
+    "strength of materials": [
+      {
+        "title": "NPTEL: Strength of Materials (IIT Roorkee)",
+        "url": "https://nptel.ac.in/courses/112107147"
+      }
+    ],
+    "circuit analysis": [
+      {
+        "title": "NPTEL: Basic Electrical Circuits (IIT Madras)",
+        "url": "https://nptel.ac.in/courses/117106108"
+      }
+    ],
+    "power systems": [
+      {
+        "title": "NPTEL: Power System Analysis (IIT Kharagpur)",
+        "url": "https://nptel.ac.in/courses/108105067"
+      }
+    ],
+    "electrical machines": [
+      {
+        "title": "NPTEL: Electrical Machines-I (IIT Kharagpur)",
+        "url": "https://nptel.ac.in/courses/108105155"
+      }
+    ],
+    "electrical safety": [
+      {
+        "title": "OSHA: Electrical safety",
+        "url": "https://www.osha.gov/electrical"
+      }
+    ],
+    "construction methods": [
+      {
+        "title": "NPTEL: Construction Methods and Equipment Management (IIT Guwahati)",
+        "url": "https://nptel.ac.in/courses/105103206"
+      }
+    ],
+    "site supervision": [
+      {
+        "title": "OSHA: Construction industry safety",
+        "url": "https://www.osha.gov/construction"
+      }
+    ],
+    "project management": [
+      {
+        "title": "Google Project Management Certificate (Coursera, free to audit)",
+        "url": "https://www.coursera.org/professional-certificates/google-project-management"
       }
     ]
   }
