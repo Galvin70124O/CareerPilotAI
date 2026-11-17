@@ -4,7 +4,7 @@ __pycache__/
 
 # Virtual environments
 venv/
-.venv/
+.venv
 env/
 
 # Trained model files. model.pkl IS committed, so Render can serve it without training.
@@ -20,8 +20,9 @@ data/resumes.parquet
 # Secrets / local settings
 .env
 
-# Impeccable design-tool config (local only)
+# Local tool output (Impeccable design config, Graphify knowledge graph)
 .impeccable/
+graphify-out/
 
 # Editor and OS files
 .vscode/
