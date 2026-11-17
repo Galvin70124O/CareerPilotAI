@@ -1,0 +1,209 @@
+/* =========================================================================
+   CareerPilot AI theme: the FairSplit design tokens (see DESIGN_SYSTEM.md in
+   the FairSplit repo). This is the ONLY file that defines colours, type,
+   spacing, radius and shadows. app.css uses these variables and never
+   hard-codes a colour.
+   1. FairSplit tokens (light on :root, dark on [data-theme="dark"])
+   2. CareerPilot names -> FairSplit tokens (the names app.css already uses)
+   ========================================================================= */
+
+/* ---------- 1. FairSplit tokens ----------------------------------------- */
+/* FairSplit design tokens. Light on :root, dark on [data-theme="dark"]. */
+:root {
+  color-scheme: light;
+
+  /* Surfaces */
+  --bg: #f7f7f8;
+  --panel: #ffffff;
+  --panel-2: #fafafa;
+  --fill: #f4f4f5;
+  --border: #e4e4e7;
+  --border-strong: #d4d4d8;
+
+  /* Text */
+  --text: #18181b;
+  --text-2: #52525b;
+  --text-3: #71717a;
+
+  /* Brand */
+  --brand: #0f766e;
+  --brand-hover: #115e59;
+  --brand-ink: #ffffff;
+  --chart: #00897b;
+  /* Derived tints (follow the theme automatically) */
+  --brand-soft: color-mix(in srgb, var(--brand) 10%, var(--panel));
+  --brand-border: color-mix(in srgb, var(--brand) 35%, var(--panel));
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--brand) 18%, transparent);
+
+  /* Status */
+  --pos: #15803d;
+  --pos-bg: #f0fdf4;
+  --warn: #a16207;
+  --warn-bg: #fefce8;
+  --neg: #b91c1c;
+  --neg-bg: #fef2f2;
+  --danger-ink: #ffffff;
+
+  /* Inverted (toasts) */
+  --inverse-bg: #18181b;
+  --inverse-text: #fafafa;
+
+  /* Elevation */
+  --overlay: rgba(24, 24, 27, .4);
+  --menu-shadow: 0 4px 16px rgba(24, 24, 27, .08), 0 1px 3px rgba(24, 24, 27, .06);
+
+  /* Typography */
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --fs-xs: 11px;
+  --fs-sm: 12px;
+  --fs-ui: 13px;
+  --fs-base: 14px;
+  --fs-h2: 16px;
+  --fs-figure: 20px;
+  --fs-h1: 24px;
+  --fs-hero: 40px;
+  --lh-sm: 16px;
+  --lh-base: 20px;
+  --lh-h2: 24px;
+  --lh-figure: 28px;
+  --lh-h1: 32px;
+  --lh-hero: 48px;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+
+  /* Spacing: 8px grid, named in 4px steps (--space-6 = 24px) */
+  --space-half: 2px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* Radius */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-lg: 8px;
+  --radius-full: 9999px;
+
+  /* Sizes */
+  --control-h: 36px;
+  --control-h-sm: 32px;
+  --header-h: 56px;
+  --page-max: 1120px;
+  --side-col: 320px;
+
+  /* Motion */
+  --dur-fast: .12s;
+  --dur-sheet: .18s;
+  --ease: ease;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #18181b;
+  --panel: #1f1f23;
+  --panel-2: #26262b;
+  --fill: #2c2c31;
+  --border: #34343a;
+  --border-strong: #45454c;
+
+  --text: #f4f4f5;
+  --text-2: #d4d4d8;
+  --text-3: #a1a1aa;
+
+  --brand: #3ab0a2;
+  --brand-hover: #4cc0b2;
+  --brand-ink: #0b1f1d;
+  --chart: #1fa595;
+
+  --pos: #4fb874;
+  --pos-bg: rgba(79, 184, 116, .14);
+  --warn: #d6a738;
+  --warn-bg: rgba(214, 167, 56, .14);
+  --neg: #f07070;
+  --neg-bg: rgba(240, 112, 112, .14);
+  --danger-ink: #1f0707;
+
+  --inverse-bg: #f4f4f5;
+  --inverse-text: #18181b;
+
+  --overlay: rgba(0, 0, 0, .55);
+  --menu-shadow: 0 8px 24px rgba(0, 0, 0, .35);
+}
+
+/* No-JS fallback: follow the OS when no data-theme has been set (same values as above). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --bg: #18181b; --panel: #1f1f23; --panel-2: #26262b; --fill: #2c2c31;
+    --border: #34343a; --border-strong: #45454c;
+    --text: #f4f4f5; --text-2: #d4d4d8; --text-3: #a1a1aa;
+    --brand: #3ab0a2; --brand-hover: #4cc0b2; --brand-ink: #0b1f1d; --chart: #1fa595;
+    --pos: #4fb874; --pos-bg: rgba(79, 184, 116, .14);
+    --warn: #d6a738; --warn-bg: rgba(214, 167, 56, .14);
+    --neg: #f07070; --neg-bg: rgba(240, 112, 112, .14); --danger-ink: #1f0707;
+    --inverse-bg: #f4f4f5; --inverse-text: #18181b;
+    --overlay: rgba(0, 0, 0, .55); --menu-shadow: 0 8px 24px rgba(0, 0, 0, .35);
+  }
+}
+
+@media (max-width: 760px) {
+  :root { --header-h: 52px; --fs-h1: 20px; --lh-h1: 28px; --fs-hero: 28px; --lh-hero: 36px; }
+}
+
+/* ---------- 2. CareerPilot names ---------------------------------------- */
+/* Declared on :root, so in dark mode they pick up the dark values above. */
+:root {
+  /* Type */
+  --font-sans: var(--font);
+  --text-xs: var(--fs-sm);       /* 12px */
+  --text-sm: var(--fs-ui);       /* 13px */
+  --text-base: var(--fs-base);   /* 14px */
+  --text-lg: var(--fs-h2);       /* 16px */
+  --text-xl: var(--fs-figure);   /* 20px */
+  --text-2xl: var(--fs-h1);      /* 24px (20px on phones) */
+  --text-3xl: var(--fs-hero);    /* 40px (28px on phones) */
+  --leading-tight: 1.3;
+  --leading-normal: 1.43;        /* 20px on 14px text */
+
+  /* Neutrals */
+  --surface: var(--panel);
+  --surface-2: var(--panel-2);
+  --surface-hover: var(--panel-2);
+  --track: var(--fill);
+  --text-muted: var(--text-2);
+  --text-subtle: var(--text-3);
+
+  /* The one accent: FairSplit teal */
+  --accent: var(--brand);
+  --accent-hover: var(--brand-hover);
+  --accent-text: var(--brand);
+  --accent-soft: var(--brand-soft);
+  --accent-border: var(--brand-border);
+  --on-accent: var(--brand-ink);
+
+  /* Scores and states */
+  --success: var(--pos);
+  --success-soft: var(--pos-bg);
+  --success-border: color-mix(in srgb, var(--pos) 30%, var(--panel));
+  --warning: var(--warn);
+  --warning-soft: var(--warn-bg);
+  --warning-border: color-mix(in srgb, var(--warn) 30%, var(--panel));
+  --danger: var(--neg);
+  --danger-soft: var(--neg-bg);
+  --danger-border: color-mix(in srgb, var(--neg) 30%, var(--panel));
+
+  /* Layout */
+  --topbar-height: var(--header-h);
+  --content-width: var(--page-max);
+}

@@ -161,10 +161,12 @@ def test_resume_page_has_no_inline_styles_or_emoji(monkeypatch):
 def test_css_and_js_are_linked_and_served(monkeypatch):
     html = page(monkeypatch)
     assert 'href="/static/css/app.css"' in html and 'src="/static/js/app.js"' in html
+    assert html.index('href="/static/css/theme.css"') < html.index('href="/static/css/app.css"')   # tokens load first
     client = app.app.test_client()
-    css = client.get("/static/css/app.css")
-    assert css.status_code == 200
-    text = css.get_data(as_text=True)
+    assert client.get("/static/css/app.css").status_code == 200
+    theme = client.get("/static/css/theme.css")
+    assert theme.status_code == 200
+    text = theme.get_data(as_text=True)
     assert ':root[data-theme="dark"]' in text and "prefers-color-scheme: dark" in text
     assert "--accent:" in text and "--radius-lg:" in text and "--space-4:" in text
     assert client.get("/static/js/app.js").status_code == 200

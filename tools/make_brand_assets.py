@@ -7,7 +7,7 @@ Needs Pillow (pip install pillow; a dev tool only, the app doesn't need it).
 The Open Graph image is rendered from tools/og-image.html with headless Microsoft Edge
 or Chrome if one is installed (see make_og_image below).
 
-The logo: an indigo rounded tile with a compass ring and a needle that points up and to the
+The logo: a teal rounded tile (FairSplit design system) with a compass ring and a needle that points up and to the
 right. The bright half of the needle is an arrowhead that pokes out of the ring: direction
 (compass) + growth (upward arrow). Everything is drawn on a 32 x 32 grid so it stays sharp at 16px.
 """
@@ -21,8 +21,10 @@ from PIL import Image, ImageDraw
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "static", "img")
 
-INDIGO = "#4F46E5"        # light theme accent (same as --accent in app.css)
-INDIGO_DARK = "#6366F1"   # dark theme accent
+TEAL = "#0F766E"          # light theme accent (--brand in static/css/theme.css)
+TEAL_DARK = "#3AB0A2"     # dark theme accent
+GLYPH = "#FFFFFF"         # ring + needle on the light tile (--brand-ink, light)
+GLYPH_DARK = "#0B1F1D"    # ring + needle on the dark tile (--brand-ink, dark): white is too faint on the lighter teal
 
 # Geometry on a 32 x 32 grid
 TILE_RADIUS = 8
@@ -36,21 +38,24 @@ def points(triangle):
     return " ".join(f"{x:g},{y:g}" for x, y in triangle)
 
 
-def logo_svg(tile_color, dark_media_color=None):
+def logo_svg(tile_color, glyph_color, dark_media_color=None, dark_glyph_color=None):
     style = ""
-    if dark_media_color:   # favicon: switch colour with the browser/OS theme
-        style = (f"<style>.tile{{fill:{tile_color}}}@media (prefers-color-scheme:dark)"
-                 f"{{.tile{{fill:{dark_media_color}}}}}</style>")
+    if dark_media_color:   # favicon: switch colours with the browser/OS theme
+        style = (f"<style>.tile{{fill:{tile_color}}}.glyph{{fill:{glyph_color}}}.ring{{stroke:{glyph_color}}}"
+                 f"@media (prefers-color-scheme:dark){{.tile{{fill:{dark_media_color}}}"
+                 f".glyph{{fill:{dark_glyph_color}}}.ring{{stroke:{dark_glyph_color}}}}}</style>")
     fill = "" if dark_media_color else f' fill="{tile_color}"'
+    glyph = "" if dark_media_color else f' fill="{glyph_color}"'
+    ring = "" if dark_media_color else f' stroke="{glyph_color}"'
     return (
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" '
         'role="img" aria-label="CareerPilot AI">'
         f"{style}"
         f'<rect class="tile" width="32" height="32" rx="{TILE_RADIUS}"{fill}/>'
-        f'<circle cx="{RING["cx"]}" cy="{RING["cy"]}" r="{RING["r"]}" fill="none" stroke="#fff" '
+        f'<circle class="ring" cx="{RING["cx"]}" cy="{RING["cy"]}" r="{RING["r"]}" fill="none"{ring} '
         f'stroke-opacity="{RING["opacity"]}" stroke-width="{RING["width"]}"/>'
-        f'<polygon points="{points(NEEDLE_TAIL)}" fill="#fff" fill-opacity="{TAIL_OPACITY}"/>'
-        f'<polygon points="{points(NEEDLE_HEAD)}" fill="#fff"/>'
+        f'<polygon class="glyph" points="{points(NEEDLE_TAIL)}"{glyph} fill-opacity="{TAIL_OPACITY}"/>'
+        f'<polygon class="glyph" points="{points(NEEDLE_HEAD)}"{glyph}/>'
         "</svg>\n"
     )
 
@@ -105,18 +110,18 @@ def make_og_image():
 def main():
     os.makedirs(OUT, exist_ok=True)
     files = {
-        "logo.svg": logo_svg(INDIGO),                      # for light backgrounds
-        "logo-dark.svg": logo_svg(INDIGO_DARK),            # for dark backgrounds
-        "favicon.svg": logo_svg(INDIGO, INDIGO_DARK),      # follows the browser theme
+        "logo.svg": logo_svg(TEAL, GLYPH),                                   # for light backgrounds
+        "logo-dark.svg": logo_svg(TEAL_DARK, GLYPH_DARK),                     # for dark backgrounds
+        "favicon.svg": logo_svg(TEAL, GLYPH, TEAL_DARK, GLYPH_DARK),          # follows the browser theme
     }
     for name, svg in files.items():
         with open(os.path.join(OUT, name), "w", encoding="utf-8") as f:
             f.write(svg)
         print("wrote", name)
-    logo_png(32, INDIGO).save(os.path.join(OUT, "favicon-32.png"), optimize=True)
+    logo_png(32, TEAL).save(os.path.join(OUT, "favicon-32.png"), optimize=True)
     # iOS rounds the corners itself and doesn't like transparency: full square tile
-    logo_png(180, INDIGO, rounded=False).convert("RGB").save(os.path.join(OUT, "apple-touch-icon.png"), optimize=True)
-    logo_png(512, INDIGO).save(os.path.join(OUT, "logo-512.png"), optimize=True)
+    logo_png(180, TEAL, rounded=False).convert("RGB").save(os.path.join(OUT, "apple-touch-icon.png"), optimize=True)
+    logo_png(512, TEAL).save(os.path.join(OUT, "logo-512.png"), optimize=True)
     print("wrote favicon-32.png, apple-touch-icon.png, logo-512.png")
     make_og_image()
 
