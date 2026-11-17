@@ -18,7 +18,8 @@
   --panel-2: #f2efe9;       /* one tone step down: chips, drop zone */
   --fill: #ebe8e2;          /* bar and ring tracks */
   --border: #e5e3df;        /* hairline rules */
-  --border-strong: #c8c4be; /* input borders, dashed chips */
+  --border-strong: #c8c4be; /* dashed chips, step markers */
+  --border-control: #8a857b; /* outlines of form controls and buttons: 3.2-3.5:1 */
   --rule: #1a1917;          /* the strong rule above each report section */
 
   --text: #1a1917;          /* ink: 16:1 on paper */
@@ -54,12 +55,13 @@
      the system UI face for reading text and controls */
   --font-display: "Newsreader", Georgia, "Times New Roman", serif;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --fs-xs: 13px;      /* badges, credits */
-  --fs-sm: 14px;      /* secondary text */
-  --fs-base: 16px;    /* reading text */
-  --fs-h3: 24px;      /* report section headings */
-  --fs-h1: 40px;      /* report title, big figures */
-  --fs-hero: 60px;    /* home headline */
+  /* Sizes in rem (13/14/16/24/40/60px at the default 16px), so they follow the browser's text-size setting */
+  --fs-xs: 0.8125rem;   /* badges, credits */
+  --fs-sm: 0.875rem;    /* secondary text */
+  --fs-base: 1rem;      /* reading text */
+  --fs-h3: 1.5rem;      /* report section headings */
+  --fs-h1: 2.5rem;      /* report title, big figures */
+  --fs-hero: 3.75rem;   /* home headline */
   --lh-body: 1.55;
   --lh-heading: 1.2;
   --lh-display: 1.04;
@@ -107,6 +109,7 @@
   --fill: #2c2a26;
   --border: #34322e;
   --border-strong: #4a4741;
+  --border-control: #77726a;
   --rule: #b8b3a8;          /* full-strength ink rules glare in the dark */
 
   --text: #eeebe4;
@@ -138,7 +141,7 @@
   :root:not([data-theme]) {
     color-scheme: dark;
     --bg: #171614; --panel: #1f1e1b; --panel-2: #262521; --fill: #2c2a26;
-    --border: #34322e; --border-strong: #4a4741; --rule: #b8b3a8;
+    --border: #34322e; --border-strong: #4a4741; --border-control: #77726a; --rule: #b8b3a8;
     --text: #eeebe4; --text-2: #b8b3a8; --text-3: #9a958a;
     --ink: #eeebe4; --ink-hover: #d6d2c9; --on-ink: #171614;
     --brand: #8db6dd; --brand-ink: #171614;
@@ -151,7 +154,7 @@
 }
 
 @media (max-width: 760px) {
-  :root { --header-h: 56px; --fs-hero: 38px; --fs-h1: 30px; --fs-h3: 22px; }
+  :root { --header-h: 56px; --fs-hero: 2.375rem; --fs-h1: 1.875rem; --fs-h3: 1.375rem; }
 }
 
 /* ---------- 2. CareerPilot names ---------------------------------------- */
@@ -162,7 +165,7 @@
   --text-xs: var(--fs-xs);
   --text-sm: var(--fs-sm);
   --text-base: var(--fs-base);
-  --text-lg: 18px;
+  --text-lg: 1.125rem;
   --text-xl: var(--fs-h3);
   --text-2xl: var(--fs-h1);
   --text-3xl: var(--fs-hero);
