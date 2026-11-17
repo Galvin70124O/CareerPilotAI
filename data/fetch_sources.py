@@ -8,7 +8,7 @@ Download the two outside skill sources into data/raw/ (git-ignored).
 - ESCO v1.2.1 (European Commission, free reuse with attribution): the full CSV download needs an
   email sign-up, so we use the public ESCO API with selectedVersion=v1.2.1 instead and save the
   raw JSON. We fetch:
-    * 7 occupations that match the new careers, with their essential/optional skills
+    * 7 occupations that match the new careers (pinned by URI), with their essential/optional skills
     * a skill search for every skill name the app already uses (skills.json + roadmaps.json),
       which gives ESCO's preferred and alternative labels (synonyms) for them
 
@@ -34,15 +34,18 @@ ONET_FILES = ["Software Skills.txt", "Occupation Data.txt"]
 
 ESCO_VERSION = "v1.2.1"
 ESCO_API = "https://ec.europa.eu/esco/api"
-# ESCO occupation searches for the new careers (ESCO uses European job titles)
+# The ESCO occupation for each new career, pinned by its URI (ESCO uses European job titles).
+# Pinned, not searched: the top search hit for "mechanical engineer" is "paper engineer".
+# The title is checked when fetching, so a wrong URI stops the script.
+ESCO_OCCUPATION_ROOT = "http://data.europa.eu/esco/occupation/"
 ESCO_OCCUPATIONS = {
-    "Software Development Engineer (Fresher)": "software developer",
-    "Data Analyst": "data analyst",
-    "QA/Test Engineer": "software tester",
-    "Technical Support Engineer": "ICT help desk agent",
-    "Graduate Engineer Trainee (Mechanical)": "mechanical engineer",
-    "Graduate Engineer Trainee (Electrical)": "electrical engineer",
-    "Graduate Engineer Trainee (Civil)": "civil engineer",
+    "Software Development Engineer (Fresher)": ("software developer", "f2b15a0e-e65a-438a-affb-29b9d50b77d1"),
+    "Data Analyst": ("data analyst", "d3edb8f8-3a06-47a0-8fb9-9b212c006aa2"),
+    "QA/Test Engineer": ("software tester", "106f79e4-6264-45f1-9e7a-297435cd684b"),
+    "Technical Support Engineer": ("ICT help desk agent", "aaeec9a7-dc57-4485-890c-86b3eef735f9"),
+    "Graduate Engineer Trainee (Mechanical)": ("mechanical engineer", "579254cf-6d69-4889-9000-9c79dc568644"),
+    "Graduate Engineer Trainee (Electrical)": ("electrical engineer", "86ca306c-ab99-420a-9e2a-aa73c5c4de22"),
+    "Graduate Engineer Trainee (Civil)": ("civil engineer", "d7d986e1-7333-431b-9719-0c5c6939e360"),
 }
 TIMEOUT = 30              # seconds per request
 PAUSE = 0.3               # seconds between ESCO calls, to be polite to the free API
@@ -130,14 +133,13 @@ def skill_summary(resource):
 
 def fetch_esco_occupations():
     occupations = {}
-    for career, query in ESCO_OCCUPATIONS.items():
-        found = esco_get("/search", text=query, type="occupation", limit=1)
-        if found is None:
-            continue
-        hit = found["_embedded"]["results"][0]
-        occupation = esco_get("/resource/occupation", uri=hit["uri"])
+    for career, (expected_title, uri_id) in ESCO_OCCUPATIONS.items():
+        uri = ESCO_OCCUPATION_ROOT + uri_id
+        occupation = esco_get("/resource/occupation", uri=uri)
         if occupation is None:
             continue
+        if (occupation.get("title") or "").lower() != expected_title.lower():
+            sys.exit(f"{career}: pinned URI {uri} is '{occupation.get('title')}', expected '{expected_title}'")
         links = occupation.get("_links", {})
         skills = {}
         for kind in ["hasEssentialSkill", "hasOptionalSkill"]:
@@ -146,8 +148,8 @@ def fetch_esco_occupations():
                 skill = esco_get("/resource/skill", uri=link["uri"])
                 if skill is not None:
                     skills[kind].append(skill_summary(skill))
-        occupations[career] = {"query": query, "uri": hit["uri"], "title": occupation.get("title"), **skills}
-        print(f"ESCO occupation for {career}: {occupation.get('title')}")
+        occupations[career] = {"uri": uri, "title": occupation.get("title"), **skills}
+        print(f"ESCO occupation for {career}: {occupation.get('title')}  <{uri}>")
     return occupations
 
 
