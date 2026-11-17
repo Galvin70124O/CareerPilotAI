@@ -19,6 +19,7 @@ A Flask web app that suggests a career path from resume text. Built by a CSE stu
 | `templates/partials/` | One Jinja partial per section/card; `macros.html` has `icon()` (Lucide SVGs) and `score_ring()` |
 | `static/css/theme.css` | Design tokens ("printed career report": paper, ink, one blue accent): CSS variables for colors, type, spacing, radius, light + dark (`data-theme` + `prefers-color-scheme`). The only file with colour values |
 | `static/css/app.css` | Component and layout styles; uses only the variables from `theme.css` |
+| `DESIGN.md` | The design system in words: tokens, type and radius scales, the accent rule, components, do's and don'ts. Keep it in sync with `theme.css` |
 | `static/img/` + `tools/make_brand_assets.py` | Logo, favicons, OG image (rebuild with the script, don't hand-edit the PNGs) |
 | `features/report.py` | PDF report (fpdf2, core Helvetica: text goes through `latin1()`); route `POST /report` in app.py |
 | `data/sample_resume.txt` | Fictional sample resume for "Try with a sample resume" (`sample=1` form value) |
