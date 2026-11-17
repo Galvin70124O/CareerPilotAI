@@ -26,6 +26,9 @@ A Flask web app that suggests a career path from resume text. Built by a CSE stu
 | `static/js/app.js` | All page JS: theme toggle (localStorage), ARIA tabs, drop zone, loading skeleton, mic, smooth scroll, simulator fetch |
 | `train.py` | Honest evaluation (held-out test + CV inside a Pipeline), trains final model, saves `model.pkl`. `--quick` skips evaluation |
 | `data/prepare_data.py` | Downloads + cleans ResumeAtlas, saves `data/resumes.parquet` (~20 MB, git-ignored; `train.py` rebuilds it if missing) |
+| `data/fetch_sources.py` | Downloads O*NET 31.0 + ESCO v1.2.1 (API, occupations pinned by URI) into `data/raw/` (git-ignored); caches each ESCO response, retries 2/4/8 s, writes `data/raw/esco/fetch_log.json` |
+| `data/build_synonyms.py` + `skill_synonyms.json` | Synonyms per skill, kept by source (`esco`, `onet`, `india`). Rebuild with the script, never hand-edit the JSON. `has_skill` accepts them; R, Go and B.E./B.Tech use context rules in `SPECIAL_SKILL_PATTERNS` instead |
+| `evaluation/india_test_set.jsonl` | FROZEN 60-resume India test set (sha256 in MODEL_CARD.md). Never edit, never tune on it |
 | `model.pkl` | Committed trained model (10 MB). Retrain locally and commit it; Render doesn't train |
 | `skills.json` | Per career: `skills` (8 key skills, chosen by how often that category's resumes mention them) and `job_keywords` (job-title words). Loaded only by `features/skills.py` (`CAREER_SKILLS`, `JOB_KEYWORDS`) |
 | `templates/index.html` | Page layout (head, top bar, hero, results/preview, footer) |

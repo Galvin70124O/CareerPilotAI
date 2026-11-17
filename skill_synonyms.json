@@ -1,0 +1,442 @@
+{
+ "_note": "Built by data/build_synonyms.py - don't edit by hand, change the script and rerun it.",
+ "sources": {
+  "esco": "ESCO classification v1.2.1, European Commission (esco.ec.europa.eu), alternative labels",
+  "onet": "O*NET 31.0 Database, U.S. Department of Labor/ETA, CC BY 4.0 (onetcenter.org), Software Skills",
+  "india": "Hand-written list of how Indian resumes write degrees, courses and common skills"
+ },
+ "synonyms": {
+  "abap": {
+   "esco": [
+    "abap programming techniques",
+    "abap software development",
+    "abap software techniques"
+   ],
+   "onet": [
+    "advanced business application programming"
+   ]
+  },
+  "accounting": {
+   "esco": [
+    "bookkeeping"
+   ]
+  },
+  "ansible": {
+   "esco": [
+    "ansible automation tool"
+   ]
+  },
+  "architectural design": {
+   "esco": [
+    "architectural blueprint",
+    "architectural plan",
+    "architecture design"
+   ]
+  },
+  "asp.net": {
+   "esco": [
+    "asp.net framework"
+   ],
+   "onet": [
+    "microsoft asp.net"
+   ]
+  },
+  "autocad": {
+   "onet": [
+    "autodesk autocad"
+   ],
+   "india": [
+    "auto cad",
+    "autocad 2d",
+    "autocad 3d"
+   ]
+  },
+  "b.e./b.tech": {
+   "india": []
+  },
+  "blueprints": {
+   "esco": [
+    "schematics",
+    "technical blueprints",
+    "technical drawings",
+    "technical plans"
+   ]
+  },
+  "building codes": {
+   "esco": [
+    "building laws",
+    "building regulations",
+    "building rules",
+    "building standards",
+    "construction codes",
+    "construction laws",
+    "construction regulations",
+    "construction rules",
+    "construction standards"
+   ]
+  },
+  "c#": {
+   "esco": [
+    "c sharp"
+   ]
+  },
+  "carpentry": {
+   "esco": [
+    "woodworking"
+   ]
+  },
+  "cgpa": {
+   "india": [
+    "sgpa",
+    "cgpa/percentage"
+   ]
+  },
+  "cisco": {
+   "esco": [
+    "cisco systems"
+   ]
+  },
+  "civil engineering": {
+   "esco": [
+    "civil engineering analyses",
+    "civil engineering analysis",
+    "civil engineering applications",
+    "civil engineering fieldwork",
+    "civil engineering work"
+   ]
+  },
+  "cryptocurrency": {
+   "esco": [
+    "crypto",
+    "digital currency"
+   ]
+  },
+  "css": {
+   "esco": [
+    "cascading style sheets"
+   ],
+   "onet": [
+    "cascading style sheets"
+   ]
+  },
+  "customer service": {
+   "esco": [
+    "customer care",
+    "customer services",
+    "customer servicing",
+    "customer support"
+   ]
+  },
+  "data structures and algorithms": {
+   "india": [
+    "dsa",
+    "data structures",
+    "data structure",
+    "ds and algo",
+    "ds & algo",
+    "algorithms and data structures"
+   ]
+  },
+  "data warehouse": {
+   "esco": [
+    "data repository",
+    "data warehouse solutions",
+    "enterprise data storage"
+   ]
+  },
+  "excel": {
+   "onet": [
+    "microsoft excel"
+   ],
+   "india": [
+    "ms excel",
+    "ms-excel",
+    "advanced excel"
+   ]
+  },
+  "financial statements": {
+   "esco": [
+    "financial statement",
+    "records of financial activities",
+    "statements on finances"
+   ]
+  },
+  "graphic design": {
+   "esco": [
+    "graphic designing",
+    "graphic designs",
+    "visual design"
+   ]
+  },
+  "hris": {
+   "onet": [
+    "oracle hris"
+   ]
+  },
+  "html": {
+   "onet": [
+    "hypertext markup language"
+   ]
+  },
+  "illustrator": {
+   "onet": [
+    "adobe illustrator"
+   ]
+  },
+  "indesign": {
+   "onet": [
+    "adobe indesign"
+   ]
+  },
+  "internship": {
+   "india": [
+    "intern",
+    "summer internship",
+    "winter internship",
+    "industrial training",
+    "in-plant training",
+    "inplant training",
+    "summer training",
+    "apprenticeship"
+   ]
+  },
+  "inventory": {
+   "onet": [
+    "oracle inventory"
+   ]
+  },
+  "java": {
+   "esco": [
+    "java (computer programming)",
+    "java 2",
+    "java 2 enterprise edition"
+   ],
+   "onet": [
+    "oracle java",
+    "sun microsystems java"
+   ]
+  },
+  "javascript": {
+   "esco": [
+    "client-side javascript",
+    "server-side javascript"
+   ],
+   "india": [
+    "js"
+   ]
+  },
+  "jenkins": {
+   "esco": [
+    "jenkins ci",
+    "jenkins continuous integration server"
+   ]
+  },
+  "jira": {
+   "onet": [
+    "atlassian jira"
+   ]
+  },
+  "linux": {
+   "onet": [
+    "red hat enterprise linux"
+   ]
+  },
+  "livestock": {
+   "esco": [
+    "breeds of domesticated animals",
+    "breeds of livestock",
+    "characteristics of domesticated animals",
+    "characteristics of livestock",
+    "types of domesticated animals",
+    "types of livestock",
+    "typology of domesticated animals",
+    "typology of livestock"
+   ]
+  },
+  "logistics": {
+   "esco": [
+    "in-house logistics knowledge",
+    "inbound logistics knowledge",
+    "logistic",
+    "outbound logistics knowledge"
+   ]
+  },
+  "machine learning": {
+   "esco": [
+    "machine learning models",
+    "semi-supervised learning",
+    "supervised learning",
+    "unsupervised learning"
+   ]
+  },
+  "maintenance": {
+   "onet": [
+    "sap maintenance"
+   ]
+  },
+  "manual testing": {
+   "india": [
+    "manual tester"
+   ]
+  },
+  "matlab": {
+   "esco": [
+    "matlab algorithms",
+    "matlab coding techniques",
+    "matlab programming paradigms",
+    "matlab software development principles",
+    "matlab software development techniques"
+   ],
+   "onet": [
+    "the mathworks matlab"
+   ]
+  },
+  "mysql": {
+   "esco": [
+    "mysql classic edition",
+    "mysql cluster cge",
+    "mysql embedded (oem/isv)",
+    "mysql enterprise edition",
+    "mysql standard edition"
+   ]
+  },
+  "netweaver": {
+   "onet": [
+    "sap netweaver"
+   ]
+  },
+  "nptel": {
+   "india": [
+    "swayam nptel",
+    "nptel certification",
+    "nptel online certification"
+   ]
+  },
+  "photoshop": {
+   "onet": [
+    "adobe photoshop"
+   ]
+  },
+  "power bi": {
+   "onet": [
+    "microsoft power bi"
+   ],
+   "india": [
+    "powerbi",
+    "power-bi"
+   ]
+  },
+  "powerpoint": {
+   "onet": [
+    "microsoft powerpoint"
+   ],
+   "india": [
+    "ms powerpoint",
+    "ms-powerpoint",
+    "ppt"
+   ]
+  },
+  "project management": {
+   "esco": [
+    "fundamentals of programme management",
+    "fundamentals of project management",
+    "management of programmes",
+    "management of projects",
+    "principles of programme management",
+    "principles of project management",
+    "programme management",
+    "programme management activities",
+    "project management activities"
+   ]
+  },
+  "python": {
+   "esco": [
+    "python (computer programming)",
+    "python 3k"
+   ]
+  },
+  "quickbooks": {
+   "onet": [
+    "intuit quickbooks"
+   ]
+  },
+  "r": {
+   "esco": [
+    "r software"
+   ]
+  },
+  "revit": {
+   "onet": [
+    "autodesk revit"
+   ]
+  },
+  "solidity": {
+   "esco": [
+    "solidity principles",
+    "solidity software",
+    "solidity techniques"
+   ]
+  },
+  "solidworks": {
+   "onet": [
+    "dassault systemes solidworks"
+   ]
+  },
+  "sql": {
+   "onet": [
+    "structure query language",
+    "structured query language"
+   ]
+  },
+  "sql server": {
+   "esco": [
+    "ms sql server"
+   ],
+   "onet": [
+    "microsoft sql server",
+    "redgate sql server"
+   ]
+  },
+  "ssis": {
+   "onet": [
+    "microsoft sql server integration services"
+   ]
+  },
+  "ssrs": {
+   "onet": [
+    "microsoft sql server reporting services"
+   ]
+  },
+  "staad pro": {
+   "india": [
+    "staad.pro",
+    "staad"
+   ]
+  },
+  "statistics": {
+   "esco": [
+    "stats"
+   ]
+  },
+  "typescript": {
+   "esco": [
+    "typescript programming language"
+   ]
+  },
+  "visual studio": {
+   "onet": [
+    "microsoft visual studio"
+   ]
+  },
+  "windows": {
+   "onet": [
+    "microsoft windows"
+   ]
+  },
+  "wordpress": {
+   "esco": [
+    "wordpress cms"
+   ]
+  }
+ }
+}
