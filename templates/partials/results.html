@@ -22,7 +22,7 @@
         <h1 class="results-title" id="results-title">Career report</h1>
         <p class="compact-bar-meta">
           <span class="compact-bar-label">{{ "Analyzed resume" if source == "resume" else "Typed skills" }}</span>
-          <span class="compact-bar-value" data-compact-value>
+          <span class="compact-bar-value" data-compact-value title="{{ (uploaded_name or 'Your resume') if source == 'resume' else input_text }}">
             {%- if source == "resume" -%}{{ uploaded_name or "Your resume" }}{%- else -%}{{ input_text }}{%- endif -%}
           </span>
         </p>

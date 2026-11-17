@@ -4,7 +4,7 @@
 <article class="card fade-in" data-card="roadmap" aria-labelledby="roadmap-title">
   <header class="card-header">
     <div>
-      <h3 class="card-title" id="roadmap-title">Roadmap to {{ roadmap.career|display_name }}</h3>
+      <h2 class="card-title" id="roadmap-title">Roadmap to {{ roadmap.career|display_name }}</h2>
       <p class="card-subtitle">Steps you still need come first in each stage</p>
     </div>
     <span class="card-meta">{{ roadmap.done }} / {{ roadmap.total }} done</span>
@@ -18,7 +18,7 @@
       <li class="timeline-stage{{ ' is-complete' if complete }}{{ ' is-current' if current }}">
         <span class="timeline-node" aria-hidden="true">{% if complete %}{{ icon("check", 14) }}{% else %}{{ loop.index }}{% endif %}</span>
         <div class="timeline-head">
-          <h4 class="timeline-title">{{ stage.name }}{% if complete %}<span class="sr-only"> (complete)</span>{% endif %}</h4>
+          <h3 class="timeline-title">{{ stage.name }}{% if complete %}<span class="sr-only"> (complete)</span>{% endif %}</h3>
           <span class="timeline-count">{{ done }} / {{ stage.steps|length }}</span>
         </div>
         <ul class="steps">

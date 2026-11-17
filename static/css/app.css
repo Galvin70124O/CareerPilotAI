@@ -212,8 +212,8 @@ button, input, textarea { font: inherit; color: inherit; }
   color: var(--text);
 }
 .bar::-webkit-progress-bar { background: var(--track); border-radius: var(--radius-0); }
-.bar::-webkit-progress-value { background: var(--text); border-radius: var(--radius-0); transition: width 0.6s var(--ease-out); }
-.bar::-moz-progress-bar { background: var(--text); border-radius: var(--radius-0); }
+.bar::-webkit-progress-value { background: var(--text-2); border-radius: var(--radius-0); transition: width 0.6s var(--ease-out); }
+.bar::-moz-progress-bar { background: var(--text-2); border-radius: var(--radius-0); }
 /* The blue accent: career-match bars and the confidence bar only */
 .career-row .bar::-webkit-progress-value, .stat .bar::-webkit-progress-value { background: var(--chart); }
 .career-row .bar::-moz-progress-bar, .stat .bar::-moz-progress-bar { background: var(--chart); }
@@ -770,7 +770,7 @@ button, .btn, .tab, .dropzone, .option-chip span, summary { -webkit-tap-highligh
   .stat { padding: 0 0 0 var(--space-4); }
   .stat-primary { grid-column: 1 / -1; padding-left: 0; }
   .stat:nth-child(2) { border-left: 0; padding-left: 0; }
-  .stat:nth-child(3) { border-left: 1px solid var(--border); }
+  .stat:nth-child(3) { border-left: 1px solid var(--border); padding-left: var(--space-4); }
   .stat:nth-child(4) { grid-column: 1 / -1; border-left: 0; padding-left: 0; }
   .dashboard { row-gap: var(--space-10); }
   .score-top { flex-direction: column; align-items: stretch; }

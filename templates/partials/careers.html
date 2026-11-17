@@ -2,7 +2,7 @@
 <article class="card fade-in" data-card="careers" aria-labelledby="careers-title">
   <header class="card-header">
     <div>
-      <h3 class="card-title" id="careers-title">Top 3 career matches</h3>
+      <h2 class="card-title" id="careers-title">Top 3 career matches</h2>
       <p class="card-subtitle">{{ "How closely your resume matches each career" if source == "resume" else "How closely your skills match each career" }}</p>
     </div>
   </header>
@@ -21,7 +21,7 @@
   {% if why_terms %}
     {# The words that pushed the top career most (features/explain.py: TF-IDF value x model weight) #}
     <div class="card-section why-match" data-why-match>
-      <h4 class="subhead">Why this match</h4>
+      <h3 class="subhead">Why this match</h3>
       <p class="why-match-text">Words in your {{ "resume" if source == "resume" else "skills" }} that pushed
         <strong>{{ top_careers[0].label }}</strong> the most:</p>
       <ul class="chips">
