@@ -116,7 +116,7 @@ button, input, textarea { font: inherit; color: inherit; }
 .btn-ghost { background: transparent; color: var(--text-muted); }
 .btn-ghost:hover { background: var(--fill); color: var(--text); }
 
-.btn-icon { width: var(--control-h); min-height: var(--control-h); padding: 0; }
+.btn-icon { width: var(--tap); min-height: var(--tap); padding: 0; }   /* 44px touch target */
 .btn-lg { min-height: 40px; padding: 0 var(--space-5); font-size: var(--text-base); }
 
 .btn .spinner { display: none; }
@@ -705,6 +705,18 @@ button, input, textarea { font: inherit; color: inherit; }
 .dashboard > .fade-in:nth-child(4) { animation-delay: 0.15s; }
 .dashboard > .fade-in:nth-child(n + 5) { animation-delay: 0.2s; }
 @keyframes fade-up { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* Touch screens: 44px targets, no grey tap flash or double-tap-zoom delay, and no hover
+   colours that stay stuck after a tap */
+button, .btn, .tab, .dropzone, .option-chip span, summary { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+@media (pointer: coarse) {
+  .btn, .option-chip span { min-height: var(--tap); }
+}
+@media (hover: none) {
+  .dropzone:hover { border-color: var(--border-strong); background: var(--surface-2); }
+  .option-chip span:hover { background: transparent; }
+  .btn-secondary:hover:not(:disabled) { background: var(--surface); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
