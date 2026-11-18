@@ -590,7 +590,7 @@ button, input, textarea { font: inherit; color: inherit; }
 .gap-meter .bar { flex: 1; }
 
 /* Readiness verdict (top of the skill gap section): ink only, the verdict is the largest line */
-.readiness { margin-bottom: var(--space-6); padding-bottom: var(--space-5); border-bottom: 1px solid var(--border); }
+.readiness { margin-bottom: var(--space-5); padding-bottom: var(--space-5); border-bottom: 1px solid var(--border); }
 .readiness-level { font-size: var(--text-xl); line-height: 1.2; color: var(--text); }
 .readiness-label { font-family: var(--font); font-size: var(--text-sm); font-weight: 600; color: var(--text-2); letter-spacing: 0; }
 .readiness-meta { margin-top: var(--space-1); font-size: var(--text-sm); color: var(--text-muted); font-variant-numeric: lining-nums tabular-nums; }
@@ -599,12 +599,12 @@ button, input, textarea { font: inherit; color: inherit; }
 .readiness-rule summary { min-height: var(--tap); }
 .rule-list { display: grid; gap: var(--space-2); margin-top: var(--space-2); font-size: var(--text-sm); }
 .rule-list dt { font-weight: 600; }
-.rule-list dd { color: var(--text-2); }
+.rule-list dd { margin: 0; color: var(--text-2); }
 .rule-note { margin-top: var(--space-3); font-size: var(--text-xs); color: var(--text-muted); max-width: 65ch; }
 
 /* Evidence tag inside a skill chip: proven / coursework / claimed, as quiet text (no colour) */
 .chip-evidence { font-size: var(--text-xs); color: var(--text-muted); }
-.chip-evidence::before { content: "· "; }
+.chip-evidence::before { content: "· " / ""; }   /* decorative separator, silent for screen readers */
 
 /* Neutral note (low-information warning): paper tone, hairline, ink icon. Not an error, so not red */
 .note { display: flex; gap: var(--space-3); padding: var(--space-3) var(--space-4); margin-bottom: var(--space-5); border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-2); font-size: var(--text-sm); color: var(--text); }

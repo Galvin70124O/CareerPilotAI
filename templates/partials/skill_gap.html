@@ -7,12 +7,18 @@
     </div>
   </header>
 
+  <div class="gap-meter">
+    <progress class="bar" max="{{ skill_gap.total }}" value="{{ skill_gap.have|length }}"
+              aria-label="{{ skill_gap.have|length }} of {{ skill_gap.total }} key skills">{{ skill_gap.percent }}%</progress>
+    <span class="gap-percent">{{ skill_gap.have|length }} / {{ skill_gap.total }}</span>
+  </div>
+
   {% if insights %}
     {% set ready = insights.readiness %}
     {# Readiness for the top career: match band + how many key skills are proven (features/readiness.py) #}
     <div class="readiness">
       <h3 class="readiness-level"><span class="readiness-label">Readiness:</span> {{ ready.level }}</h3>
-      <p class="readiness-meta">{{ ready.proven }} of {{ ready.total }} key skills proven, {{ ready.have }} appear in your resume</p>
+      <p class="readiness-meta">{{ ready.have }} of {{ ready.total }} key skills appear in your resume, {{ ready.proven }} of them proven</p>
       {% if ready.next_step %}<p class="readiness-next"><strong>Next step:</strong> {{ ready.next_step }}</p>{% endif %}
       <details class="disclosure readiness-rule">
         <summary><span>How this is decided</span>{{ icon("chevron-down", 16, class="chevron") }}</summary>
@@ -25,12 +31,6 @@
       </details>
     </div>
   {% endif %}
-
-  <div class="gap-meter">
-    <progress class="bar" max="{{ skill_gap.total }}" value="{{ skill_gap.have|length }}"
-              aria-label="{{ skill_gap.have|length }} of {{ skill_gap.total }} key skills">{{ skill_gap.percent }}%</progress>
-    <span class="gap-percent">{{ skill_gap.have|length }} / {{ skill_gap.total }}</span>
-  </div>
 
   {% if skill_gap.have %}
     <div class="card-section">

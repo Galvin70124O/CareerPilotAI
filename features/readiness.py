@@ -5,8 +5,8 @@ The verdict uses two things the page already shows: the match band of the top ca
 (strong / moderate / weak, from features/ranking.py) and the evidence tag of each of the career's
 key skills (features/evidence.py). The thresholds below are DESIGN CHOICES, not measured from data.
 """
-from features.evidence import PROVEN, STRENGTH, evidence_tags
-from features.resume_score import check_sections
+from features.evidence import PROVEN, STRENGTH, evidence_tags, heading_of
+from features.resume_score import lines_of
 from features.skills import CAREER_SKILLS, KNOWN_SKILLS, display_skill
 
 # Design choice: about what one or two solid projects can show. Not measured.
@@ -17,11 +17,11 @@ SECTIONS_THAT_HELP = ["Projects", "Experience", "Skills", "Education"]
 
 READY, ONE_PROJECT, NOT_READY = "Ready to apply", "1 project away", "Not ready yet"
 RULE = [
-    (READY, f"a strong or moderate match, and at least {SKILLS_NEEDED} of the career's key skills are "
+    (READY, f"A strong or moderate match, and at least {SKILLS_NEEDED} of the career's key skills are "
             "proven in a project, internship or job."),
-    (ONE_PROJECT, f"a strong or moderate match, and at least {SKILLS_NEEDED} key skills appear, "
+    (ONE_PROJECT, f"A strong or moderate match, and at least {SKILLS_NEEDED} key skills appear, "
                   f"but fewer than {SKILLS_NEEDED} are proven."),
-    (NOT_READY, f"a weak match, or fewer than {SKILLS_NEEDED} key skills appear in the resume."),
+    (NOT_READY, f"A weak match, or fewer than {SKILLS_NEEDED} key skills appear in the resume."),
 ]
 
 
@@ -79,8 +79,9 @@ def low_information(top_careers, text):
     first, second = top_careers[0], top_careers[1]
     if first["percent"] - second["percent"] >= CLOSE_GAP:
         return None
-    sections = check_sections(text)
-    missing = [name for name in SECTIONS_THAT_HELP if not sections[name]]
+    # same heading test as the evidence tags, so a "Skills: Excel, Tally" line counts as a Skills section
+    present = {heading_of(line) for line in lines_of(text)}
+    missing = [name for name in SECTIONS_THAT_HELP if name not in present]
     if missing:
         hint = f"Add {'a ' if len(missing) == 1 else ''}{join_words(missing)} section{'s' if len(missing) > 1 else ''} with specific details."
     else:

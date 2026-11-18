@@ -73,6 +73,11 @@ def test_low_information_warning_with_one_missing_section():
     assert "Add a Projects section with specific details." in low_information(careers(40, 35), text)["message"]
 
 
+def test_a_skills_label_line_counts_as_a_skills_section():
+    text = "Kiran\nSkills: Excel, accounting, Tally, sales, customer service\n"
+    assert low_information(careers(48, 46), text)["missing_sections"] == ["Projects", "Experience", "Education"]
+
+
 def test_no_low_information_warning_when_the_top_two_are_far_apart():
     assert low_information(careers(60, 60 - CLOSE_GAP), "SKILLS\nPython\n") is None
     assert low_information(careers(70, 20), "SKILLS\nPython\n") is None
