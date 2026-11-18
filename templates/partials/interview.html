@@ -1,13 +1,8 @@
-{# Interview practice for the top career (features/interview.py, interview.json). Needs: interview, top_careers #}
-<article class="card fade-in" data-card="interview" aria-labelledby="interview-title">
-  <header class="card-header">
-    <div>
-      <h2 class="card-title" id="interview-title">Interview practice for {{ top_careers[0].career|display_name }}</h2>
-      <p class="card-subtitle">Practice questions for this role, the skill each one tests, and a tip for answering it.</p>
-    </div>
-  </header>
+{# Interview practice for the top career and, when there is one, the first "Fresher role that fits you"
+   (features/interview.py, interview.json). Needs: interview, top_careers, fresher_interview, fresher_roles #}
+{% macro question_list(questions) %}
   <ul class="interview-list">
-    {% for item in interview %}
+    {% for item in questions %}
       <li class="interview-item">
         <p class="interview-question">{{ item.question }}</p>
         <p class="interview-skill">Skill: {{ item.skill|display_skill }}</p>
@@ -15,4 +10,20 @@
       </li>
     {% endfor %}
   </ul>
+{% endmacro %}
+<article class="card fade-in" data-card="interview" aria-labelledby="interview-title">
+  <header class="card-header">
+    <div>
+      <h2 class="card-title" id="interview-title">Interview practice for {{ top_careers[0].career|display_name }}</h2>
+      <p class="card-subtitle">Practice questions for this role, the skill each one tests, and a tip for answering it.</p>
+    </div>
+  </header>
+  {{ question_list(interview) }}
+  {% if fresher_interview %}
+    <section class="interview-fresher" aria-labelledby="interview-fresher-title">
+      <h3 class="interview-fresher-title" id="interview-fresher-title">Interview practice for {{ fresher_roles[0].label }}</h3>
+      <p class="card-subtitle">A fresher role that fits you, so these questions are worth practising too.</p>
+      {{ question_list(fresher_interview) }}
+    </section>
+  {% endif %}
 </article>

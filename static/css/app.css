@@ -763,6 +763,9 @@ button, input, textarea { font: inherit; color: inherit; }
 .interview-question { font-weight: 500; color: var(--text); max-width: 65ch; }
 .interview-skill { margin-top: var(--space-1); font-size: var(--text-xs); color: var(--text-muted); }
 .interview-tip { margin-top: var(--space-2); font-size: var(--text-sm); color: var(--text-2); max-width: 65ch; }
+.interview-fresher { margin-top: var(--space-10); }
+.interview-fresher-title { font-size: var(--text-lg); }
+.interview-fresher .interview-list { margin-top: var(--space-4); }
 
 /* Compare with another version */
 .compare-form { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); }

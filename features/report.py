@@ -236,14 +236,19 @@ def build_report_pdf(report):
                 pdf.cell(0, 5, latin1(resource["title"]), link=resource["url"], new_x=XPos.LMARGIN, new_y=YPos.NEXT)
             pdf.ln(0.5)
 
-    # Interview practice for the top career
-    interview = report.get("interview")
-    if interview:
-        pdf.heading(f"Interview practice for {display_name(report['top_careers'][0]['career'])}", keep_with=20)
-        for item in interview:
-            pdf.ensure_space(18)   # keep a question with its skill and tip
-            pdf.paragraph(item["question"], size=9.5, color=TEXT, style="B")
-            pdf.paragraph(f"Skill: {display_skill(item['skill'])}. Tip: {item['tip']}", size=9)
-            pdf.ln(1)
+    # Interview practice for the top career, then for the first fresher role (if any)
+    if report.get("interview"):
+        interview_section(pdf, display_name(report["top_careers"][0]["career"]), report["interview"])
+    if report.get("fresher_interview"):
+        interview_section(pdf, report["fresher_roles"][0]["label"], report["fresher_interview"])
 
     return bytes(pdf.output())
+
+
+def interview_section(pdf, career_label, questions):
+    pdf.heading(f"Interview practice for {career_label}", keep_with=20)
+    for item in questions:
+        pdf.ensure_space(18)   # keep a question with its skill and tip
+        pdf.paragraph(item["question"], size=9.5, color=TEXT, style="B")
+        pdf.paragraph(f"Skill: {display_skill(item['skill'])}. Tip: {item['tip']}", size=9)
+        pdf.ln(1)

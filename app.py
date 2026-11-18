@@ -143,6 +143,7 @@ def home():
     courses = []         # free resources for each missing skill
     simulator_data = None  # what the What-If Simulator needs to send back to /api/simulate
     interview = []       # interview practice questions for the top career
+    fresher_interview = []  # ... and for the first "Fresher role that fits you", if there is one
     error = ""
     source = ""          # "resume" or "text", so the page can say what we predicted from
 
@@ -188,6 +189,7 @@ def home():
             roadmap = build_roadmap(top_careers[0]["career"], text_to_predict)
             courses = recommend_courses(skill_gap["missing"])
             interview = interview_questions(top_careers[0]["career"])
+            fresher_interview = interview_questions(fresher[0]["career"]) if fresher else []
             simulator_data = {"text": text_to_predict, "career": top_careers[0]["career"],
                               "is_resume": source == "resume"}
             job_results = fetch_job_listings(top_careers[0]["career"])
@@ -213,6 +215,7 @@ def home():
         courses=courses,
         simulator_data=simulator_data,
         interview=interview,
+        fresher_interview=fresher_interview,
         error=error,
         source=source,
         uploaded_name=uploaded_name
@@ -242,10 +245,11 @@ def report_data(text, is_resume, source_label, jd=""):
     top_careers = predict_top_careers(text)
     career = top_careers[0]["career"]
     skill_gap = analyze_skill_gap(career, text)
+    fresher = fresher_roles(text, top_careers)
     return {
         "source_label": source_label,
         "top_careers": top_careers,
-        "fresher_roles": fresher_roles(text, top_careers),
+        "fresher_roles": fresher,
         "why_terms": top_careers[0]["why_terms"],
         "resume_score": score_resume(text, career) if is_resume else None,
         "skill_gap": skill_gap,
@@ -253,6 +257,7 @@ def report_data(text, is_resume, source_label, jd=""):
         "roadmap": build_roadmap(career, text),
         "courses": recommend_courses(skill_gap["missing"]),
         "interview": interview_questions(career),
+        "fresher_interview": interview_questions(fresher[0]["career"]) if fresher else [],
         "jd_match": jd_match(text, jd, is_resume) if jd.strip() else None,
     }
 
