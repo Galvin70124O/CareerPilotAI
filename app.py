@@ -9,6 +9,7 @@ from pypdf import PdfReader
 
 from features import rate_limit
 from features.careers import display_name
+from features.compare import compare_versions, snapshot
 from features.courses import recommend_courses
 from features.ranking import PROFILES, fresher_roles, rank_careers
 from features.readiness import RULE, resume_insights
@@ -24,7 +25,10 @@ from features.skills import CAREER_SKILLS, analyze_skill_gap, display_skill, ext
 # CONFIGURATION
 # -----------------------------
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'docx'}
-MAX_CONTENT_LENGTH = 2 * 1024 * 1024  # 2MB
+MAX_FILE_BYTES = 2 * 1024 * 1024      # 2MB per uploaded resume, checked in read_upload
+# A whole request may be a bit bigger: "Compare with another version" sends the analyzed text with the file
+MAX_CONTENT_LENGTH = MAX_FILE_BYTES + 512 * 1024
+UPLOAD_RULE = "Only .txt, .pdf, and .docx files up to 2MB allowed."
 MAX_SIMULATE_TEXT = 100_000           # characters accepted by /api/simulate and /report
 # "Try with a sample resume" analyzes this built-in, fictional resume
 SAMPLE_RESUME_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "sample_resume.txt")
@@ -67,6 +71,26 @@ def extract_text_from_resume(file_storage):
         for para in document.paragraphs:
             text += para.text + "\n"
     return text.strip()
+
+
+def read_upload(file_storage):
+    """(resume text, "") for a good upload, or ("", error message). The home page and
+    'Compare with another version' both use it, so both files get the same limits and checks."""
+    if not allowed_file(file_storage.filename):
+        return "", UPLOAD_RULE
+    file_storage.seek(0, os.SEEK_END)
+    too_big = file_storage.tell() > MAX_FILE_BYTES
+    file_storage.seek(0)
+    if too_big:
+        return "", UPLOAD_RULE
+    try:
+        text = extract_text_from_resume(file_storage)
+    except Exception:   # a damaged or fake PDF/DOCX: log it, don't show the library's message
+        logger.warning("Could not read an uploaded %s file", os.path.splitext(file_storage.filename)[1], exc_info=True)
+        return "", "Could not open this file. Check it is a real PDF, DOCX or TXT file."
+    if not text:
+        return "", "Could not read any text from this file (is it a scanned image?)."
+    return text, ""
 
 
 # -----------------------------
@@ -135,21 +159,13 @@ def home():
 
         # 1) A resume was uploaded: extract skills AND predict in one step
         elif file and file.filename:
-            if not allowed_file(file.filename):
-                error = "Only .txt, .pdf, and .docx files up to 2MB allowed."
-            else:
-                try:
-                    resume_text = extract_text_from_resume(file)
-                    if not resume_text:
-                        error = "Could not read any text from this file (is it a scanned image?)."
-                    else:
-                        found_skills = extract_skills_from_text(resume_text)
-                        # Predict from the FULL resume, the same kind of text the model was trained on
-                        text_to_predict = resume_text
-                        source = "resume"
-                        uploaded_name = file.filename
-                except Exception as e:
-                    error = "Error reading file: " + str(e)
+            resume_text, error = read_upload(file)
+            if resume_text:
+                found_skills = extract_skills_from_text(resume_text)
+                # Predict from the FULL resume, the same kind of text the model was trained on
+                text_to_predict = resume_text
+                source = "resume"
+                uploaded_name = file.filename
 
         # 2) No file: predict from the typed/spoken text
         elif input_text:
@@ -304,6 +320,37 @@ def api_jd_match():
     if jd_problem(jd):
         return jsonify({"error": jd_problem(jd)}), 400
     return jsonify(jd_match(text, jd, bool(data.get("is_resume"))))
+
+
+@app.route("/api/compare", methods=["POST"])
+def api_compare():
+    """'Compare with another version'. Form: "text" (the analyzed resume) + "resume_file" (the new version).
+    Both go through the same analysis as the page, against the first version's top career. Nothing is stored."""
+    if too_many_requests():
+        return jsonify({"error": TOO_MANY}), 429
+    if model is None:
+        return jsonify({"error": MODEL_MISSING_MESSAGE}), 503
+    text = request.form.get("text", "")
+    if not text.strip() or len(text) > MAX_SIMULATE_TEXT:
+        return jsonify({"error": "Missing or too long text."}), 400
+    file = request.files.get("resume_file")
+    if not file or not file.filename:
+        return jsonify({"error": "Choose the other version of your resume first."}), 400
+    new_text, error = read_upload(file)
+    if error:
+        return jsonify({"error": error}), 400
+    top_before, top_after = predict_top_careers(text), predict_top_careers(new_text)
+    career = top_before[0]["career"]
+    return jsonify(compare_versions(snapshot(model, text, top_before, career),
+                                    snapshot(model, new_text, top_after, career)))
+
+
+@app.errorhandler(413)
+def too_large(error):
+    """A request over MAX_CONTENT_LENGTH (the page's own 2 MB check normally stops this first)."""
+    if request.path.startswith("/api/"):
+        return jsonify({"error": UPLOAD_RULE}), 413
+    return UPLOAD_RULE, 413
 
 # -----------------------------
 # APP START
