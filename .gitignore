@@ -35,3 +35,6 @@ data/raw/
 
 # local progress log for resuming sessions
 docs/progress.md
+
+# playwright-cli downloads and snapshots
+.playwright-cli/
