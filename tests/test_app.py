@@ -13,7 +13,7 @@ def post(data, monkeypatch):
     return response.get_data(as_text=True)
 
 
-RESUME = "Skills: Python, pandas, scikit-learn, machine learning, deep learning, SQL. Built NLP models."
+RESUME = "Skills: Python, pandas, scikit-learn, machine learning, deep learning, SQL.\nProjects: Built NLP models."
 
 
 def test_typed_skills_give_top_3(monkeypatch):
@@ -105,7 +105,7 @@ def test_simulate_api_rejects_bad_input(monkeypatch):
 
 def test_simulator_data_is_safely_escaped(monkeypatch):
     # A resume containing </script> must not break out of the JSON <script> block
-    html = post({"resume_file": (io.BytesIO(b"Python dev </script><b>x</b> " * 5), "cv.txt")}, monkeypatch)
+    html = post({"resume_file": (io.BytesIO(b"Skills: Python\nProjects: " + b"Python dev </script><b>x</b> " * 5), "cv.txt")}, monkeypatch)
     data_block = html.split('id="cp-sim-data">')[1].split("</script>")[0]
     assert "<b>" not in data_block
 

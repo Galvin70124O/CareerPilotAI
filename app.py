@@ -14,6 +14,7 @@ from features.courses import recommend_courses
 from features.ranking import PROFILES, fresher_roles, rank_careers
 from features.readiness import RULE, resume_insights
 from features.report import build_report_pdf
+from features.resume_check import NOT_A_RESUME, looks_like_resume
 from features.jobs import fetch_job_listings
 from features.interview import interview_questions
 from features.jd_match import MAX_JD_LENGTH, match_job
@@ -91,6 +92,8 @@ def read_upload(file_storage):
         return "", "Could not open this file. Check it is a real PDF, DOCX or TXT file."
     if not text:
         return "", "Could not read any text from this file (is it a scanned image?)."
+    if not looks_like_resume(text):     # an invoice or a letter: say so instead of a report built on nothing
+        return "", NOT_A_RESUME
     return text, ""
 
 

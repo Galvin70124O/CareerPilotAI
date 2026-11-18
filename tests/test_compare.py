@@ -86,7 +86,8 @@ def post(text=GOOD, file=None, name="v2.txt"):
 
 
 def test_api_compares_and_stores_nothing():
-    response = post(file=WEAK.encode())
+    # headings added: the bare weak resume would get the not-a-resume message (tests/test_resume_check.py)
+    response = post(file=("SKILLS\nComputers\nEXPERIENCE\n" + WEAK).encode())
     assert response.status_code == 200
     assert response.get_json()["career"] == "Data Science"
 

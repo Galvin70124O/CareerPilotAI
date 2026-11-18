@@ -249,6 +249,8 @@ def test_breakdown_bars_are_coloured_by_ratio(monkeypatch):
 
 
 def test_breakdown_red_for_a_weak_resume(monkeypatch):
+    # weak_resume.txt has no headings and no known skill, so it would get the not-a-resume message
+    monkeypatch.setattr(app, "looks_like_resume", lambda text: True)
     with open("tests/fixtures/weak_resume.txt", "rb") as f:
         html = page(monkeypatch, {"resume_file": (io.BytesIO(f.read()), "weak.txt")})
     assert html.count("breakdown-low") >= 4
