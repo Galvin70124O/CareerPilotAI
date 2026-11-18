@@ -442,7 +442,7 @@
       : (result.is_resume ? "Your resume names" : "Your skills include") + " every skill this job description names."));
     if (result.unproven.length) {
       var unproven = el("p", "jd-unproven");
-      unproven.appendChild(el("strong", "", "Listed but not proven: "));
+      unproven.appendChild(el("strong", "", "Not yet proven in a project: "));
       unproven.appendChild(document.createTextNode(result.unproven.join(", ") + " (add a project to prove them)"));
       gaps.appendChild(unproven);
     }

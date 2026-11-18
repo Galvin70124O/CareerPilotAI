@@ -204,7 +204,7 @@ def build_report_pdf(report):
             pdf.paragraph("Skills to work on, in the order the ad names them", size=10, color=TEXT, style="B")
             pdf.paragraph(", ".join(jd["gaps"]), size=9.5)
         if jd["unproven"]:
-            pdf.paragraph(f"Listed but not proven: {', '.join(jd['unproven'])} (add a project to prove them)", size=9.5)
+            pdf.paragraph(f"Not yet proven in a project: {', '.join(jd['unproven'])} (add a project to prove them)", size=9.5)
         for pick in jd["suggestions"]:
             pdf.ensure_space(12)
             pdf.paragraph(f"If this work used {pick['label']}, name it here: \"{pick['line']}\"", size=9.5)
