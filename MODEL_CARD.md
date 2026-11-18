@@ -22,11 +22,17 @@ It is a guide for students, not a hiring decision. Nothing the user uploads is s
 | ResumeAtlas held-out 20% | 2,068 resumes | real resumes (dataset split, `random_state=42`) | the main list's accuracy |
 | `evaluation/validation_set.jsonl` | 60 synthetic resumes | a separate agent, given only the label list | tuning during development |
 | `evaluation/india_test_set.jsonl` | 60 synthetic resumes (18 existing careers, 6 for each of the 7 new careers) | a separate agent, given only the label list and variety targets | the final evaluation only, run once |
+| `evaluation/india_test_set_v2.jsonl` | 64 synthetic resumes (8 for each of the 7 new careers, 1 each of 8 existing careers) | a new separate agent, given only the label list | the fresher-line rule check only (Phase 5), run once |
 
 **The India test set is frozen.**
 - **sha256:** `da9df68141d58cc6be67e5ff32919648812f11fef044a408feb7323d359ec3b3`, rechecked on 2026-11-18 before the run.
 - **Committed first:** in `7a38852`, before any synonym, profile or ranking commit. It has not changed since.
 - **Never used for tuning:** it was opened only for the single final run.
+
+**The India test set v2 is a separate frozen set** for the "Fresher roles that fit you" rule. It does not replace the set above, and the v1 numbers below are unchanged.
+- **sha256:** `28e47b63a22032a67ed77bebca197b36ae7062a4f0f8e69b15a1e0966a1e28e7` (of the copy git stores, LF line endings, like the v1 hash: `git show HEAD:evaluation/india_test_set_v2.jsonl | sha256sum`).
+- **Committed first:** alone, before any change to the fresher-line rule.
+- **Never used for tuning:** the rule was tuned on the validation set and frozen before v2 was run.
 
 ## Results (final run, 2026-11-18)
 
