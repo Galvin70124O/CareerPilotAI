@@ -103,6 +103,7 @@ Old rule (kept): a new career is shown in "Fresher roles that fit you" when a pa
 ## Limits
 
 - **The India set is small and synthetic.** With 6 resumes per new career, one resume moves a per-career score by 16.7 points. The 100% on 18 existing-career resumes says little about real resumes.
+- **The v2 set is small too.** With 8 resumes per new career, one resume moves a per-career count by 12.5 points; every per-career gain in the fresher-line table is a single resume.
 - **QA/Test Engineer and Graduate Engineer Trainee (Mechanical) were never suggested** (0 of 6 each). On those resumes their skill share never beat their parent's (Testing, Mechanical Engineer), whose short profiles are top-heavy (see the fresher-line rule above). On v2 they were suggested for 1 and 2 of 8.
 - **New careers can't reach the top 3.** The classifier has no training resumes for them.
 - **The held-out numbers come from the ResumeAtlas text style**, which is pre-cleaned and has no punctuation. Real uploaded resumes may score differently.

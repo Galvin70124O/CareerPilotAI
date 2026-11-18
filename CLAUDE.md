@@ -38,6 +38,7 @@ A Flask web app that suggests a career path from resume text. Built by a CSE stu
 | `evaluation/validation_set.jsonl` + `evaluation/check_ranking.py` | Synthetic 60-resume VALIDATION set (same career mix as the India set). `python evaluation/check_ranking.py`: top-1/top-3 for existing careers, and how often a new career shows in "Fresher roles that fit you" |
 | `MODEL_CARD.md` + `evaluation/final/` | Final evaluation (run once per release): main vs branch on the ResumeAtlas held-out 20% and the India set, load time and memory, rejected ranking designs, limits. The scripts in `evaluation/final/` reproduce it |
 | `evaluation/india_test_set.jsonl` | FROZEN 60-resume India test set (sha256 in MODEL_CARD.md). Never edit, never tune on it |
+| `evaluation/india_test_set_v2.jsonl` + `evaluation/check_fresher_rule.py` | FROZEN 64-resume set v2 (8 per new career, sha256 in MODEL_CARD.md), used once for the Phase 5 fresher-line rule check (old rule vs "within 0.04 of the parent", rejected). Never edit, never tune on it; a new rule needs a new set |
 | `model.pkl` | Committed trained model (10 MB). Retrain locally and commit it; Render doesn't train |
 | `skills.json` | Per career: `skills` (8 key skills; the 42 classifier careers: chosen by how often that category's resumes mention them; the 7 new careers: the top 8 by weight in `career_profiles.json`) and `job_keywords` (job-title words). Loaded only by `features/skills.py` (`CAREER_SKILLS`, `JOB_KEYWORDS`) |
 | `templates/index.html` | Page layout (head, top bar, hero, results/preview, footer) |
