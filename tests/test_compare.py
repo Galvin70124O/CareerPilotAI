@@ -86,7 +86,8 @@ def post(text=GOOD, file=None, name="v2.txt"):
 
 
 def test_api_compares_and_stores_nothing():
-    response = post(file=WEAK.encode())
+    # headings added: the bare weak resume would get the not-a-resume message (tests/test_resume_check.py)
+    response = post(file=("SKILLS\nComputers\nEXPERIENCE\n" + WEAK).encode())
     assert response.status_code == 200
     assert response.get_json()["career"] == "Data Science"
 
@@ -117,3 +118,54 @@ def test_the_home_upload_uses_the_same_checks():
     html = client.post("/", data={"resume_file": (io.BytesIO(b"not really a pdf"), "fake.pdf")},
                        content_type="multipart/form-data").get_data(as_text=True)
     assert "Could not open this file" in html and "Traceback" not in html
+
+
+def test_each_change_has_a_direction_for_the_colours():
+    worse = rows_of(compare(GOOD, WEAK))
+    assert worse[("Resume Score", "Total")]["direction"] == "worse"
+    assert worse[("Readiness", "Verdict")]["direction"] == "worse"
+    assert worse[("Skill gap for Data Science", "Missing key skills")]["direction"] == "worse"   # lost only
+    better = rows_of(compare(WEAK, GOOD))
+    assert better[("Resume Score", "Total")]["direction"] == "better"
+    # a different 2nd or 3rd match is neither better nor worse
+    assert all(r["direction"] is None for (section, label), r in better.items() if label in ("2nd match", "3rd match"))
+    same = rows_of(compare(GOOD, GOOD))
+    assert all(r["direction"] is None for r in same.values())
+
+
+def test_direction_and_mixed_skill_changes():
+    from features.compare import direction, gap_rows
+    assert (direction(1, 2), direction(2, 1), direction(2, 2)) == ("better", "worse", None)
+    before = {"gap": {"have": ["sql"], "missing": ["git"], "total": 2}}
+    after = {"gap": {"have": ["git"], "missing": ["sql"], "total": 2}}
+    assert gap_rows(before, after)[1]["direction"] is None     # found one, lost one
+
+
+def report_text(**extra):
+    from pypdf import PdfReader
+    response = app.app.test_client().post("/report", data={"text": GOOD, "is_resume": "1", "name": "v1.txt", **extra})
+    assert response.status_code == 200
+    return "\n".join(page.extract_text() for page in PdfReader(io.BytesIO(response.data)).pages)
+
+
+def test_api_returns_the_new_versions_text_for_the_pdf():
+    better = "SKILLS\nComputers\nEXPERIENCE\n" + WEAK
+    assert post(file=better.encode()).get_json()["after_text"] == better.strip()
+
+
+def test_the_pdf_has_the_comparison_only_after_one_was_made():
+    text = report_text(compare_text=WEAK, compare_name="v2.txt")
+    assert "Compare with another version" in text and "Compared with: v2.txt" in text
+    assert "Before" in text and "After" in text and "Readiness" in text
+    assert "Compare with another version" not in report_text()
+
+
+def test_the_pdf_says_no_changes_for_identical_versions():
+    text = report_text(compare_text=GOOD, compare_name="same.txt")
+    assert "No changes: both versions give the same results." in text
+
+
+def test_a_too_long_compare_text_is_rejected():
+    response = app.app.test_client().post("/report", data={"text": GOOD, "is_resume": "1",
+                                                           "compare_text": "a" * (app.MAX_SIMULATE_TEXT + 1)})
+    assert response.status_code == 400

@@ -442,7 +442,7 @@
       : (result.is_resume ? "Your resume names" : "Your skills include") + " every skill this job description names."));
     if (result.unproven.length) {
       var unproven = el("p", "jd-unproven");
-      unproven.appendChild(el("strong", "", "Listed but not proven: "));
+      unproven.appendChild(el("strong", "", "Not yet proven in a project: "));
       unproven.appendChild(document.createTextNode(result.unproven.join(", ") + " (add a project to prove them)"));
       gaps.appendChild(unproven);
     }
@@ -560,6 +560,11 @@
     return cell;
   }
 
+  // Better / worse in the score-level colours; the sign or word stays, so colour is never the only cue
+  function directionClass(row) {
+    return row.direction ? " is-" + row.direction : "";
+  }
+
   function showComparison(result, box, names) {
     var summary = el("div", "compare-summary");
     var parts = [summary];
@@ -573,10 +578,11 @@
     var total = result.sections[0].rows[0];   // the Resume Score total leads, like on the page
     var lead = el("div", "compare-lead");
     var change = total.changed ? total.change : "None";
-    [["Score before", total.before], ["Score after", total.after], ["Change", change]].forEach(function (pair) {
+    [["Score before", total.before, ""], ["Score after", total.after, ""],
+     ["Change", change, directionClass(total)]].forEach(function (item) {
       var stat = el("p", "compare-stat");
-      stat.appendChild(el("span", "compare-stat-label", pair[0]));
-      stat.appendChild(el("span", "compare-stat-value", pair[1]));
+      stat.appendChild(el("span", "compare-stat-label", item[0]));
+      stat.appendChild(el("span", "compare-stat-value" + item[2], item[1]));
       lead.appendChild(stat);
     });
     summary.appendChild(lead);
@@ -613,7 +619,7 @@
           tr.appendChild(compareCell("td", row.before, "", "Before"));
           tr.appendChild(compareCell("td", row.after, "", "After"));
           tr.appendChild(compareCell("td", row.change === "same" ? "Same" : row.change,
-            "compare-change" + (row.changed ? "" : " is-same")));
+            "compare-change" + (row.changed ? "" : " is-same") + directionClass(row)));
           body.appendChild(tr);
         });
         table.appendChild(body);
@@ -654,6 +660,9 @@
         .then(function (result) {
           showComparison(result, box, { before: $("input[name=name]", reportForm).value || "Your resume", after: file.name });
           $("#cp-compare-status").textContent = "Comparison ready. " + result.finding;
+          // the PDF now includes this comparison (the server works it out again from the text)
+          $("[data-report-compare-text]", reportForm).value = result.after_text;
+          $("[data-report-compare-name]", reportForm).value = file.name;
           label.textContent = "Compare another version";
           if (box.getBoundingClientRect().top > window.innerHeight * 0.6) {
             box.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });

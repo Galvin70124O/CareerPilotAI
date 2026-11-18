@@ -68,3 +68,40 @@ def test_the_pdf_has_the_interview_section():
     response = app.app.test_client().post("/report", data={"text": "python, sql, pandas, machine learning", "is_resume": "0"})
     text = "\n".join(page.extract_text() for page in PdfReader(io.BytesIO(response.data)).pages)
     assert "Interview practice for" in text and "Skill:" in text
+
+
+SDE_FRESHER = """Ravi Kumar
+ravi.kumar@example.com | +91 90000 11111
+Education
+B.Tech Computer Science, 2026, 8.4 CGPA
+Skills
+Java, data structures and algorithms, problem solving, OOP, SQL, Git
+Projects
+Library management system in Java with SQL and Git. Solved 300 LeetCode problems on data structures and algorithms.
+"""
+SDE = "Software Development Engineer (Fresher)"
+
+
+def test_the_first_fresher_role_gets_its_own_questions_on_the_page(monkeypatch):
+    monkeypatch.setattr(app, "fetch_job_listings", lambda title, limit=5: [])
+    html = app.app.test_client().post("/", data={"resume_file": (io.BytesIO(SDE_FRESHER.encode()), "cv.txt")},
+                                      content_type="multipart/form-data").get_data(as_text=True)
+    card = html.split('data-card="interview"')[1].split("</article>")[0]
+    assert f"Interview practice for {SDE}" in card
+    assert card.count('class="interview-question"') == 20      # top career + fresher role
+    assert interview_questions(SDE)[0]["question"] in card
+
+
+def test_no_fresher_heading_without_a_fresher_role(monkeypatch):
+    monkeypatch.setattr(app, "fetch_job_listings", lambda title, limit=5: [])
+    with open("tests/fixtures/good_resume.txt", "rb") as f:
+        html = app.app.test_client().post("/", data={"resume_file": (io.BytesIO(f.read()), "cv.txt")},
+                                          content_type="multipart/form-data").get_data(as_text=True)
+    assert "interview-fresher" not in html
+
+
+def test_the_pdf_has_the_fresher_roles_questions_too():
+    response = app.app.test_client().post("/report", data={"text": SDE_FRESHER, "is_resume": "1"})
+    text = "\n".join(page.extract_text() for page in PdfReader(io.BytesIO(response.data)).pages)
+    assert f"Interview practice for {SDE}" in text
+    assert interview_questions(SDE)[0]["question"][:40] in text.replace("\n", " ")

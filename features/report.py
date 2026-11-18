@@ -10,7 +10,7 @@ latin1() first: curly quotes, "…", "→" and bullets become plain characters.
 import datetime
 import os
 
-from fpdf import FPDF
+from fpdf import FPDF, FontFace
 from fpdf.enums import XPos, YPos
 
 from features.careers import display_name
@@ -204,10 +204,14 @@ def build_report_pdf(report):
             pdf.paragraph("Skills to work on, in the order the ad names them", size=10, color=TEXT, style="B")
             pdf.paragraph(", ".join(jd["gaps"]), size=9.5)
         if jd["unproven"]:
-            pdf.paragraph(f"Listed but not proven: {', '.join(jd['unproven'])} (add a project to prove them)", size=9.5)
+            pdf.paragraph(f"Not yet proven in a project: {', '.join(jd['unproven'])} (add a project to prove them)", size=9.5)
         for pick in jd["suggestions"]:
             pdf.ensure_space(12)
             pdf.paragraph(f"If this work used {pick['label']}, name it here: \"{pick['line']}\"", size=9.5)
+
+    # Compare with another version (only when the user compared one on the page)
+    if report.get("compare"):
+        compare_section(pdf, report["compare"])
 
     # Roadmap
     roadmap = report.get("roadmap")
@@ -236,14 +240,53 @@ def build_report_pdf(report):
                 pdf.cell(0, 5, latin1(resource["title"]), link=resource["url"], new_x=XPos.LMARGIN, new_y=YPos.NEXT)
             pdf.ln(0.5)
 
-    # Interview practice for the top career
-    interview = report.get("interview")
-    if interview:
-        pdf.heading(f"Interview practice for {display_name(report['top_careers'][0]['career'])}", keep_with=20)
-        for item in interview:
-            pdf.ensure_space(18)   # keep a question with its skill and tip
-            pdf.paragraph(item["question"], size=9.5, color=TEXT, style="B")
-            pdf.paragraph(f"Skill: {display_skill(item['skill'])}. Tip: {item['tip']}", size=9)
-            pdf.ln(1)
+    # Interview practice for the top career, then for the first fresher role (if any)
+    if report.get("interview"):
+        interview_section(pdf, display_name(report["top_careers"][0]["career"]), report["interview"])
+    if report.get("fresher_interview"):
+        interview_section(pdf, report["fresher_roles"][0]["label"], report["fresher_interview"])
 
     return bytes(pdf.output())
+
+
+def interview_section(pdf, career_label, questions):
+    pdf.heading(f"Interview practice for {career_label}", keep_with=20)
+    for item in questions:
+        pdf.ensure_space(18)   # keep a question with its skill and tip
+        pdf.paragraph(item["question"], size=9.5, color=TEXT, style="B")
+        pdf.paragraph(f"Skill: {display_skill(item['skill'])}. Tip: {item['tip']}", size=9)
+        pdf.ln(1)
+
+
+CHANGE_COLOR = {"better": GREEN, "worse": RED}   # the page's rule: colour next to the sign, never alone
+
+
+def compare_section(pdf, result):
+    """Before / after / change rows, like the table on the page."""
+    pdf.heading("Compare with another version", keep_with=30)
+    pdf.paragraph(f"Compared with: {result['after_name']}. Every row is measured against {result['career']}.", size=9)
+    pdf.paragraph(result["finding"], size=10, color=TEXT, style="B")
+    if result["note"]:
+        pdf.paragraph(result["note"], size=9)
+    if result["unchanged"]:
+        return
+    pdf.ln(2)
+    pdf.set_font("Helvetica", size=9)
+    pdf.set_draw_color(*BORDER)
+    pdf.set_fill_color(255, 255, 255)   # the table would otherwise reuse the last bar's fill colour
+    with pdf.table(col_widths=(32, 28, 28, 12), text_align=("LEFT", "LEFT", "LEFT", "RIGHT"),
+                   borders_layout="HORIZONTAL_LINES", line_height=4.6, padding=(1.2, 1, 1.2, 0),
+                   headings_style=FontFace(emphasis="", color=SUBTLE)) as table:
+        table.row(["", "Before", "After", "Change"])
+        for section in result["sections"]:
+            heading = table.row()
+            heading.cell(latin1(section["title"]), colspan=4, style=FontFace(emphasis="BOLD", color=TEXT))
+            for item in section["rows"]:
+                cells = table.row()
+                cells.cell(latin1(item["label"]), style=FontFace(color=TEXT))
+                cells.cell(latin1(item["before"]), style=FontFace(color=MUTED))
+                cells.cell(latin1(item["after"]), style=FontFace(color=MUTED))
+                if item["changed"]:
+                    cells.cell(latin1(item["change"]), style=FontFace(color=CHANGE_COLOR.get(item["direction"], TEXT)))
+                else:
+                    cells.cell("Same", style=FontFace(color=SUBTLE))

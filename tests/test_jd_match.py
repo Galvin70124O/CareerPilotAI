@@ -116,7 +116,7 @@ def pdf_text(data):
 def test_the_pdf_has_the_jd_section_only_when_a_jd_was_checked():
     base = {"text": RESUME, "is_resume": "1", "name": "cv.txt"}
     text = pdf_text({**base, "jd": "Strong SQL and Docker for search queries and reports."})
-    assert "Job description match" in text and "Listed but not proven: SQL" in text
+    assert "Job description match" in text and "Not yet proven in a project: SQL" in text
     assert "Job description match" not in pdf_text(base)
 
 

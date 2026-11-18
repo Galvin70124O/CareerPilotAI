@@ -14,6 +14,7 @@ from features.courses import recommend_courses
 from features.ranking import PROFILES, fresher_roles, rank_careers
 from features.readiness import RULE, resume_insights
 from features.report import build_report_pdf
+from features.resume_check import NOT_A_RESUME, looks_like_resume
 from features.jobs import fetch_job_listings
 from features.interview import interview_questions
 from features.jd_match import MAX_JD_LENGTH, match_job
@@ -91,6 +92,8 @@ def read_upload(file_storage):
         return "", "Could not open this file. Check it is a real PDF, DOCX or TXT file."
     if not text:
         return "", "Could not read any text from this file (is it a scanned image?)."
+    if not looks_like_resume(text):     # an invoice or a letter: say so instead of a report built on nothing
+        return "", NOT_A_RESUME
     return text, ""
 
 
@@ -140,6 +143,7 @@ def home():
     courses = []         # free resources for each missing skill
     simulator_data = None  # what the What-If Simulator needs to send back to /api/simulate
     interview = []       # interview practice questions for the top career
+    fresher_interview = []  # ... and for the first "Fresher role that fits you", if there is one
     error = ""
     source = ""          # "resume" or "text", so the page can say what we predicted from
 
@@ -185,6 +189,7 @@ def home():
             roadmap = build_roadmap(top_careers[0]["career"], text_to_predict)
             courses = recommend_courses(skill_gap["missing"])
             interview = interview_questions(top_careers[0]["career"])
+            fresher_interview = interview_questions(fresher[0]["career"]) if fresher else []
             simulator_data = {"text": text_to_predict, "career": top_careers[0]["career"],
                               "is_resume": source == "resume"}
             job_results = fetch_job_listings(top_careers[0]["career"])
@@ -210,6 +215,7 @@ def home():
         courses=courses,
         simulator_data=simulator_data,
         interview=interview,
+        fresher_interview=fresher_interview,
         error=error,
         source=source,
         uploaded_name=uploaded_name
@@ -234,15 +240,24 @@ def jd_match(text, jd, is_resume):
     return match_job(model.named_steps["tfidf"], text, jd, is_resume)
 
 
-def report_data(text, is_resume, source_label, jd=""):
-    """Everything the PDF report shows, computed with the same functions as the page."""
+def comparison(text, top_before, new_text):
+    """'Compare with another version' for two texts, both against the first version's top career."""
+    career = top_before[0]["career"]
+    return compare_versions(snapshot(model, text, top_before, career),
+                            snapshot(model, new_text, predict_top_careers(new_text), career))
+
+
+def report_data(text, is_resume, source_label, jd="", compare=None):
+    """Everything the PDF report shows, computed with the same functions as the page.
+    compare: {"text", "name"} of a second version the user compared on the page, or None."""
     top_careers = predict_top_careers(text)
     career = top_careers[0]["career"]
     skill_gap = analyze_skill_gap(career, text)
+    fresher = fresher_roles(text, top_careers)
     return {
         "source_label": source_label,
         "top_careers": top_careers,
-        "fresher_roles": fresher_roles(text, top_careers),
+        "fresher_roles": fresher,
         "why_terms": top_careers[0]["why_terms"],
         "resume_score": score_resume(text, career) if is_resume else None,
         "skill_gap": skill_gap,
@@ -250,7 +265,10 @@ def report_data(text, is_resume, source_label, jd=""):
         "roadmap": build_roadmap(career, text),
         "courses": recommend_courses(skill_gap["missing"]),
         "interview": interview_questions(career),
+        "fresher_interview": interview_questions(fresher[0]["career"]) if fresher else [],
         "jd_match": jd_match(text, jd, is_resume) if jd.strip() else None,
+        "compare": ({**comparison(text, top_careers, compare["text"]), "after_name": compare["name"]}
+                    if compare and is_resume else None),
     }
 
 
@@ -271,7 +289,13 @@ def download_report():
     if jd.strip() and jd_problem(jd):
         return jd_problem(jd), 400
     source_label = f"Resume: {name}" if is_resume and name else ("Resume" if is_resume else "Typed skills")
-    pdf = build_report_pdf(report_data(text, is_resume, source_label, jd))
+    # Filled by app.js after "Compare with another version"; the comparison is worked out again here
+    compare_text = request.form.get("compare_text", "")
+    if len(compare_text) > MAX_SIMULATE_TEXT:
+        return "Missing or too long text.", 400
+    compare = ({"text": compare_text, "name": request.form.get("compare_name", "").strip()[:120] or "New version"}
+               if compare_text.strip() else None)
+    pdf = build_report_pdf(report_data(text, is_resume, source_label, jd, compare))
     return Response(pdf, mimetype="application/pdf",
                     headers={"Content-Disposition": 'attachment; filename="careerpilot-report.pdf"'})
 
@@ -344,10 +368,10 @@ def api_compare():
     new_text, error = read_upload(file)
     if error:
         return jsonify({"error": error}), 400
-    top_before, top_after = predict_top_careers(text), predict_top_careers(new_text)
-    career = top_before[0]["career"]
-    return jsonify(compare_versions(snapshot(model, text, top_before, career),
-                                    snapshot(model, new_text, top_after, career)))
+    # after_text goes into the report form so the PDF can include this comparison.
+    # shortcut: a version over the /report text limit is silently left out of the PDF, add a note if people hit it
+    after_text = new_text if len(new_text) <= MAX_SIMULATE_TEXT else ""
+    return jsonify({**comparison(text, predict_top_careers(text), new_text), "after_text": after_text})
 
 
 @app.errorhandler(413)

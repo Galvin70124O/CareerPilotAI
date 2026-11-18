@@ -37,6 +37,9 @@
           <input type="hidden" name="name" value="{{ uploaded_name }}">
           {# Filled by app.js after a job description match, so the PDF includes it #}
           <input type="hidden" name="jd" value="" data-report-jd>
+          {# Filled by app.js after "Compare with another version", so the PDF includes the comparison #}
+          <input type="hidden" name="compare_text" value="" data-report-compare-text>
+          <input type="hidden" name="compare_name" value="" data-report-compare-name>
           <button type="submit" class="btn btn-secondary" id="download-report">
             {{ icon("download", 16, class="btn-icon-idle") }}{{ icon("loader", 16, class="spinner") }}
             <span data-button-label>Download report (PDF)</span>

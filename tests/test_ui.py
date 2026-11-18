@@ -249,6 +249,8 @@ def test_breakdown_bars_are_coloured_by_ratio(monkeypatch):
 
 
 def test_breakdown_red_for_a_weak_resume(monkeypatch):
+    # weak_resume.txt has no headings and no known skill, so it would get the not-a-resume message
+    monkeypatch.setattr(app, "looks_like_resume", lambda text: True)
     with open("tests/fixtures/weak_resume.txt", "rb") as f:
         html = page(monkeypatch, {"resume_file": (io.BytesIO(f.read()), "weak.txt")})
     assert html.count("breakdown-low") >= 4
@@ -327,3 +329,34 @@ def test_show_all_toggle_is_a_44px_target():
     css = app.app.test_client().get("/static/css/app.css").get_data(as_text=True)
     assert "min-height: var(--tap);" in css.split(".show-all-toggle {")[1].split("}")[0]
     assert "--tap: 44px;" in app.app.test_client().get("/static/css/theme.css").get_data(as_text=True)
+
+
+def test_compare_changes_use_the_score_level_colours_next_to_the_sign():
+    css = app.app.test_client().get("/static/css/app.css").get_data(as_text=True)
+    assert ".compare-result .is-better { color: var(--success); }" in css
+    assert ".compare-result .is-worse { color: var(--danger); }" in css
+    js = app.app.test_client().get("/static/js/app.js").get_data(as_text=True)
+    # the class is added to the cell that still shows the sign or word
+    assert '"compare-change" + (row.changed ? "" : " is-same") + directionClass(row)' in js
+
+
+def test_has_and_grid_table_layouts_sit_behind_supports_so_old_browsers_stack():
+    css = app.app.test_client().get("/static/css/app.css").get_data(as_text=True)
+    supports_has = css.index("@supports selector(:has(+ *))")
+    # every :has() rule comes after the @supports line (inside its block), none in the plain base styles
+    rules_with_has = [m.start() for m in re.finditer(r"^\s*[^/@\n]*:has\(", css, re.M)]
+    assert rules_with_has and all(pos > supports_has for pos in rules_with_has)
+    # without :has the "auto" dashboard is not two columns, so no card is left beside an empty cell
+    assert ".dashboard--auto { grid-template-columns: repeat(2" in css[supports_has:]
+    assert ".dashboard--auto { grid-template-columns" not in css[:supports_has]
+    # the phone table rows are blocks first, grid only inside @supports (display: grid)
+    supports_grid = css.index("@supports (display: grid)")
+    assert ".compare-table tr { display: block;" in css[:supports_grid]
+    assert ".compare-table tr { display: grid;" in css[supports_grid:]
+
+
+def test_the_dashboards_children_are_only_cards(monkeypatch):
+    # a <script> between two cards breaks :nth-child(odd):has(+ interview), leaving an empty grid cell
+    html = page(monkeypatch, {"input_text": "python, sql, pandas, machine learning"})
+    dashboard = html.split('<div class="dashboard')[1]
+    assert re.search(r"</article>\s*(<!--.*?-->\s*)?<script", dashboard, re.S) is None
