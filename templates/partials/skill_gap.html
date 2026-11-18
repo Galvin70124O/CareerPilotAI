@@ -1,9 +1,8 @@
 {% from "partials/macros.html" import icon %}
 <article class="card fade-in" data-card="gap" aria-labelledby="gap-title">
   <header class="card-header">
-    <span class="card-icon">{{ icon("chart", 18) }}</span>
     <div>
-      <h3 class="card-title" id="gap-title">Skill gap for {{ skill_gap.career|display_name }}</h3>
+      <h2 class="card-title" id="gap-title">Skill gap for {{ skill_gap.career|display_name }}</h2>
       <p class="card-subtitle">The {{ skill_gap.total }} skills that resumes in this career mention most</p>
     </div>
   </header>
@@ -16,7 +15,7 @@
 
   {% if skill_gap.have %}
     <div class="card-section">
-      <p class="section-label">You have</p>
+      <h3 class="subhead">You have</h3>
       <ul class="chips">
         {% for skill in skill_gap.have %}<li class="chip chip-success">{{ icon("check", 14) }}{{ skill|display_skill }}</li>{% endfor %}
       </ul>
@@ -24,7 +23,7 @@
   {% endif %}
   {% if skill_gap.missing %}
     <div class="card-section">
-      <p class="section-label">To learn next</p>
+      <h3 class="subhead">To learn next</h3>
       <ul class="chips">
         {% for skill in skill_gap.missing %}<li class="chip chip-missing">{{ skill|display_skill }}</li>{% endfor %}
       </ul>
@@ -32,7 +31,7 @@
   {% endif %}
   {% if source == "resume" %}
     <div class="card-section">
-      <p class="section-label">Skills found in your resume</p>
+      <h3 class="subhead">Skills found in your resume</h3>
       {% set found = found_skills.split(", ") if found_skills else [] %}
       {% if found %}
         <ul class="chips">{% for skill in found %}<li class="chip">{{ skill|display_skill }}</li>{% endfor %}</ul>

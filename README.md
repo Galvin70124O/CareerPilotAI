@@ -6,21 +6,25 @@ A Flask web app that reads your resume (or the skills you type), predicts the ca
 
 ## Screenshots
 
-Screenshots use the sample resume `tests/fixtures/good_resume.txt` and **sample job data** (the live jobs list changes every day).
+Screenshots use the sample resume `tests/fixtures/good_resume.txt` and **sample job data** (the live jobs list changes every day). The design reads like a printed career report: warm paper, black ink, Newsreader headings, and one blue accent kept for the score, the confidence figure and the career-match bars.
 
-| Desktop, light (sample job data) | Desktop, dark (sample job data) |
+| Career report, desktop, light (sample job data) | Career report, desktop, dark (sample job data) |
 |---|---|
-| ![Results dashboard in light mode, with sample job data](docs/screenshots/after-result-desktop-light.png) | ![Results dashboard in dark mode, with sample job data](docs/screenshots/after-result-desktop-dark.png) |
+| ![Career report in light mode, with sample job data](docs/screenshots/after-result-desktop-light.png) | ![Career report in dark mode, with sample job data](docs/screenshots/after-result-desktop-dark.png) |
 
-| Phone 390 px, light (sample job data) | Phone 390 px, dark (sample job data) | Before the redesign (sample job data) |
+| Career report, phone 390 px, light | Career report, phone 390 px, dark | Before the redesign |
 |---|---|---|
-| <img src="docs/screenshots/after-result-mobile-light.png" alt="Results on a phone in light mode, with sample job data" width="240"> | <img src="docs/screenshots/after-result-mobile-dark.png" alt="Results on a phone in dark mode, with sample job data" width="240"> | <img src="docs/screenshots/before-result-mobile-dark.png" alt="The old single-column design, with sample job data" width="240"> |
+| <img src="docs/screenshots/after-result-mobile-light.png" alt="Career report on a phone in light mode, with sample job data" width="240"> | <img src="docs/screenshots/after-result-mobile-dark.png" alt="Career report on a phone in dark mode, with sample job data" width="240"> | <img src="docs/screenshots/before-result-mobile-dark.png" alt="The old single-column design, with sample job data" width="240"> |
 
-| Loading steps | Link preview image (Open Graph, 1200 x 630) |
+| Home, desktop, light | Home, desktop, dark |
 |---|---|
-| ![Loading state with steps](docs/screenshots/after-loading-desktop-light.png) | ![Link preview card](docs/screenshots/og-image.png) |
+| ![Home page in light mode: headline beside the upload card](docs/screenshots/after-home-desktop-light.png) | ![Home page in dark mode](docs/screenshots/after-home-desktop-dark.png) |
 
-All screenshots (before/after, 1440 px and 390 px, light and dark) are in [`docs/screenshots/`](docs/screenshots/).
+| Home, phone 390 px, light | Home, phone 390 px, dark | Loading steps | Link preview (1200 x 630) |
+|---|---|---|---|
+| <img src="docs/screenshots/after-home-mobile-light.png" alt="Home page on a phone in light mode" width="200"> | <img src="docs/screenshots/after-home-mobile-dark.png" alt="Home page on a phone in dark mode" width="200"> | ![Loading state with steps](docs/screenshots/after-loading-desktop-light.png) | ![Link preview card](docs/screenshots/og-image.png) |
+
+All screenshots (before/after, 1440 px and 390 px, light and dark) are in [`docs/screenshots/`](docs/screenshots/). The design rules (colours, type, radius, components) are in [`DESIGN.md`](DESIGN.md).
 
 ## Features
 
@@ -121,7 +125,8 @@ To rebuild the dataset from Hugging Face: `python data/prepare_data.py`
 | `data/prepare_data.py` | Downloads and cleans ResumeAtlas |
 | `skills.json`, `roadmaps.json`, `courses.json` | Per career: key `skills` + `job_keywords`; roadmaps; free courses per skill |
 | `templates/` | `index.html` (layout) + `partials/` (one file per section/card, `macros.html` for icons and the score ring) |
-| `static/css/app.css` | The design system: color/spacing/radius/shadow/type tokens, light + dark themes, all components |
+| `static/css/theme.css` | Design tokens: colours, type, spacing, radius, light + dark (see `DESIGN.md`) |
+| `static/css/app.css` | Components and layout, using only the tokens from `theme.css` |
 | `static/img/` | Logo (`logo.svg`, `logo-dark.svg`), favicons (`favicon.svg`, 32 px PNG, 180 px apple-touch-icon) and the 1200 x 630 link preview `og-image.png` |
 | `tools/` | `make_brand_assets.py` rebuilds everything in `static/img/` (dev only, needs Pillow); `og-image.html` is the source of the link preview |
 | `static/js/app.js` | Theme toggle, tabs, drag-and-drop upload, loading state, microphone, What-If Simulator |

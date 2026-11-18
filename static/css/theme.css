@@ -1,0 +1,202 @@
+/* =========================================================================
+   CareerPilot AI theme: "printed career report".
+   Warm off-white paper, black ink, one Prussian-blue accent that is used ONLY
+   for the resume score figure, the career-match bars and the confidence figure.
+   This is the ONLY file that defines colours, type, spacing and radius;
+   app.css uses these variables and never hard-codes a value.
+   1. Tokens (light on :root, dark on [data-theme="dark"] + the no-JS fallback)
+   2. CareerPilot names -> tokens (the names app.css uses)
+   ========================================================================= */
+
+/* ---------- 1. Tokens ---------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  /* Paper and ink */
+  --bg: #f7f5f0;            /* page ground: warm paper */
+  --panel: #fcfbf8;         /* the report sheet, input card */
+  --panel-2: #f2efe9;       /* one tone step down: chips, drop zone */
+  --fill: #ebe8e2;          /* bar and ring tracks */
+  --border: #e5e3df;        /* hairline rules */
+  --border-strong: #c8c4be; /* dashed chips, step markers */
+  --border-control: #8a857b; /* outlines of form controls and buttons: 3.2-3.5:1 */
+  --rule: #1a1917;          /* the strong rule above each report section */
+
+  --text: #1a1917;          /* ink: 16:1 on paper */
+  --text-2: #55524b;        /* secondary: 7.2:1 */
+  --text-3: #6e6a62;        /* muted: 4.9:1 */
+
+  /* Ink buttons (primary actions are black ink, not the accent) */
+  --ink: #1a1917;
+  --ink-hover: #3a3833;
+  --on-ink: #fcfbf8;
+
+  /* The one accent: Prussian blue (8.1:1 on paper) */
+  --brand: #1e4d78;
+  --brand-ink: #fcfbf8;
+
+  /* Score levels: they carry meaning (strong / needs work / weak), so they stay */
+  --pos: #2d6a3e;
+  --pos-bg: #e8efe7;
+  --warn: #8a5a00;
+  --warn-bg: #f5ecda;
+  --neg: #b0281f;
+  --neg-bg: #f7e6e3;
+
+  /* Inverted (tooltip) */
+  --inverse-bg: #1a1917;
+  --inverse-text: #f7f5f0;
+
+  /* Elevation: only things that float (the tooltip) get a shadow */
+  --menu-shadow: 0 6px 20px rgba(26, 25, 23, 0.12), 0 1px 3px rgba(26, 25, 23, 0.08);
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--text);
+
+  /* Typography: Newsreader (Google Fonts) for display and figures,
+     the system UI face for reading text and controls */
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Sizes in rem (13/14/16/24/40/60px at the default 16px), so they follow the browser's text-size setting */
+  --fs-xs: 0.8125rem;   /* badges, credits */
+  --fs-sm: 0.875rem;    /* secondary text */
+  --fs-base: 1rem;      /* reading text */
+  --fs-h3: 1.5rem;      /* report section headings */
+  --fs-h1: 2.5rem;      /* report title, big figures */
+  --fs-hero: 3.75rem;   /* home headline */
+  --lh-body: 1.55;
+  --lh-heading: 1.2;
+  --lh-display: 1.04;
+
+  /* Spacing: 4px grid (--space-6 = 24px) */
+  --space-half: 2px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* Radius scale: square for print (bars, sections, rows), 4 chips, 8 controls,
+     12 for the one card that floats (input card, loading panel). No pills. */
+  --radius-0: 0;
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --radius-round: 50%;   /* true circles only: score ring, roadmap step markers */
+
+  /* Sizes */
+  --control-h: 40px;
+  --tap: 44px;           /* minimum touch target */
+  --header-h: 60px;
+  --page-max: 1120px;
+
+  /* Motion */
+  --dur-fast: 0.12s;
+  --dur-sheet: 0.18s;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #171614;
+  --panel: #1f1e1b;
+  --panel-2: #262521;
+  --fill: #2c2a26;
+  --border: #34322e;
+  --border-strong: #4a4741;
+  --border-control: #77726a;
+  --rule: #b8b3a8;          /* full-strength ink rules glare in the dark */
+
+  --text: #eeebe4;
+  --text-2: #b8b3a8;
+  --text-3: #9a958a;
+
+  --ink: #eeebe4;
+  --ink-hover: #d6d2c9;
+  --on-ink: #171614;
+
+  --brand: #8db6dd;
+  --brand-ink: #171614;
+
+  --pos: #7cc08c;
+  --pos-bg: rgba(124, 192, 140, 0.13);
+  --warn: #d9a640;
+  --warn-bg: rgba(217, 166, 64, 0.13);
+  --neg: #ef8a7f;
+  --neg-bg: rgba(239, 138, 127, 0.13);
+
+  --inverse-bg: #eeebe4;
+  --inverse-text: #171614;
+
+  --menu-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* No-JS fallback: follow the OS when no data-theme has been set (same values as above). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --bg: #171614; --panel: #1f1e1b; --panel-2: #262521; --fill: #2c2a26;
+    --border: #34322e; --border-strong: #4a4741; --border-control: #77726a; --rule: #b8b3a8;
+    --text: #eeebe4; --text-2: #b8b3a8; --text-3: #9a958a;
+    --ink: #eeebe4; --ink-hover: #d6d2c9; --on-ink: #171614;
+    --brand: #8db6dd; --brand-ink: #171614;
+    --pos: #7cc08c; --pos-bg: rgba(124, 192, 140, 0.13);
+    --warn: #d9a640; --warn-bg: rgba(217, 166, 64, 0.13);
+    --neg: #ef8a7f; --neg-bg: rgba(239, 138, 127, 0.13);
+    --inverse-bg: #eeebe4; --inverse-text: #171614;
+    --menu-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@media (max-width: 760px) {
+  :root { --header-h: 56px; --fs-hero: 2.375rem; --fs-h1: 1.875rem; --fs-h3: 1.375rem; }
+}
+
+/* ---------- 2. CareerPilot names ---------------------------------------- */
+/* Declared on :root, so in dark mode they pick up the dark values above. */
+:root {
+  /* Type */
+  --font-sans: var(--font);
+  --text-xs: var(--fs-xs);
+  --text-sm: var(--fs-sm);
+  --text-base: var(--fs-base);
+  --text-lg: 1.125rem;
+  --text-xl: var(--fs-h3);
+  --text-2xl: var(--fs-h1);
+  --text-3xl: var(--fs-hero);
+  --leading-tight: var(--lh-heading);
+  --leading-normal: var(--lh-body);
+
+  /* Neutrals */
+  --surface: var(--panel);
+  --surface-2: var(--panel-2);
+  --surface-hover: var(--panel-2);
+  --track: var(--fill);
+  --text-muted: var(--text-2);
+  --text-subtle: var(--text-3);
+
+  /* The one accent (score figure, career-match bars, confidence figure) */
+  --accent: var(--brand);
+  --on-accent: var(--brand-ink);
+  --chart: var(--brand);
+
+  /* Scores and states */
+  --success: var(--pos);
+  --success-soft: var(--pos-bg);
+  --success-border: color-mix(in srgb, var(--pos) 35%, var(--panel));
+  --warning: var(--warn);
+  --warning-soft: var(--warn-bg);
+  --warning-border: color-mix(in srgb, var(--warn) 35%, var(--panel));
+  --danger: var(--neg);
+  --danger-soft: var(--neg-bg);
+  --danger-border: color-mix(in srgb, var(--neg) 35%, var(--panel));
+
+  /* Layout */
+  --topbar-height: var(--header-h);
+  --content-width: var(--page-max);
+}

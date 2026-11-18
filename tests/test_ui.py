@@ -161,10 +161,12 @@ def test_resume_page_has_no_inline_styles_or_emoji(monkeypatch):
 def test_css_and_js_are_linked_and_served(monkeypatch):
     html = page(monkeypatch)
     assert 'href="/static/css/app.css"' in html and 'src="/static/js/app.js"' in html
+    assert html.index('href="/static/css/theme.css"') < html.index('href="/static/css/app.css"')   # tokens load first
     client = app.app.test_client()
-    css = client.get("/static/css/app.css")
-    assert css.status_code == 200
-    text = css.get_data(as_text=True)
+    assert client.get("/static/css/app.css").status_code == 200
+    theme = client.get("/static/css/theme.css")
+    assert theme.status_code == 200
+    text = theme.get_data(as_text=True)
     assert ':root[data-theme="dark"]' in text and "prefers-color-scheme: dark" in text
     assert "--accent:" in text and "--radius-lg:" in text and "--space-4:" in text
     assert client.get("/static/js/app.js").status_code == 200
@@ -290,3 +292,36 @@ def test_readme_screenshot_captions_say_sample_job_data():
 def test_auto_layout_has_no_empty_cell_before_jobs():
     css = app.app.test_client().get("/static/css/app.css").get_data(as_text=True)
     assert ".dashboard--auto > :nth-child(odd):nth-last-child(2) { grid-column: 1 / -1; }" in css
+
+
+# --- long skill lists: first 10, then "Show all N" in a <details> ----------------------
+
+def render_partial(name, **context):
+    with app.app.test_request_context("/"):
+        return app.render_template(name, **context)
+
+
+def test_long_skill_lists_show_ten_then_a_show_all_details():
+    missing = [f"skill{i:02d}" for i in range(40)]                       # most important first
+    courses = [{"skill": s, "resources": [{"title": "Docs", "url": "https://example.com", "is_search": False}]}
+               for s in missing]
+    for html, item in [(render_partial("partials/courses.html", courses=courses), 'class="course-row"'),
+                       (render_partial("partials/simulator.html", skill_gap={"missing": missing}, simulator_data={}),
+                        'class="option-chip"')]:
+        shown, hidden = html.split('<details class="show-all" data-show-all>')
+        assert shown.count(item) == 10 and hidden.count(item) == 30
+        assert "Skill00" in shown and "Skill09" in shown and "Skill10" in hidden    # order kept
+        assert '<summary class="show-all-toggle">' in hidden and "Show all 40" in hidden
+
+
+def test_short_skill_lists_have_no_show_all():
+    missing = [f"skill{i}" for i in range(8)]                            # a real career has 8 key skills
+    courses = [{"skill": s, "resources": []} for s in missing]
+    assert "<details" not in render_partial("partials/courses.html", courses=courses)
+    assert "<details" not in render_partial("partials/simulator.html", skill_gap={"missing": missing}, simulator_data={})
+
+
+def test_show_all_toggle_is_a_44px_target():
+    css = app.app.test_client().get("/static/css/app.css").get_data(as_text=True)
+    assert "min-height: var(--tap);" in css.split(".show-all-toggle {")[1].split("}")[0]
+    assert "--tap: 44px;" in app.app.test_client().get("/static/css/theme.css").get_data(as_text=True)

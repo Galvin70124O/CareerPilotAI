@@ -17,7 +17,9 @@ A Flask web app that suggests a career path from resume text. Built by a CSE stu
 | `roadmaps.json` | 3 stages x 3 steps per career; each step has a `skill` keyword used to tick it |
 | `courses.json` | Free resources per skill; only URLs verified with HTTP 200 (2026-10-20). Never add unverified links |
 | `templates/partials/` | One Jinja partial per section/card; `macros.html` has `icon()` (Lucide SVGs) and `score_ring()` |
-| `static/css/app.css` | Design system: CSS variables (colors, spacing, radius, shadows, type), light + dark (`data-theme` + `prefers-color-scheme`) |
+| `static/css/theme.css` | Design tokens ("printed career report": paper, ink, one blue accent): CSS variables for colors, type, spacing, radius, light + dark (`data-theme` + `prefers-color-scheme`). The only file with colour values |
+| `static/css/app.css` | Component and layout styles; uses only the variables from `theme.css` |
+| `DESIGN.md` | The design system in words: tokens, type and radius scales, the accent rule, components, do's and don'ts. Keep it in sync with `theme.css` |
 | `static/img/` + `tools/make_brand_assets.py` | Logo, favicons, OG image (rebuild with the script, don't hand-edit the PNGs) |
 | `features/report.py` | PDF report (fpdf2, core Helvetica: text goes through `latin1()`); route `POST /report` in app.py |
 | `data/sample_resume.txt` | Fictional sample resume for "Try with a sample resume" (`sample=1` form value) |
@@ -62,6 +64,6 @@ python -m pytest
 - **Explain first.** Before each change, say in 2–3 sentences what is changing and why.
 - **Keep it simple.** Code should be easy for a beginner to read. No big refactors unless the user asks.
 - **Feature logic goes in `features/`**, with pytest tests; keep all tests passing.
-- UI: use the tokens in `static/css/app.css` (one indigo accent, neutral grays; green/amber/red only for scores). No inline styles, no inline JS handlers, no emoji icons (use `icon()`), no Bootstrap. Bars are `<progress>`; must work at 390 px and 1440 px, light and dark. `tests/test_ui.py` checks these rules.
+- UI: use the tokens in `static/css/theme.css` (printed-report style: warm paper, black ink, Newsreader for headings and figures; the one Prussian-blue accent is ONLY for the score figure, the career-match bars and the confidence figure; buttons, links and focus are ink; green/amber/red only for score levels; radius scale 0/4/8/12, no pills; no shadows except the tooltip; no icon tiles or eyebrow labels). No inline styles, no inline JS handlers, no emoji icons (use `icon()`), no Bootstrap. Bars are `<progress>`; must work at 390 px and 1440 px, light and dark. `tests/test_ui.py` checks these rules.
 - **After each step/part:** say exactly how to test it, and commit (or suggest a commit message, if not asked to commit). Don't push unless asked.
 - Teach as we go: when a change touches an ML or web concept, briefly explain the idea.

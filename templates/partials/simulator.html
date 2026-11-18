@@ -1,24 +1,33 @@
-{% from "partials/macros.html" import icon %}
-{# What-If Simulator. Needs: skill_gap (for the missing skills) and simulator_data. Logic: static/js/app.js #}
+{% from "partials/macros.html" import icon, show_all, SHOW_FIRST %}
+{# What-If Simulator. Needs: skill_gap (for the missing skills, most important first) and simulator_data.
+   The first SHOW_FIRST skills show; the rest sit behind "Show all N". Logic: static/js/app.js #}
+{% macro option_chip(skill) -%}
+<label class="option-chip">
+  <input type="checkbox" value="{{ skill }}">
+  <span>{{ icon("check", 14) }}{{ skill|display_skill }}</span>
+</label>
+{%- endmacro %}
 <article class="card fade-in" data-card="whatif" id="cp-simulator" aria-labelledby="whatif-title">
   <header class="card-header">
-    <span class="card-icon">{{ icon("sparkles", 18) }}</span>
     <div>
-      <h3 class="card-title" id="whatif-title">What if you learned…?</h3>
+      <h2 class="card-title" id="whatif-title">What if you learned…?</h2>
       <p class="card-subtitle">Pick skills you could add and see how your results would change</p>
     </div>
   </header>
   <fieldset class="option-chips" id="sim-options">
     <legend class="sr-only">Skills to add</legend>
-    {% for skill in skill_gap.missing %}
-      <label class="option-chip">
-        <input type="checkbox" value="{{ skill }}">
-        <span>{{ icon("check", 14) }}{{ skill|display_skill }}</span>
-      </label>
-    {% endfor %}
+    {% for skill in skill_gap.missing[:SHOW_FIRST] %}{{ option_chip(skill) }}{% endfor %}
+    {% if skill_gap.missing|length > SHOW_FIRST %}
+      <details class="show-all" data-show-all>
+        {{ show_all(skill_gap.missing|length) }}
+        <div class="option-chips-more">
+          {% for skill in skill_gap.missing[SHOW_FIRST:] %}{{ option_chip(skill) }}{% endfor %}
+        </div>
+      </details>
+    {% endif %}
   </fieldset>
   <button type="button" class="btn btn-primary" id="cp-sim-button">
-    {{ icon("sparkles", 16, class="btn-icon-idle") }}{{ icon("loader", 16, class="spinner") }}
+    {{ icon("loader", 16, class="spinner") }}
     <span data-button-label>Simulate</span>
   </button>
   <p class="sim-error" id="cp-sim-error" role="alert"></p>

@@ -1,5 +1,5 @@
 {% from "partials/macros.html" import score_ring %}
-{# Summary strip: the four numbers that matter most #}
+{# Summary: the four numbers that matter most, set like the figures on a report's first page #}
 {% set best = top_careers[0] %}
 <div class="summary fade-in" data-card="summary">
   <div class="stat stat-primary">
@@ -11,7 +11,7 @@
   </div>
   <div class="stat">
     <p class="stat-label">Confidence</p>
-    <p class="stat-value">{{ best.percent }}%</p>
+    <p class="stat-value stat-accent">{{ best.percent }}%</p>
     <progress class="bar bar-thin" max="100" value="{{ best.percent }}" aria-label="Confidence {{ best.percent }}%">{{ best.percent }}%</progress>
   </div>
   <div class="stat">
