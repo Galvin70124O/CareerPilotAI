@@ -329,3 +329,12 @@ def test_show_all_toggle_is_a_44px_target():
     css = app.app.test_client().get("/static/css/app.css").get_data(as_text=True)
     assert "min-height: var(--tap);" in css.split(".show-all-toggle {")[1].split("}")[0]
     assert "--tap: 44px;" in app.app.test_client().get("/static/css/theme.css").get_data(as_text=True)
+
+
+def test_compare_changes_use_the_score_level_colours_next_to_the_sign():
+    css = app.app.test_client().get("/static/css/app.css").get_data(as_text=True)
+    assert ".compare-result .is-better { color: var(--success); }" in css
+    assert ".compare-result .is-worse { color: var(--danger); }" in css
+    js = app.app.test_client().get("/static/js/app.js").get_data(as_text=True)
+    # the class is added to the cell that still shows the sign or word
+    assert '"compare-change" + (row.changed ? "" : " is-same") + directionClass(row)' in js

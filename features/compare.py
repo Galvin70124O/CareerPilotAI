@@ -16,6 +16,7 @@ from features.skills import CAREER_SKILLS, analyze_skill_gap, display_skill
 LEVELS = [NOT_READY, ONE_PROJECT, READY]   # worst to best
 SAME = "same"
 RANKS = ["1st", "2nd", "3rd"]
+BETTER, WORSE = "better", "worse"   # a row's direction, shown in the score-level colours next to the sign
 
 
 def snapshot(model, text, top_careers, career):
@@ -37,16 +38,23 @@ def number_change(before, after):
     return f"+{after - before}" if after > before else f"−{before - after}"
 
 
-def row(label, before, after, change):
-    return {"label": label, "before": before, "after": after, "change": change, "changed": change != SAME}
+def direction(before, after):
+    """BETTER when a number went up, WORSE when it went down, None when it stayed."""
+    return BETTER if after > before else WORSE if after < before else None
+
+
+def row(label, before, after, change, way=None):
+    """way: BETTER, WORSE or None (no change, or a change that is neither, like a different 2nd match)."""
+    return {"label": label, "before": before, "after": after, "change": change, "changed": change != SAME,
+            "direction": way}
 
 
 def score_rows(before, after):
     rows = [row("Total", f"{before['total']} / 100", f"{after['total']} / 100",
-                number_change(before["total"], after["total"]))]
+                number_change(before["total"], after["total"]), direction(before["total"], after["total"]))]
     for old, new in zip(before["categories"], after["categories"]):     # same categories, same order
         rows.append(row(old["label"], f"{old['score']} / {old['max']}", f"{new['score']} / {new['max']}",
-                        number_change(old["score"], new["score"])))
+                        number_change(old["score"], new["score"]), direction(old["score"], new["score"])))
     return rows
 
 
@@ -54,12 +62,14 @@ def career_rows(before, after):
     target_before, target_after = before["target"], after["target"]
     rows = [row(f"Match with {target_before['label']}",
                 f"{target_before['percent']}%, {target_before['band']}", f"{target_after['percent']}%, {target_after['band']}",
-                number_change(target_before["percent"], target_after["percent"]))]
+                number_change(target_before["percent"], target_after["percent"]),
+                direction(target_before["percent"], target_after["percent"]))]
     for rank, old, new in zip(RANKS, before["top_careers"], after["top_careers"]):
         if old["career"] == new["career"]:
             change = number_change(old["percent"], new["percent"])
         else:
             change = "changed"
+        # no direction: a 2nd or 3rd match rising (or a new career) is neither better nor worse
         rows.append(row(f"{rank} match", f"{old['label']} {old['percent']}%", f"{new['label']} {new['percent']}%", change))
     return rows
 
@@ -76,8 +86,10 @@ def gap_rows(before, after):
     change = ", ".join(part for part in [f"found {len(found)}" if found else "",
                                          f"lost {len(lost)}" if lost else ""] if part) or SAME
     return [row("Key skills in your resume", f"{len(old['have'])} of {old['total']}", f"{len(new['have'])} of {new['total']}",
-                number_change(len(old["have"]), len(new["have"]))),
-            row("Missing key skills", skill_list(old["missing"]), skill_list(new["missing"]), change)]
+                number_change(len(old["have"]), len(new["have"])), direction(len(old["have"]), len(new["have"]))),
+            # found AND lost is mixed, so it gets no direction
+            row("Missing key skills", skill_list(old["missing"]), skill_list(new["missing"]), change,
+                BETTER if found and not lost else WORSE if lost and not found else None)]
 
 
 def tag_change(old, new):
@@ -95,11 +107,14 @@ def evidence_rows(before, after):
     career = before["target"]["career"]
     old_proven, new_proven = before["readiness"]["proven"], after["readiness"]["proven"]
     rows = [row("Proven key skills", f"{old_proven} of {before['readiness']['total']}",
-                f"{new_proven} of {after['readiness']['total']}", number_change(old_proven, new_proven))]
+                f"{new_proven} of {after['readiness']['total']}", number_change(old_proven, new_proven),
+                direction(old_proven, new_proven))]
     for skill in CAREER_SKILLS.get(career, []):
         old, new = before["evidence"].get(skill), after["evidence"].get(skill)
         if old != new:
-            rows.append(row(display_skill(skill), old or "not found", new or "not found", tag_change(old, new)))
+            change = tag_change(old, new)
+            rows.append(row(display_skill(skill), old or "not found", new or "not found", change,
+                            BETTER if change in ("stronger", "new") else WORSE))
     return rows
 
 
@@ -109,7 +124,7 @@ def readiness_rows(before, after):
         change = SAME
     else:
         change = "up" if LEVELS.index(new) > LEVELS.index(old) else "down"
-    return [row("Verdict", old, new, change)]
+    return [row("Verdict", old, new, change, direction(LEVELS.index(old), LEVELS.index(new)))]
 
 
 def compare_versions(before, after):

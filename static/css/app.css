@@ -793,6 +793,9 @@ button, input, textarea { font: inherit; color: inherit; }
 .compare-table .compare-group { padding-top: var(--space-6); border-top: 0; font-weight: 600; color: var(--text); }
 .compare-table .compare-change, .compare-table thead .compare-change { width: 14%; padding-right: 0; text-align: right; white-space: nowrap; }
 .compare-table .is-same { color: var(--text-muted); }
+/* Better / worse: the score-level colours, always next to a sign or word (+3, −2, up, weaker) */
+.compare-result .is-better { color: var(--success); }
+.compare-result .is-worse { color: var(--danger); }
 
 /* Jobs */
 .job-grid { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); column-gap: var(--space-12); }

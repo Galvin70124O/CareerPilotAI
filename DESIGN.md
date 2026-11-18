@@ -79,7 +79,7 @@ The Prussian-blue accent appears in exactly three places:
 
 Everything else is ink: buttons, links, focus rings, tabs, the drop zone, the loading state, the current roadmap step, selected what-if chips and the "Why this match" words (ink semibold on a paper chip). If a new element seems to need colour, use weight or size first.
 
-The green, amber and red score colours are not accents. They mean strong, needs work and weak, and appear only on the score ring, the score breakdown bars, skill chips you already have, roadmap steps you have done, and error states. `tests/test_ui.py` checks the ring and breakdown colours.
+The green, amber and red score colours are not accents. They mean strong, needs work and weak, and appear only on the score ring, the score breakdown bars, skill chips you already have, roadmap steps you have done, error states, and the changes in "Compare with another version" (green = better, red = worse). A change is never colour alone: it keeps its sign or word (+3, −2, up, weaker), and a change that is neither better nor worse (a different 2nd match) stays ink. `tests/test_ui.py` checks the ring, breakdown and change colours.
 
 ## Layout
 

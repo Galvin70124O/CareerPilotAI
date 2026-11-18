@@ -560,6 +560,11 @@
     return cell;
   }
 
+  // Better / worse in the score-level colours; the sign or word stays, so colour is never the only cue
+  function directionClass(row) {
+    return row.direction ? " is-" + row.direction : "";
+  }
+
   function showComparison(result, box, names) {
     var summary = el("div", "compare-summary");
     var parts = [summary];
@@ -573,10 +578,11 @@
     var total = result.sections[0].rows[0];   // the Resume Score total leads, like on the page
     var lead = el("div", "compare-lead");
     var change = total.changed ? total.change : "None";
-    [["Score before", total.before], ["Score after", total.after], ["Change", change]].forEach(function (pair) {
+    [["Score before", total.before, ""], ["Score after", total.after, ""],
+     ["Change", change, directionClass(total)]].forEach(function (item) {
       var stat = el("p", "compare-stat");
-      stat.appendChild(el("span", "compare-stat-label", pair[0]));
-      stat.appendChild(el("span", "compare-stat-value", pair[1]));
+      stat.appendChild(el("span", "compare-stat-label", item[0]));
+      stat.appendChild(el("span", "compare-stat-value" + item[2], item[1]));
       lead.appendChild(stat);
     });
     summary.appendChild(lead);
@@ -613,7 +619,7 @@
           tr.appendChild(compareCell("td", row.before, "", "Before"));
           tr.appendChild(compareCell("td", row.after, "", "After"));
           tr.appendChild(compareCell("td", row.change === "same" ? "Same" : row.change,
-            "compare-change" + (row.changed ? "" : " is-same")));
+            "compare-change" + (row.changed ? "" : " is-same") + directionClass(row)));
           body.appendChild(tr);
         });
         table.appendChild(body);

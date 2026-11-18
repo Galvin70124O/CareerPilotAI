@@ -118,3 +118,24 @@ def test_the_home_upload_uses_the_same_checks():
     html = client.post("/", data={"resume_file": (io.BytesIO(b"not really a pdf"), "fake.pdf")},
                        content_type="multipart/form-data").get_data(as_text=True)
     assert "Could not open this file" in html and "Traceback" not in html
+
+
+def test_each_change_has_a_direction_for_the_colours():
+    worse = rows_of(compare(GOOD, WEAK))
+    assert worse[("Resume Score", "Total")]["direction"] == "worse"
+    assert worse[("Readiness", "Verdict")]["direction"] == "worse"
+    assert worse[("Skill gap for Data Science", "Missing key skills")]["direction"] == "worse"   # lost only
+    better = rows_of(compare(WEAK, GOOD))
+    assert better[("Resume Score", "Total")]["direction"] == "better"
+    # a different 2nd or 3rd match is neither better nor worse
+    assert all(r["direction"] is None for (section, label), r in better.items() if label in ("2nd match", "3rd match"))
+    same = rows_of(compare(GOOD, GOOD))
+    assert all(r["direction"] is None for r in same.values())
+
+
+def test_direction_and_mixed_skill_changes():
+    from features.compare import direction, gap_rows
+    assert (direction(1, 2), direction(2, 1), direction(2, 2)) == ("better", "worse", None)
+    before = {"gap": {"have": ["sql"], "missing": ["git"], "total": 2}}
+    after = {"gap": {"have": ["git"], "missing": ["sql"], "total": 2}}
+    assert gap_rows(before, after)[1]["direction"] is None     # found one, lost one
