@@ -15,6 +15,7 @@ from features.ranking import PROFILES, fresher_roles, rank_careers
 from features.readiness import RULE, resume_insights
 from features.report import build_report_pdf
 from features.jobs import fetch_job_listings
+from features.interview import interview_questions
 from features.jd_match import MAX_JD_LENGTH, match_job
 from features.resume_score import score_resume
 from features.roadmap import build_roadmap
@@ -138,6 +139,7 @@ def home():
     why_terms = []       # words in the text that pushed the top career the most
     courses = []         # free resources for each missing skill
     simulator_data = None  # what the What-If Simulator needs to send back to /api/simulate
+    interview = []       # interview practice questions for the top career
     error = ""
     source = ""          # "resume" or "text", so the page can say what we predicted from
 
@@ -182,6 +184,7 @@ def home():
             why_terms = top_careers[0]["why_terms"]
             roadmap = build_roadmap(top_careers[0]["career"], text_to_predict)
             courses = recommend_courses(skill_gap["missing"])
+            interview = interview_questions(top_careers[0]["career"])
             simulator_data = {"text": text_to_predict, "career": top_careers[0]["career"],
                               "is_resume": source == "resume"}
             job_results = fetch_job_listings(top_careers[0]["career"])
@@ -206,6 +209,7 @@ def home():
         why_terms=why_terms,
         courses=courses,
         simulator_data=simulator_data,
+        interview=interview,
         error=error,
         source=source,
         uploaded_name=uploaded_name
@@ -245,6 +249,7 @@ def report_data(text, is_resume, source_label, jd=""):
         "insights": resume_insights(text, top_careers, skill_gap) if is_resume else None,
         "roadmap": build_roadmap(career, text),
         "courses": recommend_courses(skill_gap["missing"]),
+        "interview": interview_questions(career),
         "jd_match": jd_match(text, jd, is_resume) if jd.strip() else None,
     }
 

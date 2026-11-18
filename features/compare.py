@@ -122,9 +122,28 @@ def compare_versions(before, after):
         {"title": "Evidence", "rows": evidence_rows(before, after)},
         {"title": "Readiness", "rows": readiness_rows(before, after)},
     ]
+    unchanged = not any(r["changed"] for section in sections for r in section["rows"])
+    new_top = after["top_careers"][0]
+    top_changed = new_top["career"] != before["top_careers"][0]["career"]
     return {
         "career": career,
-        "top_changed": before["top_careers"][0]["career"] != after["top_careers"][0]["career"],
-        "unchanged": not any(r["changed"] for section in sections for r in section["rows"]),
+        "top_changed": top_changed,
+        "unchanged": unchanged,
+        "finding": "No changes: both versions give the same results." if unchanged else finding(before, after),
+        "note": (f"The new version's top match is {new_top['label']}. Every row is still measured against "
+                 f"{career}, the first version's top match, so the changes compare like with like."
+                 if top_changed else ""),
         "sections": sections,
     }
+
+
+def finding(before, after):
+    """One sentence on what changed most: the score and the readiness verdict."""
+    old, new = before["score"]["total"], after["score"]["total"]
+    score = (f"The new version scores {new} / 100 ({number_change(old, new)})." if new != old
+             else f"The new version scores the same, {new} / 100.")
+    old_level, new_level = before["readiness"]["level"], after["readiness"]["level"]
+    if old_level == new_level:
+        return f"{score} Readiness stays \"{new_level}\"."
+    way = "up" if LEVELS.index(new_level) > LEVELS.index(old_level) else "down"
+    return f"{score} Readiness moves {way} from \"{old_level}\" to \"{new_level}\"."

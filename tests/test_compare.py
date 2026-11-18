@@ -33,8 +33,17 @@ def test_number_and_tag_changes_are_worded_with_a_sign():
 
 def test_two_identical_versions_have_no_changes():
     result = compare(GOOD, GOOD)
-    assert result["unchanged"] and not result["top_changed"]
+    assert result["unchanged"] and not result["top_changed"] and result["note"] == ""
+    assert result["finding"] == "No changes: both versions give the same results."
     assert all(r["change"] == SAME for r in rows_of(result).values())
+
+
+def test_the_finding_names_the_score_and_readiness_change_and_the_career_it_is_measured_against():
+    result = compare(GOOD, WEAK)
+    total = rows_of(result)[("Resume Score", "Total")]
+    assert result["finding"] == (f"The new version scores {total['after']} ({total['change']}). "
+                                 'Readiness moves down from "Ready to apply" to "Not ready yet".')
+    assert result["top_changed"] and "still measured against Data Science" in result["note"]
 
 
 def test_every_section_is_there_with_each_score_line():

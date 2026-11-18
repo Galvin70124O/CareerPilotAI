@@ -2,7 +2,8 @@
    1. Theme toggle        4. Loading state      7. What-If Simulator
    2. Tabs                5. Microphone         8. Results bar ("Edit skills")
                                                 9. Download report (PDF)
-   3. Drop zone           6. Scroll to results  10. Job description match       */
+   3. Drop zone           6. Scroll to results  10. Job description match
+                                                11. Compare with another version */
 (function () {
   "use strict";
 
@@ -521,13 +522,7 @@
         body: JSON.stringify({ text: $("input[name=text]", reportForm).value, jd: jd,
                                is_resume: $("input[name=is_resume]", reportForm).value === "1" })
       })
-        .then(function (response) {
-          // an error page is not JSON, so fall back to an empty body and a general message
-          return response.json().catch(function () { return {}; }).then(function (body) {
-            if (!response.ok) throw new Error(body.error || "Something went wrong. Try again in a moment.");
-            return body;
-          });
-        })
+        .then(jsonOrError)
         .then(function (result) {
           showJdMatch(result, box);
           $("[data-report-jd]", reportForm).value = jd;   // the PDF now includes this match
@@ -544,6 +539,128 @@
           button.disabled = false;
           button.classList.remove("is-loading");
           label.textContent = "Check match";
+          box.removeAttribute("aria-busy");
+        });
+    });
+  }
+
+  // The JSON body of an /api answer, or an Error with its message (an error page is not JSON)
+  function jsonOrError(response) {
+    return response.json().catch(function () { return {}; }).then(function (body) {
+      if (!response.ok) throw new Error(body.error || "Something went wrong. Try again in a moment.");
+      return body;
+    });
+  }
+
+  /* ---------- 11. Compare with another version: POST /api/compare, table built with textContent ---------- */
+  function compareCell(tag, text, className, label) {
+    var cell = el(tag, className, text);
+    if (label) cell.setAttribute("data-label", label);   // the phone layout shows "Before: ..."
+    return cell;
+  }
+
+  function showComparison(result, box, names) {
+    var parts = [];
+    var files = el("p", "compare-files");
+    files.appendChild(document.createTextNode("Before: "));
+    files.appendChild(el("strong", "", names.before));
+    files.appendChild(document.createTextNode(" · After: "));
+    files.appendChild(el("strong", "", names.after));
+    parts.push(files);
+
+    var total = result.sections[0].rows[0];   // the Resume Score total leads, like on the page
+    var lead = el("div", "compare-lead");
+    [["Score before", total.before], ["Score after", total.after], ["Change", total.change]].forEach(function (pair) {
+      var stat = el("p", "compare-stat");
+      stat.appendChild(el("span", "compare-stat-label", pair[0]));
+      stat.appendChild(el("span", "compare-stat-value", pair[1]));
+      lead.appendChild(stat);
+    });
+    parts.push(lead);
+    parts.push(el("p", "compare-finding", result.finding));
+    if (result.note) parts.push(el("p", "compare-note", result.note));
+
+    if (!result.unchanged) {
+      var table = el("table", "compare-table");
+      table.appendChild(el("caption", "sr-only", "Before and after, measured against " + result.career));
+      var head = el("tr");
+      [["", ""], ["Before", ""], ["After", ""], ["Change", "compare-change"]].forEach(function (pair) {
+        var th = el("th", pair[1], pair[0]);
+        th.scope = "col";
+        head.appendChild(th);
+      });
+      var thead = el("thead");
+      thead.appendChild(head);
+      table.appendChild(thead);
+      result.sections.forEach(function (section) {
+        var body = el("tbody");
+        var groupRow = el("tr");
+        var group = el("th", "compare-group", section.title);
+        group.scope = "colgroup";
+        group.colSpan = 4;
+        groupRow.appendChild(group);
+        body.appendChild(groupRow);
+        section.rows.forEach(function (row) {
+          var tr = el("tr");
+          var label = el("th", "", row.label);
+          label.scope = "row";
+          tr.appendChild(label);
+          tr.appendChild(compareCell("td", row.before, "", "Before"));
+          tr.appendChild(compareCell("td", row.after, "", "After"));
+          tr.appendChild(compareCell("td", row.change === "same" ? "Same" : row.change,
+            "compare-change" + (row.changed ? "" : " is-same")));
+          body.appendChild(tr);
+        });
+        table.appendChild(body);
+      });
+      parts.push(table);
+    }
+    box.replaceChildren.apply(box, parts);
+  }
+
+  function initCompare() {
+    var button = $("#cp-compare-button");
+    var input = $("#compare-file");
+    var reportForm = $("[data-report-form]");
+    if (!button || !input || !reportForm) return;
+    var label = $("[data-button-label]", button);
+    var errorBox = $("#cp-compare-error");
+    var box = $("#cp-compare-result");
+
+    button.addEventListener("click", function () { input.click(); });
+    input.addEventListener("change", function () {
+      var file = input.files && input.files[0];
+      if (!file) return;
+      input.value = "";   // choosing the same file again still triggers a new comparison
+      var problem = checkFile(file);   // the same checks as the first upload; the server checks again
+      errorBox.textContent = problem;
+      if (problem) return;
+
+      var data = new FormData();
+      data.append("text", $("input[name=text]", reportForm).value);
+      data.append("resume_file", file);
+      button.disabled = true;
+      button.classList.add("is-loading");
+      label.textContent = "Comparing…";
+      box.setAttribute("aria-busy", "true");
+
+      fetch("/api/compare", { method: "POST", body: data })
+        .then(jsonOrError)
+        .then(function (result) {
+          showComparison(result, box, { before: $("input[name=name]", reportForm).value || "Your resume", after: file.name });
+          label.textContent = "Compare another version";
+          if (box.getBoundingClientRect().top > window.innerHeight * 0.6) {
+            box.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+          }
+        })
+        .catch(function (error) {
+          errorBox.textContent = error instanceof TypeError
+            ? "Couldn't reach the server. Check your connection and try again." : error.message;
+        })
+        .finally(function () {
+          button.disabled = false;
+          button.classList.remove("is-loading");
+          if (label.textContent === "Comparing…") label.textContent = "Choose the other version";
           box.removeAttribute("aria-busy");
         });
     });
@@ -593,6 +710,7 @@
     initMic();
     initSimulator();
     initJdMatch();
+    initCompare();
     initEditSkills();
     initReport();
     initResults();

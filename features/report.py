@@ -236,4 +236,14 @@ def build_report_pdf(report):
                 pdf.cell(0, 5, latin1(resource["title"]), link=resource["url"], new_x=XPos.LMARGIN, new_y=YPos.NEXT)
             pdf.ln(0.5)
 
+    # Interview practice for the top career
+    interview = report.get("interview")
+    if interview:
+        pdf.heading(f"Interview practice for {display_name(report['top_careers'][0]['career'])}", keep_with=20)
+        for item in interview:
+            pdf.ensure_space(18)   # keep a question with its skill and tip
+            pdf.paragraph(item["question"], size=9.5, color=TEXT, style="B")
+            pdf.paragraph(f"Skill: {display_skill(item['skill'])}. Tip: {item['tip']}", size=9)
+            pdf.ln(1)
+
     return bytes(pdf.output())
