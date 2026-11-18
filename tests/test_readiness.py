@@ -104,6 +104,7 @@ def test_an_uploaded_resume_shows_readiness_and_evidence_tags(monkeypatch):
 def test_typed_skills_show_no_readiness_tags_or_warning(monkeypatch):
     html = post({"input_text": "python, sql, statistics"}, monkeypatch)
     assert "Readiness:" not in html and "chip-evidence" not in html and 'class="note"' not in html
+    assert "Upload a resume to see your readiness and evidence tags." in html.split('data-card="gap"')[1]
 
 
 def test_the_top_3_is_still_the_classifier_alone():
