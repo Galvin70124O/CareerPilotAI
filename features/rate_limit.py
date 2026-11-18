@@ -1,5 +1,5 @@
 """
-A tiny rate limit for the /api routes: each visitor (IP address) gets at most LIMIT requests
+A tiny rate limit for the /api routes and /report: each visitor (IP address) gets at most LIMIT requests
 per WINDOW seconds; after that the route answers 429 "Too many requests" until the window moves on.
 
 How it works: we keep the times of each IP's recent requests in a queue. On every request we

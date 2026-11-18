@@ -236,6 +236,8 @@ def report_data(text, is_resume, source_label, jd=""):
 @app.route("/report", methods=["POST"])
 def download_report():
     """'Download report (PDF)': the results bar posts the analyzed text here."""
+    if too_many_requests():     # building a PDF is the heaviest request, so it shares the /api limit
+        return TOO_MANY, 429
     if model is None:
         return MODEL_MISSING_MESSAGE, 503
     text = request.form.get("text", "")
