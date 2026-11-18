@@ -69,6 +69,7 @@ INDIA = {
     "internship": ["intern", "summer internship", "winter internship", "industrial training",
                    "in-plant training", "inplant training", "summer training", "apprenticeship"],
     "javascript": ["js"],
+    "react": ["reactjs", "react js"],
     "excel": ["ms excel", "ms-excel", "advanced excel"],
     "powerpoint": ["ms powerpoint", "ms-powerpoint", "ppt"],
     "autocad": ["auto cad", "autocad 2d", "autocad 3d"],
