@@ -782,10 +782,11 @@ button, input, textarea { font: inherit; color: inherit; }
 .compare-stat-value { font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1.05; font-weight: 500; font-variant-numeric: lining-nums tabular-nums; }
 .compare-finding { margin-top: var(--space-4); max-width: 65ch; }
 .compare-note { margin-top: var(--space-2); font-size: var(--text-sm); color: var(--text-muted); max-width: 65ch; }
-.compare-table { width: 100%; margin-top: var(--space-6); border-collapse: collapse; font-size: var(--text-sm); font-variant-numeric: lining-nums tabular-nums; }
+.compare-table { width: 100%; margin-top: var(--space-6); border-collapse: collapse; table-layout: fixed; font-size: var(--text-sm); font-variant-numeric: lining-nums tabular-nums; }
 .compare-table th, .compare-table td { padding: var(--space-2) var(--space-4) var(--space-2) 0; border-top: 1px solid var(--border); text-align: left; vertical-align: top; font-weight: 400; overflow-wrap: anywhere; }
 .compare-table thead th { border-top: 0; font-size: var(--text-xs); color: var(--text-muted); }
 .compare-table th[scope="row"] { width: 30%; color: var(--text); font-weight: 500; }
+.compare-table td[data-label] { width: 28%; }   /* Before and After get the same width, whatever their content */
 .compare-table .compare-group { padding-top: var(--space-6); border-top: 0; font-weight: 600; color: var(--text); }
 .compare-table .compare-change, .compare-table thead .compare-change { width: 14%; padding-right: 0; text-align: right; white-space: nowrap; }
 .compare-table .is-same { color: var(--text-muted); }
@@ -902,7 +903,7 @@ button, .btn { -webkit-user-select: none; user-select: none; }
   .compare-table th[scope="row"] { grid-column: 1 / 3; }
   .compare-table .compare-change { grid-column: 3; }
   /* Before and After side by side on the second line */
-  .compare-table td[data-label] { grid-row: 2; margin-top: var(--space-1); color: var(--text-2); }
+  .compare-table td[data-label] { grid-row: 2; width: auto; margin-top: var(--space-1); color: var(--text-2); }
   .compare-table td[data-label]::before { content: attr(data-label) ": "; color: var(--text-muted); }
 }
 

@@ -15,6 +15,10 @@ A Flask web app that suggests a career path from resume text. Built by a CSE stu
 | `app.py` | Flask app: loads `model.pkl`, reads uploads (pypdf, python-docx), top-3 prediction; routes `/`, `/api/simulate`, `/health` |
 | `features/` | One module per feature: `text_cleaning`, `skills`, `resume_score` (weights in `SCORE_WEIGHTS`), `roadmap`, `courses`, `simulator`, `jobs` (Remotive: one shared feed, 4 s timeout, 6-hour cache (Remotive terms: max ~4 calls/day), `None` = API failed; filters titles by `job_keywords`, fills with `related` jobs if < 3 match; page must credit Remotive), `careers` (display names) |
 | `roadmaps.json` | 3 stages x 3 steps per career; each step has a `skill` keyword used to tick it |
+| `interview.json` + `features/interview.py` | 10 practice questions per career (`question`, `skill` = a `career_profiles.json` skill name, one-line `tip`), written for the app; plain ASCII (PDF core font). Shown for the top career (`interview.html` partial + PDF) |
+| `features/compare.py` | "Compare with another version": `snapshot()` runs the page's analysis on one version against version 1's top career, `compare_versions()` turns two snapshots into before/after/change rows + a finding. Route `POST /api/compare` (shared `read_upload()` checks, rate-limited, nothing stored) |
+| `features/jd_match.py` | Job description match (`POST /api/jd-match`): half TF-IDF word overlap, half JD skills found; gaps in the order the ad names them (`skills.skill_position`), "listed but not proven", line suggestions |
+| `features/rate_limit.py` | In-memory per-IP limit (20 / 60 s) on `/api/*` and `/report`, keyed on `True-Client-IP` (Cloudflare on Render) |
 | `courses.json` | Free resources per skill; only URLs verified with HTTP 200 (2026-10-20). Never add unverified links |
 | `templates/partials/` | One Jinja partial per section/card; `macros.html` has `icon()` (Lucide SVGs) and `score_ring()` |
 | `static/css/theme.css` | Design tokens ("printed career report": paper, ink, one blue accent): CSS variables for colors, type, spacing, radius, light + dark (`data-theme` + `prefers-color-scheme`). The only file with colour values |
