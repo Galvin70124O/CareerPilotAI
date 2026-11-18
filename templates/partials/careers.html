@@ -6,6 +6,13 @@
       <p class="card-subtitle">{{ "How closely your resume matches each career" if source == "resume" else "How closely your skills match each career" }}</p>
     </div>
   </header>
+  {% if insights and insights.low_info %}
+    {# Top two careers under 10 points apart (features/readiness.py: low_information) #}
+    <div class="note" role="note">
+      {{ icon("alert", 16) }}
+      <p>{{ insights.low_info.message }}</p>
+    </div>
+  {% endif %}
   <ol class="career-list">
     {% for item in top_careers %}
       <li class="career-row">

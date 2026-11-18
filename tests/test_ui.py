@@ -233,7 +233,8 @@ def test_skill_names_are_shown_with_display_names(monkeypatch):
     html = resume_page(monkeypatch)
     gap = html.split('data-card="gap"')[1].split('data-card="roadmap"')[0]
     assert '<li class="chip chip-missing">R</li>' in gap                    # not "r"
-    assert ">Python</li>" in gap and ">SQL</li>" in gap
+    for name in ["Python", "SQL"]:                                          # an evidence tag may follow the name
+        assert re.search(r">" + name + r'(<span class="chip-evidence">\w+</span>)?</li>', gap)
     whatif = html.split('data-card="whatif"')[1]
     assert '<input type="checkbox" value="r">' in whatif                   # the value stays the internal name
     assert "</svg>R</span>" in whatif

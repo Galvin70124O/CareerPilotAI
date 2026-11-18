@@ -13,11 +13,30 @@
     <span class="gap-percent">{{ skill_gap.have|length }} / {{ skill_gap.total }}</span>
   </div>
 
+  {% if insights %}
+    {% set ready = insights.readiness %}
+    {# Readiness for the top career: match band + how many key skills are proven (features/readiness.py) #}
+    <div class="readiness">
+      <h3 class="readiness-level"><span class="readiness-label">Readiness:</span> {{ ready.level }}</h3>
+      <p class="readiness-meta">{{ ready.have }} of {{ ready.total }} key skills appear in your resume, {{ ready.proven }} of them proven</p>
+      {% if ready.next_step %}<p class="readiness-next"><strong>Next step:</strong> {{ ready.next_step }}</p>{% endif %}
+      <details class="disclosure readiness-rule">
+        <summary><span>How this is decided</span>{{ icon("chevron-down", 16, class="chevron") }}</summary>
+        <dl class="rule-list">
+          {% for level, text in readiness_rule %}<div><dt>{{ level }}</dt><dd>{{ text }}</dd></div>{% endfor %}
+        </dl>
+        <p class="rule-note">Proven: in a Projects, Experience or Internship section, or a project or GitHub line.
+          Coursework: under Education or Certifications. Claimed: only in a skills list or summary.
+          The thresholds are our design choices, not measured from hiring data.</p>
+      </details>
+    </div>
+  {% endif %}
+
   {% if skill_gap.have %}
     <div class="card-section">
       <h3 class="subhead">You have</h3>
       <ul class="chips">
-        {% for skill in skill_gap.have %}<li class="chip chip-success">{{ icon("check", 14) }}{{ skill|display_skill }}</li>{% endfor %}
+        {% for skill in skill_gap.have %}<li class="chip chip-success">{{ icon("check", 14) }}{{ skill|display_skill }}{% if insights %}<span class="chip-evidence">{{ insights.evidence.get(skill, "claimed") }}</span>{% endif %}</li>{% endfor %}
       </ul>
     </div>
   {% endif %}
@@ -34,7 +53,7 @@
       <h3 class="subhead">Skills found in your resume</h3>
       {% set found = found_skills.split(", ") if found_skills else [] %}
       {% if found %}
-        <ul class="chips">{% for skill in found %}<li class="chip">{{ skill|display_skill }}</li>{% endfor %}</ul>
+        <ul class="chips">{% for skill in found %}<li class="chip">{{ skill|display_skill }}{% if insights %}<span class="chip-evidence">{{ insights.evidence.get(skill, "claimed") }}</span>{% endif %}</li>{% endfor %}</ul>
       {% else %}
         <p class="muted">No skills from our list were found, but we still analyzed the full text.</p>
       {% endif %}

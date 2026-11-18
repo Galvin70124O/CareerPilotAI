@@ -10,6 +10,7 @@ from pypdf import PdfReader
 from features.careers import display_name
 from features.courses import recommend_courses
 from features.ranking import PROFILES, fresher_roles, rank_careers
+from features.readiness import RULE, resume_insights
 from features.report import build_report_pdf
 from features.jobs import fetch_job_listings
 from features.resume_score import score_resume
@@ -102,6 +103,7 @@ def home():
     found_skills = ""    # skills found in the uploaded resume
     top_careers = []     # [{"career": ..., "percent": ...}, ...]
     fresher = []         # "Fresher roles that fit you" (new careers, features/ranking.py)
+    insights = None      # evidence tags, readiness, low-info warning (uploaded resumes only)
     job_results = []     # live jobs; None means the jobs API failed
     skill_gap = None     # result of analyze_skill_gap for the top career
     resume_score = None  # result of score_resume (only for uploaded resumes)
@@ -167,6 +169,7 @@ def home():
             if source == "resume":
                 # The score needs the RAW resume (line breaks, bullets, emails), not cleaned text
                 resume_score = score_resume(text_to_predict, top_careers[0]["career"])
+                insights = resume_insights(text_to_predict, top_careers, skill_gap)
 
     return render_template(
         "index.html",
@@ -174,6 +177,8 @@ def home():
         found_skills=found_skills,
         top_careers=top_careers,
         fresher_roles=fresher,
+        insights=insights,
+        readiness_rule=RULE,
         job_results=job_results,
         jobs_unavailable=job_results is None,
         skill_gap=skill_gap,
@@ -205,6 +210,7 @@ def report_data(text, is_resume, source_label):
         "why_terms": top_careers[0]["why_terms"],
         "resume_score": score_resume(text, career) if is_resume else None,
         "skill_gap": skill_gap,
+        "insights": resume_insights(text, top_careers, skill_gap) if is_resume else None,
         "roadmap": build_roadmap(career, text),
         "courses": recommend_courses(skill_gap["missing"]),
     }
