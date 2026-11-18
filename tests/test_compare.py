@@ -139,3 +139,33 @@ def test_direction_and_mixed_skill_changes():
     before = {"gap": {"have": ["sql"], "missing": ["git"], "total": 2}}
     after = {"gap": {"have": ["git"], "missing": ["sql"], "total": 2}}
     assert gap_rows(before, after)[1]["direction"] is None     # found one, lost one
+
+
+def report_text(**extra):
+    from pypdf import PdfReader
+    response = app.app.test_client().post("/report", data={"text": GOOD, "is_resume": "1", "name": "v1.txt", **extra})
+    assert response.status_code == 200
+    return "\n".join(page.extract_text() for page in PdfReader(io.BytesIO(response.data)).pages)
+
+
+def test_api_returns_the_new_versions_text_for_the_pdf():
+    better = "SKILLS\nComputers\nEXPERIENCE\n" + WEAK
+    assert post(file=better.encode()).get_json()["after_text"] == better.strip()
+
+
+def test_the_pdf_has_the_comparison_only_after_one_was_made():
+    text = report_text(compare_text=WEAK, compare_name="v2.txt")
+    assert "Compare with another version" in text and "Compared with: v2.txt" in text
+    assert "Before" in text and "After" in text and "Readiness" in text
+    assert "Compare with another version" not in report_text()
+
+
+def test_the_pdf_says_no_changes_for_identical_versions():
+    text = report_text(compare_text=GOOD, compare_name="same.txt")
+    assert "No changes: both versions give the same results." in text
+
+
+def test_a_too_long_compare_text_is_rejected():
+    response = app.app.test_client().post("/report", data={"text": GOOD, "is_resume": "1",
+                                                           "compare_text": "a" * (app.MAX_SIMULATE_TEXT + 1)})
+    assert response.status_code == 400

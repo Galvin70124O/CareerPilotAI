@@ -240,8 +240,16 @@ def jd_match(text, jd, is_resume):
     return match_job(model.named_steps["tfidf"], text, jd, is_resume)
 
 
-def report_data(text, is_resume, source_label, jd=""):
-    """Everything the PDF report shows, computed with the same functions as the page."""
+def comparison(text, top_before, new_text):
+    """'Compare with another version' for two texts, both against the first version's top career."""
+    career = top_before[0]["career"]
+    return compare_versions(snapshot(model, text, top_before, career),
+                            snapshot(model, new_text, predict_top_careers(new_text), career))
+
+
+def report_data(text, is_resume, source_label, jd="", compare=None):
+    """Everything the PDF report shows, computed with the same functions as the page.
+    compare: {"text", "name"} of a second version the user compared on the page, or None."""
     top_careers = predict_top_careers(text)
     career = top_careers[0]["career"]
     skill_gap = analyze_skill_gap(career, text)
@@ -259,6 +267,8 @@ def report_data(text, is_resume, source_label, jd=""):
         "interview": interview_questions(career),
         "fresher_interview": interview_questions(fresher[0]["career"]) if fresher else [],
         "jd_match": jd_match(text, jd, is_resume) if jd.strip() else None,
+        "compare": ({**comparison(text, top_careers, compare["text"]), "after_name": compare["name"]}
+                    if compare and is_resume else None),
     }
 
 
@@ -279,7 +289,13 @@ def download_report():
     if jd.strip() and jd_problem(jd):
         return jd_problem(jd), 400
     source_label = f"Resume: {name}" if is_resume and name else ("Resume" if is_resume else "Typed skills")
-    pdf = build_report_pdf(report_data(text, is_resume, source_label, jd))
+    # Filled by app.js after "Compare with another version"; the comparison is worked out again here
+    compare_text = request.form.get("compare_text", "")
+    if len(compare_text) > MAX_SIMULATE_TEXT:
+        return "Missing or too long text.", 400
+    compare = ({"text": compare_text, "name": request.form.get("compare_name", "").strip()[:120] or "New version"}
+               if compare_text.strip() else None)
+    pdf = build_report_pdf(report_data(text, is_resume, source_label, jd, compare))
     return Response(pdf, mimetype="application/pdf",
                     headers={"Content-Disposition": 'attachment; filename="careerpilot-report.pdf"'})
 
@@ -352,10 +368,10 @@ def api_compare():
     new_text, error = read_upload(file)
     if error:
         return jsonify({"error": error}), 400
-    top_before, top_after = predict_top_careers(text), predict_top_careers(new_text)
-    career = top_before[0]["career"]
-    return jsonify(compare_versions(snapshot(model, text, top_before, career),
-                                    snapshot(model, new_text, top_after, career)))
+    # after_text goes into the report form so the PDF can include this comparison.
+    # shortcut: a version over the /report text limit is silently left out of the PDF, add a note if people hit it
+    after_text = new_text if len(new_text) <= MAX_SIMULATE_TEXT else ""
+    return jsonify({**comparison(text, predict_top_careers(text), new_text), "after_text": after_text})
 
 
 @app.errorhandler(413)

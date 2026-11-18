@@ -660,6 +660,9 @@
         .then(function (result) {
           showComparison(result, box, { before: $("input[name=name]", reportForm).value || "Your resume", after: file.name });
           $("#cp-compare-status").textContent = "Comparison ready. " + result.finding;
+          // the PDF now includes this comparison (the server works it out again from the text)
+          $("[data-report-compare-text]", reportForm).value = result.after_text;
+          $("[data-report-compare-name]", reportForm).value = file.name;
           label.textContent = "Compare another version";
           if (box.getBoundingClientRect().top > window.innerHeight * 0.6) {
             box.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
