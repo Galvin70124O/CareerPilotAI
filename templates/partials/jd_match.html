@@ -29,7 +29,7 @@
         <p class="rule-note">Half is word overlap: how much the two texts share the same words, weighted
           so rare, specific words count more (TF-IDF cosine similarity). Half is the share of the skills
           the job description names that your {{ noun }} also names; "ReactJS" counts as React. If it names
-          no skill we know, the match is word overlap only. The half-and-half split is our design choice.
+          no skill we know, there is no skill match to show, only the word overlap. The half-and-half split is our design choice.
           {% if source == "resume" %}Skills to work on are the ones you don't have, or only list or studied
           without a project or job behind them.{% endif %}</p>
       </details>

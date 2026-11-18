@@ -412,12 +412,12 @@
     return section;
   }
 
-  function gapList(gaps) {
+  function gapList(gaps, showCounts) {
     var list = el("ul", "jd-gaps");
     gaps.forEach(function (gap) {
       var row = el("li", "jd-gap");
       row.appendChild(el("span", "jd-gap-name", gap.label));
-      row.appendChild(el("span", "jd-gap-count", gap.mentions === 1 ? "1 mention" : gap.mentions + " mentions"));
+      if (showCounts) row.appendChild(el("span", "jd-gap-count", gap.mentions === 1 ? "1 mention" : gap.mentions + " mentions"));
       row.appendChild(el("span", "jd-gap-note", gap.note.charAt(0).toUpperCase() + gap.note.slice(1)));
       list.appendChild(row);
     });
@@ -427,6 +427,15 @@
   function showJdMatch(result, box, chevron) {
     var noun = result.is_resume ? "resume" : "skills";
     var parts = [];
+    if (!result.skills_total) {
+      // No skill to compare (a non-English or very general ad): a percent here would read as a verdict
+      parts.push(el("p", "jd-found", "This job description names no skill we know, so there is no skill match " +
+        "to show. Its words overlap " + result.words_percent + "% with your " + noun + ". The match works best " +
+        "with an English job ad that lists skills and tools."));
+      parts.push(el("p", "jd-pdf-note", "This result is added to the PDF when you download the report."));
+      box.replaceChildren.apply(box, parts);
+      return;
+    }
     var figure = el("p", "jd-figure");
     figure.appendChild(el("span", "jd-percent", result.percent + "%"));
     figure.appendChild(el("span", "jd-figure-label", "match with this job description"));
@@ -436,19 +445,19 @@
     bar.value = result.percent;
     bar.setAttribute("aria-label", "Match: " + result.percent + "%");
     parts.push(bar);
-    parts.push(el("p", "jd-parts", result.skills_percent === null
-      ? "This job description names no skill we know, so the match is word overlap only."
-      : "Half word overlap (" + result.words_percent + "%), half skills found (" + result.found.length +
-        " of " + result.skills_total + ", " + result.skills_percent + "%)."));
+    parts.push(el("p", "jd-parts", "Half word overlap (" + result.words_percent + "%), half skills found (" +
+      result.found.length + " of " + result.skills_total + ", " + result.skills_percent + "%)."));
 
     if (result.skills_total) {
-      var gaps = jdSection("Skills to work on, most mentioned first");
+      // Counts only help when they differ; otherwise the list is in the order the ad names the skills
+      var ranked = result.gaps.some(function (gap) { return gap.mentions > 1; });
+      var gaps = jdSection(ranked ? "Skills to work on, most mentioned first" : "Skills to work on, in the order the ad names them");
       if (!result.gaps.length) {
         gaps.appendChild(el("p", "jd-found", result.is_resume
           ? "Your resume proves every skill this job description names."
           : "Your skills include every skill this job description names."));
       } else {
-        gaps.appendChild(gapList(result.gaps.slice(0, JD_SHOW_FIRST)));
+        gaps.appendChild(gapList(result.gaps.slice(0, JD_SHOW_FIRST), ranked));
         if (result.gaps.length > JD_SHOW_FIRST) {
           var more = el("details", "show-all");
           var toggle = el("summary", "show-all-toggle");
@@ -456,7 +465,7 @@
           toggle.appendChild(el("span", "show-less", "Show fewer"));
           if (chevron) toggle.appendChild(chevron.cloneNode(true));
           more.appendChild(toggle);
-          more.appendChild(gapList(result.gaps.slice(JD_SHOW_FIRST)));
+          more.appendChild(gapList(result.gaps.slice(JD_SHOW_FIRST), ranked));
           gaps.appendChild(more);
         }
       }
@@ -519,12 +528,15 @@
       event.preventDefault();
       var jd = textarea.value;
       errorBox.textContent = "";
+      textarea.removeAttribute("aria-invalid");
       if (!jd.trim() || jd.length > max) {
         errorBox.textContent = !jd.trim() ? "Paste a job description first."
           : "That job description is over " + number(max) + " characters. Paste just the role and requirements.";
+        textarea.setAttribute("aria-invalid", "true");
         textarea.focus();
         return;
       }
+      textarea.blur();   // on a phone this closes the keyboard, so the result can be seen
       button.disabled = true;
       button.classList.add("is-loading");
       label.textContent = "Checking…";
@@ -546,6 +558,10 @@
         .then(function (result) {
           showJdMatch(result, box, chevron);
           $("[data-report-jd]", reportForm).value = jd;   // the PDF now includes this match
+          // On a phone the result sits under the form: bring it up so the tap visibly did something
+          if (box.getBoundingClientRect().top > window.innerHeight * 0.6) {
+            box.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+          }
         })
         .catch(function (error) {
           errorBox.textContent = error instanceof TypeError

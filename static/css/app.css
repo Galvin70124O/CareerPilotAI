@@ -735,7 +735,10 @@ button, input, textarea { font: inherit; color: inherit; }
 .jd-rule { margin-top: var(--space-2); }
 .jd-rule summary { min-height: var(--tap); }
 .jd-empty { font-size: var(--text-sm); color: var(--text-muted); max-width: 48ch; }
-.jd-result > * { transition: opacity var(--dur-fast); }
+.jd-result { scroll-margin-top: calc(var(--header-h) + var(--space-4)); }
+.jd-result > * { transition: opacity 0.2s var(--ease-out); }
+@starting-style { .jd-result > * { opacity: 0; } }   /* a new result fades in; opacity only, so no motion */
+.textarea[aria-invalid="true"] { border-color: var(--danger); }
 .jd-result[aria-busy="true"] > * { opacity: 0.45; }   /* checking again: the old result stays, dimmed */
 .jd-figure { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-1) var(--space-3); }
 .jd-percent { font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1.05; font-weight: 500; font-variant-numeric: lining-nums tabular-nums; }
@@ -747,7 +750,7 @@ button, input, textarea { font: inherit; color: inherit; }
 .jd-parts { margin-top: var(--space-3); font-size: var(--text-sm); color: var(--text-muted); max-width: 60ch; }
 .jd-section { margin-top: var(--space-8); }
 .jd-gaps { list-style: none; }
-.jd-gap { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--space-4); padding: var(--space-3) 0; border-top: 1px solid var(--border); }
+.jd-gap { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--space-4); padding: var(--space-2) 0 var(--space-3); border-top: 1px solid var(--border); }
 .jd-gap-name { font-weight: 500; overflow-wrap: anywhere; }
 .jd-gap-count { font-size: var(--text-sm); color: var(--text-muted); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
 .jd-gap-note { grid-column: 1 / -1; font-size: var(--text-sm); color: var(--text-muted); }
@@ -840,6 +843,8 @@ button, .btn, .tab, .dropzone, .option-chip span, summary { -webkit-tap-highligh
   .dashboard--auto > :nth-child(odd):nth-last-child(3) { grid-column: 1 / -1; }
   /* Job description: the form on the left, its result on the right */
   .jd-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-12); }
+  /* The form stays in view beside a long result, so checking another ad needs no scrolling back */
+  .jd-form { position: sticky; top: calc(var(--header-h) + var(--space-6)); align-self: start; }
 }
 
 @media (max-width: 560px) {

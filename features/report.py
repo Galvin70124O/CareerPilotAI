@@ -192,10 +192,11 @@ def build_report_pdf(report):
     jd = report.get("jd_match")
     if jd:
         pdf.heading("Job description match")
-        pdf.bar_row("Match", f"{jd['percent']}%", jd["percent"] / 100, INDIGO)
         if jd["skills_percent"] is None:
-            pdf.paragraph("No skills we know were found in the job description, so the match is word overlap only.", size=9)
+            pdf.paragraph(f"The job description names no skill we know, so there is no skill match. "
+                          f"Its words overlap {jd['words_percent']}% with yours.", size=9.5)
         else:
+            pdf.bar_row("Match", f"{jd['percent']}%", jd["percent"] / 100, INDIGO)
             pdf.paragraph(f"Half word overlap ({jd['words_percent']}%), half skills found "
                           f"({len(jd['found'])} of {jd['skills_total']}, {jd['skills_percent']}%).", size=9)
         if jd["gaps"]:

@@ -57,7 +57,7 @@ def test_typed_skills_get_no_evidence_tags_or_line_suggestions():
 
 def test_a_jd_with_no_known_skills_uses_word_overlap_only():
     result = match(RESUME, "Nous recherchons un stagiaire motivé pour notre équipe à Paris.")
-    assert result["skills_percent"] is None and result["percent"] == result["words_percent"]
+    assert result["skills_percent"] is None and result["percent"] == result["words_percent"]   # the page shows a note, not this
     assert result["gaps"] == []
 
 
