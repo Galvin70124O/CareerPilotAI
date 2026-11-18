@@ -437,7 +437,7 @@
 
     var gaps = jdSection("Skills to work on, in the order the ad names them");
     gaps.appendChild(el("p", "jd-found", result.gaps.length ? result.gaps.join(", ")
-      : "Your " + noun + " names every skill this job description names."));
+      : (result.is_resume ? "Your resume names" : "Your skills include") + " every skill this job description names."));
     if (result.unproven.length) {
       var unproven = el("p", "jd-unproven");
       unproven.appendChild(el("strong", "", "Listed but not proven: "));
