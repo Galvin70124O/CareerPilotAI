@@ -32,3 +32,6 @@ Thumbs.db
 
 # Raw O*NET / ESCO downloads. Rebuilt by: python data/fetch_sources.py
 data/raw/
+
+# local progress log for resuming sessions
+docs/progress.md
