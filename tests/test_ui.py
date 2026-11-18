@@ -338,3 +338,18 @@ def test_compare_changes_use_the_score_level_colours_next_to_the_sign():
     js = app.app.test_client().get("/static/js/app.js").get_data(as_text=True)
     # the class is added to the cell that still shows the sign or word
     assert '"compare-change" + (row.changed ? "" : " is-same") + directionClass(row)' in js
+
+
+def test_has_and_grid_table_layouts_sit_behind_supports_so_old_browsers_stack():
+    css = app.app.test_client().get("/static/css/app.css").get_data(as_text=True)
+    supports_has = css.index("@supports selector(:has(+ *))")
+    # every :has() rule comes after the @supports line (inside its block), none in the plain base styles
+    rules_with_has = [m.start() for m in re.finditer(r"^\s*[^/@\n]*:has\(", css, re.M)]
+    assert rules_with_has and all(pos > supports_has for pos in rules_with_has)
+    # without :has the "auto" dashboard is not two columns, so no card is left beside an empty cell
+    assert ".dashboard--auto { grid-template-columns: repeat(2" in css[supports_has:]
+    assert ".dashboard--auto { grid-template-columns" not in css[:supports_has]
+    # the phone table rows are blocks first, grid only inside @supports (display: grid)
+    supports_grid = css.index("@supports (display: grid)")
+    assert ".compare-table tr { display: block;" in css[:supports_grid]
+    assert ".compare-table tr { display: grid;" in css[supports_grid:]
