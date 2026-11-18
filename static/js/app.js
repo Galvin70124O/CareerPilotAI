@@ -85,7 +85,8 @@
   function checkFile(file) {
     var extension = file.name.split(".").pop().toLowerCase();
     if (ALLOWED.indexOf(extension) === -1) return "Please choose a PDF, DOCX or TXT file.";
-    if (file.size > MAX_BYTES) return "This file is " + formatSize(file.size) + ". The limit is 2 MB.";
+    // "2.0 MB" can round down to the limit itself, so don't print the size here
+    if (file.size > MAX_BYTES) return "This file is over the 2 MB limit. Save a smaller copy (for example, without images) and try again.";
     return "";
   }
 
@@ -560,25 +561,27 @@
   }
 
   function showComparison(result, box, names) {
-    var parts = [];
+    var summary = el("div", "compare-summary");
+    var parts = [summary];
     var files = el("p", "compare-files");
     files.appendChild(document.createTextNode("Before: "));
     files.appendChild(el("strong", "", names.before));
     files.appendChild(document.createTextNode(" · After: "));
     files.appendChild(el("strong", "", names.after));
-    parts.push(files);
+    summary.appendChild(files);
 
     var total = result.sections[0].rows[0];   // the Resume Score total leads, like on the page
     var lead = el("div", "compare-lead");
-    [["Score before", total.before], ["Score after", total.after], ["Change", total.change]].forEach(function (pair) {
+    var change = total.changed ? total.change : "None";
+    [["Score before", total.before], ["Score after", total.after], ["Change", change]].forEach(function (pair) {
       var stat = el("p", "compare-stat");
       stat.appendChild(el("span", "compare-stat-label", pair[0]));
       stat.appendChild(el("span", "compare-stat-value", pair[1]));
       lead.appendChild(stat);
     });
-    parts.push(lead);
-    parts.push(el("p", "compare-finding", result.finding));
-    if (result.note) parts.push(el("p", "compare-note", result.note));
+    summary.appendChild(lead);
+    summary.appendChild(el("p", "compare-finding", result.finding));
+    if (result.note) summary.appendChild(el("p", "compare-note", result.note));
 
     if (!result.unchanged) {
       var table = el("table", "compare-table");
@@ -592,15 +595,17 @@
       var thead = el("thead");
       thead.appendChild(head);
       table.appendChild(thead);
-      result.sections.forEach(function (section) {
+      result.sections.forEach(function (section, index) {
         var body = el("tbody");
+        // the score total is already the lead figures above, so the table starts at its breakdown
+        var rows = index === 0 ? section.rows.slice(1) : section.rows;
         var groupRow = el("tr");
         var group = el("th", "compare-group", section.title);
         group.scope = "colgroup";
         group.colSpan = 4;
         groupRow.appendChild(group);
         body.appendChild(groupRow);
-        section.rows.forEach(function (row) {
+        rows.forEach(function (row) {
           var tr = el("tr");
           var label = el("th", "", row.label);
           label.scope = "row";
@@ -648,6 +653,7 @@
         .then(jsonOrError)
         .then(function (result) {
           showComparison(result, box, { before: $("input[name=name]", reportForm).value || "Your resume", after: file.name });
+          $("#cp-compare-status").textContent = "Comparison ready. " + result.finding;
           label.textContent = "Compare another version";
           if (box.getBoundingClientRect().top > window.innerHeight * 0.6) {
             box.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });

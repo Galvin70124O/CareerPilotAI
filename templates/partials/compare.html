@@ -20,7 +20,9 @@
     <p class="sim-error" id="cp-compare-error" role="alert"></p>
   </div>
 
-  <div class="compare-result" id="cp-compare-result" aria-live="polite">
+  {# Announces only the one-line finding; the table itself is not read out on arrival #}
+  <p class="sr-only" id="cp-compare-status" role="status"></p>
+  <div class="compare-result" id="cp-compare-result">
     <p class="jd-empty">Your score, top matches, skill gap, evidence and readiness for both versions will appear
       here side by side, with what changed.</p>
   </div>
