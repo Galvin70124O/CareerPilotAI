@@ -32,6 +32,7 @@
   </button>
   <p class="sim-error" id="cp-sim-error" role="alert"></p>
   <div class="sim-result" id="cp-sim-result" aria-live="polite"></div>
+  {# Inside the card, so the dashboard's children are only cards (the odd-card-before-interview rule counts them).
+     tojson safely puts the data into the page for the script #}
+  <script type="application/json" id="cp-sim-data">{{ simulator_data|tojson }}</script>
 </article>
-<!-- tojson safely puts the data into the page for the script -->
-<script type="application/json" id="cp-sim-data">{{ simulator_data|tojson }}</script>

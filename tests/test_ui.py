@@ -353,3 +353,10 @@ def test_has_and_grid_table_layouts_sit_behind_supports_so_old_browsers_stack():
     supports_grid = css.index("@supports (display: grid)")
     assert ".compare-table tr { display: block;" in css[:supports_grid]
     assert ".compare-table tr { display: grid;" in css[supports_grid:]
+
+
+def test_the_dashboards_children_are_only_cards(monkeypatch):
+    # a <script> between two cards breaks :nth-child(odd):has(+ interview), leaving an empty grid cell
+    html = page(monkeypatch, {"input_text": "python, sql, pandas, machine learning"})
+    dashboard = html.split('<div class="dashboard')[1]
+    assert re.search(r"</article>\s*(<!--.*?-->\s*)?<script", dashboard, re.S) is None
