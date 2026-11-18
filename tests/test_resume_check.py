@@ -33,12 +33,25 @@ def test_a_short_cv_with_two_sections_passes():
     assert looks_like_resume("SKILLS\nPython, SQL\nEDUCATION\nB.Tech CSE, 2026")
 
 
-def test_one_section_needs_skills_and_enough_words():
-    skills_line = "Skills: Python, SQL, Excel"
-    assert not looks_like_resume(skills_line)                                   # too short
-    long_text = skills_line + "\n" + "I enjoy building useful things for people. " * 12
-    assert looks_like_resume(long_text)                                          # skills + 80 words
-    assert not looks_like_resume("Skills:\n" + "nothing technical here at all " * 20)   # no known skill
+HEADINGLESS = ("Priya Nair, Kochi. B.Tech in Computer Science from CUSAT, 2026, CGPA 8.1. "
+               "I built a library management web app in Python and Flask with a MySQL database, "
+               "and a sales dashboard in Power BI that cleaned three years of shop data with pandas. "
+               "During a two-month internship at a Kochi startup I wrote SQL reports and fixed bugs "
+               "in a Django admin panel. I use Git every day, know HTML, CSS and JavaScript, and "
+               "solved 200 problems on LeetCode. Looking for a fresher software or data role.")
+
+
+def test_a_resume_without_headings_passes_on_skills_and_length():
+    assert resume_sections(HEADINGLESS) == set()
+    assert looks_like_resume(HEADINGLESS)
+
+
+def test_blocked_only_when_skills_and_length_both_fail():
+    assert looks_like_resume("Python, SQL and Excel, used in two college projects.")     # 2+ skills, short
+    assert looks_like_resume("I enjoy building useful things for people. " * 12)          # 80+ words, no skill
+    assert not looks_like_resume("Python only. A short note.")                            # 1 skill, short
+    with open("tests/fixtures/weak_resume.txt", encoding="utf-8") as f:
+        assert not looks_like_resume(f.read())                                          # no skill, 77 words
 
 
 def test_the_home_upload_shows_the_message_instead_of_a_report():
