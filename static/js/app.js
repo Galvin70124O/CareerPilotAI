@@ -2,7 +2,7 @@
    1. Theme toggle        4. Loading state      7. What-If Simulator
    2. Tabs                5. Microphone         8. Results bar ("Edit skills")
                                                 9. Download report (PDF)
-   3. Drop zone           6. Scroll to results                                  */
+   3. Drop zone           6. Scroll to results  10. Job description match       */
 (function () {
   "use strict";
 
@@ -396,6 +396,186 @@
     });
   }
 
+  /* ---------- 10. Job description match: POST /api/jd-match, result built with textContent ---------- */
+  var JD_SHOW_FIRST = 10;   // like the other long lists: ten, then "Show all N"
+
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  function jdSection(title) {
+    var section = el("div", "jd-section");
+    section.appendChild(el("h3", "subhead", title));
+    return section;
+  }
+
+  function gapList(gaps, showCounts) {
+    var list = el("ul", "jd-gaps");
+    gaps.forEach(function (gap) {
+      var row = el("li", "jd-gap");
+      row.appendChild(el("span", "jd-gap-name", gap.label));
+      if (showCounts) row.appendChild(el("span", "jd-gap-count", gap.mentions === 1 ? "1 mention" : gap.mentions + " mentions"));
+      row.appendChild(el("span", "jd-gap-note", gap.note.charAt(0).toUpperCase() + gap.note.slice(1)));
+      list.appendChild(row);
+    });
+    return list;
+  }
+
+  function showJdMatch(result, box, chevron) {
+    var noun = result.is_resume ? "resume" : "skills";
+    var parts = [];
+    if (!result.skills_total) {
+      // No skill to compare (a non-English or very general ad): a percent here would read as a verdict
+      parts.push(el("p", "jd-found", "This job description names no skill we know, so there is no skill match " +
+        "to show. Its words overlap " + result.words_percent + "% with your " + noun + ". The match works best " +
+        "with an English job ad that lists skills and tools."));
+      parts.push(el("p", "jd-pdf-note", "This result is added to the PDF when you download the report."));
+      box.replaceChildren.apply(box, parts);
+      return;
+    }
+    var figure = el("p", "jd-figure");
+    figure.appendChild(el("span", "jd-percent", result.percent + "%"));
+    figure.appendChild(el("span", "jd-figure-label", "match with this job description"));
+    parts.push(figure);
+    var bar = el("progress", "bar", result.percent + "%");
+    bar.max = 100;
+    bar.value = result.percent;
+    bar.setAttribute("aria-label", "Match: " + result.percent + "%");
+    parts.push(bar);
+    parts.push(el("p", "jd-parts", "Half word overlap (" + result.words_percent + "%), half skills found (" +
+      result.found.length + " of " + result.skills_total + ", " + result.skills_percent + "%)."));
+
+    if (result.skills_total) {
+      // Counts only help when they differ (otherwise the order is by sentence, then A-Z, so we claim no order)
+      var ranked = result.gaps.some(function (gap) { return gap.mentions > 1; });
+      var gaps = jdSection(ranked ? "Skills to work on, most mentioned first" : "Skills to work on");
+      if (!result.gaps.length) {
+        gaps.appendChild(el("p", "jd-found", result.is_resume
+          ? "Your resume proves every skill this job description names."
+          : "Your skills include every skill this job description names."));
+      } else {
+        gaps.appendChild(gapList(result.gaps.slice(0, JD_SHOW_FIRST), ranked));
+        if (result.gaps.length > JD_SHOW_FIRST) {
+          var more = el("details", "show-all");
+          var toggle = el("summary", "show-all-toggle");
+          toggle.appendChild(el("span", "show-more", "Show all " + result.gaps.length));
+          toggle.appendChild(el("span", "show-less", "Show fewer"));
+          if (chevron) toggle.appendChild(chevron.cloneNode(true));
+          more.appendChild(toggle);
+          more.appendChild(gapList(result.gaps.slice(JD_SHOW_FIRST), ranked));
+          gaps.appendChild(more);
+        }
+      }
+      parts.push(gaps);
+    }
+
+    if (result.is_resume && result.gaps.length) {
+      var lines = jdSection("Lines to strengthen");
+      if (result.suggestions.length) {
+        var list = el("ul", "jd-lines");
+        result.suggestions.forEach(function (pick) {
+          var item = el("li");
+          var lead = el("p", "jd-line-lead", "If this work used ");
+          lead.appendChild(el("strong", "", pick.label));
+          lead.appendChild(document.createTextNode(", name it in this line:"));
+          item.appendChild(lead);
+          item.appendChild(el("p", "jd-line-text", pick.line));
+          list.appendChild(item);
+        });
+        lines.appendChild(list);
+      } else {
+        lines.appendChild(el("p", "jd-found", "No project or experience line is close to these skills yet. " +
+          "Specific lines under Projects or Experience give this match more to work with."));
+      }
+      parts.push(lines);
+    }
+
+    if (result.found.length) {
+      var found = jdSection("Already in your " + noun);
+      found.appendChild(el("p", "jd-found", result.found.join(", ")));
+      parts.push(found);
+    }
+    parts.push(el("p", "jd-pdf-note", "This match is added to the PDF when you download the report."));
+    box.replaceChildren.apply(box, parts);
+  }
+
+  function initJdMatch() {
+    var form = $("#cp-jd-form");
+    var reportForm = $("[data-report-form]");
+    if (!form || !reportForm) return;
+    var textarea = $("#jd-text");
+    var count = $("#jd-count");
+    var errorBox = $("#cp-jd-error");
+    var button = $("#cp-jd-button");
+    var label = $("[data-button-label]", button);
+    var box = $("#cp-jd-result");
+    var chevron = $(".jd-rule .chevron", form);
+    var max = Number(form.getAttribute("data-max"));
+    var number = function (n) { return n.toLocaleString("en-US"); };
+
+    // No maxlength on the field: it would silently cut a long paste. Show the count instead.
+    textarea.addEventListener("input", function () {
+      var over = textarea.value.length - max;
+      count.textContent = number(textarea.value.length) + " / " + number(max) + " characters" +
+        (over > 0 ? ", " + number(over) + " too many" : "");
+      count.classList.toggle("is-over", over > 0);
+    });
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var jd = textarea.value;
+      errorBox.textContent = "";
+      textarea.removeAttribute("aria-invalid");
+      if (!jd.trim() || jd.length > max) {
+        errorBox.textContent = !jd.trim() ? "Paste a job description first."
+          : "That job description is over " + number(max) + " characters. Paste just the role and requirements.";
+        textarea.setAttribute("aria-invalid", "true");
+        textarea.focus();
+        return;
+      }
+      textarea.blur();   // on a phone this closes the keyboard, so the result can be seen
+      button.disabled = true;
+      button.classList.add("is-loading");
+      label.textContent = "Checking…";
+      box.setAttribute("aria-busy", "true");
+
+      fetch("/api/jd-match", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: $("input[name=text]", reportForm).value, jd: jd,
+                               is_resume: $("input[name=is_resume]", reportForm).value === "1" })
+      })
+        .then(function (response) {
+          // an error page is not JSON, so fall back to an empty body and a general message
+          return response.json().catch(function () { return {}; }).then(function (body) {
+            if (!response.ok) throw new Error(body.error || "Something went wrong. Try again in a moment.");
+            return body;
+          });
+        })
+        .then(function (result) {
+          showJdMatch(result, box, chevron);
+          $("[data-report-jd]", reportForm).value = jd;   // the PDF now includes this match
+          // On a phone the result sits under the form: bring it up so the tap visibly did something
+          if (box.getBoundingClientRect().top > window.innerHeight * 0.6) {
+            box.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+          }
+        })
+        .catch(function (error) {
+          errorBox.textContent = error instanceof TypeError
+            ? "Couldn't reach the server. Check your connection and try again." : error.message;
+        })
+        .finally(function () {
+          button.disabled = false;
+          button.classList.remove("is-loading");
+          label.textContent = "Check match";
+          box.removeAttribute("aria-busy");
+        });
+    });
+  }
+
   /* ---------- 9. Download report: a normal form POST; show it's working for a moment ---------- */
   function initReport() {
     var form = $("[data-report-form]");
@@ -439,6 +619,7 @@
     initForm();
     initMic();
     initSimulator();
+    initJdMatch();
     initEditSkills();
     initReport();
     initResults();

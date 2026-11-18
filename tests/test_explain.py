@@ -29,3 +29,12 @@ def test_page_shows_why_this_match(monkeypatch):
     careers = html.split('data-card="careers"')[1].split("</article>")[0]
     assert "Why this match" in careers and "data-why-match" in careers
     assert '<li class="chip chip-accent">Java</li>' in careers            # shown with display names
+
+
+def test_section_heading_words_are_not_why_words():
+    # a thin resume: "Skills" and "Projects" used to show up as reasons for the match
+    for text in ["Skills: Excel, accounting, Tally, sales, customer service",
+                 "SKILLS\nPython, SQL\nEDUCATION\nB.Sc\nPROJECTS\nweb app\nSUMMARY\nfresher"]:
+        career = app.predict_top_careers(text)[0]["career"]
+        terms = top_contributing_terms(app.model, text, career)
+        assert terms and not {"skills", "projects", "education", "summary"} & set(terms)

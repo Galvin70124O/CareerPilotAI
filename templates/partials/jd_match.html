@@ -1,0 +1,43 @@
+{% from "partials/macros.html" import icon %}
+{# Job description match: paste a job ad, POST /api/jd-match (features/jd_match.py), result built in
+   static/js/app.js with textContent. Uses the analyzed text from the report form; nothing is stored. #}
+{% set noun = "resume" if source == "resume" else "skills" %}
+<article class="card fade-in" data-card="jd" id="cp-jd" aria-labelledby="jd-title">
+  <header class="card-header">
+    <div>
+      <h2 class="card-title" id="jd-title">Match a job description</h2>
+      <p class="card-subtitle">Paste a job ad to see how well your {{ noun }} fits it. Nothing is saved.</p>
+    </div>
+  </header>
+
+  <div class="jd-layout">
+    <form class="jd-form" id="cp-jd-form" data-max="{{ jd_max }}" novalidate>
+      <label class="field-label" for="jd-text">Job description</label>
+      <textarea class="textarea jd-textarea" id="jd-text" name="jd" rows="8" spellcheck="false"
+                aria-describedby="jd-count cp-jd-error"
+                placeholder="Paste the job title, responsibilities and requirements"></textarea>
+      <div class="field-actions">
+        <span class="jd-count" id="jd-count">0 / {{ "{:,}".format(jd_max) }} characters</span>
+        <button type="submit" class="btn btn-primary" id="cp-jd-button">
+          {{ icon("loader", 16, class="spinner") }}
+          <span data-button-label>Check match</span>
+        </button>
+      </div>
+      <p class="sim-error" id="cp-jd-error" role="alert"></p>
+      <details class="disclosure jd-rule">
+        <summary><span>How the match is worked out</span>{{ icon("chevron-down", 16, class="chevron") }}</summary>
+        <p class="rule-note">Half is word overlap: how much the two texts share the same words, weighted
+          so rare, specific words count more (TF-IDF cosine similarity). Half is the share of the skills
+          the job description names that your {{ noun }} also names; "ReactJS" counts as React. If it names
+          no skill we know, there is no skill match to show, only the word overlap. The half-and-half split is our design choice.
+          {% if source == "resume" %}Skills to work on are the ones you don't have, or only list or studied
+          without a project or job behind them.{% endif %}</p>
+      </details>
+    </form>
+
+    <div class="jd-result" id="cp-jd-result" aria-live="polite">
+      <p class="jd-empty" data-jd-empty>Your match, the skills this job asks for that your {{ noun }} doesn't show
+        yet{% if source == "resume" %}, and lines in your resume to strengthen{% endif %} will appear here.</p>
+    </div>
+  </div>
+</article>

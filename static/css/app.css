@@ -624,7 +624,7 @@ button, input, textarea { font: inherit; color: inherit; }
   bottom: 2px;
   width: 2px;
   background: var(--border);
-  border-radius: 2px;
+  border-radius: var(--radius-sm);   /* clamps to 1px on a 2px line, same look as before */
 }
 .timeline-stage:last-child::before { display: none; }
 .timeline-node {
@@ -727,6 +727,39 @@ button, input, textarea { font: inherit; color: inherit; }
 .sim-table td:first-child { color: var(--text-muted); }
 .sim-after { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-weight: 500; }
 
+/* Job description match (one full row; form left, result right on desktop) */
+.jd-layout { display: grid; gap: var(--space-8); }
+.jd-textarea { min-height: 200px; }
+.jd-count { font-size: var(--text-sm); color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.jd-count.is-over { color: var(--danger); }
+.jd-rule { margin-top: var(--space-2); }
+.jd-rule summary { min-height: var(--tap); }
+.jd-empty { font-size: var(--text-sm); color: var(--text-muted); max-width: 48ch; }
+.jd-result { scroll-margin-top: calc(var(--header-h) + var(--space-4)); }
+.jd-result > * { transition: opacity 0.2s var(--ease-out); }
+@starting-style { .jd-result > * { opacity: 0; } }   /* a new result fades in; opacity only, so no motion */
+.textarea[aria-invalid="true"] { border-color: var(--danger); }
+.jd-result[aria-busy="true"] > * { opacity: 0.45; }   /* checking again: the old result stays, dimmed */
+.jd-figure { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-1) var(--space-3); }
+.jd-percent { font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1.05; font-weight: 500; font-variant-numeric: lining-nums tabular-nums; }
+.jd-figure-label { font-size: var(--text-sm); color: var(--text-muted); }
+.jd-result .bar { margin-top: var(--space-3); }
+/* A match bar, so it takes the blue accent like the career-match bars */
+.jd-result .bar::-webkit-progress-value { background: var(--chart); }
+.jd-result .bar::-moz-progress-bar { background: var(--chart); }
+.jd-parts { margin-top: var(--space-3); font-size: var(--text-sm); color: var(--text-muted); max-width: 60ch; }
+.jd-section { margin-top: var(--space-8); }
+.jd-gaps { list-style: none; }
+.jd-gap { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--space-4); padding: var(--space-2) 0 var(--space-3); border-top: 1px solid var(--border); }
+.jd-gap-name { font-weight: 500; overflow-wrap: anywhere; }
+.jd-gap-count { font-size: var(--text-sm); color: var(--text-muted); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.jd-gap-note { grid-column: 1 / -1; font-size: var(--text-sm); color: var(--text-muted); }
+.jd-found { font-size: var(--text-sm); color: var(--text); overflow-wrap: anywhere; max-width: 65ch; }
+.jd-lines { list-style: none; display: grid; gap: var(--space-5); }
+.jd-line-lead { font-size: var(--text-sm); }
+.jd-line-text { margin-top: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-sm); background: var(--surface-2); font-size: var(--text-sm); overflow-wrap: anywhere; }
+.jd-pdf-note { margin-top: var(--space-8); font-size: var(--text-sm); color: var(--text-muted); }
+
 /* Jobs */
 .job-grid { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); column-gap: var(--space-12); }
 .job {
@@ -793,6 +826,7 @@ button, .btn, .tab, .dropzone, .option-chip span, summary { -webkit-tap-highligh
       "careers gap"
       "score   roadmap"
       "courses whatif"
+      "jd      jd"
       "jobs    jobs";
   }
   .dashboard--full > [data-card="careers"] { grid-area: careers; }
@@ -802,10 +836,15 @@ button, .btn, .tab, .dropzone, .option-chip span, summary { -webkit-tap-highligh
   .dashboard--full > [data-card="courses"] { grid-area: courses; }
   .dashboard--full > [data-card="whatif"] { grid-area: whatif; }
   .dashboard--full > [data-card="jobs"] { grid-area: jobs; }
+  .dashboard--full > [data-card="jd"] { grid-area: jd; }
   /* Some cards missing (e.g. typed skills have no resume score): flow in two columns */
-  .dashboard--auto > [data-card="jobs"] { grid-column: 1 / -1; }
-  /* An odd card left alone before Jobs takes the full row, so there's no empty cell */
-  .dashboard--auto > :nth-child(odd):nth-last-child(2) { grid-column: 1 / -1; }
+  .dashboard--auto > [data-card="jobs"], .dashboard--auto > [data-card="jd"] { grid-column: 1 / -1; }
+  /* An odd card left alone before the two full rows takes the full row too, so there's no empty cell */
+  .dashboard--auto > :nth-child(odd):nth-last-child(3) { grid-column: 1 / -1; }
+  /* Job description: the form on the left, its result on the right */
+  .jd-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-12); }
+  /* The form stays in view beside a long result, so checking another ad needs no scrolling back */
+  .jd-form { position: sticky; top: calc(var(--header-h) + var(--space-6)); align-self: start; }
 }
 
 @media (max-width: 560px) {

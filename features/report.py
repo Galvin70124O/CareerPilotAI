@@ -188,6 +188,25 @@ def build_report_pdf(report):
                                         for s in gap["have"]])
         pdf.labelled_list("To learn next:", [display_skill(s) for s in gap["missing"]])
 
+    # Job description match (only when the user checked one on the page)
+    jd = report.get("jd_match")
+    if jd:
+        pdf.heading("Job description match")
+        if jd["skills_percent"] is None:
+            pdf.paragraph(f"The job description names no skill we know, so there is no skill match. "
+                          f"Its words overlap {jd['words_percent']}% with yours.", size=9.5)
+        else:
+            pdf.bar_row("Match", f"{jd['percent']}%", jd["percent"] / 100, INDIGO)
+            pdf.paragraph(f"Half word overlap ({jd['words_percent']}%), half skills found "
+                          f"({len(jd['found'])} of {jd['skills_total']}, {jd['skills_percent']}%).", size=9)
+        if jd["gaps"]:
+            pdf.ln(1)
+            pdf.paragraph("Skills to work on, most mentioned first", size=10, color=TEXT, style="B")
+            pdf.paragraph("; ".join(f"{g['label']} ({g['note']})" for g in jd["gaps"]), size=9.5)
+        for pick in jd["suggestions"]:
+            pdf.ensure_space(12)
+            pdf.paragraph(f"If this work used {pick['label']}, name it here: \"{pick['line']}\"", size=9.5)
+
     # Roadmap
     roadmap = report.get("roadmap")
     if roadmap:

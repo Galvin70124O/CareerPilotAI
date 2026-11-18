@@ -7,12 +7,14 @@ from werkzeug.utils import secure_filename
 from docx import Document
 from pypdf import PdfReader
 
+from features import rate_limit
 from features.careers import display_name
 from features.courses import recommend_courses
 from features.ranking import PROFILES, fresher_roles, rank_careers
 from features.readiness import RULE, resume_insights
 from features.report import build_report_pdf
 from features.jobs import fetch_job_listings
+from features.jd_match import MAX_JD_LENGTH, match_job
 from features.resume_score import score_resume
 from features.roadmap import build_roadmap
 from features.simulator import simulate
@@ -39,6 +41,7 @@ app.add_template_filter(display_name)
 app.add_template_filter(display_skill)
 # The real number of careers we rank (42 classifier careers + the new ones), for page text
 app.jinja_env.globals["career_count"] = len(PROFILES)
+app.jinja_env.globals["jd_max"] = MAX_JD_LENGTH
 
 # -----------------------------
 # FILE HANDLING
@@ -198,7 +201,20 @@ def health():
     return "ok", 200
 
 
-def report_data(text, is_resume, source_label):
+def jd_problem(jd):
+    """The error message for a bad job description, or "" if it is fine."""
+    if not isinstance(jd, str) or not jd.strip():
+        return "Paste a job description first."
+    if len(jd) > MAX_JD_LENGTH:
+        return f"That job description is over {MAX_JD_LENGTH:,} characters. Paste just the role and requirements."
+    return ""
+
+
+def jd_match(text, jd, is_resume):
+    return match_job(model.named_steps["tfidf"], text, jd, is_resume)
+
+
+def report_data(text, is_resume, source_label, jd=""):
     """Everything the PDF report shows, computed with the same functions as the page."""
     top_careers = predict_top_careers(text)
     career = top_careers[0]["career"]
@@ -213,6 +229,7 @@ def report_data(text, is_resume, source_label):
         "insights": resume_insights(text, top_careers, skill_gap) if is_resume else None,
         "roadmap": build_roadmap(career, text),
         "courses": recommend_courses(skill_gap["missing"]),
+        "jd_match": jd_match(text, jd, is_resume) if jd.strip() else None,
     }
 
 
@@ -226,15 +243,31 @@ def download_report():
         return "Missing or too long text.", 400
     is_resume = request.form.get("is_resume") == "1"
     name = request.form.get("name", "").strip()[:120]
+    # Browsers send form line breaks as \r\n, so count them as one character like the page did
+    jd = request.form.get("jd", "").replace("\r\n", "\n")
+    if jd.strip() and jd_problem(jd):
+        return jd_problem(jd), 400
     source_label = f"Resume: {name}" if is_resume and name else ("Resume" if is_resume else "Typed skills")
-    pdf = build_report_pdf(report_data(text, is_resume, source_label))
+    pdf = build_report_pdf(report_data(text, is_resume, source_label, jd))
     return Response(pdf, mimetype="application/pdf",
                     headers={"Content-Disposition": 'attachment; filename="careerpilot-report.pdf"'})
+
+
+def too_many_requests():
+    """True if this visitor is over the /api rate limit (features/rate_limit.py)."""
+    # On Render, Cloudflare puts the visitor's real IP in True-Client-IP; remote_addr would be the proxy
+    ip = request.headers.get("True-Client-IP") or request.remote_addr
+    return not rate_limit.allow(ip)
+
+
+TOO_MANY = "Too many requests. Wait a minute and try again."
 
 
 @app.route("/api/simulate", methods=["POST"])
 def api_simulate():
     """What-If Simulator. Input JSON: {"text", "career", "skills": [...], "is_resume"}."""
+    if too_many_requests():
+        return jsonify({"error": TOO_MANY}), 429
     if model is None:
         return jsonify({"error": MODEL_MISSING_MESSAGE}), 503
     data = request.get_json(silent=True) or {}
@@ -252,6 +285,23 @@ def api_simulate():
 
     result = simulate(text, career, skills, bool(data.get("is_resume")), predict_top_careers)
     return jsonify(result)
+
+
+@app.route("/api/jd-match", methods=["POST"])
+def api_jd_match():
+    """Job description match. Input JSON: {"text", "is_resume", "jd"}. Nothing is stored or logged."""
+    if too_many_requests():
+        return jsonify({"error": TOO_MANY}), 429
+    if model is None:
+        return jsonify({"error": MODEL_MISSING_MESSAGE}), 503
+    data = request.get_json(silent=True) or {}
+    text = data.get("text")
+    jd = data.get("jd")
+    if not isinstance(text, str) or not text.strip() or len(text) > MAX_SIMULATE_TEXT:
+        return jsonify({"error": "Missing or too long text."}), 400
+    if jd_problem(jd):
+        return jsonify({"error": jd_problem(jd)}), 400
+    return jsonify(jd_match(text, jd, bool(data.get("is_resume"))))
 
 # -----------------------------
 # APP START

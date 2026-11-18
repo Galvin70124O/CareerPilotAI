@@ -6,7 +6,13 @@ score is a sum over words:   score = sum(tfidf_value[word] * weight[career][word
 So each word's contribution is simply  tfidf_value * weight. The biggest positive
 contributions are the words that pushed the prediction towards that career the most.
 (The model works on single words, so "machine learning" shows up as "machine" and "learning".)
+Resume section names ("Skills", "Projects") are left out: they say nothing about the career.
 """
+
+SECTION_WORDS = {"skills", "skill", "education", "projects", "experience", "summary", "objective",
+                 "certifications", "certification", "coursework", "internship", "internships", "profile",
+                 "achievements", "awards", "activities", "hobbies", "interests", "languages",
+                 "declaration", "references", "contact", "personal"}
 
 
 def _linear_classifier(model):
@@ -27,6 +33,6 @@ def top_contributing_terms(model, text, career, top_n=4):
     words = vectorizer.get_feature_names_out()
 
     contributions = [(tfidf.data[k] * weights[j], words[j]) for k, j in enumerate(tfidf.indices)]
-    contributions = [(value, word) for value, word in contributions if value > 0 and len(word) > 1]
+    contributions = [(value, word) for value, word in contributions if value > 0 and len(word) > 1 and word not in SECTION_WORDS]
     contributions.sort(reverse=True)
     return [word for _, word in contributions[:top_n]]
