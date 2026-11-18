@@ -530,7 +530,9 @@ button, input, textarea { font: inherit; color: inherit; }
 .career-name { font-weight: 500; min-width: 0; overflow-wrap: anywhere; }
 .career-rank { color: var(--text-subtle); font-variant-numeric: tabular-nums; margin-right: var(--space-2); }
 .career-percent { font-variant-numeric: tabular-nums; color: var(--text-muted); }
-.why-match { margin-top: var(--space-6); }
+.career-band { font-size: var(--text-sm); }
+.career-because { margin-top: var(--space-2); font-size: var(--text-sm); color: var(--text-muted); overflow-wrap: anywhere; }
+.why-match, .fresher-roles { margin-top: var(--space-6); }
 .why-match-text { font-size: var(--text-sm); color: var(--text-muted); margin-bottom: var(--space-3); }
 .why-match-text strong { color: var(--text); font-weight: 600; }
 /* Runner-up matches: the same blue, lighter, so the top match leads */

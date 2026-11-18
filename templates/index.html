@@ -43,7 +43,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
 </head>
-<body>
+<body data-career-count="{{ career_count }}">
   <a class="skip-link" href="#main">Skip to content</a>
   {% include "partials/topbar.html" %}
 

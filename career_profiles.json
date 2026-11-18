@@ -1,0 +1,3357 @@
+{
+ "_note": "Built by data/build_profiles.py - don't edit by hand, change the script and rerun it.",
+ "weights": "new careers: ESCO essential 1.0 / optional 0.6 + O*NET hot 0.5 / listed 0.25, else 0.5 (DSA for SDE: 1.0, india-hiring); existing careers: share of training resumes + the same O*NET bonus",
+ "sources": {
+  "resumeatlas": "ResumeAtlas (MIT), training split only (train.py: 80%, random_state=42)",
+  "esco": "ESCO classification v1.2.1, European Commission, occupation essential/optional skills",
+  "onet": "O*NET 31.0 Database, U.S. Department of Labor/ETA, CC BY 4.0, Software Skills",
+  "india": "common on Indian fresher resumes (project list, no external source)",
+  "india-hiring": "Indian fresher hiring practice, weight approved by the project owner"
+ },
+ "careers": {
+  "Accountant": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "13-2011.00",
+   "key_skills": [
+    {
+     "name": "accounting",
+     "weight": 0.97,
+     "evidence": {
+      "resumeatlas": "in 97% of 249 training resumes"
+     }
+    },
+    {
+     "name": "excel",
+     "weight": 0.96,
+     "evidence": {
+      "resumeatlas": "in 46% of 249 training resumes",
+      "onet": "hot: microsoft excel"
+     }
+    },
+    {
+     "name": "tax",
+     "weight": 0.57,
+     "evidence": {
+      "resumeatlas": "in 57% of 249 training resumes"
+     }
+    },
+    {
+     "name": "payroll",
+     "weight": 0.57,
+     "evidence": {
+      "resumeatlas": "in 57% of 249 training resumes"
+     }
+    },
+    {
+     "name": "financial statements",
+     "weight": 0.56,
+     "evidence": {
+      "resumeatlas": "in 56% of 249 training resumes"
+     }
+    },
+    {
+     "name": "reconciliation",
+     "weight": 0.53,
+     "evidence": {
+      "resumeatlas": "in 53% of 249 training resumes"
+     }
+    },
+    {
+     "name": "accounts payable",
+     "weight": 0.51,
+     "evidence": {
+      "resumeatlas": "in 51% of 249 training resumes"
+     }
+    },
+    {
+     "name": "general ledger",
+     "weight": 0.5,
+     "evidence": {
+      "resumeatlas": "in 50% of 249 training resumes"
+     }
+    }
+   ]
+  },
+  "Advocate": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "23-1011.00",
+   "key_skills": [
+    {
+     "name": "communication",
+     "weight": 0.62,
+     "evidence": {
+      "resumeatlas": "in 62% of 218 training resumes"
+     }
+    },
+    {
+     "name": "customer service",
+     "weight": 0.51,
+     "evidence": {
+      "resumeatlas": "in 51% of 218 training resumes"
+     }
+    },
+    {
+     "name": "documentation",
+     "weight": 0.36,
+     "evidence": {
+      "resumeatlas": "in 36% of 218 training resumes"
+     }
+    },
+    {
+     "name": "legal",
+     "weight": 0.29,
+     "evidence": {
+      "resumeatlas": "in 29% of 218 training resumes"
+     }
+    },
+    {
+     "name": "court",
+     "weight": 0.24,
+     "evidence": {
+      "resumeatlas": "in 24% of 218 training resumes"
+     }
+    },
+    {
+     "name": "advocacy",
+     "weight": 0.23,
+     "evidence": {
+      "resumeatlas": "in 23% of 218 training resumes"
+     }
+    },
+    {
+     "name": "referrals",
+     "weight": 0.19,
+     "evidence": {
+      "resumeatlas": "in 19% of 218 training resumes"
+     }
+    },
+    {
+     "name": "counseling",
+     "weight": 0.17,
+     "evidence": {
+      "resumeatlas": "in 17% of 218 training resumes"
+     }
+    }
+   ]
+  },
+  "Agriculture": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "11-9013.00",
+   "key_skills": [
+    {
+     "name": "agriculture",
+     "weight": 0.48,
+     "evidence": {
+      "resumeatlas": "in 48% of 161 training resumes"
+     }
+    },
+    {
+     "name": "crop",
+     "weight": 0.37,
+     "evidence": {
+      "resumeatlas": "in 37% of 161 training resumes"
+     }
+    },
+    {
+     "name": "soil",
+     "weight": 0.33,
+     "evidence": {
+      "resumeatlas": "in 33% of 161 training resumes"
+     }
+    },
+    {
+     "name": "irrigation",
+     "weight": 0.27,
+     "evidence": {
+      "resumeatlas": "in 27% of 161 training resumes"
+     }
+    },
+    {
+     "name": "research",
+     "weight": 0.26,
+     "evidence": {
+      "resumeatlas": "in 26% of 161 training resumes"
+     }
+    },
+    {
+     "name": "farming",
+     "weight": 0.24,
+     "evidence": {
+      "resumeatlas": "in 24% of 161 training resumes"
+     }
+    },
+    {
+     "name": "livestock",
+     "weight": 0.22,
+     "evidence": {
+      "resumeatlas": "in 22% of 161 training resumes"
+     }
+    },
+    {
+     "name": "harvest",
+     "weight": 0.17,
+     "evidence": {
+      "resumeatlas": "in 17% of 161 training resumes"
+     }
+    }
+   ]
+  },
+  "Apparel": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "27-1022.00",
+   "key_skills": [
+    {
+     "name": "sales",
+     "weight": 0.85,
+     "evidence": {
+      "resumeatlas": "in 85% of 233 training resumes"
+     }
+    },
+    {
+     "name": "customer service",
+     "weight": 0.64,
+     "evidence": {
+      "resumeatlas": "in 64% of 233 training resumes"
+     }
+    },
+    {
+     "name": "merchandising",
+     "weight": 0.62,
+     "evidence": {
+      "resumeatlas": "in 62% of 233 training resumes"
+     }
+    },
+    {
+     "name": "inventory",
+     "weight": 0.55,
+     "evidence": {
+      "resumeatlas": "in 55% of 233 training resumes"
+     }
+    },
+    {
+     "name": "retail",
+     "weight": 0.47,
+     "evidence": {
+      "resumeatlas": "in 47% of 233 training resumes"
+     }
+    },
+    {
+     "name": "stock",
+     "weight": 0.39,
+     "evidence": {
+      "resumeatlas": "in 39% of 233 training resumes"
+     }
+    },
+    {
+     "name": "pricing",
+     "weight": 0.36,
+     "evidence": {
+      "resumeatlas": "in 36% of 233 training resumes"
+     }
+    },
+    {
+     "name": "fashion",
+     "weight": 0.33,
+     "evidence": {
+      "resumeatlas": "in 33% of 233 training resumes"
+     }
+    }
+   ]
+  },
+  "Architecture": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "17-1011.00",
+   "key_skills": [
+    {
+     "name": "autocad",
+     "weight": 0.92,
+     "evidence": {
+      "resumeatlas": "in 42% of 210 training resumes",
+      "onet": "hot: autodesk autocad"
+     }
+    },
+    {
+     "name": "revit",
+     "weight": 0.77,
+     "evidence": {
+      "resumeatlas": "in 27% of 210 training resumes",
+      "onet": "hot: autodesk revit"
+     }
+    },
+    {
+     "name": "architectural design",
+     "weight": 0.25,
+     "evidence": {
+      "resumeatlas": "in 25% of 210 training resumes"
+     }
+    },
+    {
+     "name": "sketchup",
+     "weight": 0.23,
+     "evidence": {
+      "resumeatlas": "in 23% of 210 training resumes"
+     }
+    },
+    {
+     "name": "adobe",
+     "weight": 0.21,
+     "evidence": {
+      "resumeatlas": "in 21% of 210 training resumes"
+     }
+    },
+    {
+     "name": "construction documents",
+     "weight": 0.12,
+     "evidence": {
+      "resumeatlas": "in 12% of 210 training resumes"
+     }
+    },
+    {
+     "name": "rhino",
+     "weight": 0.1,
+     "evidence": {
+      "resumeatlas": "in 10% of 210 training resumes"
+     }
+    },
+    {
+     "name": "building codes",
+     "weight": 0.1,
+     "evidence": {
+      "resumeatlas": "in 10% of 210 training resumes"
+     }
+    }
+   ]
+  },
+  "Arts": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "27-1013.00",
+   "key_skills": [
+    {
+     "name": "art",
+     "weight": 0.44,
+     "evidence": {
+      "resumeatlas": "in 44% of 189 training resumes"
+     }
+    },
+    {
+     "name": "teaching",
+     "weight": 0.42,
+     "evidence": {
+      "resumeatlas": "in 42% of 189 training resumes"
+     }
+    },
+    {
+     "name": "curriculum",
+     "weight": 0.37,
+     "evidence": {
+      "resumeatlas": "in 37% of 189 training resumes"
+     }
+    },
+    {
+     "name": "classroom management",
+     "weight": 0.2,
+     "evidence": {
+      "resumeatlas": "in 20% of 189 training resumes"
+     }
+    },
+    {
+     "name": "adobe",
+     "weight": 0.17,
+     "evidence": {
+      "resumeatlas": "in 17% of 189 training resumes"
+     }
+    },
+    {
+     "name": "music",
+     "weight": 0.16,
+     "evidence": {
+      "resumeatlas": "in 16% of 189 training resumes"
+     }
+    },
+    {
+     "name": "painting",
+     "weight": 0.14,
+     "evidence": {
+      "resumeatlas": "in 14% of 189 training resumes"
+     }
+    },
+    {
+     "name": "lesson planning",
+     "weight": 0.12,
+     "evidence": {
+      "resumeatlas": "in 12% of 189 training resumes"
+     }
+    }
+   ]
+  },
+  "Automobile": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "49-3023.00",
+   "key_skills": [
+    {
+     "name": "customer service",
+     "weight": 0.56,
+     "evidence": {
+      "resumeatlas": "in 56% of 213 training resumes"
+     }
+    },
+    {
+     "name": "maintenance",
+     "weight": 0.47,
+     "evidence": {
+      "resumeatlas": "in 47% of 213 training resumes"
+     }
+    },
+    {
+     "name": "repair",
+     "weight": 0.38,
+     "evidence": {
+      "resumeatlas": "in 38% of 213 training resumes"
+     }
+    },
+    {
+     "name": "automotive",
+     "weight": 0.38,
+     "evidence": {
+      "resumeatlas": "in 38% of 213 training resumes"
+     }
+    },
+    {
+     "name": "engine",
+     "weight": 0.2,
+     "evidence": {
+      "resumeatlas": "in 20% of 213 training resumes"
+     }
+    },
+    {
+     "name": "brakes",
+     "weight": 0.12,
+     "evidence": {
+      "resumeatlas": "in 12% of 213 training resumes"
+     }
+    },
+    {
+     "name": "diagnostics",
+     "weight": 0.1,
+     "evidence": {
+      "resumeatlas": "in 10% of 213 training resumes"
+     }
+    },
+    {
+     "name": "electrical systems",
+     "weight": 0.08,
+     "evidence": {
+      "resumeatlas": "in 8% of 213 training resumes"
+     }
+    }
+   ]
+  },
+  "Aviation": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "49-3011.00",
+   "key_skills": [
+    {
+     "name": "aviation",
+     "weight": 0.95,
+     "evidence": {
+      "resumeatlas": "in 95% of 240 training resumes"
+     }
+    },
+    {
+     "name": "aircraft",
+     "weight": 0.75,
+     "evidence": {
+      "resumeatlas": "in 75% of 240 training resumes"
+     }
+    },
+    {
+     "name": "safety",
+     "weight": 0.72,
+     "evidence": {
+      "resumeatlas": "in 72% of 240 training resumes"
+     }
+    },
+    {
+     "name": "maintenance",
+     "weight": 0.66,
+     "evidence": {
+      "resumeatlas": "in 66% of 240 training resumes"
+     }
+    },
+    {
+     "name": "flight",
+     "weight": 0.59,
+     "evidence": {
+      "resumeatlas": "in 59% of 240 training resumes"
+     }
+    },
+    {
+     "name": "regulations",
+     "weight": 0.36,
+     "evidence": {
+      "resumeatlas": "in 36% of 240 training resumes"
+     }
+    },
+    {
+     "name": "inspection",
+     "weight": 0.28,
+     "evidence": {
+      "resumeatlas": "in 28% of 240 training resumes"
+     }
+    },
+    {
+     "name": "troubleshooting",
+     "weight": 0.27,
+     "evidence": {
+      "resumeatlas": "in 27% of 240 training resumes"
+     }
+    }
+   ]
+  },
+  "BPO": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "43-4051.00",
+   "key_skills": [
+    {
+     "name": "customer service",
+     "weight": 0.7,
+     "evidence": {
+      "resumeatlas": "in 70% of 138 training resumes"
+     }
+    },
+    {
+     "name": "communication",
+     "weight": 0.69,
+     "evidence": {
+      "resumeatlas": "in 69% of 138 training resumes"
+     }
+    },
+    {
+     "name": "quality",
+     "weight": 0.52,
+     "evidence": {
+      "resumeatlas": "in 52% of 138 training resumes"
+     }
+    },
+    {
+     "name": "call center",
+     "weight": 0.41,
+     "evidence": {
+      "resumeatlas": "in 41% of 138 training resumes"
+     }
+    },
+    {
+     "name": "data entry",
+     "weight": 0.2,
+     "evidence": {
+      "resumeatlas": "in 20% of 138 training resumes"
+     }
+    },
+    {
+     "name": "problem solving",
+     "weight": 0.18,
+     "evidence": {
+      "resumeatlas": "in 18% of 138 training resumes"
+     }
+    },
+    {
+     "name": "crm",
+     "weight": 0.12,
+     "evidence": {
+      "resumeatlas": "in 12% of 138 training resumes"
+     }
+    },
+    {
+     "name": "escalations",
+     "weight": 0.07,
+     "evidence": {
+      "resumeatlas": "in 7% of 138 training resumes"
+     }
+    }
+   ]
+  },
+  "Banking": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "13-2072.00",
+   "key_skills": [
+    {
+     "name": "banking",
+     "weight": 0.96,
+     "evidence": {
+      "resumeatlas": "in 96% of 198 training resumes"
+     }
+    },
+    {
+     "name": "sales",
+     "weight": 0.6,
+     "evidence": {
+      "resumeatlas": "in 60% of 198 training resumes"
+     }
+    },
+    {
+     "name": "customer service",
+     "weight": 0.58,
+     "evidence": {
+      "resumeatlas": "in 58% of 198 training resumes"
+     }
+    },
+    {
+     "name": "credit",
+     "weight": 0.56,
+     "evidence": {
+      "resumeatlas": "in 56% of 198 training resumes"
+     }
+    },
+    {
+     "name": "compliance",
+     "weight": 0.39,
+     "evidence": {
+      "resumeatlas": "in 39% of 198 training resumes"
+     }
+    },
+    {
+     "name": "risk",
+     "weight": 0.37,
+     "evidence": {
+      "resumeatlas": "in 37% of 198 training resumes"
+     }
+    },
+    {
+     "name": "loans",
+     "weight": 0.3,
+     "evidence": {
+      "resumeatlas": "in 30% of 198 training resumes"
+     }
+    },
+    {
+     "name": "financial analysis",
+     "weight": 0.18,
+     "evidence": {
+      "resumeatlas": "in 18% of 198 training resumes"
+     }
+    }
+   ]
+  },
+  "Blockchain": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "15-1252.00",
+   "key_skills": [
+    {
+     "name": "blockchain",
+     "weight": 1.0,
+     "evidence": {
+      "resumeatlas": "in 100% of 28 training resumes"
+     }
+    },
+    {
+     "name": "javascript",
+     "weight": 0.89,
+     "evidence": {
+      "resumeatlas": "in 39% of 28 training resumes",
+      "onet": "hot: javascript"
+     }
+    },
+    {
+     "name": "ethereum",
+     "weight": 0.46,
+     "evidence": {
+      "resumeatlas": "in 46% of 28 training resumes"
+     }
+    },
+    {
+     "name": "cryptocurrency",
+     "weight": 0.46,
+     "evidence": {
+      "resumeatlas": "in 46% of 28 training resumes"
+     }
+    },
+    {
+     "name": "smart contracts",
+     "weight": 0.39,
+     "evidence": {
+      "resumeatlas": "in 39% of 28 training resumes"
+     }
+    },
+    {
+     "name": "decentralized",
+     "weight": 0.36,
+     "evidence": {
+      "resumeatlas": "in 36% of 28 training resumes"
+     }
+    },
+    {
+     "name": "solidity",
+     "weight": 0.36,
+     "evidence": {
+      "resumeatlas": "in 36% of 28 training resumes"
+     }
+    },
+    {
+     "name": "bitcoin",
+     "weight": 0.21,
+     "evidence": {
+      "resumeatlas": "in 21% of 28 training resumes"
+     }
+    }
+   ]
+  },
+  "Building and Construction": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "11-9021.00",
+   "key_skills": [
+    {
+     "name": "construction",
+     "weight": 0.96,
+     "evidence": {
+      "resumeatlas": "in 96% of 248 training resumes"
+     }
+    },
+    {
+     "name": "safety",
+     "weight": 0.79,
+     "evidence": {
+      "resumeatlas": "in 79% of 248 training resumes"
+     }
+    },
+    {
+     "name": "osha",
+     "weight": 0.4,
+     "evidence": {
+      "resumeatlas": "in 40% of 248 training resumes"
+     }
+    },
+    {
+     "name": "scheduling",
+     "weight": 0.36,
+     "evidence": {
+      "resumeatlas": "in 36% of 248 training resumes"
+     }
+    },
+    {
+     "name": "blueprints",
+     "weight": 0.34,
+     "evidence": {
+      "resumeatlas": "in 34% of 248 training resumes"
+     }
+    },
+    {
+     "name": "carpentry",
+     "weight": 0.33,
+     "evidence": {
+      "resumeatlas": "in 33% of 248 training resumes"
+     }
+    },
+    {
+     "name": "plumbing",
+     "weight": 0.31,
+     "evidence": {
+      "resumeatlas": "in 31% of 248 training resumes"
+     }
+    },
+    {
+     "name": "concrete",
+     "weight": 0.31,
+     "evidence": {
+      "resumeatlas": "in 31% of 248 training resumes"
+     }
+    }
+   ]
+  },
+  "Business Analyst": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "13-1111.00",
+   "key_skills": [
+    {
+     "name": "excel",
+     "weight": 0.98,
+     "evidence": {
+      "resumeatlas": "in 48% of 229 training resumes",
+      "onet": "hot: microsoft excel"
+     }
+    },
+    {
+     "name": "jira",
+     "weight": 0.76,
+     "evidence": {
+      "resumeatlas": "in 26% of 229 training resumes",
+      "onet": "hot: atlassian jira"
+     }
+    },
+    {
+     "name": "sql",
+     "weight": 0.51,
+     "evidence": {
+      "resumeatlas": "in 51% of 229 training resumes"
+     }
+    },
+    {
+     "name": "stakeholders",
+     "weight": 0.49,
+     "evidence": {
+      "resumeatlas": "in 49% of 229 training resumes"
+     }
+    },
+    {
+     "name": "agile",
+     "weight": 0.46,
+     "evidence": {
+      "resumeatlas": "in 46% of 229 training resumes"
+     }
+    },
+    {
+     "name": "gap analysis",
+     "weight": 0.33,
+     "evidence": {
+      "resumeatlas": "in 33% of 229 training resumes"
+     }
+    },
+    {
+     "name": "use cases",
+     "weight": 0.3,
+     "evidence": {
+      "resumeatlas": "in 30% of 229 training resumes"
+     }
+    },
+    {
+     "name": "requirements gathering",
+     "weight": 0.26,
+     "evidence": {
+      "resumeatlas": "in 26% of 229 training resumes"
+     }
+    }
+   ]
+  },
+  "Civil Engineer": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "17-2051.00",
+   "key_skills": [
+    {
+     "name": "autocad",
+     "weight": 0.97,
+     "evidence": {
+      "resumeatlas": "in 47% of 210 training resumes",
+      "onet": "hot: autodesk autocad"
+     }
+    },
+    {
+     "name": "construction",
+     "weight": 0.76,
+     "evidence": {
+      "resumeatlas": "in 76% of 210 training resumes"
+     }
+    },
+    {
+     "name": "civil engineering",
+     "weight": 0.62,
+     "evidence": {
+      "resumeatlas": "in 62% of 210 training resumes"
+     }
+    },
+    {
+     "name": "structural",
+     "weight": 0.4,
+     "evidence": {
+      "resumeatlas": "in 40% of 210 training resumes"
+     }
+    },
+    {
+     "name": "project management",
+     "weight": 0.34,
+     "evidence": {
+      "resumeatlas": "in 34% of 210 training resumes"
+     }
+    },
+    {
+     "name": "inspection",
+     "weight": 0.25,
+     "evidence": {
+      "resumeatlas": "in 25% of 210 training resumes"
+     }
+    },
+    {
+     "name": "drainage",
+     "weight": 0.2,
+     "evidence": {
+      "resumeatlas": "in 20% of 210 training resumes"
+     }
+    },
+    {
+     "name": "civil 3d",
+     "weight": 0.19,
+     "evidence": {
+      "resumeatlas": "in 19% of 210 training resumes"
+     }
+    }
+   ]
+  },
+  "Consultant": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "13-1111.00",
+   "key_skills": [
+    {
+     "name": "excel",
+     "weight": 0.7,
+     "evidence": {
+      "resumeatlas": "in 20% of 247 training resumes",
+      "onet": "hot: microsoft excel"
+     }
+    },
+    {
+     "name": "communication",
+     "weight": 0.47,
+     "evidence": {
+      "resumeatlas": "in 47% of 247 training resumes"
+     }
+    },
+    {
+     "name": "project management",
+     "weight": 0.33,
+     "evidence": {
+      "resumeatlas": "in 33% of 247 training resumes"
+     }
+    },
+    {
+     "name": "consulting",
+     "weight": 0.32,
+     "evidence": {
+      "resumeatlas": "in 32% of 247 training resumes"
+     }
+    },
+    {
+     "name": "strategy",
+     "weight": 0.28,
+     "evidence": {
+      "resumeatlas": "in 28% of 247 training resumes"
+     }
+    },
+    {
+     "name": "presentations",
+     "weight": 0.21,
+     "evidence": {
+      "resumeatlas": "in 21% of 247 training resumes"
+     }
+    },
+    {
+     "name": "stakeholders",
+     "weight": 0.19,
+     "evidence": {
+      "resumeatlas": "in 19% of 247 training resumes"
+     }
+    },
+    {
+     "name": "change management",
+     "weight": 0.11,
+     "evidence": {
+      "resumeatlas": "in 11% of 247 training resumes"
+     }
+    }
+   ]
+  },
+  "Data Science": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "15-2051.00",
+   "key_skills": [
+    {
+     "name": "python",
+     "weight": 1.12,
+     "evidence": {
+      "resumeatlas": "in 62% of 121 training resumes",
+      "onet": "hot: python"
+     }
+    },
+    {
+     "name": "tableau",
+     "weight": 0.8,
+     "evidence": {
+      "resumeatlas": "in 30% of 121 training resumes",
+      "onet": "hot: tableau"
+     }
+    },
+    {
+     "name": "r",
+     "weight": 0.62,
+     "evidence": {
+      "resumeatlas": "in 12% of 121 training resumes",
+      "onet": "hot: r"
+     }
+    },
+    {
+     "name": "machine learning",
+     "weight": 0.55,
+     "evidence": {
+      "resumeatlas": "in 55% of 121 training resumes"
+     }
+    },
+    {
+     "name": "sql",
+     "weight": 0.5,
+     "evidence": {
+      "resumeatlas": "in 50% of 121 training resumes"
+     }
+    },
+    {
+     "name": "visualization",
+     "weight": 0.37,
+     "evidence": {
+      "resumeatlas": "in 37% of 121 training resumes"
+     }
+    },
+    {
+     "name": "statistics",
+     "weight": 0.33,
+     "evidence": {
+      "resumeatlas": "in 33% of 121 training resumes"
+     }
+    },
+    {
+     "name": "data analysis",
+     "weight": 0.32,
+     "evidence": {
+      "resumeatlas": "in 32% of 121 training resumes"
+     }
+    }
+   ]
+  },
+  "Database": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "15-1242.00",
+   "key_skills": [
+    {
+     "name": "linux",
+     "weight": 0.82,
+     "evidence": {
+      "resumeatlas": "in 32% of 146 training resumes",
+      "onet": "hot: linux"
+     }
+    },
+    {
+     "name": "sql",
+     "weight": 0.74,
+     "evidence": {
+      "resumeatlas": "in 74% of 146 training resumes"
+     }
+    },
+    {
+     "name": "mysql",
+     "weight": 0.72,
+     "evidence": {
+      "resumeatlas": "in 22% of 146 training resumes",
+      "onet": "hot: mysql"
+     }
+    },
+    {
+     "name": "oracle",
+     "weight": 0.55,
+     "evidence": {
+      "resumeatlas": "in 55% of 146 training resumes"
+     }
+    },
+    {
+     "name": "backup",
+     "weight": 0.49,
+     "evidence": {
+      "resumeatlas": "in 49% of 146 training resumes"
+     }
+    },
+    {
+     "name": "recovery",
+     "weight": 0.4,
+     "evidence": {
+      "resumeatlas": "in 40% of 146 training resumes"
+     }
+    },
+    {
+     "name": "performance tuning",
+     "weight": 0.4,
+     "evidence": {
+      "resumeatlas": "in 40% of 146 training resumes"
+     }
+    },
+    {
+     "name": "replication",
+     "weight": 0.25,
+     "evidence": {
+      "resumeatlas": "in 25% of 146 training resumes"
+     }
+    }
+   ]
+  },
+  "Designing": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "27-1024.00",
+   "key_skills": [
+    {
+     "name": "photoshop",
+     "weight": 0.88,
+     "evidence": {
+      "resumeatlas": "in 38% of 181 training resumes",
+      "onet": "hot: adobe photoshop"
+     }
+    },
+    {
+     "name": "illustrator",
+     "weight": 0.79,
+     "evidence": {
+      "resumeatlas": "in 29% of 181 training resumes",
+      "onet": "hot: adobe illustrator"
+     }
+    },
+    {
+     "name": "indesign",
+     "weight": 0.69,
+     "evidence": {
+      "resumeatlas": "in 19% of 181 training resumes",
+      "onet": "hot: adobe indesign"
+     }
+    },
+    {
+     "name": "autocad",
+     "weight": 0.63,
+     "evidence": {
+      "resumeatlas": "in 13% of 181 training resumes",
+      "onet": "hot: autodesk autocad"
+     }
+    },
+    {
+     "name": "adobe",
+     "weight": 0.41,
+     "evidence": {
+      "resumeatlas": "in 41% of 181 training resumes"
+     }
+    },
+    {
+     "name": "graphic design",
+     "weight": 0.31,
+     "evidence": {
+      "resumeatlas": "in 31% of 181 training resumes"
+     }
+    },
+    {
+     "name": "interior design",
+     "weight": 0.14,
+     "evidence": {
+      "resumeatlas": "in 14% of 181 training resumes"
+     }
+    },
+    {
+     "name": "branding",
+     "weight": 0.13,
+     "evidence": {
+      "resumeatlas": "in 13% of 181 training resumes"
+     }
+    }
+   ]
+  },
+  "DevOps": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "15-1244.00",
+   "key_skills": [
+    {
+     "name": "docker",
+     "weight": 1.19,
+     "evidence": {
+      "resumeatlas": "in 69% of 154 training resumes",
+      "onet": "hot: docker"
+     }
+    },
+    {
+     "name": "linux",
+     "weight": 1.15,
+     "evidence": {
+      "resumeatlas": "in 65% of 154 training resumes",
+      "onet": "hot: linux"
+     }
+    },
+    {
+     "name": "git",
+     "weight": 1.13,
+     "evidence": {
+      "resumeatlas": "in 63% of 154 training resumes",
+      "onet": "hot: git"
+     }
+    },
+    {
+     "name": "aws",
+     "weight": 0.81,
+     "evidence": {
+      "resumeatlas": "in 81% of 154 training resumes"
+     }
+    },
+    {
+     "name": "jenkins",
+     "weight": 0.76,
+     "evidence": {
+      "resumeatlas": "in 76% of 154 training resumes"
+     }
+    },
+    {
+     "name": "ansible",
+     "weight": 0.6,
+     "evidence": {
+      "resumeatlas": "in 60% of 154 training resumes"
+     }
+    },
+    {
+     "name": "ci/cd",
+     "weight": 0.58,
+     "evidence": {
+      "resumeatlas": "in 58% of 154 training resumes"
+     }
+    },
+    {
+     "name": "kubernetes",
+     "weight": 0.58,
+     "evidence": {
+      "resumeatlas": "in 58% of 154 training resumes"
+     }
+    }
+   ]
+  },
+  "Digital Media": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "13-1161.00",
+   "key_skills": [
+    {
+     "name": "google analytics",
+     "weight": 0.79,
+     "evidence": {
+      "resumeatlas": "in 29% of 259 training resumes",
+      "onet": "hot: google analytics"
+     }
+    },
+    {
+     "name": "content",
+     "weight": 0.7,
+     "evidence": {
+      "resumeatlas": "in 70% of 259 training resumes"
+     }
+    },
+    {
+     "name": "social media",
+     "weight": 0.66,
+     "evidence": {
+      "resumeatlas": "in 66% of 259 training resumes"
+     }
+    },
+    {
+     "name": "campaigns",
+     "weight": 0.6,
+     "evidence": {
+      "resumeatlas": "in 60% of 259 training resumes"
+     }
+    },
+    {
+     "name": "digital marketing",
+     "weight": 0.44,
+     "evidence": {
+      "resumeatlas": "in 44% of 259 training resumes"
+     }
+    },
+    {
+     "name": "adobe",
+     "weight": 0.32,
+     "evidence": {
+      "resumeatlas": "in 32% of 259 training resumes"
+     }
+    },
+    {
+     "name": "seo",
+     "weight": 0.29,
+     "evidence": {
+      "resumeatlas": "in 29% of 259 training resumes"
+     }
+    },
+    {
+     "name": "email marketing",
+     "weight": 0.19,
+     "evidence": {
+      "resumeatlas": "in 19% of 259 training resumes"
+     }
+    }
+   ]
+  },
+  "DotNet Developer": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "15-1252.00",
+   "key_skills": [
+    {
+     "name": "asp.net",
+     "weight": 1.3,
+     "evidence": {
+      "resumeatlas": "in 80% of 182 training resumes",
+      "onet": "hot: microsoft asp.net"
+     }
+    },
+    {
+     "name": "javascript",
+     "weight": 1.21,
+     "evidence": {
+      "resumeatlas": "in 71% of 182 training resumes",
+      "onet": "hot: javascript"
+     }
+    },
+    {
+     "name": "sql server",
+     "weight": 1.18,
+     "evidence": {
+      "resumeatlas": "in 68% of 182 training resumes",
+      "onet": "hot: microsoft sql server"
+     }
+    },
+    {
+     "name": "visual studio",
+     "weight": 1.01,
+     "evidence": {
+      "resumeatlas": "in 51% of 182 training resumes",
+      "onet": "hot: microsoft visual studio"
+     }
+    },
+    {
+     "name": "mvc",
+     "weight": 0.67,
+     "evidence": {
+      "resumeatlas": "in 67% of 182 training resumes"
+     }
+    },
+    {
+     "name": "c#",
+     "weight": 0.51,
+     "evidence": {
+      "resumeatlas": "in 1% of 182 training resumes",
+      "onet": "hot: c#"
+     }
+    },
+    {
+     "name": "wcf",
+     "weight": 0.4,
+     "evidence": {
+      "resumeatlas": "in 40% of 182 training resumes"
+     }
+    },
+    {
+     "name": "entity framework",
+     "weight": 0.38,
+     "evidence": {
+      "resumeatlas": "in 38% of 182 training resumes"
+     }
+    }
+   ]
+  },
+  "ETL Developer": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "15-1243.00",
+   "key_skills": [
+    {
+     "name": "unix",
+     "weight": 1.0,
+     "evidence": {
+      "resumeatlas": "in 50% of 163 training resumes",
+      "onet": "hot: unix"
+     }
+    },
+    {
+     "name": "etl",
+     "weight": 0.99,
+     "evidence": {
+      "resumeatlas": "in 99% of 163 training resumes"
+     }
+    },
+    {
+     "name": "sql",
+     "weight": 0.92,
+     "evidence": {
+      "resumeatlas": "in 92% of 163 training resumes"
+     }
+    },
+    {
+     "name": "oracle",
+     "weight": 0.71,
+     "evidence": {
+      "resumeatlas": "in 71% of 163 training resumes"
+     }
+    },
+    {
+     "name": "data warehouse",
+     "weight": 0.69,
+     "evidence": {
+      "resumeatlas": "in 69% of 163 training resumes"
+     }
+    },
+    {
+     "name": "informatica",
+     "weight": 0.66,
+     "evidence": {
+      "resumeatlas": "in 66% of 163 training resumes"
+     }
+    },
+    {
+     "name": "mappings",
+     "weight": 0.52,
+     "evidence": {
+      "resumeatlas": "in 52% of 163 training resumes"
+     }
+    },
+    {
+     "name": "ssis",
+     "weight": 0.36,
+     "evidence": {
+      "resumeatlas": "in 36% of 163 training resumes"
+     }
+    }
+   ]
+  },
+  "Education": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "25-2031.00",
+   "key_skills": [
+    {
+     "name": "teaching",
+     "weight": 0.75,
+     "evidence": {
+      "resumeatlas": "in 75% of 359 training resumes"
+     }
+    },
+    {
+     "name": "curriculum",
+     "weight": 0.61,
+     "evidence": {
+      "resumeatlas": "in 61% of 359 training resumes"
+     }
+    },
+    {
+     "name": "communication",
+     "weight": 0.57,
+     "evidence": {
+      "resumeatlas": "in 57% of 359 training resumes"
+     }
+    },
+    {
+     "name": "instruction",
+     "weight": 0.53,
+     "evidence": {
+      "resumeatlas": "in 53% of 359 training resumes"
+     }
+    },
+    {
+     "name": "classroom management",
+     "weight": 0.41,
+     "evidence": {
+      "resumeatlas": "in 41% of 359 training resumes"
+     }
+    },
+    {
+     "name": "special education",
+     "weight": 0.37,
+     "evidence": {
+      "resumeatlas": "in 37% of 359 training resumes"
+     }
+    },
+    {
+     "name": "differentiated",
+     "weight": 0.27,
+     "evidence": {
+      "resumeatlas": "in 27% of 359 training resumes"
+     }
+    },
+    {
+     "name": "iep",
+     "weight": 0.23,
+     "evidence": {
+      "resumeatlas": "in 23% of 359 training resumes"
+     }
+    }
+   ]
+  },
+  "Electrical Engineering": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "17-2071.00",
+   "key_skills": [
+    {
+     "name": "electrical",
+     "weight": 1.0,
+     "evidence": {
+      "resumeatlas": "in 100% of 245 training resumes"
+     }
+    },
+    {
+     "name": "safety",
+     "weight": 0.65,
+     "evidence": {
+      "resumeatlas": "in 65% of 245 training resumes"
+     }
+    },
+    {
+     "name": "maintenance",
+     "weight": 0.62,
+     "evidence": {
+      "resumeatlas": "in 62% of 245 training resumes"
+     }
+    },
+    {
+     "name": "troubleshooting",
+     "weight": 0.49,
+     "evidence": {
+      "resumeatlas": "in 49% of 245 training resumes"
+     }
+    },
+    {
+     "name": "wiring",
+     "weight": 0.47,
+     "evidence": {
+      "resumeatlas": "in 47% of 245 training resumes"
+     }
+    },
+    {
+     "name": "circuit",
+     "weight": 0.46,
+     "evidence": {
+      "resumeatlas": "in 46% of 245 training resumes"
+     }
+    },
+    {
+     "name": "panels",
+     "weight": 0.27,
+     "evidence": {
+      "resumeatlas": "in 27% of 245 training resumes"
+     }
+    },
+    {
+     "name": "motors",
+     "weight": 0.26,
+     "evidence": {
+      "resumeatlas": "in 26% of 245 training resumes"
+     }
+    }
+   ]
+  },
+  "Finance": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "13-2051.00",
+   "key_skills": [
+    {
+     "name": "excel",
+     "weight": 0.92,
+     "evidence": {
+      "resumeatlas": "in 42% of 243 training resumes",
+      "onet": "hot: microsoft excel"
+     }
+    },
+    {
+     "name": "accounting",
+     "weight": 0.72,
+     "evidence": {
+      "resumeatlas": "in 72% of 243 training resumes"
+     }
+    },
+    {
+     "name": "forecasting",
+     "weight": 0.35,
+     "evidence": {
+      "resumeatlas": "in 35% of 243 training resumes"
+     }
+    },
+    {
+     "name": "financial reporting",
+     "weight": 0.34,
+     "evidence": {
+      "resumeatlas": "in 34% of 243 training resumes"
+     }
+    },
+    {
+     "name": "budgeting",
+     "weight": 0.34,
+     "evidence": {
+      "resumeatlas": "in 34% of 243 training resumes"
+     }
+    },
+    {
+     "name": "financial analysis",
+     "weight": 0.3,
+     "evidence": {
+      "resumeatlas": "in 30% of 243 training resumes"
+     }
+    },
+    {
+     "name": "audit",
+     "weight": 0.27,
+     "evidence": {
+      "resumeatlas": "in 27% of 243 training resumes"
+     }
+    },
+    {
+     "name": "investment",
+     "weight": 0.24,
+     "evidence": {
+      "resumeatlas": "in 24% of 243 training resumes"
+     }
+    }
+   ]
+  },
+  "Food and Beverages": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "35-1012.00",
+   "key_skills": [
+    {
+     "name": "beverage",
+     "weight": 0.84,
+     "evidence": {
+      "resumeatlas": "in 84% of 95 training resumes"
+     }
+    },
+    {
+     "name": "customer service",
+     "weight": 0.56,
+     "evidence": {
+      "resumeatlas": "in 56% of 95 training resumes"
+     }
+    },
+    {
+     "name": "restaurant",
+     "weight": 0.54,
+     "evidence": {
+      "resumeatlas": "in 54% of 95 training resumes"
+     }
+    },
+    {
+     "name": "inventory",
+     "weight": 0.53,
+     "evidence": {
+      "resumeatlas": "in 53% of 95 training resumes"
+     }
+    },
+    {
+     "name": "menu",
+     "weight": 0.45,
+     "evidence": {
+      "resumeatlas": "in 45% of 95 training resumes"
+     }
+    },
+    {
+     "name": "hospitality",
+     "weight": 0.34,
+     "evidence": {
+      "resumeatlas": "in 34% of 95 training resumes"
+     }
+    },
+    {
+     "name": "catering",
+     "weight": 0.22,
+     "evidence": {
+      "resumeatlas": "in 22% of 95 training resumes"
+     }
+    },
+    {
+     "name": "sanitation",
+     "weight": 0.22,
+     "evidence": {
+      "resumeatlas": "in 22% of 95 training resumes"
+     }
+    }
+   ]
+  },
+  "Health and Fitness": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "39-9031.00",
+   "key_skills": [
+    {
+     "name": "fitness",
+     "weight": 0.97,
+     "evidence": {
+      "resumeatlas": "in 97% of 217 training resumes"
+     }
+    },
+    {
+     "name": "exercise",
+     "weight": 0.76,
+     "evidence": {
+      "resumeatlas": "in 76% of 217 training resumes"
+     }
+    },
+    {
+     "name": "nutrition",
+     "weight": 0.52,
+     "evidence": {
+      "resumeatlas": "in 52% of 217 training resumes"
+     }
+    },
+    {
+     "name": "wellness",
+     "weight": 0.51,
+     "evidence": {
+      "resumeatlas": "in 51% of 217 training resumes"
+     }
+    },
+    {
+     "name": "personal training",
+     "weight": 0.42,
+     "evidence": {
+      "resumeatlas": "in 42% of 217 training resumes"
+     }
+    },
+    {
+     "name": "group fitness",
+     "weight": 0.36,
+     "evidence": {
+      "resumeatlas": "in 36% of 217 training resumes"
+     }
+    },
+    {
+     "name": "coaching",
+     "weight": 0.29,
+     "evidence": {
+      "resumeatlas": "in 29% of 217 training resumes"
+     }
+    },
+    {
+     "name": "cpr",
+     "weight": 0.19,
+     "evidence": {
+      "resumeatlas": "in 19% of 217 training resumes"
+     }
+    }
+   ]
+  },
+  "Human Resources": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "13-1071.00",
+   "key_skills": [
+    {
+     "name": "training",
+     "weight": 0.83,
+     "evidence": {
+      "resumeatlas": "in 83% of 229 training resumes"
+     }
+    },
+    {
+     "name": "hris",
+     "weight": 0.83,
+     "evidence": {
+      "resumeatlas": "in 33% of 229 training resumes",
+      "onet": "hot: oracle hris"
+     }
+    },
+    {
+     "name": "benefits",
+     "weight": 0.69,
+     "evidence": {
+      "resumeatlas": "in 69% of 229 training resumes"
+     }
+    },
+    {
+     "name": "recruitment",
+     "weight": 0.66,
+     "evidence": {
+      "resumeatlas": "in 66% of 229 training resumes"
+     }
+    },
+    {
+     "name": "compliance",
+     "weight": 0.61,
+     "evidence": {
+      "resumeatlas": "in 61% of 229 training resumes"
+     }
+    },
+    {
+     "name": "payroll",
+     "weight": 0.55,
+     "evidence": {
+      "resumeatlas": "in 55% of 229 training resumes"
+     }
+    },
+    {
+     "name": "onboarding",
+     "weight": 0.54,
+     "evidence": {
+      "resumeatlas": "in 54% of 229 training resumes"
+     }
+    },
+    {
+     "name": "employee relations",
+     "weight": 0.53,
+     "evidence": {
+      "resumeatlas": "in 53% of 229 training resumes"
+     }
+    }
+   ]
+  },
+  "Information Technology": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "15-1231.00",
+   "key_skills": [
+    {
+     "name": "windows",
+     "weight": 0.94,
+     "evidence": {
+      "resumeatlas": "in 44% of 183 training resumes",
+      "onet": "hot: microsoft windows"
+     }
+    },
+    {
+     "name": "security",
+     "weight": 0.7,
+     "evidence": {
+      "resumeatlas": "in 70% of 183 training resumes"
+     }
+    },
+    {
+     "name": "hardware",
+     "weight": 0.62,
+     "evidence": {
+      "resumeatlas": "in 62% of 183 training resumes"
+     }
+    },
+    {
+     "name": "troubleshooting",
+     "weight": 0.5,
+     "evidence": {
+      "resumeatlas": "in 50% of 183 training resumes"
+     }
+    },
+    {
+     "name": "servers",
+     "weight": 0.36,
+     "evidence": {
+      "resumeatlas": "in 36% of 183 training resumes"
+     }
+    },
+    {
+     "name": "technical support",
+     "weight": 0.34,
+     "evidence": {
+      "resumeatlas": "in 34% of 183 training resumes"
+     }
+    },
+    {
+     "name": "help desk",
+     "weight": 0.3,
+     "evidence": {
+      "resumeatlas": "in 30% of 183 training resumes"
+     }
+    },
+    {
+     "name": "networking",
+     "weight": 0.28,
+     "evidence": {
+      "resumeatlas": "in 28% of 183 training resumes"
+     }
+    }
+   ]
+  },
+  "Java Developer": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "15-1252.00",
+   "key_skills": [
+    {
+     "name": "java",
+     "weight": 1.49,
+     "evidence": {
+      "resumeatlas": "in 99% of 186 training resumes",
+      "onet": "hot: oracle java"
+     }
+    },
+    {
+     "name": "javascript",
+     "weight": 1.26,
+     "evidence": {
+      "resumeatlas": "in 76% of 186 training resumes",
+      "onet": "hot: javascript"
+     }
+    },
+    {
+     "name": "junit",
+     "weight": 1.03,
+     "evidence": {
+      "resumeatlas": "in 53% of 186 training resumes",
+      "onet": "hot: junit"
+     }
+    },
+    {
+     "name": "spring",
+     "weight": 0.74,
+     "evidence": {
+      "resumeatlas": "in 74% of 186 training resumes"
+     }
+    },
+    {
+     "name": "sql",
+     "weight": 0.67,
+     "evidence": {
+      "resumeatlas": "in 67% of 186 training resumes"
+     }
+    },
+    {
+     "name": "hibernate",
+     "weight": 0.6,
+     "evidence": {
+      "resumeatlas": "in 60% of 186 training resumes"
+     }
+    },
+    {
+     "name": "j2ee",
+     "weight": 0.51,
+     "evidence": {
+      "resumeatlas": "in 51% of 186 training resumes"
+     }
+    },
+    {
+     "name": "rest",
+     "weight": 0.47,
+     "evidence": {
+      "resumeatlas": "in 47% of 186 training resumes"
+     }
+    }
+   ]
+  },
+  "Mechanical Engineer": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "17-2141.00",
+   "key_skills": [
+    {
+     "name": "solidworks",
+     "weight": 0.95,
+     "evidence": {
+      "resumeatlas": "in 45% of 238 training resumes",
+      "onet": "hot: dassault systemes solidworks"
+     }
+    },
+    {
+     "name": "autocad",
+     "weight": 0.92,
+     "evidence": {
+      "resumeatlas": "in 42% of 238 training resumes",
+      "onet": "hot: autodesk autocad"
+     }
+    },
+    {
+     "name": "matlab",
+     "weight": 0.73,
+     "evidence": {
+      "resumeatlas": "in 23% of 238 training resumes",
+      "onet": "hot: the mathworks matlab"
+     }
+    },
+    {
+     "name": "manufacturing",
+     "weight": 0.6,
+     "evidence": {
+      "resumeatlas": "in 60% of 238 training resumes"
+     }
+    },
+    {
+     "name": "cad",
+     "weight": 0.41,
+     "evidence": {
+      "resumeatlas": "in 41% of 238 training resumes"
+     }
+    },
+    {
+     "name": "mechanical design",
+     "weight": 0.31,
+     "evidence": {
+      "resumeatlas": "in 31% of 238 training resumes"
+     }
+    },
+    {
+     "name": "fea",
+     "weight": 0.18,
+     "evidence": {
+      "resumeatlas": "in 18% of 238 training resumes"
+     }
+    },
+    {
+     "name": "ansys",
+     "weight": 0.18,
+     "evidence": {
+      "resumeatlas": "in 18% of 238 training resumes"
+     }
+    }
+   ]
+  },
+  "Network Security Engineer": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "15-1212.00",
+   "key_skills": [
+    {
+     "name": "cisco",
+     "weight": 0.67,
+     "evidence": {
+      "resumeatlas": "in 67% of 218 training resumes"
+     }
+    },
+    {
+     "name": "network security",
+     "weight": 0.65,
+     "evidence": {
+      "resumeatlas": "in 65% of 218 training resumes"
+     }
+    },
+    {
+     "name": "firewall",
+     "weight": 0.49,
+     "evidence": {
+      "resumeatlas": "in 49% of 218 training resumes"
+     }
+    },
+    {
+     "name": "lan",
+     "weight": 0.43,
+     "evidence": {
+      "resumeatlas": "in 43% of 218 training resumes"
+     }
+    },
+    {
+     "name": "routing",
+     "weight": 0.42,
+     "evidence": {
+      "resumeatlas": "in 42% of 218 training resumes"
+     }
+    },
+    {
+     "name": "vpn",
+     "weight": 0.4,
+     "evidence": {
+      "resumeatlas": "in 40% of 218 training resumes"
+     }
+    },
+    {
+     "name": "switching",
+     "weight": 0.35,
+     "evidence": {
+      "resumeatlas": "in 35% of 218 training resumes"
+     }
+    },
+    {
+     "name": "tcp/ip",
+     "weight": 0.33,
+     "evidence": {
+      "resumeatlas": "in 33% of 218 training resumes"
+     }
+    }
+   ]
+  },
+  "Operations Manager": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "11-1021.00",
+   "key_skills": [
+    {
+     "name": "operations",
+     "weight": 0.99,
+     "evidence": {
+      "resumeatlas": "in 99% of 236 training resumes"
+     }
+    },
+    {
+     "name": "quality",
+     "weight": 0.65,
+     "evidence": {
+      "resumeatlas": "in 65% of 236 training resumes"
+     }
+    },
+    {
+     "name": "leadership",
+     "weight": 0.61,
+     "evidence": {
+      "resumeatlas": "in 61% of 236 training resumes"
+     }
+    },
+    {
+     "name": "inventory",
+     "weight": 0.6,
+     "evidence": {
+      "resumeatlas": "in 60% of 236 training resumes"
+     }
+    },
+    {
+     "name": "safety",
+     "weight": 0.53,
+     "evidence": {
+      "resumeatlas": "in 53% of 236 training resumes"
+     }
+    },
+    {
+     "name": "scheduling",
+     "weight": 0.43,
+     "evidence": {
+      "resumeatlas": "in 43% of 236 training resumes"
+     }
+    },
+    {
+     "name": "logistics",
+     "weight": 0.42,
+     "evidence": {
+      "resumeatlas": "in 42% of 236 training resumes"
+     }
+    },
+    {
+     "name": "process improvement",
+     "weight": 0.25,
+     "evidence": {
+      "resumeatlas": "in 25% of 236 training resumes"
+     }
+    }
+   ]
+  },
+  "PMO": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "13-1082.00",
+   "key_skills": [
+    {
+     "name": "pmo",
+     "weight": 0.94,
+     "evidence": {
+      "resumeatlas": "in 94% of 167 training resumes"
+     }
+    },
+    {
+     "name": "project management",
+     "weight": 0.85,
+     "evidence": {
+      "resumeatlas": "in 85% of 167 training resumes"
+     }
+    },
+    {
+     "name": "reporting",
+     "weight": 0.54,
+     "evidence": {
+      "resumeatlas": "in 54% of 167 training resumes"
+     }
+    },
+    {
+     "name": "stakeholders",
+     "weight": 0.5,
+     "evidence": {
+      "resumeatlas": "in 50% of 167 training resumes"
+     }
+    },
+    {
+     "name": "agile",
+     "weight": 0.41,
+     "evidence": {
+      "resumeatlas": "in 41% of 167 training resumes"
+     }
+    },
+    {
+     "name": "portfolio",
+     "weight": 0.38,
+     "evidence": {
+      "resumeatlas": "in 38% of 167 training resumes"
+     }
+    },
+    {
+     "name": "governance",
+     "weight": 0.33,
+     "evidence": {
+      "resumeatlas": "in 33% of 167 training resumes"
+     }
+    },
+    {
+     "name": "scrum",
+     "weight": 0.27,
+     "evidence": {
+      "resumeatlas": "in 27% of 167 training resumes"
+     }
+    }
+   ]
+  },
+  "Public Relations": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "27-3031.00",
+   "key_skills": [
+    {
+     "name": "public relations",
+     "weight": 0.87,
+     "evidence": {
+      "resumeatlas": "in 87% of 210 training resumes"
+     }
+    },
+    {
+     "name": "communications",
+     "weight": 0.72,
+     "evidence": {
+      "resumeatlas": "in 72% of 210 training resumes"
+     }
+    },
+    {
+     "name": "marketing",
+     "weight": 0.69,
+     "evidence": {
+      "resumeatlas": "in 69% of 210 training resumes"
+     }
+    },
+    {
+     "name": "social media",
+     "weight": 0.66,
+     "evidence": {
+      "resumeatlas": "in 66% of 210 training resumes"
+     }
+    },
+    {
+     "name": "press releases",
+     "weight": 0.41,
+     "evidence": {
+      "resumeatlas": "in 41% of 210 training resumes"
+     }
+    },
+    {
+     "name": "writing",
+     "weight": 0.41,
+     "evidence": {
+      "resumeatlas": "in 41% of 210 training resumes"
+     }
+    },
+    {
+     "name": "media relations",
+     "weight": 0.39,
+     "evidence": {
+      "resumeatlas": "in 39% of 210 training resumes"
+     }
+    },
+    {
+     "name": "editing",
+     "weight": 0.16,
+     "evidence": {
+      "resumeatlas": "in 16% of 210 training resumes"
+     }
+    }
+   ]
+  },
+  "Python Developer": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "15-1252.00",
+   "key_skills": [
+    {
+     "name": "python",
+     "weight": 1.44,
+     "evidence": {
+      "resumeatlas": "in 94% of 106 training resumes",
+      "onet": "hot: python"
+     }
+    },
+    {
+     "name": "django",
+     "weight": 1.08,
+     "evidence": {
+      "resumeatlas": "in 58% of 106 training resumes",
+      "onet": "hot: django"
+     }
+    },
+    {
+     "name": "javascript",
+     "weight": 1.07,
+     "evidence": {
+      "resumeatlas": "in 57% of 106 training resumes",
+      "onet": "hot: javascript"
+     }
+    },
+    {
+     "name": "git",
+     "weight": 0.89,
+     "evidence": {
+      "resumeatlas": "in 39% of 106 training resumes",
+      "onet": "hot: git"
+     }
+    },
+    {
+     "name": "linux",
+     "weight": 0.88,
+     "evidence": {
+      "resumeatlas": "in 38% of 106 training resumes",
+      "onet": "hot: linux"
+     }
+    },
+    {
+     "name": "sql",
+     "weight": 0.63,
+     "evidence": {
+      "resumeatlas": "in 63% of 106 training resumes"
+     }
+    },
+    {
+     "name": "aws",
+     "weight": 0.42,
+     "evidence": {
+      "resumeatlas": "in 42% of 106 training resumes"
+     }
+    },
+    {
+     "name": "flask",
+     "weight": 0.34,
+     "evidence": {
+      "resumeatlas": "in 34% of 106 training resumes"
+     }
+    }
+   ]
+  },
+  "React Developer": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "15-1254.00",
+   "key_skills": [
+    {
+     "name": "javascript",
+     "weight": 1.21,
+     "evidence": {
+      "resumeatlas": "in 71% of 72 training resumes",
+      "onet": "hot: javascript"
+     }
+    },
+    {
+     "name": "react",
+     "weight": 1.08,
+     "evidence": {
+      "resumeatlas": "in 58% of 72 training resumes",
+      "onet": "hot: react"
+     }
+    },
+    {
+     "name": "git",
+     "weight": 0.9,
+     "evidence": {
+      "resumeatlas": "in 40% of 72 training resumes",
+      "onet": "hot: git"
+     }
+    },
+    {
+     "name": "node.js",
+     "weight": 0.86,
+     "evidence": {
+      "resumeatlas": "in 36% of 72 training resumes",
+      "onet": "hot: node.js"
+     }
+    },
+    {
+     "name": "html",
+     "weight": 0.54,
+     "evidence": {
+      "resumeatlas": "in 54% of 72 training resumes"
+     }
+    },
+    {
+     "name": "css",
+     "weight": 0.51,
+     "evidence": {
+      "resumeatlas": "in 51% of 72 training resumes"
+     }
+    },
+    {
+     "name": "redux",
+     "weight": 0.39,
+     "evidence": {
+      "resumeatlas": "in 39% of 72 training resumes"
+     }
+    },
+    {
+     "name": "rest",
+     "weight": 0.38,
+     "evidence": {
+      "resumeatlas": "in 38% of 72 training resumes"
+     }
+    }
+   ]
+  },
+  "SAP Developer": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "15-1252.00",
+   "key_skills": [
+    {
+     "name": "sap",
+     "weight": 1.0,
+     "evidence": {
+      "resumeatlas": "in 100% of 204 training resumes"
+     }
+    },
+    {
+     "name": "abap",
+     "weight": 0.41,
+     "evidence": {
+      "resumeatlas": "in 41% of 204 training resumes"
+     }
+    },
+    {
+     "name": "netweaver",
+     "weight": 0.35,
+     "evidence": {
+      "resumeatlas": "in 10% of 204 training resumes",
+      "onet": "listed: sap netweaver"
+     }
+    },
+    {
+     "name": "hana",
+     "weight": 0.29,
+     "evidence": {
+      "resumeatlas": "in 29% of 204 training resumes"
+     }
+    },
+    {
+     "name": "fiori",
+     "weight": 0.15,
+     "evidence": {
+      "resumeatlas": "in 15% of 204 training resumes"
+     }
+    },
+    {
+     "name": "sap sd",
+     "weight": 0.13,
+     "evidence": {
+      "resumeatlas": "in 13% of 204 training resumes"
+     }
+    },
+    {
+     "name": "alv",
+     "weight": 0.1,
+     "evidence": {
+      "resumeatlas": "in 10% of 204 training resumes"
+     }
+    },
+    {
+     "name": "bapi",
+     "weight": 0.07,
+     "evidence": {
+      "resumeatlas": "in 7% of 204 training resumes"
+     }
+    }
+   ]
+  },
+  "SQL Developer": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "15-1242.00",
+   "key_skills": [
+    {
+     "name": "sql server",
+     "weight": 1.35,
+     "evidence": {
+      "resumeatlas": "in 85% of 162 training resumes",
+      "onet": "hot: microsoft sql server"
+     }
+    },
+    {
+     "name": "sql",
+     "weight": 0.99,
+     "evidence": {
+      "resumeatlas": "in 99% of 162 training resumes"
+     }
+    },
+    {
+     "name": "stored procedures",
+     "weight": 0.73,
+     "evidence": {
+      "resumeatlas": "in 73% of 162 training resumes"
+     }
+    },
+    {
+     "name": "t-sql",
+     "weight": 0.62,
+     "evidence": {
+      "resumeatlas": "in 62% of 162 training resumes"
+     }
+    },
+    {
+     "name": "ssis",
+     "weight": 0.62,
+     "evidence": {
+      "resumeatlas": "in 62% of 162 training resumes"
+     }
+    },
+    {
+     "name": "indexes",
+     "weight": 0.59,
+     "evidence": {
+      "resumeatlas": "in 59% of 162 training resumes"
+     }
+    },
+    {
+     "name": "etl",
+     "weight": 0.52,
+     "evidence": {
+      "resumeatlas": "in 52% of 162 training resumes"
+     }
+    },
+    {
+     "name": "ssrs",
+     "weight": 0.51,
+     "evidence": {
+      "resumeatlas": "in 51% of 162 training resumes"
+     }
+    }
+   ]
+  },
+  "Sales": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "41-4012.00",
+   "key_skills": [
+    {
+     "name": "sales",
+     "weight": 1.0,
+     "evidence": {
+      "resumeatlas": "in 100% of 263 training resumes"
+     }
+    },
+    {
+     "name": "customer service",
+     "weight": 0.6,
+     "evidence": {
+      "resumeatlas": "in 60% of 263 training resumes"
+     }
+    },
+    {
+     "name": "communication",
+     "weight": 0.49,
+     "evidence": {
+      "resumeatlas": "in 49% of 263 training resumes"
+     }
+    },
+    {
+     "name": "marketing",
+     "weight": 0.47,
+     "evidence": {
+      "resumeatlas": "in 47% of 263 training resumes"
+     }
+    },
+    {
+     "name": "retail",
+     "weight": 0.34,
+     "evidence": {
+      "resumeatlas": "in 34% of 263 training resumes"
+     }
+    },
+    {
+     "name": "targets",
+     "weight": 0.29,
+     "evidence": {
+      "resumeatlas": "in 29% of 263 training resumes"
+     }
+    },
+    {
+     "name": "negotiation",
+     "weight": 0.13,
+     "evidence": {
+      "resumeatlas": "in 13% of 263 training resumes"
+     }
+    },
+    {
+     "name": "account management",
+     "weight": 0.13,
+     "evidence": {
+      "resumeatlas": "in 13% of 263 training resumes"
+     }
+    }
+   ]
+  },
+  "Testing": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "15-1253.00",
+   "key_skills": [
+    {
+     "name": "jira",
+     "weight": 0.65,
+     "evidence": {
+      "resumeatlas": "in 15% of 229 training resumes",
+      "onet": "hot: atlassian jira"
+     }
+    },
+    {
+     "name": "selenium",
+     "weight": 0.64,
+     "evidence": {
+      "resumeatlas": "in 14% of 229 training resumes",
+      "onet": "hot: selenium"
+     }
+    },
+    {
+     "name": "test cases",
+     "weight": 0.31,
+     "evidence": {
+      "resumeatlas": "in 31% of 229 training resumes"
+     }
+    },
+    {
+     "name": "automation",
+     "weight": 0.28,
+     "evidence": {
+      "resumeatlas": "in 28% of 229 training resumes"
+     }
+    },
+    {
+     "name": "test plans",
+     "weight": 0.23,
+     "evidence": {
+      "resumeatlas": "in 23% of 229 training resumes"
+     }
+    },
+    {
+     "name": "sql",
+     "weight": 0.17,
+     "evidence": {
+      "resumeatlas": "in 17% of 229 training resumes"
+     }
+    },
+    {
+     "name": "agile",
+     "weight": 0.17,
+     "evidence": {
+      "resumeatlas": "in 17% of 229 training resumes"
+     }
+    },
+    {
+     "name": "regression testing",
+     "weight": 0.14,
+     "evidence": {
+      "resumeatlas": "in 14% of 229 training resumes"
+     }
+    }
+   ]
+  },
+  "Web Designing": {
+   "new": false,
+   "parents": [],
+   "onet_soc": "15-1255.00",
+   "key_skills": [
+    {
+     "name": "javascript",
+     "weight": 1.04,
+     "evidence": {
+      "resumeatlas": "in 54% of 190 training resumes",
+      "onet": "hot: javascript"
+     }
+    },
+    {
+     "name": "photoshop",
+     "weight": 0.84,
+     "evidence": {
+      "resumeatlas": "in 34% of 190 training resumes",
+      "onet": "hot: adobe photoshop"
+     }
+    },
+    {
+     "name": "jquery",
+     "weight": 0.81,
+     "evidence": {
+      "resumeatlas": "in 31% of 190 training resumes",
+      "onet": "hot: jquery"
+     }
+    },
+    {
+     "name": "html",
+     "weight": 0.5,
+     "evidence": {
+      "resumeatlas": "in 50% of 190 training resumes"
+     }
+    },
+    {
+     "name": "css",
+     "weight": 0.49,
+     "evidence": {
+      "resumeatlas": "in 49% of 190 training resumes"
+     }
+    },
+    {
+     "name": "wordpress",
+     "weight": 0.3,
+     "evidence": {
+      "resumeatlas": "in 30% of 190 training resumes"
+     }
+    },
+    {
+     "name": "responsive",
+     "weight": 0.24,
+     "evidence": {
+      "resumeatlas": "in 24% of 190 training resumes"
+     }
+    },
+    {
+     "name": "seo",
+     "weight": 0.19,
+     "evidence": {
+      "resumeatlas": "in 19% of 190 training resumes"
+     }
+    }
+   ]
+  },
+  "Software Development Engineer (Fresher)": {
+   "new": true,
+   "parents": [
+    "Java Developer",
+    "Python Developer",
+    "DotNet Developer",
+    "React Developer"
+   ],
+   "onet_soc": "15-1252.00",
+   "esco_occupation": "http://data.europa.eu/esco/occupation/f2b15a0e-e65a-438a-affb-29b9d50b77d1",
+   "key_skills": [
+    {
+     "name": "git",
+     "weight": 1.5,
+     "evidence": {
+      "esco": "essential: tools for software configuration management",
+      "onet": "hot: git"
+     }
+    },
+    {
+     "name": "java",
+     "weight": 1.1,
+     "evidence": {
+      "esco": "optional: Java (computer programming)",
+      "onet": "hot: oracle java"
+     }
+    },
+    {
+     "name": "python",
+     "weight": 1.1,
+     "evidence": {
+      "esco": "optional: Python (computer programming)",
+      "onet": "hot: python"
+     }
+    },
+    {
+     "name": "c++",
+     "weight": 1.1,
+     "evidence": {
+      "esco": "optional: C++",
+      "onet": "hot: c++"
+     }
+    },
+    {
+     "name": "javascript",
+     "weight": 1.1,
+     "evidence": {
+      "esco": "optional: JavaScript",
+      "onet": "hot: javascript"
+     }
+    },
+    {
+     "name": "debugging",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: debug software"
+     }
+    },
+    {
+     "name": "data structures and algorithms",
+     "weight": 1.0,
+     "evidence": {
+      "india-hiring": "DSA rounds (online tests and interviews) are standard in Indian fresher software hiring"
+     }
+    },
+    {
+     "name": "sql",
+     "weight": 0.6,
+     "evidence": {
+      "esco": "optional: SQL"
+     }
+    },
+    {
+     "name": "object-oriented programming",
+     "weight": 0.6,
+     "evidence": {
+      "esco": "optional: use object-oriented programming"
+     }
+    },
+    {
+     "name": "internship",
+     "weight": 0.5,
+     "evidence": {
+      "india": "common on Indian fresher resumes"
+     }
+    },
+    {
+     "name": "b.e./b.tech",
+     "weight": 0.5,
+     "evidence": {
+      "india": "common on Indian fresher resumes"
+     }
+    }
+   ]
+  },
+  "Data Analyst": {
+   "new": true,
+   "parents": [
+    "Data Science",
+    "Business Analyst",
+    "SQL Developer"
+   ],
+   "onet_soc": "15-2051.01",
+   "esco_occupation": "http://data.europa.eu/esco/occupation/d3edb8f8-3a06-47a0-8fb9-9b212c006aa2",
+   "key_skills": [
+    {
+     "name": "power bi",
+     "weight": 1.5,
+     "evidence": {
+      "esco": "essential: data visualisation software",
+      "onet": "hot: microsoft power bi"
+     }
+    },
+    {
+     "name": "tableau",
+     "weight": 1.5,
+     "evidence": {
+      "esco": "essential: data visualisation software",
+      "onet": "hot: tableau"
+     }
+    },
+    {
+     "name": "excel",
+     "weight": 1.1,
+     "evidence": {
+      "esco": "optional: use spreadsheets software",
+      "onet": "hot: microsoft excel"
+     }
+    },
+    {
+     "name": "sql",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: query languages"
+     }
+    },
+    {
+     "name": "statistics",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: statistics"
+     }
+    },
+    {
+     "name": "data cleaning",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: perform data cleansing"
+     }
+    },
+    {
+     "name": "data visualization",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: visual presentation techniques"
+     }
+    },
+    {
+     "name": "business intelligence",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: business intelligence"
+     }
+    },
+    {
+     "name": "dashboards",
+     "weight": 0.6,
+     "evidence": {
+      "esco": "optional: deliver visual presentation of data"
+     }
+    },
+    {
+     "name": "python",
+     "weight": 0.5,
+     "evidence": {
+      "onet": "hot: python"
+     }
+    },
+    {
+     "name": "internship",
+     "weight": 0.5,
+     "evidence": {
+      "india": "common on Indian fresher resumes"
+     }
+    }
+   ]
+  },
+  "QA/Test Engineer": {
+   "new": true,
+   "parents": [
+    "Testing"
+   ],
+   "onet_soc": "15-1253.00",
+   "esco_occupation": "http://data.europa.eu/esco/occupation/106f79e4-6264-45f1-9e7a-297435cd684b",
+   "key_skills": [
+    {
+     "name": "selenium",
+     "weight": 1.1,
+     "evidence": {
+      "esco": "optional: tools for ICT test automation",
+      "onet": "hot: selenium"
+     }
+    },
+    {
+     "name": "java",
+     "weight": 1.1,
+     "evidence": {
+      "esco": "optional: Java (computer programming)",
+      "onet": "hot: oracle java"
+     }
+    },
+    {
+     "name": "python",
+     "weight": 1.1,
+     "evidence": {
+      "esco": "optional: Python (computer programming)",
+      "onet": "hot: python"
+     }
+    },
+    {
+     "name": "manual testing",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: execute software tests"
+     }
+    },
+    {
+     "name": "test cases",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: provide software testing documentation"
+     }
+    },
+    {
+     "name": "bug reporting",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: report test findings"
+     }
+    },
+    {
+     "name": "regression testing",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: levels of software testing"
+     }
+    },
+    {
+     "name": "unit testing",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: perform software unit testing"
+     }
+    },
+    {
+     "name": "sql",
+     "weight": 0.6,
+     "evidence": {
+      "esco": "optional: query languages"
+     }
+    },
+    {
+     "name": "test plans",
+     "weight": 0.6,
+     "evidence": {
+      "esco": "optional: plan software testing"
+     }
+    },
+    {
+     "name": "jira",
+     "weight": 0.5,
+     "evidence": {
+      "onet": "hot: atlassian jira"
+     }
+    }
+   ]
+  },
+  "Technical Support Engineer": {
+   "new": true,
+   "parents": [
+    "Information Technology",
+    "Network Security Engineer",
+    "BPO"
+   ],
+   "onet_soc": "15-1232.00",
+   "esco_occupation": "http://data.europa.eu/esco/occupation/aaeec9a7-dc57-4485-890c-86b3eef735f9",
+   "key_skills": [
+    {
+     "name": "ticketing",
+     "weight": 1.5,
+     "evidence": {
+      "esco": "essential: use ICT ticketing system",
+      "onet": "hot: servicenow"
+     }
+    },
+    {
+     "name": "technical support",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: provide ICT support"
+     }
+    },
+    {
+     "name": "troubleshooting",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: solve ICT system problems"
+     }
+    },
+    {
+     "name": "hardware",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: use ICT hardware"
+     }
+    },
+    {
+     "name": "customer service",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: assist customers"
+     }
+    },
+    {
+     "name": "communication",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: communicate with customers"
+     }
+    },
+    {
+     "name": "help desk",
+     "weight": 0.6,
+     "evidence": {
+      "esco": "optional: handle helpdesk problems"
+     }
+    },
+    {
+     "name": "networking",
+     "weight": 0.6,
+     "evidence": {
+      "esco": "optional: ICT infrastructure"
+     }
+    },
+    {
+     "name": "vpn",
+     "weight": 0.6,
+     "evidence": {
+      "esco": "optional: implement a virtual private network"
+     }
+    },
+    {
+     "name": "windows",
+     "weight": 0.5,
+     "evidence": {
+      "onet": "hot: microsoft windows"
+     }
+    },
+    {
+     "name": "active directory",
+     "weight": 0.5,
+     "evidence": {
+      "onet": "hot: microsoft active directory"
+     }
+    }
+   ]
+  },
+  "Graduate Engineer Trainee (Mechanical)": {
+   "new": true,
+   "parents": [
+    "Mechanical Engineer"
+   ],
+   "onet_soc": "17-2141.00",
+   "esco_occupation": "http://data.europa.eu/esco/occupation/579254cf-6d69-4889-9000-9c79dc568644",
+   "key_skills": [
+    {
+     "name": "autocad",
+     "weight": 1.5,
+     "evidence": {
+      "esco": "essential: use technical drawing software",
+      "onet": "hot: autodesk autocad"
+     }
+    },
+    {
+     "name": "solidworks",
+     "weight": 1.5,
+     "evidence": {
+      "esco": "essential: 3D modelling",
+      "onet": "hot: dassault systemes solidworks"
+     }
+    },
+    {
+     "name": "mechanical engineering",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: mechanical engineering"
+     }
+    },
+    {
+     "name": "engineering drawing",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: technical drawings"
+     }
+    },
+    {
+     "name": "fluid mechanics",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: fluid mechanics"
+     }
+    },
+    {
+     "name": "strength of materials",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: material mechanics"
+     }
+    },
+    {
+     "name": "ansys",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: computer simulation"
+     }
+    },
+    {
+     "name": "creo",
+     "weight": 0.5,
+     "evidence": {
+      "onet": "hot: ptc creo parametric"
+     }
+    },
+    {
+     "name": "matlab",
+     "weight": 0.5,
+     "evidence": {
+      "onet": "hot: the mathworks matlab"
+     }
+    },
+    {
+     "name": "internship",
+     "weight": 0.5,
+     "evidence": {
+      "india": "common on Indian fresher resumes"
+     }
+    },
+    {
+     "name": "b.e./b.tech",
+     "weight": 0.5,
+     "evidence": {
+      "india": "common on Indian fresher resumes"
+     }
+    }
+   ]
+  },
+  "Graduate Engineer Trainee (Electrical)": {
+   "new": true,
+   "parents": [
+    "Electrical Engineering"
+   ],
+   "onet_soc": "17-2071.00",
+   "esco_occupation": "http://data.europa.eu/esco/occupation/86ca306c-ab99-420a-9e2a-aa73c5c4de22",
+   "key_skills": [
+    {
+     "name": "autocad",
+     "weight": 1.5,
+     "evidence": {
+      "esco": "essential: use technical drawing software",
+      "onet": "hot: autodesk autocad"
+     }
+    },
+    {
+     "name": "electrical engineering",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: electrical engineering"
+     }
+    },
+    {
+     "name": "circuit analysis",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: interpret circuit diagrams"
+     }
+    },
+    {
+     "name": "power systems",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: design electric power systems"
+     }
+    },
+    {
+     "name": "electrical wiring",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: electrical wiring diagrams"
+     }
+    },
+    {
+     "name": "electrical testing",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: electrical testing methods"
+     }
+    },
+    {
+     "name": "electrical safety",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: ensure safety in electrical power operations"
+     }
+    },
+    {
+     "name": "electrical machines",
+     "weight": 0.6,
+     "evidence": {
+      "esco": "optional: electrical machines"
+     }
+    },
+    {
+     "name": "electronics",
+     "weight": 0.6,
+     "evidence": {
+      "esco": "optional: electronics"
+     }
+    },
+    {
+     "name": "matlab",
+     "weight": 0.5,
+     "evidence": {
+      "onet": "hot: the mathworks matlab"
+     }
+    },
+    {
+     "name": "internship",
+     "weight": 0.5,
+     "evidence": {
+      "india": "common on Indian fresher resumes"
+     }
+    },
+    {
+     "name": "b.e./b.tech",
+     "weight": 0.5,
+     "evidence": {
+      "india": "common on Indian fresher resumes"
+     }
+    }
+   ]
+  },
+  "Graduate Engineer Trainee (Civil)": {
+   "new": true,
+   "parents": [
+    "Civil Engineer"
+   ],
+   "onet_soc": "17-2051.00",
+   "esco_occupation": "http://data.europa.eu/esco/occupation/d7d986e1-7333-431b-9719-0c5c6939e360",
+   "key_skills": [
+    {
+     "name": "autocad",
+     "weight": 1.5,
+     "evidence": {
+      "esco": "essential: create CAD drawings",
+      "onet": "hot: autodesk autocad"
+     }
+    },
+    {
+     "name": "civil engineering",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: civil engineering"
+     }
+    },
+    {
+     "name": "quantity surveying",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: quantity surveying"
+     }
+    },
+    {
+     "name": "construction methods",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: construction methods"
+     }
+    },
+    {
+     "name": "site supervision",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: oversee construction project"
+     }
+    },
+    {
+     "name": "project management",
+     "weight": 1.0,
+     "evidence": {
+      "esco": "essential: project management"
+     }
+    },
+    {
+     "name": "surveying",
+     "weight": 0.6,
+     "evidence": {
+      "esco": "optional: surveying"
+     }
+    },
+    {
+     "name": "revit",
+     "weight": 0.5,
+     "evidence": {
+      "onet": "hot: autodesk revit"
+     }
+    },
+    {
+     "name": "primavera",
+     "weight": 0.5,
+     "evidence": {
+      "onet": "hot: oracle primavera enterprise project portfolio management"
+     }
+    },
+    {
+     "name": "staad pro",
+     "weight": 0.5,
+     "evidence": {
+      "india": "common on Indian fresher resumes"
+     }
+    },
+    {
+     "name": "internship",
+     "weight": 0.5,
+     "evidence": {
+      "india": "common on Indian fresher resumes"
+     }
+    },
+    {
+     "name": "b.e./b.tech",
+     "weight": 0.5,
+     "evidence": {
+      "india": "common on Indian fresher resumes"
+     }
+    }
+   ]
+  }
+ }
+}

@@ -134,11 +134,19 @@ def build_report_pdf(report):
     careers = report["top_careers"]
     best = careers[0]
     pdf.heading("Career matches")
-    pdf.paragraph(f"Recommended career path: {best['label']} ({best['percent']}% confidence)", size=10.5, color=TEXT, style="B")
+    pdf.paragraph(f"Recommended career path: {best['label']} ({best['percent']}% confidence, {best['band']} match)", size=10.5, color=TEXT, style="B")
     pdf.ln(1)
     for i, career in enumerate(careers):
         pdf.bar_row(f"{i + 1}. {career['label']}", f"{career['percent']}%", career["percent"] / 100,
                     INDIGO if i == 0 else (165, 180, 252))
+        because = career.get("matched_because")
+        pdf.paragraph(f"{career['band'].capitalize()} match" + (f". Matched because: {', '.join(because)}" if because else ""),
+                      size=8.5)
+    if report.get("fresher_roles"):
+        pdf.ln(1)
+        pdf.paragraph("Fresher roles that fit you: " + "; ".join(
+            f"{role['label']} (matched because: {', '.join(role['matched_because'])})"
+            for role in report["fresher_roles"]), size=9)
     if report.get("why_terms"):
         pdf.ln(1)
         pdf.paragraph("Why this match - words that pushed it most: "

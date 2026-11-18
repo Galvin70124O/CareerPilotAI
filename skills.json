@@ -166,5 +166,33 @@
   "Web Designing": {
     "skills": ["html", "javascript", "css", "photoshop", "wordpress", "jquery", "responsive", "seo"],
     "job_keywords": ["web designer", "web developer", "wordpress", "webflow", "ui", "frontend"]
+  },
+  "Software Development Engineer (Fresher)": {
+    "skills": ["git", "java", "python", "c++", "javascript", "debugging", "data structures and algorithms", "sql"],
+    "job_keywords": ["software engineer", "software developer", "sde", "junior developer", "associate engineer", "graduate engineer", "backend developer"]
+  },
+  "Data Analyst": {
+    "skills": ["power bi", "tableau", "excel", "sql", "statistics", "data cleaning", "data visualization", "business intelligence"],
+    "job_keywords": ["data analyst", "business intelligence", "bi analyst", "analytics", "reporting analyst", "mis analyst"]
+  },
+  "QA/Test Engineer": {
+    "skills": ["selenium", "java", "python", "manual testing", "test cases", "bug reporting", "regression testing", "unit testing"],
+    "job_keywords": ["qa", "quality assurance", "tester", "test engineer", "sdet", "test automation"]
+  },
+  "Technical Support Engineer": {
+    "skills": ["ticketing", "technical support", "troubleshooting", "hardware", "customer service", "communication", "help desk", "networking"],
+    "job_keywords": ["support engineer", "technical support", "help desk", "helpdesk", "it support", "service desk", "desktop support"]
+  },
+  "Graduate Engineer Trainee (Mechanical)": {
+    "skills": ["autocad", "solidworks", "mechanical engineering", "engineering drawing", "fluid mechanics", "strength of materials", "ansys", "creo"],
+    "job_keywords": ["mechanical engineer", "graduate engineer", "trainee engineer", "design engineer", "production engineer"]
+  },
+  "Graduate Engineer Trainee (Electrical)": {
+    "skills": ["autocad", "electrical engineering", "circuit analysis", "power systems", "electrical wiring", "electrical testing", "electrical safety", "electrical machines"],
+    "job_keywords": ["electrical engineer", "graduate engineer", "trainee engineer", "electrical design", "maintenance engineer"]
+  },
+  "Graduate Engineer Trainee (Civil)": {
+    "skills": ["autocad", "civil engineering", "quantity surveying", "construction methods", "site supervision", "project management", "surveying", "revit"],
+    "job_keywords": ["civil engineer", "site engineer", "graduate engineer", "trainee engineer", "structural engineer"]
   }
 }

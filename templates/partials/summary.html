@@ -13,6 +13,7 @@
     <p class="stat-label">Confidence</p>
     <p class="stat-value stat-accent">{{ best.percent }}%</p>
     <progress class="bar bar-thin" max="100" value="{{ best.percent }}" aria-label="Confidence {{ best.percent }}%">{{ best.percent }}%</progress>
+    <p class="stat-note">{{ best.band|capitalize }} match</p>
   </div>
   <div class="stat">
     <p class="stat-label">Resume score</p>

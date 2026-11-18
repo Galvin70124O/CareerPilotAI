@@ -1846,5 +1846,313 @@
         "step": "Build a portfolio of 3+ sites"
       }
     ]
+  },
+  "Software Development Engineer (Fresher)": {
+    "Beginner": [
+      {
+        "skill": "python",
+        "step": "Learn one language well (Python is the easiest start)"
+      },
+      {
+        "skill": "object-oriented programming",
+        "step": "Learn OOP: classes, objects, inheritance"
+      },
+      {
+        "skill": "git",
+        "step": "Put your code on GitHub using Git"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "data structures and algorithms",
+        "step": "Practise DSA daily: arrays, strings, trees, graphs"
+      },
+      {
+        "skill": "java",
+        "step": "Learn Java (or C++) for coding interviews"
+      },
+      {
+        "skill": "sql",
+        "step": "Learn SQL: joins, group by, indexes"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "javascript",
+        "step": "Build and deploy a small web project with JavaScript"
+      },
+      {
+        "skill": "c++",
+        "step": "Try timed contests (C++ or your main language)"
+      },
+      {
+        "skill": "debugging",
+        "step": "Debug and test your projects; write a clear README"
+      }
+    ]
+  },
+  "Data Analyst": {
+    "Beginner": [
+      {
+        "skill": "excel",
+        "step": "Learn Excel: formulas, pivot tables, XLOOKUP"
+      },
+      {
+        "skill": "statistics",
+        "step": "Learn basic statistics: averages, spread, correlation"
+      },
+      {
+        "skill": "sql",
+        "step": "Learn SQL to pull data: joins, group by, window functions"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "data cleaning",
+        "step": "Clean messy data: blanks, duplicates, wrong types"
+      },
+      {
+        "skill": "power bi",
+        "step": "Build a report in Power BI"
+      },
+      {
+        "skill": "data visualization",
+        "step": "Pick the right chart for each question"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "tableau",
+        "step": "Publish a dashboard on Tableau Public"
+      },
+      {
+        "skill": "dashboards",
+        "step": "Build 2-3 portfolio dashboards from public datasets"
+      },
+      {
+        "skill": "business intelligence",
+        "step": "Turn findings into business recommendations and KPIs"
+      }
+    ]
+  },
+  "QA/Test Engineer": {
+    "Beginner": [
+      {
+        "skill": "manual testing",
+        "step": "Learn manual testing and the testing life cycle (STLC)"
+      },
+      {
+        "skill": "test cases",
+        "step": "Write clear test cases with expected results"
+      },
+      {
+        "skill": "bug reporting",
+        "step": "Write bug reports: steps, expected vs actual, screenshots"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "regression testing",
+        "step": "Plan regression testing for every release"
+      },
+      {
+        "skill": "sql",
+        "step": "Use SQL to check the data behind the screens"
+      },
+      {
+        "skill": "java",
+        "step": "Learn Java (or Python) basics for automation"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "selenium",
+        "step": "Automate web tests with Selenium WebDriver"
+      },
+      {
+        "skill": "python",
+        "step": "Script test data and API checks in Python"
+      },
+      {
+        "skill": "unit testing",
+        "step": "Understand unit testing (pytest or JUnit)"
+      }
+    ]
+  },
+  "Technical Support Engineer": {
+    "Beginner": [
+      {
+        "skill": "hardware",
+        "step": "Know PC hardware: assemble, upgrade and repair a desktop"
+      },
+      {
+        "skill": "communication",
+        "step": "Explain technical fixes in simple words"
+      },
+      {
+        "skill": "customer service",
+        "step": "Stay polite and follow up until the issue is solved"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "troubleshooting",
+        "step": "Troubleshoot step by step: Windows, Wi-Fi, printers, email"
+      },
+      {
+        "skill": "networking",
+        "step": "Learn networking basics: IP, DNS, DHCP"
+      },
+      {
+        "skill": "help desk",
+        "step": "Learn how a help desk works: L1/L2, SLAs, escalation"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "ticketing",
+        "step": "Work in a ticketing tool (ServiceNow, Freshdesk or Zendesk)"
+      },
+      {
+        "skill": "technical support",
+        "step": "Get an entry-level IT support certificate"
+      },
+      {
+        "skill": "vpn",
+        "step": "Set up and fix VPN and remote access"
+      }
+    ]
+  },
+  "Graduate Engineer Trainee (Mechanical)": {
+    "Beginner": [
+      {
+        "skill": "engineering drawing",
+        "step": "Read and make engineering drawings (projections, sections)"
+      },
+      {
+        "skill": "strength of materials",
+        "step": "Revise Strength of Materials"
+      },
+      {
+        "skill": "fluid mechanics",
+        "step": "Revise fluid mechanics"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "autocad",
+        "step": "Draft 2D drawings in AutoCAD"
+      },
+      {
+        "skill": "solidworks",
+        "step": "Model parts and assemblies in SolidWorks"
+      },
+      {
+        "skill": "creo",
+        "step": "Learn Creo (used by many Indian manufacturers)"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "ansys",
+        "step": "Run a simple stress or flow simulation in ANSYS"
+      },
+      {
+        "skill": "mechanical engineering",
+        "step": "Apply it in a plant internship or a final-year project"
+      },
+      {
+        "skill": "matlab",
+        "step": "Use MATLAB for engineering calculations and plots"
+      }
+    ]
+  },
+  "Graduate Engineer Trainee (Electrical)": {
+    "Beginner": [
+      {
+        "skill": "circuit analysis",
+        "step": "Revise circuit analysis: KVL, KCL, network theorems"
+      },
+      {
+        "skill": "electronics",
+        "step": "Revise basic electronics"
+      },
+      {
+        "skill": "electrical safety",
+        "step": "Learn electrical safety rules and lockout/tagout"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "electrical machines",
+        "step": "Revise electrical machines: transformers, induction motors"
+      },
+      {
+        "skill": "power systems",
+        "step": "Learn power systems: generation, transmission, protection"
+      },
+      {
+        "skill": "electrical wiring",
+        "step": "Read and draw wiring diagrams"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "autocad",
+        "step": "Draw electrical layouts in AutoCAD"
+      },
+      {
+        "skill": "electrical testing",
+        "step": "Learn testing and commissioning (megger, relay tests)"
+      },
+      {
+        "skill": "electrical engineering",
+        "step": "Apply it in an internship at a utility or plant"
+      }
+    ]
+  },
+  "Graduate Engineer Trainee (Civil)": {
+    "Beginner": [
+      {
+        "skill": "surveying",
+        "step": "Learn surveying with a total station and auto level"
+      },
+      {
+        "skill": "construction methods",
+        "step": "Learn construction materials and methods"
+      },
+      {
+        "skill": "autocad",
+        "step": "Draft plans and sections in AutoCAD"
+      }
+    ],
+    "Intermediate": [
+      {
+        "skill": "quantity surveying",
+        "step": "Estimate quantities and prepare a BOQ"
+      },
+      {
+        "skill": "staad pro",
+        "step": "Analyse a simple frame in STAAD.Pro"
+      },
+      {
+        "skill": "revit",
+        "step": "Model a small building in Revit"
+      }
+    ],
+    "Job-ready": [
+      {
+        "skill": "site supervision",
+        "step": "Learn site supervision: checklists, quality and safety"
+      },
+      {
+        "skill": "project management",
+        "step": "Plan a project schedule (MS Project or Primavera)"
+      },
+      {
+        "skill": "civil engineering",
+        "step": "Apply it in a site internship"
+      }
+    ]
   }
 }
