@@ -168,7 +168,7 @@
     "job_keywords": ["web designer", "web developer", "wordpress", "webflow", "ui", "frontend"]
   },
   "Software Development Engineer (Fresher)": {
-    "skills": ["git", "java", "python", "c++", "javascript", "debugging", "sql", "object-oriented programming"],
+    "skills": ["git", "java", "python", "c++", "javascript", "debugging", "data structures and algorithms", "sql"],
     "job_keywords": ["software engineer", "software developer", "sde", "junior developer", "associate engineer", "graduate engineer", "backend developer"]
   },
   "Data Analyst": {

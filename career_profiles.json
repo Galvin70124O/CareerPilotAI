@@ -1,10 +1,12 @@
 {
  "_note": "Built by data/build_profiles.py - don't edit by hand, change the script and rerun it.",
- "weights": "new careers: ESCO essential 1.0 / optional 0.6 + O*NET hot 0.5 / listed 0.25, else 0.5; existing careers: share of training resumes + the same O*NET bonus",
+ "weights": "new careers: ESCO essential 1.0 / optional 0.6 + O*NET hot 0.5 / listed 0.25, else 0.5 (DSA for SDE: 1.0, india-hiring); existing careers: share of training resumes + the same O*NET bonus",
  "sources": {
   "resumeatlas": "ResumeAtlas (MIT), training split only (train.py: 80%, random_state=42)",
   "esco": "ESCO classification v1.2.1, European Commission, occupation essential/optional skills",
-  "onet": "O*NET 31.0 Database, U.S. Department of Labor/ETA, CC BY 4.0, Software Skills"
+  "onet": "O*NET 31.0 Database, U.S. Department of Labor/ETA, CC BY 4.0, Software Skills",
+  "india": "common on Indian fresher resumes (project list, no external source)",
+  "india-hiring": "Indian fresher hiring practice, weight approved by the project owner"
  },
  "careers": {
   "Accountant": {
@@ -2764,6 +2766,13 @@
      }
     },
     {
+     "name": "data structures and algorithms",
+     "weight": 1.0,
+     "evidence": {
+      "india-hiring": "DSA rounds (online tests and interviews) are standard in Indian fresher software hiring"
+     }
+    },
+    {
      "name": "sql",
      "weight": 0.6,
      "evidence": {
@@ -2775,13 +2784,6 @@
      "weight": 0.6,
      "evidence": {
       "esco": "optional: use object-oriented programming"
-     }
-    },
-    {
-     "name": "data structures and algorithms",
-     "weight": 0.5,
-     "evidence": {
-      "india": "common on Indian fresher resumes"
      }
     },
     {
@@ -2986,7 +2988,8 @@
    "new": true,
    "parents": [
     "Information Technology",
-    "Network Security Engineer"
+    "Network Security Engineer",
+    "BPO"
    ],
    "onet_soc": "15-1232.00",
    "esco_occupation": "http://data.europa.eu/esco/occupation/aaeec9a7-dc57-4485-890c-86b3eef735f9",

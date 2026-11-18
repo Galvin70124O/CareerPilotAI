@@ -52,4 +52,4 @@ def test_existing_profiles_weight_the_same_key_skills_the_app_shows():
 def test_new_career_evidence_comes_from_esco_onet_or_the_india_list():
     for career in NEW_CAREERS:
         for skill in PROFILES[career]["key_skills"]:
-            assert set(skill["evidence"]) <= {"esco", "onet", "india"}, (career, skill["name"])
+            assert set(skill["evidence"]) <= {"esco", "onet", "india", "india-hiring"}, (career, skill["name"])

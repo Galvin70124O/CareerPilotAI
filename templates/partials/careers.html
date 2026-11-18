@@ -11,12 +11,31 @@
       <li class="career-row">
         <div class="career-row-top">
           <span class="career-name"><span class="career-rank">{{ loop.index }}</span>{{ item.label }}</span>
-          <span class="career-percent">{{ item.percent }}%</span>
+          <span class="career-percent">{{ item.percent }}% <span class="career-band">{{ item.band }}</span></span>
         </div>
         <progress class="bar" max="100" value="{{ item.percent }}" aria-label="{{ item.label }}: {{ item.percent }}%">{{ item.percent }}%</progress>
+        {% if item.matched_because %}
+          {# The career's highest-weighted key skills found in the text (features/ranking.py) #}
+          <p class="career-because">Matched because: {{ item.matched_because|join(", ") }}</p>
+        {% endif %}
       </li>
     {% endfor %}
   </ol>
+
+  {% if fresher_roles %}
+    {# New careers (no training resumes) whose parent is above and whose key skills fit better (features/ranking.py) #}
+    <div class="card-section fresher-roles">
+      <h3 class="subhead">Fresher roles that fit you</h3>
+      <ul class="career-list">
+        {% for role in fresher_roles %}
+          <li>
+            <span class="career-name">{{ role.label }}</span>
+            <p class="career-because">Matched because: {{ role.matched_because|join(", ") }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
 
   {% if why_terms %}
     {# The words that pushed the top career most (features/explain.py: TF-IDF value x model weight) #}

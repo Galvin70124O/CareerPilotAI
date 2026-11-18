@@ -10,7 +10,8 @@ How a skill's weight is made (every number can be traced back to its source):
 - New careers (no ResumeAtlas resumes exist for them):
     ESCO: the skill is an ESCO "essential" skill of the career's occupation -> 1.0, "optional" -> 0.6
   + O*NET: the skill is a "hot" or "in demand" technology of the US occupation -> 0.5, listed -> 0.25
-    A skill with neither (India-specific: DSA, internship, B.E./B.Tech, STAAD Pro) gets 0.5.
+    A skill with neither (India-specific: internship, B.E./B.Tech, STAAD Pro) gets 0.5.
+    Exception, approved by the project owner: DSA for SDE (Fresher) gets 1.0, source "india-hiring".
 - The 42 existing careers:
     the share of that career's TRAINING resumes that mention the skill (0 to 1)
   + the same O*NET bonus.
@@ -38,6 +39,12 @@ OUTPUT = os.path.join(PROJECT_DIR, "career_profiles.json")
 ESCO_WEIGHT = {"essential": 1.0, "optional": 0.6}
 ONET_WEIGHT = {"hot": 0.5, "listed": 0.25}
 NO_EVIDENCE_WEIGHT = 0.5
+# Approved by the project owner (2026-11-18): DSA rounds (online tests, interviews) decide most Indian
+# fresher software hiring, so DSA is a full key skill for SDE. Source label: "india-hiring".
+INDIA_HIRING = {
+    ("Software Development Engineer (Fresher)", "data structures and algorithms"):
+        (1.0, "DSA rounds (online tests and interviews) are standard in Indian fresher software hiring"),
+}
 
 # The US O*NET occupation that best matches each career
 ONET_SOC = {
@@ -116,7 +123,7 @@ NEW_CAREERS = {
         ],
     },
     "Technical Support Engineer": {
-        "parents": ["Information Technology", "Network Security Engineer"],
+        "parents": ["Information Technology", "Network Security Engineer", "BPO"],
         "skills": [
             ("technical support", "provide ICT support", None),
             ("troubleshooting", "solve ICT system problems", None),
@@ -224,7 +231,10 @@ def new_career_profile(career, spec, occupations, onet):
         weight = ESCO_WEIGHT.get(esco_level, 0) + ONET_WEIGHT.get(onet_level, 0)
         evidence = {"esco": f"{esco_level}: {esco_label}" if esco_level else None,
                     "onet": f"{onet_level}: {onet_match}" if onet_level else None}
-        if not weight:
+        if (career, skill) in INDIA_HIRING:
+            weight, reason = INDIA_HIRING[(career, skill)]
+            evidence = {"india-hiring": reason}
+        elif not weight:
             weight, evidence = NO_EVIDENCE_WEIGHT, {"india": "common on Indian fresher resumes"}
         key_skills.append({"name": skill, "weight": round(weight, 2),
                            "evidence": {k: v for k, v in evidence.items() if v}})
@@ -273,11 +283,13 @@ def main():
     output = {
         "_note": "Built by data/build_profiles.py - don't edit by hand, change the script and rerun it.",
         "weights": "new careers: ESCO essential 1.0 / optional 0.6 + O*NET hot 0.5 / listed 0.25, "
-                   "else 0.5; existing careers: share of training resumes + the same O*NET bonus",
+                   "else 0.5 (DSA for SDE: 1.0, india-hiring); existing careers: share of training resumes + the same O*NET bonus",
         "sources": {
             "resumeatlas": "ResumeAtlas (MIT), training split only (train.py: 80%, random_state=42)",
             "esco": "ESCO classification v1.2.1, European Commission, occupation essential/optional skills",
             "onet": "O*NET 31.0 Database, U.S. Department of Labor/ETA, CC BY 4.0, Software Skills",
+            "india": "common on Indian fresher resumes (project list, no external source)",
+            "india-hiring": "Indian fresher hiring practice, weight approved by the project owner",
         },
         "careers": careers,
     }

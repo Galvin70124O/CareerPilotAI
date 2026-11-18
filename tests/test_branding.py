@@ -106,7 +106,8 @@ def test_sample_button_analyzes_the_sample(monkeypatch):
 def test_loading_shows_the_four_steps_in_order(monkeypatch):
     loading = home(monkeypatch).split('id="loading"')[1].split("</section>")[0]
     labels = re.findall(r'<span class="loading-step-label">([^<]+)</span>', loading)
-    assert labels == ["Reading your resume", "Matching 42 careers", "Scoring your resume", "Building your roadmap"]
+    assert labels == ["Reading your resume", f"Matching {len(app.PROFILES)} careers", "Scoring your resume", "Building your roadmap"]
+    assert len(app.PROFILES) == 49   # the 42 classifier careers + 7 new ones
     assert loading.count('data-step="pending"') == 4
     assert 'role="status" data-loading-status' in loading
     assert "skeleton" not in loading

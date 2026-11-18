@@ -10,6 +10,7 @@
   var ALLOWED = ["pdf", "docx", "txt"];
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var $ = function (selector, root) { return (root || document).querySelector(selector); };
+  var CAREERS = document.body.dataset.careerCount + " careers";   // set by the server (index.html)
   var $$ = function (selector, root) { return Array.prototype.slice.call((root || document).querySelectorAll(selector)); };
 
   /* ---------- 1. Theme toggle (remembered in localStorage) ---------- */
@@ -106,7 +107,7 @@
       $("[data-file-size]", zone).textContent = formatSize(file.size) + " · analyzing…";
       zone.classList.add("has-file");
       $("#input_text").value = "";   // the server uses the file when there is one
-      startLoading("Reading " + file.name + " and comparing it with 42 careers");
+      startLoading("Reading " + file.name + " and comparing it with " + CAREERS);
       form.submit();                 // one step: picking a file analyzes it
     }
 
@@ -140,7 +141,7 @@
     $(".loading-step-state", step).textContent = state === "done" ? "done" : state === "active" ? "in progress" : "waiting";
   }
 
-  // Move through "Reading your resume -> Matching 42 careers -> ...". The last step stays
+  // Move through "Reading your resume -> Matching N careers -> ...". The last step stays
   // "in progress" until the server's answer (the results page) arrives.
   function runSteps() {
     var steps = $$("[data-loading-steps] .loading-step");
@@ -193,7 +194,7 @@
       var text = $("#input_text").value.trim();
       // "Try with a sample resume": the server reads the built-in sample, nothing to check here
       if (event.submitter && event.submitter.name === "sample") {
-        startLoading("Reading the sample resume and comparing it with 42 careers");
+        startLoading("Reading the sample resume and comparing it with " + CAREERS);
         return;
       }
       // Typing tab: don't send an empty form
@@ -202,7 +203,7 @@
         $("#input_text").focus();
         return;
       }
-      startLoading(textPanel && !textPanel.hidden ? "Comparing your skills with 42 careers" : null);
+      startLoading(textPanel && !textPanel.hidden ? "Comparing your skills with " + CAREERS : null);
     });
     // Coming back with the Back button: undo the loading state
     window.addEventListener("pageshow", function (event) {

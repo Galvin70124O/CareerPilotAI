@@ -11,11 +11,11 @@
         <span class="loading-spinner">{{ icon("loader", 22, class="spinner") }}</span>
         <div>
           <h2 class="loading-title" id="loading-title">Analyzing…</h2>
-          <p class="loading-subtitle" role="status" data-loading-status>Reading your resume and comparing it with 42 careers</p>
+          <p class="loading-subtitle" role="status" data-loading-status>Reading your resume and comparing it with {{ career_count }} careers</p>
         </div>
       </div>
       <ol class="loading-steps" data-loading-steps>
-        {% for step in ["Reading your resume", "Matching 42 careers", "Scoring your resume", "Building your roadmap"] %}
+        {% for step in ["Reading your resume", "Matching " ~ career_count ~ " careers", "Scoring your resume", "Building your roadmap"] %}
           <li class="loading-step" data-step="pending">
             <span class="loading-step-icon" aria-hidden="true">
               {{ icon("circle-check", 18, class="icon-done") }}{{ icon("loader", 18, class="icon-active spinner") }}{{ icon("circle", 18, class="icon-pending") }}

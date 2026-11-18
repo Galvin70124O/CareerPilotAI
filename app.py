@@ -9,7 +9,7 @@ from pypdf import PdfReader
 
 from features.careers import display_name
 from features.courses import recommend_courses
-from features.explain import top_contributing_terms
+from features.ranking import PROFILES, fresher_roles, rank_careers
 from features.report import build_report_pdf
 from features.jobs import fetch_job_listings
 from features.resume_score import score_resume
@@ -36,6 +36,8 @@ app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
 app.add_template_filter(display_name)
 # {{ skill|display_skill }} shows "R" for "r", "Node.js" for "node.js", ...
 app.add_template_filter(display_skill)
+# The real number of careers we rank (42 classifier careers + the new ones), for page text
+app.jinja_env.globals["career_count"] = len(PROFILES)
 
 # -----------------------------
 # FILE HANDLING
@@ -87,12 +89,8 @@ else:
 
 
 def predict_top_careers(input_text, top_n=3):
-    # predict_proba gives one probability per career, in the order of model.classes_
-    probabilities = model.predict_proba([input_text])[0]
-    ranked = sorted(zip(model.classes_, probabilities), key=lambda pair: pair[1], reverse=True)
-    # "career" is the model's label (used for lookups and job search), "label" is what the user sees
-    return [{"career": career, "label": display_name(career), "percent": round(prob * 100)}
-            for career, prob in ranked[:top_n]]
+    # The classifier's top 3 with bands and matched skills, see features/ranking.py
+    return rank_careers(model, input_text, top_n)
 
 # -----------------------------
 # ROUTES
@@ -103,6 +101,7 @@ def home():
     uploaded_name = ""   # file name of the uploaded resume, shown in the results bar
     found_skills = ""    # skills found in the uploaded resume
     top_careers = []     # [{"career": ..., "percent": ...}, ...]
+    fresher = []         # "Fresher roles that fit you" (new careers, features/ranking.py)
     job_results = []     # live jobs; None means the jobs API failed
     skill_gap = None     # result of analyze_skill_gap for the top career
     resume_score = None  # result of score_resume (only for uploaded resumes)
@@ -157,8 +156,9 @@ def home():
 
         if text_to_predict:
             top_careers = predict_top_careers(text_to_predict)
+            fresher = fresher_roles(text_to_predict, top_careers)
             skill_gap = analyze_skill_gap(top_careers[0]["career"], text_to_predict)
-            why_terms = top_contributing_terms(model, text_to_predict, top_careers[0]["career"])
+            why_terms = top_careers[0]["why_terms"]
             roadmap = build_roadmap(top_careers[0]["career"], text_to_predict)
             courses = recommend_courses(skill_gap["missing"])
             simulator_data = {"text": text_to_predict, "career": top_careers[0]["career"],
@@ -173,6 +173,7 @@ def home():
         input_text=input_text,
         found_skills=found_skills,
         top_careers=top_careers,
+        fresher_roles=fresher,
         job_results=job_results,
         jobs_unavailable=job_results is None,
         skill_gap=skill_gap,
@@ -200,7 +201,8 @@ def report_data(text, is_resume, source_label):
     return {
         "source_label": source_label,
         "top_careers": top_careers,
-        "why_terms": top_contributing_terms(model, text, career),
+        "fresher_roles": fresher_roles(text, top_careers),
+        "why_terms": top_careers[0]["why_terms"],
         "resume_score": score_resume(text, career) if is_resume else None,
         "skill_gap": skill_gap,
         "roadmap": build_roadmap(career, text),

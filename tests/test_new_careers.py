@@ -75,7 +75,8 @@ def test_pdf_report_has_the_new_career(career):
     text = resume_for(career)
     skill_gap = analyze_skill_gap(career, text)
     report = {"source_label": "cv.txt",
-              "top_careers": [{"career": career, "label": display_name(career), "percent": 60}],
+              "top_careers": [{"career": career, "label": display_name(career), "percent": 60, "band": "moderate",
+                               "matched_because": ["Git"], "why_terms": []}],
               "why_terms": [], "resume_score": score_resume(text, career), "skill_gap": skill_gap,
               "roadmap": build_roadmap(career, text), "courses": recommend_courses(skill_gap["missing"])}
     pdf = bytes(build_report_pdf(report))
