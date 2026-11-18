@@ -624,7 +624,7 @@ button, input, textarea { font: inherit; color: inherit; }
   bottom: 2px;
   width: 2px;
   background: var(--border);
-  border-radius: 2px;
+  border-radius: var(--radius-sm);   /* clamps to 1px on a 2px line, same look as before */
 }
 .timeline-stage:last-child::before { display: none; }
 .timeline-node {
