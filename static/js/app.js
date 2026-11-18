@@ -449,9 +449,9 @@
       result.found.length + " of " + result.skills_total + ", " + result.skills_percent + "%)."));
 
     if (result.skills_total) {
-      // Counts only help when they differ; otherwise the list is in the order the ad names the skills
+      // Counts only help when they differ (otherwise the order is by sentence, then A-Z, so we claim no order)
       var ranked = result.gaps.some(function (gap) { return gap.mentions > 1; });
-      var gaps = jdSection(ranked ? "Skills to work on, most mentioned first" : "Skills to work on, in the order the ad names them");
+      var gaps = jdSection(ranked ? "Skills to work on, most mentioned first" : "Skills to work on");
       if (!result.gaps.length) {
         gaps.appendChild(el("p", "jd-found", result.is_resume
           ? "Your resume proves every skill this job description names."
