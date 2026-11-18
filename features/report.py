@@ -134,6 +134,10 @@ def build_report_pdf(report):
     careers = report["top_careers"]
     best = careers[0]
     pdf.heading("Career matches")
+    insights = report.get("insights")
+    if insights and insights["low_info"]:
+        pdf.paragraph("Note: " + insights["low_info"]["message"], size=9, color=TEXT)
+        pdf.ln(1)
     pdf.paragraph(f"Recommended career path: {best['label']} ({best['percent']}% confidence, {best['band']} match)", size=10.5, color=TEXT, style="B")
     pdf.ln(1)
     for i, career in enumerate(careers):
@@ -172,7 +176,16 @@ def build_report_pdf(report):
     gap = report.get("skill_gap")
     if gap and gap["total"]:
         pdf.heading(f"Skill gap for {display_name(gap['career'])}  ({len(gap['have'])} / {gap['total']} key skills)")
-        pdf.labelled_list("You have:", [display_skill(s) for s in gap["have"]])
+        tags = insights["evidence"] if insights else {}
+        if insights:
+            ready = insights["readiness"]
+            pdf.paragraph(f"Readiness: {ready['level']}  ({ready['proven']} of {ready['total']} key skills proven)",
+                          size=10.5, color=TEXT, style="B")
+            if ready["next_step"]:
+                pdf.paragraph("Next step: " + ready["next_step"], size=9.5)
+            pdf.ln(1)
+        pdf.labelled_list("You have:", [display_skill(s) + (f" ({tags.get(s, 'claimed')})" if tags else "")
+                                        for s in gap["have"]])
         pdf.labelled_list("To learn next:", [display_skill(s) for s in gap["missing"]])
 
     # Roadmap
