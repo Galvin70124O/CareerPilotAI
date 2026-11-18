@@ -1,0 +1,18 @@
+{# Interview practice for the top career (features/interview.py, interview.json). Needs: interview, top_careers #}
+<article class="card fade-in" data-card="interview" aria-labelledby="interview-title">
+  <header class="card-header">
+    <div>
+      <h2 class="card-title" id="interview-title">Interview practice for {{ top_careers[0].career|display_name }}</h2>
+      <p class="card-subtitle">Practice questions for this role, the skill each one tests, and a tip for answering it.</p>
+    </div>
+  </header>
+  <ul class="interview-list">
+    {% for item in interview %}
+      <li class="interview-item">
+        <p class="interview-question">{{ item.question }}</p>
+        <p class="interview-skill">Skill: {{ item.skill|display_skill }}</p>
+        <p class="interview-tip">{{ item.tip }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+</article>

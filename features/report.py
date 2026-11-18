@@ -198,11 +198,13 @@ def build_report_pdf(report):
         else:
             pdf.bar_row("Match", f"{jd['percent']}%", jd["percent"] / 100, INDIGO)
             pdf.paragraph(f"Half word overlap ({jd['words_percent']}%), half skills found "
-                          f"({len(jd['found'])} of {jd['skills_total']}, {jd['skills_percent']}%).", size=9)
+                          f"({jd['skills_in_resume']} of {jd['skills_total']}, {jd['skills_percent']}%).", size=9)
         if jd["gaps"]:
             pdf.ln(1)
-            pdf.paragraph("Skills to work on, most mentioned first", size=10, color=TEXT, style="B")
-            pdf.paragraph("; ".join(f"{g['label']} ({g['note']})" for g in jd["gaps"]), size=9.5)
+            pdf.paragraph("Skills to work on, in the order the ad names them", size=10, color=TEXT, style="B")
+            pdf.paragraph(", ".join(jd["gaps"]), size=9.5)
+        if jd["unproven"]:
+            pdf.paragraph(f"Listed but not proven: {', '.join(jd['unproven'])} (add a project to prove them)", size=9.5)
         for pick in jd["suggestions"]:
             pdf.ensure_space(12)
             pdf.paragraph(f"If this work used {pick['label']}, name it here: \"{pick['line']}\"", size=9.5)
@@ -233,5 +235,15 @@ def build_report_pdf(report):
                 pdf.set_text_color(*INDIGO)
                 pdf.cell(0, 5, latin1(resource["title"]), link=resource["url"], new_x=XPos.LMARGIN, new_y=YPos.NEXT)
             pdf.ln(0.5)
+
+    # Interview practice for the top career
+    interview = report.get("interview")
+    if interview:
+        pdf.heading(f"Interview practice for {display_name(report['top_careers'][0]['career'])}", keep_with=20)
+        for item in interview:
+            pdf.ensure_space(18)   # keep a question with its skill and tip
+            pdf.paragraph(item["question"], size=9.5, color=TEXT, style="B")
+            pdf.paragraph(f"Skill: {display_skill(item['skill'])}. Tip: {item['tip']}", size=9)
+            pdf.ln(1)
 
     return bytes(pdf.output())

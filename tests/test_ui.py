@@ -33,12 +33,12 @@ def card_order(html):
 
 def test_results_are_in_the_mobile_reading_order(monkeypatch):
     assert card_order(resume_page(monkeypatch)) == [
-        "summary", "careers", "score", "gap", "roadmap", "courses", "whatif", "jd", "jobs"]
+        "summary", "careers", "score", "gap", "roadmap", "courses", "whatif", "interview", "jd", "compare", "jobs"]
 
 
 def test_typed_skills_have_no_score_card_but_keep_the_order(monkeypatch):
     html = page(monkeypatch, {"input_text": "linux, aws, a little git"})
-    assert card_order(html) == ["summary", "careers", "gap", "roadmap", "courses", "whatif", "jd", "jobs"]
+    assert card_order(html) == ["summary", "careers", "gap", "roadmap", "courses", "whatif", "interview", "jd", "jobs"]   # no compare: typed
     assert "Upload a resume to get a score" in html
 
 
@@ -212,7 +212,7 @@ def test_dashboard_is_one_grid_in_mobile_order(monkeypatch):
     assert 'class="dashboard dashboard--full"' in html
     assert "dashboard-col" not in html                                    # no column wrappers / DOM reordering
     grid = html.split('class="dashboard dashboard--full"')[1]
-    assert re.findall(r'data-card="(\w+)"', grid) == ["careers", "score", "gap", "roadmap", "courses", "whatif", "jd", "jobs"]
+    assert re.findall(r'data-card="(\w+)"', grid) == ["careers", "score", "gap", "roadmap", "courses", "whatif", "interview", "jd", "compare", "jobs"]
 
 
 def test_missing_cards_use_the_auto_layout(monkeypatch):
@@ -224,8 +224,8 @@ def test_desktop_grid_areas_in_css():
     css = app.app.test_client().get("/static/css/app.css").get_data(as_text=True)
     desktop = css.split("@media (min-width: 1024px)")[1]
     areas = re.sub(r"\s+", " ", desktop.split("grid-template-areas:")[1].split(";")[0])
-    assert areas.strip() == '"careers gap" "score roadmap" "courses whatif" "jd jd" "jobs jobs"'
-    for card in ["careers", "gap", "score", "roadmap", "courses", "whatif", "jd", "jobs"]:
+    assert areas.strip() == '"careers gap" "score roadmap" "courses whatif" "interview interview" "jd jd" "compare compare" "jobs jobs"'
+    for card in ["careers", "gap", "score", "roadmap", "courses", "whatif", "interview", "jd", "compare", "jobs"]:
         assert f'.dashboard--full > [data-card="{card}"] {{ grid-area: {card}; }}' in desktop
 
 
@@ -292,7 +292,8 @@ def test_readme_screenshot_captions_say_sample_job_data():
 
 def test_auto_layout_has_no_empty_cell_before_jobs():
     css = app.app.test_client().get("/static/css/app.css").get_data(as_text=True)
-    assert ".dashboard--auto > :nth-child(odd):nth-last-child(3) { grid-column: 1 / -1; }" in css
+    # the full rows start at the interview card, which every result has
+    assert '.dashboard--auto > :nth-child(odd):has(+ [data-card="interview"]) { grid-column: 1 / -1; }' in css
 
 
 # --- long skill lists: first 10, then "Show all N" in a <details> ----------------------

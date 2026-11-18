@@ -1,0 +1,29 @@
+{% from "partials/macros.html" import icon %}
+{# Compare with another version (uploaded resumes only): POST /api/compare (features/compare.py) with the
+   analyzed text from the report form and the new file; the table is built in static/js/app.js with
+   textContent. Nothing is stored. #}
+<article class="card fade-in" data-card="compare" id="cp-compare" aria-labelledby="compare-title">
+  <header class="card-header">
+    <div>
+      <h2 class="card-title" id="compare-title">Compare with another version</h2>
+      <p class="card-subtitle">Upload an edited version of this resume to see what changed. Nothing is saved.</p>
+    </div>
+  </header>
+
+  <div class="compare-form" id="cp-compare-form">
+    <input type="file" id="compare-file" accept=".pdf,.docx,.txt" hidden>
+    <button type="button" class="btn btn-secondary" id="cp-compare-button" aria-describedby="compare-rule cp-compare-error">
+      {{ icon("upload", 16, class="btn-icon-idle") }}{{ icon("loader", 16, class="spinner") }}
+      <span data-button-label>Choose the other version</span>
+    </button>
+    <p class="compare-rule" id="compare-rule">PDF, DOCX or TXT up to 2 MB, like the first upload.</p>
+    <p class="sim-error" id="cp-compare-error" role="alert"></p>
+  </div>
+
+  {# Announces only the one-line finding; the table itself is not read out on arrival #}
+  <p class="sr-only" id="cp-compare-status" role="status"></p>
+  <div class="compare-result" id="cp-compare-result">
+    <p class="jd-empty">Your score, top matches, skill gap, evidence and readiness for both versions will appear
+      here side by side, with what changed.</p>
+  </div>
+</article>

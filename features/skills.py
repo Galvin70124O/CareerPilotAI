@@ -118,6 +118,25 @@ def has_skill(skill, text):
     return any(written_in_text(word, text) for word in [skill] + SYNONYMS.get(skill, []))
 
 
+def skill_position(skill, text):
+    """Where has_skill first finds the skill in the text (a character index), or None.
+    shortcut: a match found only in the punctuation-free form gives its index in that form, a few
+    characters early when punctuation came before it; fine for ordering, not for highlighting."""
+    text_lower, text_clean = text_forms(text)
+    if skill in SPECIAL_SKILL_PATTERNS:
+        found = SPECIAL_SKILL_PATTERNS[skill].search(text_lower)
+        return found.start() if found else None
+    starts = []
+    for word in [skill] + SYNONYMS.get(skill, []):
+        found = skill_pattern(word).search(text_lower)
+        clean_word = normalize_text(word)
+        if not found and len(clean_word) >= 2:
+            found = skill_pattern(clean_word).search(text_clean)
+        if found:
+            starts.append(found.start())
+    return min(starts, default=None)
+
+
 # How skill names are SHOWN to the user. Internally (skills.json, matching, the model) skills
 # stay lowercase; this only fixes names that look wrong in lowercase (r -> R, c# -> C#, ...).
 SKILL_DISPLAY_NAMES = {

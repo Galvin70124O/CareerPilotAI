@@ -2,7 +2,8 @@
    1. Theme toggle        4. Loading state      7. What-If Simulator
    2. Tabs                5. Microphone         8. Results bar ("Edit skills")
                                                 9. Download report (PDF)
-   3. Drop zone           6. Scroll to results  10. Job description match       */
+   3. Drop zone           6. Scroll to results  10. Job description match
+                                                11. Compare with another version */
 (function () {
   "use strict";
 
@@ -84,7 +85,8 @@
   function checkFile(file) {
     var extension = file.name.split(".").pop().toLowerCase();
     if (ALLOWED.indexOf(extension) === -1) return "Please choose a PDF, DOCX or TXT file.";
-    if (file.size > MAX_BYTES) return "This file is " + formatSize(file.size) + ". The limit is 2 MB.";
+    // "2.0 MB" can round down to the limit itself, so don't print the size here
+    if (file.size > MAX_BYTES) return "This file is over the 2 MB limit. Save a smaller copy (for example, without images) and try again.";
     return "";
   }
 
@@ -397,7 +399,6 @@
   }
 
   /* ---------- 10. Job description match: POST /api/jd-match, result built with textContent ---------- */
-  var JD_SHOW_FIRST = 10;   // like the other long lists: ten, then "Show all N"
 
   function el(tag, className, text) {
     var node = document.createElement(tag);
@@ -412,19 +413,7 @@
     return section;
   }
 
-  function gapList(gaps, showCounts) {
-    var list = el("ul", "jd-gaps");
-    gaps.forEach(function (gap) {
-      var row = el("li", "jd-gap");
-      row.appendChild(el("span", "jd-gap-name", gap.label));
-      if (showCounts) row.appendChild(el("span", "jd-gap-count", gap.mentions === 1 ? "1 mention" : gap.mentions + " mentions"));
-      row.appendChild(el("span", "jd-gap-note", gap.note.charAt(0).toUpperCase() + gap.note.slice(1)));
-      list.appendChild(row);
-    });
-    return list;
-  }
-
-  function showJdMatch(result, box, chevron) {
+  function showJdMatch(result, box) {
     var noun = result.is_resume ? "resume" : "skills";
     var parts = [];
     if (!result.skills_total) {
@@ -446,33 +435,20 @@
     bar.setAttribute("aria-label", "Match: " + result.percent + "%");
     parts.push(bar);
     parts.push(el("p", "jd-parts", "Half word overlap (" + result.words_percent + "%), half skills found (" +
-      result.found.length + " of " + result.skills_total + ", " + result.skills_percent + "%)."));
+      result.skills_in_resume + " of " + result.skills_total + ", " + result.skills_percent + "%)."));
 
-    if (result.skills_total) {
-      // Counts only help when they differ (otherwise the order is by sentence, then A-Z, so we claim no order)
-      var ranked = result.gaps.some(function (gap) { return gap.mentions > 1; });
-      var gaps = jdSection(ranked ? "Skills to work on, most mentioned first" : "Skills to work on");
-      if (!result.gaps.length) {
-        gaps.appendChild(el("p", "jd-found", result.is_resume
-          ? "Your resume proves every skill this job description names."
-          : "Your skills include every skill this job description names."));
-      } else {
-        gaps.appendChild(gapList(result.gaps.slice(0, JD_SHOW_FIRST), ranked));
-        if (result.gaps.length > JD_SHOW_FIRST) {
-          var more = el("details", "show-all");
-          var toggle = el("summary", "show-all-toggle");
-          toggle.appendChild(el("span", "show-more", "Show all " + result.gaps.length));
-          toggle.appendChild(el("span", "show-less", "Show fewer"));
-          if (chevron) toggle.appendChild(chevron.cloneNode(true));
-          more.appendChild(toggle);
-          more.appendChild(gapList(result.gaps.slice(JD_SHOW_FIRST), ranked));
-          gaps.appendChild(more);
-        }
-      }
-      parts.push(gaps);
+    var gaps = jdSection("Skills to work on, in the order the ad names them");
+    gaps.appendChild(el("p", "jd-found", result.gaps.length ? result.gaps.join(", ")
+      : (result.is_resume ? "Your resume names" : "Your skills include") + " every skill this job description names."));
+    if (result.unproven.length) {
+      var unproven = el("p", "jd-unproven");
+      unproven.appendChild(el("strong", "", "Listed but not proven: "));
+      unproven.appendChild(document.createTextNode(result.unproven.join(", ") + " (add a project to prove them)"));
+      gaps.appendChild(unproven);
     }
+    parts.push(gaps);
 
-    if (result.is_resume && result.gaps.length) {
+    if (result.is_resume && (result.gaps.length || result.unproven.length)) {
       var lines = jdSection("Lines to strengthen");
       if (result.suggestions.length) {
         var list = el("ul", "jd-lines");
@@ -512,7 +488,6 @@
     var button = $("#cp-jd-button");
     var label = $("[data-button-label]", button);
     var box = $("#cp-jd-result");
-    var chevron = $(".jd-rule .chevron", form);
     var max = Number(form.getAttribute("data-max"));
     var number = function (n) { return n.toLocaleString("en-US"); };
 
@@ -548,15 +523,9 @@
         body: JSON.stringify({ text: $("input[name=text]", reportForm).value, jd: jd,
                                is_resume: $("input[name=is_resume]", reportForm).value === "1" })
       })
-        .then(function (response) {
-          // an error page is not JSON, so fall back to an empty body and a general message
-          return response.json().catch(function () { return {}; }).then(function (body) {
-            if (!response.ok) throw new Error(body.error || "Something went wrong. Try again in a moment.");
-            return body;
-          });
-        })
+        .then(jsonOrError)
         .then(function (result) {
-          showJdMatch(result, box, chevron);
+          showJdMatch(result, box);
           $("[data-report-jd]", reportForm).value = jd;   // the PDF now includes this match
           // On a phone the result sits under the form: bring it up so the tap visibly did something
           if (box.getBoundingClientRect().top > window.innerHeight * 0.6) {
@@ -571,6 +540,133 @@
           button.disabled = false;
           button.classList.remove("is-loading");
           label.textContent = "Check match";
+          box.removeAttribute("aria-busy");
+        });
+    });
+  }
+
+  // The JSON body of an /api answer, or an Error with its message (an error page is not JSON)
+  function jsonOrError(response) {
+    return response.json().catch(function () { return {}; }).then(function (body) {
+      if (!response.ok) throw new Error(body.error || "Something went wrong. Try again in a moment.");
+      return body;
+    });
+  }
+
+  /* ---------- 11. Compare with another version: POST /api/compare, table built with textContent ---------- */
+  function compareCell(tag, text, className, label) {
+    var cell = el(tag, className, text);
+    if (label) cell.setAttribute("data-label", label);   // the phone layout shows "Before: ..."
+    return cell;
+  }
+
+  function showComparison(result, box, names) {
+    var summary = el("div", "compare-summary");
+    var parts = [summary];
+    var files = el("p", "compare-files");
+    files.appendChild(document.createTextNode("Before: "));
+    files.appendChild(el("strong", "", names.before));
+    files.appendChild(document.createTextNode(" · After: "));
+    files.appendChild(el("strong", "", names.after));
+    summary.appendChild(files);
+
+    var total = result.sections[0].rows[0];   // the Resume Score total leads, like on the page
+    var lead = el("div", "compare-lead");
+    var change = total.changed ? total.change : "None";
+    [["Score before", total.before], ["Score after", total.after], ["Change", change]].forEach(function (pair) {
+      var stat = el("p", "compare-stat");
+      stat.appendChild(el("span", "compare-stat-label", pair[0]));
+      stat.appendChild(el("span", "compare-stat-value", pair[1]));
+      lead.appendChild(stat);
+    });
+    summary.appendChild(lead);
+    summary.appendChild(el("p", "compare-finding", result.finding));
+    if (result.note) summary.appendChild(el("p", "compare-note", result.note));
+
+    if (!result.unchanged) {
+      var table = el("table", "compare-table");
+      table.appendChild(el("caption", "sr-only", "Before and after, measured against " + result.career));
+      var head = el("tr");
+      [["", ""], ["Before", ""], ["After", ""], ["Change", "compare-change"]].forEach(function (pair) {
+        var th = el("th", pair[1], pair[0]);
+        th.scope = "col";
+        head.appendChild(th);
+      });
+      var thead = el("thead");
+      thead.appendChild(head);
+      table.appendChild(thead);
+      result.sections.forEach(function (section, index) {
+        var body = el("tbody");
+        // the score total is already the lead figures above, so the table starts at its breakdown
+        var rows = index === 0 ? section.rows.slice(1) : section.rows;
+        var groupRow = el("tr");
+        var group = el("th", "compare-group", section.title);
+        group.scope = "colgroup";
+        group.colSpan = 4;
+        groupRow.appendChild(group);
+        body.appendChild(groupRow);
+        rows.forEach(function (row) {
+          var tr = el("tr");
+          var label = el("th", "", row.label);
+          label.scope = "row";
+          tr.appendChild(label);
+          tr.appendChild(compareCell("td", row.before, "", "Before"));
+          tr.appendChild(compareCell("td", row.after, "", "After"));
+          tr.appendChild(compareCell("td", row.change === "same" ? "Same" : row.change,
+            "compare-change" + (row.changed ? "" : " is-same")));
+          body.appendChild(tr);
+        });
+        table.appendChild(body);
+      });
+      parts.push(table);
+    }
+    box.replaceChildren.apply(box, parts);
+  }
+
+  function initCompare() {
+    var button = $("#cp-compare-button");
+    var input = $("#compare-file");
+    var reportForm = $("[data-report-form]");
+    if (!button || !input || !reportForm) return;
+    var label = $("[data-button-label]", button);
+    var errorBox = $("#cp-compare-error");
+    var box = $("#cp-compare-result");
+
+    button.addEventListener("click", function () { input.click(); });
+    input.addEventListener("change", function () {
+      var file = input.files && input.files[0];
+      if (!file) return;
+      input.value = "";   // choosing the same file again still triggers a new comparison
+      var problem = checkFile(file);   // the same checks as the first upload; the server checks again
+      errorBox.textContent = problem;
+      if (problem) return;
+
+      var data = new FormData();
+      data.append("text", $("input[name=text]", reportForm).value);
+      data.append("resume_file", file);
+      button.disabled = true;
+      button.classList.add("is-loading");
+      label.textContent = "Comparing…";
+      box.setAttribute("aria-busy", "true");
+
+      fetch("/api/compare", { method: "POST", body: data })
+        .then(jsonOrError)
+        .then(function (result) {
+          showComparison(result, box, { before: $("input[name=name]", reportForm).value || "Your resume", after: file.name });
+          $("#cp-compare-status").textContent = "Comparison ready. " + result.finding;
+          label.textContent = "Compare another version";
+          if (box.getBoundingClientRect().top > window.innerHeight * 0.6) {
+            box.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+          }
+        })
+        .catch(function (error) {
+          errorBox.textContent = error instanceof TypeError
+            ? "Couldn't reach the server. Check your connection and try again." : error.message;
+        })
+        .finally(function () {
+          button.disabled = false;
+          button.classList.remove("is-loading");
+          if (label.textContent === "Comparing…") label.textContent = "Choose the other version";
           box.removeAttribute("aria-busy");
         });
     });
@@ -620,6 +716,7 @@
     initMic();
     initSimulator();
     initJdMatch();
+    initCompare();
     initEditSkills();
     initReport();
     initResults();

@@ -749,16 +749,47 @@ button, input, textarea { font: inherit; color: inherit; }
 .jd-result .bar::-moz-progress-bar { background: var(--chart); }
 .jd-parts { margin-top: var(--space-3); font-size: var(--text-sm); color: var(--text-muted); max-width: 60ch; }
 .jd-section { margin-top: var(--space-8); }
-.jd-gaps { list-style: none; }
-.jd-gap { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--space-4); padding: var(--space-2) 0 var(--space-3); border-top: 1px solid var(--border); }
-.jd-gap-name { font-weight: 500; overflow-wrap: anywhere; }
-.jd-gap-count { font-size: var(--text-sm); color: var(--text-muted); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
-.jd-gap-note { grid-column: 1 / -1; font-size: var(--text-sm); color: var(--text-muted); }
 .jd-found { font-size: var(--text-sm); color: var(--text); overflow-wrap: anywhere; max-width: 65ch; }
+.jd-unproven { margin-top: var(--space-3); font-size: var(--text-sm); color: var(--text-muted); overflow-wrap: anywhere; max-width: 65ch; }
+.jd-unproven strong { color: var(--text); font-weight: 500; }
 .jd-lines { list-style: none; display: grid; gap: var(--space-5); }
 .jd-line-lead { font-size: var(--text-sm); }
 .jd-line-text { margin-top: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-sm); background: var(--surface-2); font-size: var(--text-sm); overflow-wrap: anywhere; }
 .jd-pdf-note { margin-top: var(--space-8); font-size: var(--text-sm); color: var(--text-muted); }
+
+/* Interview practice: ruled rows, the question in ink, the skill and the tip under it */
+.interview-list { list-style: none; display: grid; }
+.interview-item { padding: var(--space-4) 0; border-top: 1px solid var(--border); }
+.interview-question { font-weight: 500; color: var(--text); max-width: 65ch; }
+.interview-skill { margin-top: var(--space-1); font-size: var(--text-xs); color: var(--text-muted); }
+.interview-tip { margin-top: var(--space-2); font-size: var(--text-sm); color: var(--text-2); max-width: 65ch; }
+
+/* Compare with another version */
+.compare-form { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); }
+/* The longest button label on the page: at large text sizes it wraps instead of running off a phone screen */
+.compare-form .btn { max-width: 100%; white-space: normal; line-height: 1.2; padding-block: var(--space-2); text-align: left; }
+.compare-rule { font-size: var(--text-sm); color: var(--text-muted); }
+.compare-form .sim-error { flex-basis: 100%; margin-top: 0; }
+.compare-result { margin-top: var(--space-6); }
+.compare-result[aria-busy="true"] > * { opacity: 0.45; }   /* comparing again: the old result stays, dimmed */
+@starting-style { .compare-result > * { opacity: 0; } }
+.compare-result > * { transition: opacity var(--dur-sheet) var(--ease-out); }
+.compare-files { font-size: var(--text-sm); color: var(--text-muted); overflow-wrap: anywhere; }
+.compare-files strong { color: var(--text); font-weight: 500; }
+.compare-lead { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); margin-top: var(--space-4); }
+.compare-stat { display: grid; gap: var(--space-1); }
+.compare-stat-label { font-size: var(--text-sm); color: var(--text-muted); }
+.compare-stat-value { font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1.05; font-weight: 500; font-variant-numeric: lining-nums tabular-nums; }
+.compare-finding { margin-top: var(--space-4); max-width: 65ch; }
+.compare-note { margin-top: var(--space-2); font-size: var(--text-sm); color: var(--text-muted); max-width: 65ch; }
+.compare-table { width: 100%; margin-top: var(--space-6); border-collapse: collapse; table-layout: fixed; font-size: var(--text-sm); font-variant-numeric: lining-nums tabular-nums; }
+.compare-table th, .compare-table td { padding: var(--space-2) var(--space-4) var(--space-2) 0; border-top: 1px solid var(--border); text-align: left; vertical-align: top; font-weight: 400; overflow-wrap: anywhere; }
+.compare-table thead th { border-top: 0; font-size: var(--text-xs); color: var(--text-muted); }
+.compare-table th[scope="row"] { width: 30%; color: var(--text); font-weight: 500; }
+.compare-table td[data-label] { width: 28%; }   /* Before and After get the same width, whatever their content */
+.compare-table .compare-group { padding-top: var(--space-6); border-top: 0; font-weight: 600; color: var(--text); }
+.compare-table .compare-change, .compare-table thead .compare-change { width: 14%; padding-right: 0; text-align: right; white-space: nowrap; }
+.compare-table .is-same { color: var(--text-muted); }
 
 /* Jobs */
 .job-grid { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); column-gap: var(--space-12); }
@@ -795,6 +826,8 @@ button, input, textarea { font: inherit; color: inherit; }
 /* Touch screens: 44px targets, no grey tap flash or double-tap-zoom delay, and no hover
    colours that stay stuck after a tap */
 button, .btn, .tab, .dropzone, .option-chip span, summary { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+/* Controls, not content: a long press on a button should not select its label */
+button, .btn { -webkit-user-select: none; user-select: none; }
 @media (pointer: coarse) {
   .btn, .option-chip span { min-height: var(--tap); }
 }
@@ -826,7 +859,9 @@ button, .btn, .tab, .dropzone, .option-chip span, summary { -webkit-tap-highligh
       "careers gap"
       "score   roadmap"
       "courses whatif"
+      "interview interview"
       "jd      jd"
+      "compare compare"
       "jobs    jobs";
   }
   .dashboard--full > [data-card="careers"] { grid-area: careers; }
@@ -837,14 +872,39 @@ button, .btn, .tab, .dropzone, .option-chip span, summary { -webkit-tap-highligh
   .dashboard--full > [data-card="whatif"] { grid-area: whatif; }
   .dashboard--full > [data-card="jobs"] { grid-area: jobs; }
   .dashboard--full > [data-card="jd"] { grid-area: jd; }
+  .dashboard--full > [data-card="interview"] { grid-area: interview; }
+  .dashboard--full > [data-card="compare"] { grid-area: compare; }
   /* Some cards missing (e.g. typed skills have no resume score): flow in two columns */
-  .dashboard--auto > [data-card="jobs"], .dashboard--auto > [data-card="jd"] { grid-column: 1 / -1; }
-  /* An odd card left alone before the two full rows takes the full row too, so there's no empty cell */
-  .dashboard--auto > :nth-child(odd):nth-last-child(3) { grid-column: 1 / -1; }
+  .dashboard--auto > :is([data-card="interview"], [data-card="jd"], [data-card="compare"], [data-card="jobs"]) { grid-column: 1 / -1; }
+  /* The full rows start at interview: an odd card left alone before it takes the full row too, so there's no empty cell */
+  .dashboard--auto > :nth-child(odd):has(+ [data-card="interview"]) { grid-column: 1 / -1; }
+  /* Interview practice: two columns of questions */
+  .interview-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-12); }
   /* Job description: the form on the left, its result on the right */
   .jd-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-12); }
   /* The form stays in view beside a long result, so checking another ad needs no scrolling back */
   .jd-form { position: sticky; top: calc(var(--header-h) + var(--space-6)); align-self: start; }
+  /* Compare: the score and the finding on the left stay in view beside the long table on the right */
+  .compare-result:has(.compare-table) { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-12); }
+  .compare-result:has(.compare-table) .compare-summary { position: sticky; top: calc(var(--header-h) + var(--space-6)); align-self: start; }
+  .compare-result:has(.compare-table) .compare-table { margin-top: 0; }
+}
+
+/* Compare table on phones: each row becomes the label and its change, then "Before" and "After" lines */
+@media (max-width: 640px) {
+  .compare-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .compare-table tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--space-4); padding: var(--space-3) 0; border-top: 1px solid var(--border); }
+  .compare-table tr:has(.compare-group) { border-top: 0; padding-bottom: 0; }
+  .compare-table th, .compare-table td { display: block; width: auto; padding: 0; border-top: 0; }
+  .compare-table th[scope="row"] { width: auto; }
+  .compare-table .compare-change { grid-row: 1; grid-column: 2; width: auto; }
+  .compare-table tr { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; }
+  .compare-table .compare-group { grid-column: 1 / -1; }
+  .compare-table th[scope="row"] { grid-column: 1 / 3; }
+  .compare-table .compare-change { grid-column: 3; }
+  /* Before and After side by side on the second line */
+  .compare-table td[data-label] { grid-row: 2; width: auto; margin-top: var(--space-1); color: var(--text-2); }
+  .compare-table td[data-label]::before { content: attr(data-label) ": "; color: var(--text-muted); }
 }
 
 @media (max-width: 560px) {

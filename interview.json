@@ -1,0 +1,2553 @@
+{
+ "_note": "Interview practice: 10 questions per career, written for CareerPilotAI (not copied from anywhere). Each has the key skill it tests (a skill name from career_profiles.json) and a one-line tip. Plain ASCII so the PDF's core font prints it. Shown for the top career.",
+ "careers": {
+  "Accountant": [
+   {
+    "question": "Walk me through the three main financial statements and how they connect.",
+    "skill": "financial statements",
+    "tip": "Start from net profit in the P&L and show where it lands in the balance sheet and the cash flow statement."
+   },
+   {
+    "question": "Pass the journal entry for paying office rent in cash, and explain debit and credit in it.",
+    "skill": "accounting",
+    "tip": "Name both accounts and the side each goes on; interviewers want the double entry, not a textbook definition."
+   },
+   {
+    "question": "How do you prepare a bank reconciliation statement, and what usually causes the differences?",
+    "skill": "reconciliation",
+    "tip": "Separate timing items (cheques not yet cleared, deposits in transit) from real errors."
+   },
+   {
+    "question": "Explain GST input tax credit with a simple purchase and sale example.",
+    "skill": "tax",
+    "tip": "Use round numbers for one purchase and one sale and show the net GST payable."
+   },
+   {
+    "question": "What is TDS, and on which payments does a company deduct it?",
+    "skill": "tax",
+    "tip": "Mention salary and contractor or professional fees, and that TDS is deposited and reported in returns."
+   },
+   {
+    "question": "What makes up a monthly payroll, and which statutory deductions apply in India?",
+    "skill": "payroll",
+    "tip": "Cover basic, HRA and allowances, then PF, ESI, professional tax and TDS on salary."
+   },
+   {
+    "question": "Describe the accounts payable process from purchase order to payment.",
+    "skill": "accounts payable",
+    "tip": "Explain the three-way match between purchase order, goods receipt and invoice."
+   },
+   {
+    "question": "What is a general ledger, and why might a trial balance not tally?",
+    "skill": "general ledger",
+    "tip": "Give one error a trial balance catches and one it misses, like a compensating error."
+   },
+   {
+    "question": "In Excel, how would you find invoice numbers that appear in one list but not in another?",
+    "skill": "excel",
+    "tip": "Say XLOOKUP or VLOOKUP with IFERROR, or COUNTIF, and mention trimming stray spaces first."
+   },
+   {
+    "question": "What is the difference between accrual and cash basis accounting?",
+    "skill": "accounting",
+    "tip": "Use a bill received in March but paid in April to show where each method records it."
+   }
+  ],
+  "Advocate": [
+   {
+    "question": "Tell us about a time you spoke up for someone who could not do it themselves.",
+    "skill": "advocacy",
+    "tip": "Use situation, action, result, and say what actually changed for the person."
+   },
+   {
+    "question": "How do you explain a legal process to a client with no legal background?",
+    "skill": "communication",
+    "tip": "Show that you check understanding by asking them to repeat the next steps in their own words."
+   },
+   {
+    "question": "How do you write case notes so that a colleague could take over the file tomorrow?",
+    "skill": "documentation",
+    "tip": "Mention dates, facts kept apart from opinions, next actions and confidentiality."
+   },
+   {
+    "question": "A client is angry because their case is moving slowly. What do you do?",
+    "skill": "customer service",
+    "tip": "Acknowledge the frustration, explain what is pending and who controls it, then promise a real next update."
+   },
+   {
+    "question": "Explain the main stages of a civil suit in an Indian court.",
+    "skill": "court",
+    "tip": "Go in order: plaint, written statement, framing of issues, evidence, arguments, judgment."
+   },
+   {
+    "question": "What is the difference between bail and anticipatory bail?",
+    "skill": "legal",
+    "tip": "Say when each is sought: anticipatory bail is applied for before an arrest."
+   },
+   {
+    "question": "When would you refer a client to another service, and how do you do it well?",
+    "skill": "referrals",
+    "tip": "Show that you know local services and that you follow up instead of only handing over a phone number."
+   },
+   {
+    "question": "How do you handle a client who becomes very distressed in a session?",
+    "skill": "counseling",
+    "tip": "Talk about listening first, checking their safety, and knowing the limits of your role."
+   },
+   {
+    "question": "How do you keep information confidential while working with families or other agencies?",
+    "skill": "legal",
+    "tip": "Mention consent before sharing and sharing only what the other party needs."
+   },
+   {
+    "question": "How would you draft a legal notice for unpaid dues?",
+    "skill": "documentation",
+    "tip": "Cover the parties, the facts, the demand, the time allowed to respond, and the signature."
+   }
+  ],
+  "Agriculture": [
+   {
+    "question": "How would you test a field's soil before advising a farmer on fertiliser?",
+    "skill": "soil",
+    "tip": "Mention the Soil Health Card, how samples are taken, and reading N, P, K and pH."
+   },
+   {
+    "question": "Compare drip and sprinkler irrigation. When is each the better choice?",
+    "skill": "irrigation",
+    "tip": "Tie the answer to the crop, the water available and what the farmer can afford."
+   },
+   {
+    "question": "What is crop rotation and why does it help?",
+    "skill": "crop",
+    "tip": "Give a real pairing, such as a cereal followed by a pulse that fixes nitrogen."
+   },
+   {
+    "question": "How would you manage a pest attack in a cotton or paddy field?",
+    "skill": "crop",
+    "tip": "Describe integrated pest management: scouting, biological control, chemicals only when needed."
+   },
+   {
+    "question": "What decides the right time to harvest a crop?",
+    "skill": "harvest",
+    "tip": "Talk about signs of maturity, grain moisture and the weather forecast."
+   },
+   {
+    "question": "How would you help a small farmer cut post-harvest losses?",
+    "skill": "harvest",
+    "tip": "Cover drying, storage, grading and access to cold storage or the nearest mandi."
+   },
+   {
+    "question": "What are the basics of keeping dairy cattle healthy and productive?",
+    "skill": "livestock",
+    "tip": "Mention balanced feed, clean water, vaccination, hygiene and shelter."
+   },
+   {
+    "question": "Design a simple field trial to compare two seed varieties.",
+    "skill": "research",
+    "tip": "Use replicated plots and keep every other factor the same so the result is fair."
+   },
+   {
+    "question": "Explain one government scheme for farmers and who can benefit from it.",
+    "skill": "farming",
+    "tip": "Pick one scheme you can explain end to end rather than listing many names."
+   },
+   {
+    "question": "How would you convince a farmer to try a new practice?",
+    "skill": "agriculture",
+    "tip": "Point to a demonstration plot on a nearby farm; farmers trust results they can see."
+   }
+  ],
+  "Apparel": [
+   {
+    "question": "How do you approach a customer who is browsing and not asking for help?",
+    "skill": "customer service",
+    "tip": "Greet, give them space, and offer help with a specific question rather than 'Can I help you?'."
+   },
+   {
+    "question": "Sell me this shirt.",
+    "skill": "sales",
+    "tip": "Ask what the buyer needs it for first, then link the features to that need."
+   },
+   {
+    "question": "What makes a good window or in-store display?",
+    "skill": "merchandising",
+    "tip": "Talk about a focal point, colour blocking and keeping bestsellers at eye level."
+   },
+   {
+    "question": "A customer wants a size that is out of stock. What do you do?",
+    "skill": "stock",
+    "tip": "Offer to check another store, place an order, or suggest a similar fit you do have."
+   },
+   {
+    "question": "How would you reduce differences between the system stock and what is on the shelf?",
+    "skill": "inventory",
+    "tip": "Mention regular cycle counts, logging returns at once, and checking tags at billing."
+   },
+   {
+    "question": "When should a store mark down prices, and how do you protect the margin?",
+    "skill": "pricing",
+    "tip": "End of season and slow movers; mark down early and in steps instead of one deep cut."
+   },
+   {
+    "question": "Which current fashion trend would sell well in our store, and why?",
+    "skill": "fashion",
+    "tip": "Link the trend to our customers and price range, not only to what is popular online."
+   },
+   {
+    "question": "Which numbers tell you whether a day in the store went well?",
+    "skill": "retail",
+    "tip": "Footfall, conversion, average bill value and units per bill."
+   },
+   {
+    "question": "A customer wants to return an item that has clearly been worn. How do you handle it?",
+    "skill": "customer service",
+    "tip": "Stay calm, explain the policy politely, and offer whatever the policy does allow."
+   },
+   {
+    "question": "Sales are slow this month. How would you still reach your target?",
+    "skill": "sales",
+    "tip": "Talk about add-on sales, calling regular customers about new stock, and in-store events."
+   }
+  ],
+  "Architecture": [
+   {
+    "question": "Walk us through one project in your portfolio from the brief to the final design.",
+    "skill": "architectural design",
+    "tip": "Explain the constraints and the decisions you made, not just the final renders."
+   },
+   {
+    "question": "How do you set up layers, blocks and xrefs in AutoCAD for a drawing set?",
+    "skill": "autocad",
+    "tip": "Mention a naming standard and why it matters when a team shares files."
+   },
+   {
+    "question": "How is working in Revit different from drafting in AutoCAD?",
+    "skill": "revit",
+    "tip": "Explain BIM: one model, so plans, sections and schedules update together."
+   },
+   {
+    "question": "What would you check in the local building bylaws for a residential plot?",
+    "skill": "building codes",
+    "tip": "Setbacks, FSI or FAR, height limit, parking and fire exits."
+   },
+   {
+    "question": "What goes into a complete set of construction documents?",
+    "skill": "construction documents",
+    "tip": "Plans, sections, elevations, details, door and window schedules, and specifications."
+   },
+   {
+    "question": "How do you use SketchUp in the early stages of a design?",
+    "skill": "sketchup",
+    "tip": "Quick massing studies and sun-path checks before committing to details."
+   },
+   {
+    "question": "When would you choose Rhino over Revit?",
+    "skill": "rhino",
+    "tip": "Complex curved or parametric forms, often with Grasshopper, then hand over to BIM."
+   },
+   {
+    "question": "How do you present a design to a client who cannot read drawings?",
+    "skill": "adobe",
+    "tip": "Simple views, material boards and annotated renders made in Photoshop or InDesign."
+   },
+   {
+    "question": "How would you design a house to stay cool in a hot Indian climate without much AC?",
+    "skill": "architectural design",
+    "tip": "Orientation, shading, cross ventilation, courtyards and thermal mass."
+   },
+   {
+    "question": "The client asks for a big change late in the drawing stage. What do you do?",
+    "skill": "construction documents",
+    "tip": "Record the change, explain its cost and schedule impact, then update every affected sheet."
+   }
+  ],
+  "Arts": [
+   {
+    "question": "Talk us through one piece of your work and the choices behind it.",
+    "skill": "art",
+    "tip": "Explain the idea, the medium and one thing you would do differently now."
+   },
+   {
+    "question": "How would you plan a lesson that introduces perspective drawing?",
+    "skill": "lesson planning",
+    "tip": "Give the objective, a short demo, guided practice, and how you will check learning."
+   },
+   {
+    "question": "How do you keep young students focused during a messy activity like painting?",
+    "skill": "classroom management",
+    "tip": "Clear routines for setup and clean-up, roles for students, and a signal for attention."
+   },
+   {
+    "question": "How would you plan an art curriculum for a full term?",
+    "skill": "curriculum",
+    "tip": "Build skills step by step and end with a project that uses all of them."
+   },
+   {
+    "question": "A student says they are 'just not good at art'. How do you respond?",
+    "skill": "teaching",
+    "tip": "Praise effort and process, and set small tasks they can succeed at."
+   },
+   {
+    "question": "Which painting techniques would you teach beginners first, and why?",
+    "skill": "painting",
+    "tip": "Colour mixing, washes and brush control come before complex compositions."
+   },
+   {
+    "question": "How do you use Adobe tools in your own work or in class?",
+    "skill": "adobe",
+    "tip": "Give a concrete example, such as a poster or a digital painting, and what it taught you."
+   },
+   {
+    "question": "How would you bring music into an art lesson?",
+    "skill": "music",
+    "tip": "Drawing to rhythm or mood is a simple, memorable example."
+   },
+   {
+    "question": "How do you assess creative work fairly?",
+    "skill": "teaching",
+    "tip": "Use a simple rubric shared in advance: idea, technique, effort and reflection."
+   },
+   {
+    "question": "How would you prepare students for an exhibition or the annual day?",
+    "skill": "curriculum",
+    "tip": "Plan backwards from the event date and let students choose and present their best work."
+   }
+  ],
+  "Automobile": [
+   {
+    "question": "Explain how a four-stroke petrol engine works.",
+    "skill": "engine",
+    "tip": "Go stroke by stroke: intake, compression, power, exhaust, and what the valves do in each."
+   },
+   {
+    "question": "A customer says the car pulls to one side when braking. What could be wrong?",
+    "skill": "brakes",
+    "tip": "List likely causes in order of checking: a sticking caliper, worn pads, uneven tyre pressure."
+   },
+   {
+    "question": "How do you use an OBD scanner to diagnose a check-engine light?",
+    "skill": "diagnostics",
+    "tip": "Read the code, check live data, then confirm with a physical test before replacing parts."
+   },
+   {
+    "question": "What is included in a periodic service for a petrol hatchback?",
+    "skill": "maintenance",
+    "tip": "Oil and filter, air filter, brake check, fluids, tyres and a road test."
+   },
+   {
+    "question": "The battery drains overnight. How would you find the cause?",
+    "skill": "electrical systems",
+    "tip": "Describe a parasitic draw test with a multimeter, pulling fuses one at a time."
+   },
+   {
+    "question": "What are the main differences between a petrol and a diesel engine?",
+    "skill": "engine",
+    "tip": "Spark ignition versus compression ignition, and what that means for torque and maintenance."
+   },
+   {
+    "question": "How do you explain a costly repair to a customer who expected a small bill?",
+    "skill": "customer service",
+    "tip": "Show the worn part, explain the risk of not fixing it, and give options with prices."
+   },
+   {
+    "question": "How would you diagnose a clutch that slips?",
+    "skill": "repair",
+    "tip": "Describe the symptom check on a road test, then free play, then the clutch plate and pressure plate."
+   },
+   {
+    "question": "How is servicing an electric vehicle different from a petrol car?",
+    "skill": "automotive",
+    "tip": "Fewer moving parts, but high-voltage safety and battery health checks matter."
+   },
+   {
+    "question": "What safety steps do you follow before working under a vehicle?",
+    "skill": "maintenance",
+    "tip": "Level ground, wheel chocks, proper stands under the jacking points, never a jack alone."
+   }
+  ],
+  "Aviation": [
+   {
+    "question": "What are the four forces on an aircraft in flight, and how are they balanced?",
+    "skill": "flight",
+    "tip": "Lift, weight, thrust and drag; explain what changes in a climb."
+   },
+   {
+    "question": "What does the DGCA do, and which rules matter most for aircraft maintenance?",
+    "skill": "regulations",
+    "tip": "Mention the CARs and AME licensing, and that every task must be signed off."
+   },
+   {
+    "question": "What is the difference between line maintenance and a heavy check?",
+    "skill": "maintenance",
+    "tip": "Line work is done between flights; heavy checks take the aircraft out of service in a hangar."
+   },
+   {
+    "question": "How do you carry out a walk-around inspection before a flight?",
+    "skill": "inspection",
+    "tip": "Follow a fixed direction around the aircraft and name what you check at each area."
+   },
+   {
+    "question": "What is FOD and how do you prevent it?",
+    "skill": "safety",
+    "tip": "Foreign object debris: tool control, FOD walks and clean work areas."
+   },
+   {
+    "question": "How would you troubleshoot a hydraulic leak reported by the crew?",
+    "skill": "troubleshooting",
+    "tip": "Use the manual's fault isolation steps; never guess on a flight-critical system."
+   },
+   {
+    "question": "Name the main parts of an aircraft and what each does.",
+    "skill": "aircraft",
+    "tip": "Fuselage, wings, empennage, landing gear, power plant; one line for each."
+   },
+   {
+    "question": "Why does documentation matter so much in aircraft maintenance?",
+    "skill": "maintenance",
+    "tip": "If it is not recorded it is not done; logbooks and task cards make work traceable."
+   },
+   {
+    "question": "What are human factors in aviation, and can you name a few from the 'dirty dozen'?",
+    "skill": "safety",
+    "tip": "Fatigue, complacency and lack of communication are good examples with real incidents behind them."
+   },
+   {
+    "question": "Why do you want to work in aviation, and what do you know about us?",
+    "skill": "aviation",
+    "tip": "Show you read about the company's fleet or routes; generic answers stand out badly."
+   }
+  ],
+  "BPO": [
+   {
+    "question": "Introduce yourself.",
+    "skill": "communication",
+    "tip": "Keep it short and clear; the interviewer is listening to your fluency and pace more than your story."
+   },
+   {
+    "question": "A customer is shouting about a wrong bill. Take the call.",
+    "skill": "customer service",
+    "tip": "Let them finish, apologise for the trouble, confirm details, then say exactly what you will do."
+   },
+   {
+    "question": "What do AHT, FCR and CSAT mean, and why do they matter?",
+    "skill": "call center",
+    "tip": "Average handle time, first call resolution, customer satisfaction; say how they pull against each other."
+   },
+   {
+    "question": "What do you do when you cannot solve a customer's problem yourself?",
+    "skill": "escalations",
+    "tip": "Explain the escalation path, set expectations on the callback, and log everything."
+   },
+   {
+    "question": "How do you make sure your data entry is accurate when you work fast?",
+    "skill": "data entry",
+    "tip": "Mention checking key fields twice and using shortcuts instead of retyping."
+   },
+   {
+    "question": "What does a quality analyst listen for in your calls?",
+    "skill": "quality",
+    "tip": "Greeting, verification, empathy, correct resolution, and closing the call properly."
+   },
+   {
+    "question": "What is a CRM, and how would you use it during a call?",
+    "skill": "crm",
+    "tip": "Look up the history before asking the customer to repeat it, and log notes as you go."
+   },
+   {
+    "question": "Are you comfortable with night shifts and rotational week-offs?",
+    "skill": "call center",
+    "tip": "Answer honestly; if yes, mention how you would manage sleep and travel."
+   },
+   {
+    "question": "A customer asks for something our policy does not allow. What do you say?",
+    "skill": "problem solving",
+    "tip": "Say no to the request, not to the customer: offer the closest thing you can do."
+   },
+   {
+    "question": "Tell me about a time you turned an unhappy customer around.",
+    "skill": "customer service",
+    "tip": "Any real example works, even from a college event or a part-time job."
+   }
+  ],
+  "Banking": [
+   {
+    "question": "What is the difference between CRR and SLR?",
+    "skill": "banking",
+    "tip": "CRR is kept with the RBI as cash; SLR is kept by the bank in liquid assets like government securities."
+   },
+   {
+    "question": "What is the repo rate, and how does a change in it reach a home loan customer?",
+    "skill": "banking",
+    "tip": "Explain the chain: repo rate, bank's cost of funds, external benchmark, then the EMI."
+   },
+   {
+    "question": "What is KYC and why must every bank follow it?",
+    "skill": "compliance",
+    "tip": "Identity and address proof to prevent fraud and money laundering; mention re-KYC."
+   },
+   {
+    "question": "What is an NPA, and when does a loan become one?",
+    "skill": "credit",
+    "tip": "Mention the overdue period the RBI uses and why NPAs hurt a bank's profit."
+   },
+   {
+    "question": "How would you assess a personal loan application?",
+    "skill": "loans",
+    "tip": "Income, existing EMIs, credit score and job stability; say what would make you decline."
+   },
+   {
+    "question": "Sell me a fixed deposit.",
+    "skill": "sales",
+    "tip": "Ask about the customer's goal first, then talk about safety, tenure options and liquidity."
+   },
+   {
+    "question": "What kinds of risk does a bank face?",
+    "skill": "risk",
+    "tip": "Credit, market, liquidity and operational risk, with one example each."
+   },
+   {
+    "question": "How would you judge a small company's ability to repay a loan from its financial statements?",
+    "skill": "financial analysis",
+    "tip": "Cash flow, debt to equity and interest coverage tell most of the story."
+   },
+   {
+    "question": "A customer complains about a charge they do not recognise. How do you handle it?",
+    "skill": "customer service",
+    "tip": "Check the statement with them, explain the charge, and raise a complaint if it is wrong."
+   },
+   {
+    "question": "What is money laundering, and what makes a transaction suspicious?",
+    "skill": "compliance",
+    "tip": "Give signs such as cash just under reporting limits or many accounts used for one purpose."
+   }
+  ],
+  "Blockchain": [
+   {
+    "question": "Explain how a blockchain stays tamper-proof.",
+    "skill": "blockchain",
+    "tip": "Hashes link each block to the previous one, and consensus makes rewriting history too costly."
+   },
+   {
+    "question": "What is the difference between proof of work and proof of stake?",
+    "skill": "ethereum",
+    "tip": "Compare what secures the network in each, and mention that Ethereum moved to proof of stake."
+   },
+   {
+    "question": "What is a smart contract? Describe one you wrote.",
+    "skill": "smart contracts",
+    "tip": "Explain what it does, who can call which function, and how you tested it."
+   },
+   {
+    "question": "What is a reentrancy attack, and how do you prevent it in Solidity?",
+    "skill": "solidity",
+    "tip": "Update state before external calls (checks-effects-interactions) or use a reentrancy guard."
+   },
+   {
+    "question": "What is gas, and how would you reduce the gas cost of a contract?",
+    "skill": "solidity",
+    "tip": "Fewer storage writes, packing variables, and avoiding loops over unbounded arrays."
+   },
+   {
+    "question": "How does a frontend talk to a smart contract?",
+    "skill": "javascript",
+    "tip": "Name a library such as ethers.js, the ABI, and a wallet like MetaMask for signing."
+   },
+   {
+    "question": "What does 'decentralized' really mean for an app, and what stays centralized in most dApps?",
+    "skill": "decentralized",
+    "tip": "Be honest that hosting, indexing and the frontend are often centralized."
+   },
+   {
+    "question": "How does a Bitcoin transaction get from a wallet into a block?",
+    "skill": "bitcoin",
+    "tip": "Signed transaction, broadcast, mempool, mined into a block, confirmations."
+   },
+   {
+    "question": "What is the difference between a coin and a token?",
+    "skill": "cryptocurrency",
+    "tip": "A coin has its own chain; a token lives on another chain, such as ERC-20 on Ethereum."
+   },
+   {
+    "question": "How would you test a smart contract before deploying it?",
+    "skill": "smart contracts",
+    "tip": "Unit tests on a local chain, a testnet deployment, and a review of known attack patterns."
+   }
+  ],
+  "Building and Construction": [
+   {
+    "question": "What safety checks do you do before work starts on site each day?",
+    "skill": "safety",
+    "tip": "PPE, scaffolding, edge protection, tools and a short toolbox talk with the crew."
+   },
+   {
+    "question": "What do OSHA-style safety rules cover on a construction site?",
+    "skill": "osha",
+    "tip": "Fall protection, excavation, electrical hazards and hazard communication; relate them to Indian sites too."
+   },
+   {
+    "question": "How do you read a blueprint for a slab and find what materials it needs?",
+    "skill": "blueprints",
+    "tip": "Check the scale, dimensions, sections and the bar bending schedule."
+   },
+   {
+    "question": "How do you plan the work sequence for a small building?",
+    "skill": "scheduling",
+    "tip": "Show the order (foundation, columns, slab, masonry, finishes) and what each step waits for."
+   },
+   {
+    "question": "What checks do you do before and during a concrete pour?",
+    "skill": "concrete",
+    "tip": "Formwork, cover blocks, slump test, cube samples and proper curing afterwards."
+   },
+   {
+    "question": "How do you check that a wall is in plumb and level?",
+    "skill": "construction",
+    "tip": "Plumb bob or spirit level, and checking at several points as the wall rises."
+   },
+   {
+    "question": "Explain how you would lay out water supply and drainage lines in a house.",
+    "skill": "plumbing",
+    "tip": "Slopes for drainage, separate lines, traps, and testing for leaks before closing walls."
+   },
+   {
+    "question": "What carpentry work goes into formwork, and what can go wrong?",
+    "skill": "carpentry",
+    "tip": "Talk about alignment, bracing and leaks that spoil the concrete finish."
+   },
+   {
+    "question": "Materials arrived late and the schedule is slipping. What do you do?",
+    "skill": "scheduling",
+    "tip": "Re-sequence work that does not need the material, tell the client early, and track the new date."
+   },
+   {
+    "question": "How do you manage a crew so that the work is both safe and on time?",
+    "skill": "construction",
+    "tip": "Clear daily targets, checking quality as you go, and stopping unsafe work at once."
+   }
+  ],
+  "Business Analyst": [
+   {
+    "question": "How do you gather requirements from stakeholders who disagree?",
+    "skill": "requirements gathering",
+    "tip": "Bring them together, separate needs from solutions, and agree on priorities in writing."
+   },
+   {
+    "question": "Write a user story with acceptance criteria for a 'forgot password' feature.",
+    "skill": "agile",
+    "tip": "Use 'As a ... I want ... so that ...' and give testable acceptance criteria."
+   },
+   {
+    "question": "What is a gap analysis? Give an example.",
+    "skill": "gap analysis",
+    "tip": "Current state, desired state, the gap, and the actions that close it."
+   },
+   {
+    "question": "Write a SQL query to find the top customers by total order value.",
+    "skill": "sql",
+    "tip": "GROUP BY customer, SUM the value, ORDER BY descending, then limit the rows."
+   },
+   {
+    "question": "How would you use Excel to analyse a month of sales data quickly?",
+    "skill": "excel",
+    "tip": "Pivot tables first, then charts, then a few lookups for missing context."
+   },
+   {
+    "question": "What is a use case, and how is it different from a user story?",
+    "skill": "use cases",
+    "tip": "A use case describes the full interaction with alternate flows; a user story is a short need."
+   },
+   {
+    "question": "How do you manage stakeholders who keep changing requirements?",
+    "skill": "stakeholders",
+    "tip": "Show change control: log the change, show its impact, and get a decision."
+   },
+   {
+    "question": "How do you use Jira to track requirements through development?",
+    "skill": "jira",
+    "tip": "Epics, stories, statuses and linking stories to test cases."
+   },
+   {
+    "question": "Explain the Agile ceremonies and the role of a BA in each.",
+    "skill": "agile",
+    "tip": "Planning, stand-up, review and retrospective; the BA clarifies stories and acceptance criteria."
+   },
+   {
+    "question": "A guesstimate: how many cups of tea are sold in your city in a day?",
+    "skill": "problem solving",
+    "tip": "Interviewers judge the structure: break the problem into people, habits and outlets, and state assumptions."
+   }
+  ],
+  "Civil Engineer": [
+   {
+    "question": "What is the difference between a one-way slab and a two-way slab?",
+    "skill": "structural",
+    "tip": "It depends on the ratio of the longer span to the shorter span; explain where the load goes."
+   },
+   {
+    "question": "What tests would you do on concrete at site and in the lab?",
+    "skill": "construction",
+    "tip": "Slump test on site, cube compressive strength in the lab, and why curing matters."
+   },
+   {
+    "question": "How do you draw a site plan in AutoCAD from survey data?",
+    "skill": "autocad",
+    "tip": "Coordinates, layers, levels and a clear title block with the scale."
+   },
+   {
+    "question": "Explain the different types of foundations and when you would use each.",
+    "skill": "civil engineering",
+    "tip": "Isolated, combined, raft and pile; link the choice to soil bearing capacity."
+   },
+   {
+    "question": "How would you design storm water drainage for a small layout?",
+    "skill": "drainage",
+    "tip": "Catchment area, runoff, slope of drains and the outfall point."
+   },
+   {
+    "question": "What do you check during a site inspection of RCC work before a pour?",
+    "skill": "inspection",
+    "tip": "Reinforcement as per drawing, cover, laps, formwork and cleanliness."
+   },
+   {
+    "question": "How would you plan and track a small building project?",
+    "skill": "project management",
+    "tip": "Work breakdown, a schedule with dependencies, and weekly progress against it."
+   },
+   {
+    "question": "What is Civil 3D used for that plain AutoCAD cannot do easily?",
+    "skill": "civil 3d",
+    "tip": "Surfaces, alignments, profiles and earthwork quantities from survey data."
+   },
+   {
+    "question": "What is the difference between working stress method and limit state method?",
+    "skill": "structural",
+    "tip": "Explain the safety factors used in each and why IS 456 is based on limit state."
+   },
+   {
+    "question": "Why do cracks appear in a new building, and how would you find out which kind they are?",
+    "skill": "civil engineering",
+    "tip": "Shrinkage, settlement or structural; describe what the pattern and width tell you."
+   }
+  ],
+  "Consultant": [
+   {
+    "question": "Our client's profits fell this year. How would you find out why?",
+    "skill": "consulting",
+    "tip": "Split profit into revenue and cost, then keep splitting until the data points to the cause."
+   },
+   {
+    "question": "Estimate the market size for two-wheeler helmets in India.",
+    "skill": "strategy",
+    "tip": "State your assumptions out loud; the structure matters more than the final number."
+   },
+   {
+    "question": "How would you structure a slide that recommends a decision to a CEO?",
+    "skill": "presentations",
+    "tip": "Lead with the answer in the title, then the three reasons, then the next steps."
+   },
+   {
+    "question": "How do you build a quick financial model in Excel for a new product?",
+    "skill": "excel",
+    "tip": "Separate inputs from calculations, and show a best and worst case."
+   },
+   {
+    "question": "How do you handle a client who does not accept your findings?",
+    "skill": "stakeholders",
+    "tip": "Go back to the data with them, find the real concern, and test their view fairly."
+   },
+   {
+    "question": "Tell us about a project you managed with a tight deadline.",
+    "skill": "project management",
+    "tip": "Scope, plan, risks and what you dropped to deliver on time."
+   },
+   {
+    "question": "How would you help a company's staff accept a new system?",
+    "skill": "change management",
+    "tip": "Explain why, involve early users, train well, and measure adoption."
+   },
+   {
+    "question": "How do you explain a technical finding to a non-technical client?",
+    "skill": "communication",
+    "tip": "Use their business terms and one clear example, not the method."
+   },
+   {
+    "question": "Should a mid-sized retailer open more stores or invest in online sales?",
+    "skill": "strategy",
+    "tip": "Lay out the criteria first (cost, customer, competition), then compare."
+   },
+   {
+    "question": "Why consulting, and why our firm?",
+    "skill": "consulting",
+    "tip": "Give a real reason tied to problem solving and to something specific about the firm."
+   }
+  ],
+  "Data Science": [
+   {
+    "question": "Explain the bias-variance trade-off with an example.",
+    "skill": "machine learning",
+    "tip": "Link underfitting to bias and overfitting to variance, and say how you would detect each."
+   },
+   {
+    "question": "Your model has high accuracy but the business says it is useless. What could be wrong?",
+    "skill": "machine learning",
+    "tip": "Think of class imbalance: look at precision, recall and the confusion matrix."
+   },
+   {
+    "question": "Write a SQL query to find each customer's second most recent order.",
+    "skill": "sql",
+    "tip": "Use ROW_NUMBER() over a partition by customer, ordered by date."
+   },
+   {
+    "question": "How do you handle missing values in a dataset?",
+    "skill": "data analysis",
+    "tip": "First find out why they are missing, then choose dropping, imputing or a flag column."
+   },
+   {
+    "question": "What is a p-value, in plain words?",
+    "skill": "statistics",
+    "tip": "Explain it as how surprising the data would be if there were no real effect."
+   },
+   {
+    "question": "In pandas, how would you find the average sales per region per month?",
+    "skill": "python",
+    "tip": "groupby on region and month, then mean; mention resample for dates."
+   },
+   {
+    "question": "How do you choose the right chart to show a trend versus a comparison?",
+    "skill": "visualization",
+    "tip": "Line charts for trends, bar charts for comparisons; avoid pie charts with many slices."
+   },
+   {
+    "question": "Walk us through your best project: problem, data, model, result.",
+    "skill": "data analysis",
+    "tip": "Explain why you chose the model and what you would improve, not just the score."
+   },
+   {
+    "question": "How would you build a dashboard in Tableau for a sales manager?",
+    "skill": "tableau",
+    "tip": "Ask what decisions they make first, then show only the metrics that serve them."
+   },
+   {
+    "question": "When would you use R instead of Python?",
+    "skill": "r",
+    "tip": "Statistical work and packages like ggplot2 or tidyverse; it is fine to say you prefer one."
+   }
+  ],
+  "Database": [
+   {
+    "question": "What is normalization? Explain the first three normal forms.",
+    "skill": "sql",
+    "tip": "Use one small table and show how each normal form splits it."
+   },
+   {
+    "question": "What happens when a query is slow, and how do you find the cause?",
+    "skill": "performance tuning",
+    "tip": "Read the execution plan, check indexes and statistics, then rewrite the query."
+   },
+   {
+    "question": "Explain the different types of database backup and when to use each.",
+    "skill": "backup",
+    "tip": "Full, differential and log or incremental backups, and how they combine in a restore."
+   },
+   {
+    "question": "The database crashed. Walk us through recovering it.",
+    "skill": "recovery",
+    "tip": "Restore the last full backup, then later backups and logs, then verify the data."
+   },
+   {
+    "question": "What is replication and why would you set it up?",
+    "skill": "replication",
+    "tip": "Explain primary and replica, read scaling, and failover."
+   },
+   {
+    "question": "What are ACID properties?",
+    "skill": "mysql",
+    "tip": "Give a bank transfer as the example for each property."
+   },
+   {
+    "question": "How do you create a user in Oracle and give only the access they need?",
+    "skill": "oracle",
+    "tip": "Mention least privilege and roles instead of granting to each user."
+   },
+   {
+    "question": "Which Linux commands do you use to check disk space and a running database process?",
+    "skill": "linux",
+    "tip": "df -h, du, top or ps, and checking the database logs."
+   },
+   {
+    "question": "What is an index, and when can an index make things slower?",
+    "skill": "performance tuning",
+    "tip": "Indexes speed reads but slow inserts and updates; too many hurt."
+   },
+   {
+    "question": "What is the difference between DELETE, TRUNCATE and DROP?",
+    "skill": "sql",
+    "tip": "Talk about rollback, logging and whether the table structure remains."
+   }
+  ],
+  "Designing": [
+   {
+    "question": "Walk us through a design project from brief to final file.",
+    "skill": "graphic design",
+    "tip": "Show the brief, your options, the feedback and why the final version won."
+   },
+   {
+    "question": "How do you build a brand identity for a small business?",
+    "skill": "branding",
+    "tip": "Start with the audience and personality, then logo, colours, type and usage rules."
+   },
+   {
+    "question": "What is the difference between raster and vector graphics?",
+    "skill": "illustrator",
+    "tip": "Pixels versus paths; logos belong in vector so they scale cleanly."
+   },
+   {
+    "question": "How do you prepare a file for print?",
+    "skill": "indesign",
+    "tip": "CMYK, bleed, resolution, fonts outlined or packaged, and a PDF proof."
+   },
+   {
+    "question": "How would you retouch a product photo for an online store?",
+    "skill": "photoshop",
+    "tip": "Non-destructive layers, clean background, colour correction and consistent sizing."
+   },
+   {
+    "question": "A client keeps saying 'make it pop'. What do you do?",
+    "skill": "graphic design",
+    "tip": "Ask questions to find what they mean, then show two clear options."
+   },
+   {
+    "question": "How do you plan an interior layout for a small apartment?",
+    "skill": "interior design",
+    "tip": "Measure first, plan circulation, then storage and light."
+   },
+   {
+    "question": "When would you use AutoCAD in a design job?",
+    "skill": "autocad",
+    "tip": "Accurate floor plans and working drawings that contractors can build from."
+   },
+   {
+    "question": "Which Adobe tool would you pick for a logo, a brochure and a photo edit, and why?",
+    "skill": "adobe",
+    "tip": "Illustrator, InDesign and Photoshop; explain the reason for each."
+   },
+   {
+    "question": "How do you handle negative feedback on your work?",
+    "skill": "graphic design",
+    "tip": "Separate the feedback from yourself, ask what problem it points to, and iterate."
+   }
+  ],
+  "DevOps": [
+   {
+    "question": "What is the difference between a container and a virtual machine?",
+    "skill": "docker",
+    "tip": "Containers share the host kernel; VMs run a full guest OS. Mention start-up time and size."
+   },
+   {
+    "question": "Write a simple Dockerfile for a Python web app and explain each line.",
+    "skill": "docker",
+    "tip": "Base image, copy requirements first for layer caching, install, copy code, expose, command."
+   },
+   {
+    "question": "What is a Kubernetes pod, deployment and service?",
+    "skill": "kubernetes",
+    "tip": "Explain how they fit together to run and expose an app."
+   },
+   {
+    "question": "Describe a CI/CD pipeline you built or would build.",
+    "skill": "ci/cd",
+    "tip": "Build, test, scan, deploy to staging, approval, deploy to production, with rollback."
+   },
+   {
+    "question": "A Jenkins build that worked yesterday fails today. How do you debug it?",
+    "skill": "jenkins",
+    "tip": "Read the console log, compare with the last good build, check what changed."
+   },
+   {
+    "question": "Explain git rebase versus merge.",
+    "skill": "git",
+    "tip": "Rebase rewrites history into a straight line; never rebase a shared branch."
+   },
+   {
+    "question": "A Linux server is running slow. Which commands do you check first?",
+    "skill": "linux",
+    "tip": "top or htop, free -m, df -h, iostat, and the application logs."
+   },
+   {
+    "question": "How would you host a web app on AWS so it survives one server failing?",
+    "skill": "aws",
+    "tip": "Load balancer, an auto scaling group across availability zones, and a managed database."
+   },
+   {
+    "question": "What is Ansible used for, and what is an idempotent playbook?",
+    "skill": "ansible",
+    "tip": "Running it twice gives the same result; explain why that matters."
+   },
+   {
+    "question": "How do you keep secrets like passwords out of your code and pipelines?",
+    "skill": "ci/cd",
+    "tip": "Environment variables or a secrets manager, never committed to git."
+   }
+  ],
+  "Digital Media": [
+   {
+    "question": "How would you plan a month of social media posts for a new cafe?",
+    "skill": "social media",
+    "tip": "Pick goals, the platforms the audience uses, content themes and a posting calendar."
+   },
+   {
+    "question": "Which numbers tell you whether a campaign worked?",
+    "skill": "campaigns",
+    "tip": "Tie metrics to the goal: reach for awareness, clicks and conversions for sales."
+   },
+   {
+    "question": "How do you use Google Analytics to find where visitors drop off?",
+    "skill": "google analytics",
+    "tip": "Look at the funnel or path reports and landing pages with high exits."
+   },
+   {
+    "question": "Explain on-page SEO for a blog post.",
+    "skill": "seo",
+    "tip": "Search intent, title, headings, meta description, internal links and page speed."
+   },
+   {
+    "question": "How would you grow an email list and keep people opening the emails?",
+    "skill": "email marketing",
+    "tip": "A useful sign-up offer, segmentation, and testing subject lines."
+   },
+   {
+    "question": "What is the difference between organic and paid reach?",
+    "skill": "digital marketing",
+    "tip": "Explain when you would pay to boost a post and how you would set the budget."
+   },
+   {
+    "question": "Write a caption for an Instagram post about our product.",
+    "skill": "content",
+    "tip": "Hook in the first line, one clear message and a call to action."
+   },
+   {
+    "question": "Which Adobe tools do you use to make social media creatives?",
+    "skill": "adobe",
+    "tip": "Name the tool and show a real piece you made with it."
+   },
+   {
+    "question": "A post gets negative comments. How do you respond?",
+    "skill": "social media",
+    "tip": "Reply calmly and fast, take details to a private chat, and never delete fair criticism."
+   },
+   {
+    "question": "How would you run an A/B test on an ad?",
+    "skill": "campaigns",
+    "tip": "Change one thing at a time and wait for enough data before deciding."
+   }
+  ],
+  "DotNet Developer": [
+   {
+    "question": "Explain the difference between a class and a struct in C#.",
+    "skill": "c#",
+    "tip": "Reference type versus value type, and what that means when you pass them to a method."
+   },
+   {
+    "question": "What happens in the ASP.NET request pipeline from URL to response?",
+    "skill": "asp.net",
+    "tip": "Routing, middleware, controller, action, model binding and the view or JSON result."
+   },
+   {
+    "question": "Explain the MVC pattern and why ASP.NET uses it.",
+    "skill": "mvc",
+    "tip": "Separation of concerns: what each part does and how it makes testing easier."
+   },
+   {
+    "question": "What is Entity Framework, and what is the N+1 query problem?",
+    "skill": "entity framework",
+    "tip": "Explain lazy loading and fix it with Include or a projection."
+   },
+   {
+    "question": "Write a SQL Server query to find duplicate email addresses in a users table.",
+    "skill": "sql server",
+    "tip": "GROUP BY email HAVING COUNT(*) > 1."
+   },
+   {
+    "question": "What is the difference between async and parallel in C#?",
+    "skill": "c#",
+    "tip": "async frees a thread while waiting for I/O; parallel uses several threads for CPU work."
+   },
+   {
+    "question": "What was WCF used for, and what replaces it in new projects?",
+    "skill": "wcf",
+    "tip": "SOAP services; new projects usually use ASP.NET Core Web API or gRPC."
+   },
+   {
+    "question": "How do you debug a crash in Visual Studio?",
+    "skill": "visual studio",
+    "tip": "Breakpoints, the call stack, watch windows and reading the exception details."
+   },
+   {
+    "question": "How would you call an API from JavaScript on an ASP.NET page and show the result?",
+    "skill": "javascript",
+    "tip": "fetch, handle errors, and update the page without a full reload."
+   },
+   {
+    "question": "What is dependency injection, and how is it set up in ASP.NET Core?",
+    "skill": "asp.net",
+    "tip": "Register services with a lifetime, inject them through the constructor."
+   }
+  ],
+  "ETL Developer": [
+   {
+    "question": "Explain the ETL process with an example from a project.",
+    "skill": "etl",
+    "tip": "Source, transformations, target, and how you handled bad rows."
+   },
+   {
+    "question": "What is the difference between a fact table and a dimension table?",
+    "skill": "data warehouse",
+    "tip": "Facts are measures, dimensions describe them; draw a small star schema."
+   },
+   {
+    "question": "What is a slowly changing dimension? Explain Type 1 and Type 2.",
+    "skill": "data warehouse",
+    "tip": "Type 1 overwrites; Type 2 keeps history with new rows and effective dates."
+   },
+   {
+    "question": "How do you load only new and changed records instead of the full table?",
+    "skill": "etl",
+    "tip": "Incremental load with a last-updated column, a watermark, or change data capture."
+   },
+   {
+    "question": "In Informatica, what is the difference between a mapping and a workflow?",
+    "skill": "informatica",
+    "tip": "The mapping defines the data flow; the workflow runs and schedules sessions."
+   },
+   {
+    "question": "How do you design a mapping that handles rejected rows?",
+    "skill": "mappings",
+    "tip": "Route bad rows to an error table with the reason, and report counts after each run."
+   },
+   {
+    "question": "Write an Oracle query to get the latest record per customer.",
+    "skill": "oracle",
+    "tip": "ROW_NUMBER() over a partition, or a correlated subquery on the max date."
+   },
+   {
+    "question": "Which Unix commands do you use to check a source file before loading it?",
+    "skill": "unix",
+    "tip": "wc -l, head, grep and checking delimiters and the header line."
+   },
+   {
+    "question": "How would you build a package in SSIS to load a CSV into SQL Server?",
+    "skill": "ssis",
+    "tip": "Flat file source, data conversion, lookups, destination, and logging."
+   },
+   {
+    "question": "A nightly load ran but the report numbers are wrong. How do you investigate?",
+    "skill": "sql",
+    "tip": "Compare row counts and totals at each stage to find where they diverge."
+   }
+  ],
+  "Education": [
+   {
+    "question": "Teach us a short concept from your subject as if we were your class.",
+    "skill": "teaching",
+    "tip": "Keep it short, check understanding with a question, and end with a summary."
+   },
+   {
+    "question": "How do you write a lesson plan?",
+    "skill": "curriculum",
+    "tip": "Learning objective, starter, main activity, assessment and homework."
+   },
+   {
+    "question": "Two students keep disturbing the class. What do you do?",
+    "skill": "classroom management",
+    "tip": "Calm and private correction first, clear consequences, and involve parents if it continues."
+   },
+   {
+    "question": "How do you teach a class where students are at very different levels?",
+    "skill": "differentiated",
+    "tip": "Tiered tasks, small groups and extra challenge for those who finish early."
+   },
+   {
+    "question": "How would you support a student with a learning disability?",
+    "skill": "special education",
+    "tip": "Work with the special educator and parents, and adapt the material, not the expectation."
+   },
+   {
+    "question": "What is an IEP, and what goes into one?",
+    "skill": "iep",
+    "tip": "Present level, goals, support, and how progress is measured."
+   },
+   {
+    "question": "How do you communicate with parents about a struggling student?",
+    "skill": "communication",
+    "tip": "Start with something positive, give specific examples, and agree on a plan together."
+   },
+   {
+    "question": "How do you know your students actually learned the lesson?",
+    "skill": "instruction",
+    "tip": "Exit questions, quick quizzes and asking students to explain in their own words."
+   },
+   {
+    "question": "How would you use technology in your classroom?",
+    "skill": "teaching",
+    "tip": "Give one tool and the learning it supports, not a list of apps."
+   },
+   {
+    "question": "How do you align your teaching with the CBSE or state board syllabus while keeping it interesting?",
+    "skill": "curriculum",
+    "tip": "Cover the learning outcomes, then add activities and real-life examples on top."
+   }
+  ],
+  "Electrical Engineering": [
+   {
+    "question": "Explain the difference between a star and a delta connection.",
+    "skill": "electrical",
+    "tip": "Give the relation between line and phase voltage and current for each."
+   },
+   {
+    "question": "How does an induction motor start, and why do large motors need a starter?",
+    "skill": "motors",
+    "tip": "High starting current; mention DOL, star-delta and soft starters."
+   },
+   {
+    "question": "What safety steps do you take before working on a panel?",
+    "skill": "safety",
+    "tip": "Isolation, lockout-tagout, testing for dead and proper PPE."
+   },
+   {
+    "question": "A motor trips on overload repeatedly. How would you troubleshoot it?",
+    "skill": "troubleshooting",
+    "tip": "Check the load, supply voltage, phase balance, bearings and the relay setting."
+   },
+   {
+    "question": "What is the difference between an MCB, an MCCB and an RCCB?",
+    "skill": "panels",
+    "tip": "Explain what each protects against and where each is used."
+   },
+   {
+    "question": "How do you size a cable for a given load?",
+    "skill": "wiring",
+    "tip": "Current, voltage drop, installation method and the derating factors."
+   },
+   {
+    "question": "Explain Kirchhoff's current and voltage laws with a simple circuit.",
+    "skill": "circuit",
+    "tip": "Draw a two-loop circuit and write the equations."
+   },
+   {
+    "question": "What preventive maintenance would you do on a transformer?",
+    "skill": "maintenance",
+    "tip": "Oil level and testing, insulation resistance, temperature and breather silica gel."
+   },
+   {
+    "question": "Why is power factor important, and how can it be improved?",
+    "skill": "electrical",
+    "tip": "Explain the penalty and the use of capacitor banks."
+   },
+   {
+    "question": "What is earthing, and how is it tested?",
+    "skill": "safety",
+    "tip": "Explain the purpose, then the earth resistance test with a megger."
+   }
+  ],
+  "Finance": [
+   {
+    "question": "How would you value a company?",
+    "skill": "financial analysis",
+    "tip": "Name DCF and comparable multiples, and say when each makes more sense."
+   },
+   {
+    "question": "Walk me through a cash flow statement.",
+    "skill": "financial reporting",
+    "tip": "Operating, investing and financing activities, starting from net profit."
+   },
+   {
+    "question": "How do you prepare a department's budget for next year?",
+    "skill": "budgeting",
+    "tip": "Start from last year's actuals, adjust for known changes, and explain assumptions."
+   },
+   {
+    "question": "How would you forecast next quarter's sales?",
+    "skill": "forecasting",
+    "tip": "Trend plus seasonality, checked against the sales team's pipeline."
+   },
+   {
+    "question": "What is working capital, and why would a profitable company still run out of cash?",
+    "skill": "accounting",
+    "tip": "Explain receivables, inventory and payables with a simple example."
+   },
+   {
+    "question": "Build a quick model in Excel to compare two loan options.",
+    "skill": "excel",
+    "tip": "Use PMT for the EMI and compare total interest paid."
+   },
+   {
+    "question": "What does an internal audit check, and how do you prepare for one?",
+    "skill": "audit",
+    "tip": "Controls, documentation and reconciliations kept up to date through the year."
+   },
+   {
+    "question": "What is the difference between NPV and IRR?",
+    "skill": "investment",
+    "tip": "NPV is a value, IRR is a rate; say which you trust when they disagree."
+   },
+   {
+    "question": "What are the key ratios you would check in a company's annual report?",
+    "skill": "financial analysis",
+    "tip": "Growth, margins, return on equity, debt to equity and cash conversion."
+   },
+   {
+    "question": "Explain variance analysis with an example.",
+    "skill": "budgeting",
+    "tip": "Budget versus actual, then split it into price and volume effects."
+   }
+  ],
+  "Food and Beverages": [
+   {
+    "question": "A guest complains that the food is cold. What do you do?",
+    "skill": "customer service",
+    "tip": "Apologise, replace it quickly, inform the kitchen, and check back with the guest."
+   },
+   {
+    "question": "How would you upsell a dessert or beverage without being pushy?",
+    "skill": "beverage",
+    "tip": "Recommend one specific item with a reason, at the right moment."
+   },
+   {
+    "question": "What food safety and hygiene rules do you follow in a kitchen or service area?",
+    "skill": "sanitation",
+    "tip": "Hand washing, separate boards, temperature control and FSSAI rules."
+   },
+   {
+    "question": "How do you manage stock so that nothing expires and nothing runs out?",
+    "skill": "inventory",
+    "tip": "FIFO, par levels and daily checks of fast-moving items."
+   },
+   {
+    "question": "How would you plan a menu for a new cafe near a college?",
+    "skill": "menu",
+    "tip": "Price range of the customers, a few strong items, and simple preparation."
+   },
+   {
+    "question": "How do you handle a busy service when the restaurant is short of staff?",
+    "skill": "restaurant",
+    "tip": "Prioritise, divide sections clearly, and keep guests informed about waits."
+   },
+   {
+    "question": "What makes great hospitality, in your view?",
+    "skill": "hospitality",
+    "tip": "Give a real example of noticing what a guest needed before they asked."
+   },
+   {
+    "question": "How would you organise catering for a wedding of a few hundred guests?",
+    "skill": "catering",
+    "tip": "Menu, quantities, staff, timeline, transport and a backup plan."
+   },
+   {
+    "question": "Explain the basic types of service, such as silver, buffet and a la carte.",
+    "skill": "restaurant",
+    "tip": "When each is used and what it needs from the staff."
+   },
+   {
+    "question": "A guest seems to have had too much to drink. How do you handle it?",
+    "skill": "beverage",
+    "tip": "Stop serving politely, offer water and food, and involve the manager."
+   }
+  ],
+  "Health and Fitness": [
+   {
+    "question": "How would you design a first program for a complete beginner?",
+    "skill": "personal training",
+    "tip": "Assessment first, basic movements, gradual progress and clear goals."
+   },
+   {
+    "question": "A client wants to lose weight quickly before a wedding. What do you tell them?",
+    "skill": "nutrition",
+    "tip": "Be honest about safe progress and focus on habits they can keep."
+   },
+   {
+    "question": "How do you correct a client's squat form?",
+    "skill": "exercise",
+    "tip": "One cue at a time, demonstrate, and reduce the load if needed."
+   },
+   {
+    "question": "How would you run a group class with people of different fitness levels?",
+    "skill": "group fitness",
+    "tip": "Offer easier and harder options for each move."
+   },
+   {
+    "question": "What would you do if a client collapses during a session?",
+    "skill": "cpr",
+    "tip": "Check response and breathing, call for help, start CPR and use an AED if available."
+   },
+   {
+    "question": "How do you keep clients motivated after the first month?",
+    "skill": "coaching",
+    "tip": "Track progress they can see, set new targets, and celebrate small wins."
+   },
+   {
+    "question": "What is the difference between aerobic and anaerobic exercise?",
+    "skill": "fitness",
+    "tip": "Explain energy systems and give an example workout of each."
+   },
+   {
+    "question": "What basic nutrition advice is within a trainer's role, and what is not?",
+    "skill": "nutrition",
+    "tip": "General healthy eating is fine; medical diets should go to a dietitian or doctor."
+   },
+   {
+    "question": "How would you build a wellness program for office employees?",
+    "skill": "wellness",
+    "tip": "Short sessions, posture, stress and simple challenges that teams can join."
+   },
+   {
+    "question": "How do you adapt training for a client with a past knee injury?",
+    "skill": "personal training",
+    "tip": "Get medical clearance, avoid painful ranges, and strengthen around the joint."
+   }
+  ],
+  "Human Resources": [
+   {
+    "question": "Walk us through the recruitment process from requisition to joining.",
+    "skill": "recruitment",
+    "tip": "Job description, sourcing, screening, interviews, offer, background check, onboarding."
+   },
+   {
+    "question": "How would you plan the first week for a new joiner?",
+    "skill": "onboarding",
+    "tip": "Paperwork done before day one, a buddy, clear first tasks and a check-in at the end of the week."
+   },
+   {
+    "question": "Two employees in a team have a conflict. How do you handle it?",
+    "skill": "employee relations",
+    "tip": "Hear both sides separately, focus on behaviour, agree on next steps and follow up."
+   },
+   {
+    "question": "What are PF, ESI and gratuity?",
+    "skill": "payroll",
+    "tip": "Who pays, who is eligible, and when gratuity becomes payable."
+   },
+   {
+    "question": "Which labour law compliances does an HR team handle in India?",
+    "skill": "compliance",
+    "tip": "Name a few you can explain, such as PF, ESI, POSH and the Shops and Establishments Act."
+   },
+   {
+    "question": "How would you find out what training a team needs?",
+    "skill": "training",
+    "tip": "Training needs analysis: talk to managers, look at performance data, ask employees."
+   },
+   {
+    "question": "What is an HRIS, and what would you use it for?",
+    "skill": "hris",
+    "tip": "Employee records, leave, attendance and reports; name one system if you know it."
+   },
+   {
+    "question": "How would you explain a new benefits policy to employees?",
+    "skill": "benefits",
+    "tip": "A short note, examples for typical cases, and a place to ask questions."
+   },
+   {
+    "question": "How would you reduce attrition in a team where many people are leaving?",
+    "skill": "employee relations",
+    "tip": "Start with exit interview data and stay interviews before proposing fixes."
+   },
+   {
+    "question": "Why HR, and what do you think HR does badly in many companies?",
+    "skill": "recruitment",
+    "tip": "Show a real view and how you would do better, without being negative."
+   }
+  ],
+  "Information Technology": [
+   {
+    "question": "A user says the internet is not working. How do you troubleshoot it?",
+    "skill": "troubleshooting",
+    "tip": "Work through the layers: cable or Wi-Fi, IP address, gateway, DNS, then the browser."
+   },
+   {
+    "question": "What is the difference between a switch and a router?",
+    "skill": "networking",
+    "tip": "A switch connects devices in one network; a router connects networks."
+   },
+   {
+    "question": "How do you join a Windows computer to a domain and set up a user?",
+    "skill": "windows",
+    "tip": "Domain join, Active Directory account, groups and the correct permissions."
+   },
+   {
+    "question": "A laptop will not boot. What do you check?",
+    "skill": "hardware",
+    "tip": "Power, display, beep codes, RAM, disk and safe mode, in that order."
+   },
+   {
+    "question": "How do you prioritise tickets when many come in at once?",
+    "skill": "help desk",
+    "tip": "By impact and urgency, and keep users informed about the wait."
+   },
+   {
+    "question": "What basic security steps should every office computer have?",
+    "skill": "security",
+    "tip": "Updates, antivirus, strong passwords, least privilege and backups."
+   },
+   {
+    "question": "How would you explain a technical fix to a non-technical user?",
+    "skill": "technical support",
+    "tip": "Plain words, one step at a time, and confirm the problem is solved."
+   },
+   {
+    "question": "What do DHCP and DNS do?",
+    "skill": "networking",
+    "tip": "DHCP gives addresses; DNS turns names into addresses. Give a symptom of each failing."
+   },
+   {
+    "question": "What checks would you do on a server every morning?",
+    "skill": "servers",
+    "tip": "Disk space, services running, backup status and event logs."
+   },
+   {
+    "question": "A user clicked a phishing link. What do you do?",
+    "skill": "security",
+    "tip": "Disconnect, reset passwords, scan the machine, and report it."
+   }
+  ],
+  "Java Developer": [
+   {
+    "question": "What is the difference between an interface and an abstract class in Java?",
+    "skill": "java",
+    "tip": "Mention default methods and when you would choose each."
+   },
+   {
+    "question": "How does a HashMap work internally?",
+    "skill": "java",
+    "tip": "Hashing to buckets, collisions, equals and hashCode, and resizing."
+   },
+   {
+    "question": "What is dependency injection in Spring, and how does it work?",
+    "skill": "spring",
+    "tip": "Beans in the container, constructor injection, and why it helps testing."
+   },
+   {
+    "question": "Build a REST endpoint in Spring Boot that returns a list of users.",
+    "skill": "rest",
+    "tip": "Controller, service and repository layers, and correct status codes."
+   },
+   {
+    "question": "What is the N+1 problem in Hibernate, and how do you fix it?",
+    "skill": "hibernate",
+    "tip": "Lazy loading in a loop; fix with a join fetch or an entity graph."
+   },
+   {
+    "question": "Write a JUnit test for a method that calculates a discount.",
+    "skill": "junit",
+    "tip": "Test normal, edge and invalid inputs; name tests after the behaviour."
+   },
+   {
+    "question": "Write a SQL query to find employees who earn more than their manager.",
+    "skill": "sql",
+    "tip": "A self join on the employees table."
+   },
+   {
+    "question": "Explain the difference between checked and unchecked exceptions.",
+    "skill": "java",
+    "tip": "Compile-time versus runtime, and when you would create your own."
+   },
+   {
+    "question": "What were Servlets and JSP in J2EE, and how does Spring Boot change that?",
+    "skill": "j2ee",
+    "tip": "Spring Boot builds on servlets but hides the setup with an embedded server."
+   },
+   {
+    "question": "How would you call your REST API from a JavaScript frontend?",
+    "skill": "javascript",
+    "tip": "fetch with JSON, handling errors, and CORS on the server."
+   }
+  ],
+  "Mechanical Engineer": [
+   {
+    "question": "Explain the first and second laws of thermodynamics with an everyday example.",
+    "skill": "mechanical engineering",
+    "tip": "Energy is conserved; heat flows from hot to cold. A refrigerator is a good example."
+   },
+   {
+    "question": "How would you model a simple bracket in SolidWorks and check it is strong enough?",
+    "skill": "solidworks",
+    "tip": "Sketch, extrude, fillets, then a simulation with the right fixtures and loads."
+   },
+   {
+    "question": "What is FEA, and how do you know its result is trustworthy?",
+    "skill": "fea",
+    "tip": "Mesh refinement, boundary conditions, and checking against a hand calculation."
+   },
+   {
+    "question": "What do you check in ANSYS before trusting a stress plot?",
+    "skill": "ansys",
+    "tip": "Units, material data, constraints, mesh quality and stress singularities at sharp corners."
+   },
+   {
+    "question": "Explain tolerances and fits: clearance, transition and interference.",
+    "skill": "cad",
+    "tip": "Give an example of where each is used, like a bearing on a shaft."
+   },
+   {
+    "question": "Which manufacturing process would you choose for a large batch of small aluminium parts, and why?",
+    "skill": "manufacturing",
+    "tip": "Compare casting, machining and forming on cost, volume and finish."
+   },
+   {
+    "question": "How do you produce a clean 2D drawing in AutoCAD from a 3D part?",
+    "skill": "autocad",
+    "tip": "Views, sections, dimensions, tolerances and a title block with material."
+   },
+   {
+    "question": "How would you use MATLAB to analyse test data from a machine?",
+    "skill": "matlab",
+    "tip": "Import, clean, plot and fit a simple model; show one result you found."
+   },
+   {
+    "question": "What is the difference between stress and strain? Draw a stress-strain curve.",
+    "skill": "mechanical engineering",
+    "tip": "Mark the elastic limit, yield point, ultimate strength and fracture."
+   },
+   {
+    "question": "Explain your final-year project and the hardest problem you solved in it.",
+    "skill": "mechanical engineering",
+    "tip": "Interviewers often ask the most here; know every number and decision in it."
+   }
+  ],
+  "Network Security Engineer": [
+   {
+    "question": "Explain the OSI model and where a firewall works.",
+    "skill": "network security",
+    "tip": "Name the layers, then show a packet filter versus an application firewall."
+   },
+   {
+    "question": "What is the difference between TCP and UDP? Explain the three-way handshake.",
+    "skill": "tcp/ip",
+    "tip": "SYN, SYN-ACK, ACK; give an app that uses each protocol."
+   },
+   {
+    "question": "How would you write firewall rules for a web server?",
+    "skill": "firewall",
+    "tip": "Deny by default, allow only the needed ports, and log denied traffic."
+   },
+   {
+    "question": "What is a VLAN, and why would you use one?",
+    "skill": "switching",
+    "tip": "Separating traffic and limiting broadcast domains; mention trunk ports."
+   },
+   {
+    "question": "Explain how OSPF differs from static routing.",
+    "skill": "routing",
+    "tip": "Dynamic route sharing and convergence versus manual routes."
+   },
+   {
+    "question": "How does a site-to-site VPN work?",
+    "skill": "vpn",
+    "tip": "IPsec tunnel, encryption, and what has to match on both ends."
+   },
+   {
+    "question": "Which Cisco commands do you use to check an interface and the routing table?",
+    "skill": "cisco",
+    "tip": "show ip interface brief, show ip route, show running-config."
+   },
+   {
+    "question": "A user cannot reach a server on another subnet. How do you troubleshoot?",
+    "skill": "lan",
+    "tip": "Check IP settings, gateway, routes, ACLs and the firewall, one hop at a time."
+   },
+   {
+    "question": "What is the difference between IDS and IPS?",
+    "skill": "network security",
+    "tip": "One detects and alerts, the other blocks inline."
+   },
+   {
+    "question": "How would you respond to a suspected breach on the network?",
+    "skill": "network security",
+    "tip": "Contain, preserve evidence, find the cause, fix and report."
+   }
+  ],
+  "Operations Manager": [
+   {
+    "question": "How do you find the bottleneck in a process?",
+    "skill": "process improvement",
+    "tip": "Map the process, measure where work waits, and fix the slowest step first."
+   },
+   {
+    "question": "Tell us about a time you improved a process. What changed in numbers?",
+    "skill": "process improvement",
+    "tip": "Give the before and after, even if the numbers are small."
+   },
+   {
+    "question": "How do you keep inventory low without running out of stock?",
+    "skill": "inventory",
+    "tip": "Reorder points, safety stock and demand forecasts."
+   },
+   {
+    "question": "How would you plan staff shifts for a warehouse with uneven demand?",
+    "skill": "scheduling",
+    "tip": "Use demand data by hour and day, and keep some flexible staff."
+   },
+   {
+    "question": "A key supplier fails to deliver. What do you do?",
+    "skill": "logistics",
+    "tip": "Activate a backup supplier, re-plan, and tell customers early."
+   },
+   {
+    "question": "How do you build a safety culture on the floor?",
+    "skill": "safety",
+    "tip": "Leaders follow the rules first, near-misses are reported without blame, and fixes are visible."
+   },
+   {
+    "question": "Which quality tools have you used?",
+    "skill": "quality",
+    "tip": "Pareto, fishbone, 5 Whys or control charts, with a real example."
+   },
+   {
+    "question": "How do you handle an underperforming team member?",
+    "skill": "leadership",
+    "tip": "Clear expectations, support, regular check-ins and documented next steps."
+   },
+   {
+    "question": "Which operations metrics would you track daily?",
+    "skill": "operations",
+    "tip": "Output, on-time delivery, quality, cost and safety incidents."
+   },
+   {
+    "question": "Explain lean and the main kinds of waste.",
+    "skill": "process improvement",
+    "tip": "Name a few wastes with examples from a real workplace."
+   }
+  ],
+  "PMO": [
+   {
+    "question": "What does a PMO do in a company?",
+    "skill": "pmo",
+    "tip": "Standards, reporting, governance and support for project managers."
+   },
+   {
+    "question": "How do you report project status to senior management?",
+    "skill": "reporting",
+    "tip": "A one-page RAG status, key risks, decisions needed, and the next milestones."
+   },
+   {
+    "question": "A project is red. What do you do?",
+    "skill": "project management",
+    "tip": "Find the root cause, agree a recovery plan, and escalate the decision that is needed."
+   },
+   {
+    "question": "How do you manage a stakeholder who keeps changing priorities?",
+    "skill": "stakeholders",
+    "tip": "Make trade-offs visible and get decisions recorded."
+   },
+   {
+    "question": "What is the difference between Agile and Waterfall, and when would you use each?",
+    "skill": "agile",
+    "tip": "Link the choice to how stable the requirements are."
+   },
+   {
+    "question": "Explain the Scrum roles and events.",
+    "skill": "scrum",
+    "tip": "Product owner, Scrum master and team; the sprint and its events."
+   },
+   {
+    "question": "How do you decide which projects go into a portfolio?",
+    "skill": "portfolio",
+    "tip": "Strategic fit, value, cost, risk and capacity."
+   },
+   {
+    "question": "What does project governance mean in practice?",
+    "skill": "governance",
+    "tip": "Who decides what, stage gates, and how changes are approved."
+   },
+   {
+    "question": "How do you build a RAID log, and who uses it?",
+    "skill": "project management",
+    "tip": "Risks, assumptions, issues and dependencies, each with an owner."
+   },
+   {
+    "question": "How would you get project managers to actually use a new template?",
+    "skill": "pmo",
+    "tip": "Keep it short, show how it saves them time, and use it in reviews."
+   }
+  ],
+  "Public Relations": [
+   {
+    "question": "Write a headline and the first lines of a press release for a product launch.",
+    "skill": "press releases",
+    "tip": "Who, what, when and why it matters in the first paragraph."
+   },
+   {
+    "question": "A negative story about the company is trending. What are your first steps?",
+    "skill": "media relations",
+    "tip": "Get the facts, agree on one spokesperson, respond fast and honestly."
+   },
+   {
+    "question": "How do you build relationships with journalists?",
+    "skill": "media relations",
+    "tip": "Know their beat, send relevant stories only, and be reliable with information."
+   },
+   {
+    "question": "How do PR and marketing differ, and how do they work together?",
+    "skill": "marketing",
+    "tip": "Earned versus paid attention, and one shared message."
+   },
+   {
+    "question": "Edit this paragraph to make it clear and short.",
+    "skill": "editing",
+    "tip": "Cut jargon, use active voice and keep one idea per sentence."
+   },
+   {
+    "question": "How would you measure whether a PR campaign worked?",
+    "skill": "public relations",
+    "tip": "Coverage in the right outlets, message pull-through and the effect on the business goal."
+   },
+   {
+    "question": "How would you use social media in a PR campaign?",
+    "skill": "social media",
+    "tip": "Choose the right platforms, prepare responses, and monitor conversation."
+   },
+   {
+    "question": "How do you prepare a spokesperson for an interview?",
+    "skill": "communications",
+    "tip": "Key messages, likely hard questions and practice answers."
+   },
+   {
+    "question": "Pitch us a story idea about our company to a newspaper.",
+    "skill": "public relations",
+    "tip": "Find the angle readers care about, not just the company news."
+   },
+   {
+    "question": "Show us a piece of your writing and explain who it was for.",
+    "skill": "writing",
+    "tip": "Choose a piece where you can explain the audience and the result."
+   }
+  ],
+  "Python Developer": [
+   {
+    "question": "What is the difference between a list and a tuple, and when would you use each?",
+    "skill": "python",
+    "tip": "Mutability, hashability, and an example such as dictionary keys."
+   },
+   {
+    "question": "Explain decorators with a small example.",
+    "skill": "python",
+    "tip": "Write a timing or logging decorator and explain what it wraps."
+   },
+   {
+    "question": "How do Django models, views and templates fit together?",
+    "skill": "django",
+    "tip": "Follow one request from URL to response."
+   },
+   {
+    "question": "Build a small Flask API with one GET and one POST route.",
+    "skill": "flask",
+    "tip": "Input validation, status codes and JSON responses."
+   },
+   {
+    "question": "Write a SQL query to count orders per day for the last month.",
+    "skill": "sql",
+    "tip": "GROUP BY the date, and filter with a WHERE on the date range."
+   },
+   {
+    "question": "How do you manage dependencies and environments in a Python project?",
+    "skill": "python",
+    "tip": "Virtual environments, a pinned requirements file, and why versions matter."
+   },
+   {
+    "question": "Explain git branching and how you resolve a merge conflict.",
+    "skill": "git",
+    "tip": "Show the conflict markers and how you test after resolving."
+   },
+   {
+    "question": "How would you deploy a Django app on a Linux server?",
+    "skill": "linux",
+    "tip": "Gunicorn, Nginx, environment variables, and a service that restarts on failure."
+   },
+   {
+    "question": "Which AWS services would you use to host a Python web app?",
+    "skill": "aws",
+    "tip": "EC2 or Elastic Beanstalk, RDS, S3; keep it simple and say why."
+   },
+   {
+    "question": "What is the GIL, and when does it matter?",
+    "skill": "python",
+    "tip": "CPU-bound threads; use multiprocessing or async for I/O."
+   }
+  ],
+  "React Developer": [
+   {
+    "question": "What is the virtual DOM, and why does React use it?",
+    "skill": "react",
+    "tip": "Diffing and batching updates; mention keys in lists."
+   },
+   {
+    "question": "Explain useState and useEffect with a data-fetching example.",
+    "skill": "react",
+    "tip": "Show the dependency array and cleaning up on unmount."
+   },
+   {
+    "question": "When would you use Redux instead of React state or context?",
+    "skill": "redux",
+    "tip": "Shared state used across many components; mention Redux Toolkit."
+   },
+   {
+    "question": "Explain closures and the event loop in JavaScript.",
+    "skill": "javascript",
+    "tip": "Use a setTimeout example to show the order of output."
+   },
+   {
+    "question": "Build a simple Express API that the React app can call.",
+    "skill": "node.js",
+    "tip": "Routes, JSON body parsing, error handling and CORS."
+   },
+   {
+    "question": "How do you make a layout responsive with CSS?",
+    "skill": "css",
+    "tip": "Flexbox or grid, relative units and media queries; test on a phone."
+   },
+   {
+    "question": "What makes HTML accessible?",
+    "skill": "html",
+    "tip": "Semantic elements, labels, alt text and keyboard focus."
+   },
+   {
+    "question": "What is the difference between REST and GraphQL?",
+    "skill": "rest",
+    "tip": "Fixed endpoints versus one endpoint with queries; say when each fits."
+   },
+   {
+    "question": "How do you find out why a React component re-renders too often?",
+    "skill": "react",
+    "tip": "React DevTools profiler, memo, useMemo and useCallback, used only where needed."
+   },
+   {
+    "question": "Walk us through your git workflow on a team project.",
+    "skill": "git",
+    "tip": "Feature branches, pull requests, reviews and resolving conflicts."
+   }
+  ],
+  "SAP Developer": [
+   {
+    "question": "What are the main SAP modules, and which have you worked with?",
+    "skill": "sap",
+    "tip": "Be specific about the module you know best and a real process in it."
+   },
+   {
+    "question": "Explain internal tables in ABAP and the types available.",
+    "skill": "abap",
+    "tip": "Standard, sorted and hashed, and when each is fastest."
+   },
+   {
+    "question": "How do you build an ALV report?",
+    "skill": "alv",
+    "tip": "Data selection, field catalogue, layout and the display function or class."
+   },
+   {
+    "question": "What is a BAPI, and how is it different from an RFC?",
+    "skill": "bapi",
+    "tip": "A BAPI is a business-level RFC-enabled method; give an example such as creating a sales order."
+   },
+   {
+    "question": "Explain the order-to-cash process in SAP SD.",
+    "skill": "sap sd",
+    "tip": "Inquiry, quotation, sales order, delivery, billing, payment."
+   },
+   {
+    "question": "What changes when you write ABAP for SAP HANA?",
+    "skill": "hana",
+    "tip": "Push logic to the database with CDS views and AMDP."
+   },
+   {
+    "question": "What is SAP Fiori, and how does it reach the backend?",
+    "skill": "fiori",
+    "tip": "UI5 apps using OData services."
+   },
+   {
+    "question": "What is SAP NetWeaver?",
+    "skill": "netweaver",
+    "tip": "The technical platform that runs ABAP and integration."
+   },
+   {
+    "question": "How do you improve the performance of a slow ABAP report?",
+    "skill": "abap",
+    "tip": "Avoid SELECT in loops, use proper keys and indexes, and run a SQL trace."
+   },
+   {
+    "question": "How do you move your changes from development to production?",
+    "skill": "sap",
+    "tip": "Transport requests and testing in the quality system."
+   }
+  ],
+  "SQL Developer": [
+   {
+    "question": "Write a query to find the second highest salary.",
+    "skill": "sql",
+    "tip": "Give two ways: a subquery with MAX, and DENSE_RANK."
+   },
+   {
+    "question": "What is the difference between a clustered and a non-clustered index?",
+    "skill": "indexes",
+    "tip": "Data order on disk versus a separate structure; only one clustered index per table."
+   },
+   {
+    "question": "Write a stored procedure that inserts an order and its items safely.",
+    "skill": "stored procedures",
+    "tip": "Parameters, a transaction, and TRY...CATCH with rollback."
+   },
+   {
+    "question": "Explain the different JOIN types with a small example.",
+    "skill": "sql",
+    "tip": "Draw two small tables and show the rows each join returns."
+   },
+   {
+    "question": "What are window functions? Use one to compute a running total.",
+    "skill": "t-sql",
+    "tip": "SUM() OVER (ORDER BY ...) and how PARTITION BY changes it."
+   },
+   {
+    "question": "How do you find and fix a slow query in SQL Server?",
+    "skill": "sql server",
+    "tip": "Execution plan, missing indexes, and avoiding functions on indexed columns."
+   },
+   {
+    "question": "Build an SSIS package to load daily CSV files.",
+    "skill": "ssis",
+    "tip": "A loop over files, data flow, error output and logging."
+   },
+   {
+    "question": "How would you design an SSRS report with parameters?",
+    "skill": "ssrs",
+    "tip": "Dataset, parameters, grouping and testing with real data volumes."
+   },
+   {
+    "question": "What is the difference between a CTE and a temporary table?",
+    "skill": "t-sql",
+    "tip": "Scope and reuse; when a temp table with an index helps."
+   },
+   {
+    "question": "Explain ETL and where the SQL developer fits in it.",
+    "skill": "etl",
+    "tip": "Writing the transformations and checks that keep the data correct."
+   }
+  ],
+  "Sales": [
+   {
+    "question": "Sell me this pen.",
+    "skill": "sales",
+    "tip": "Ask questions first to find a need; then sell to that need."
+   },
+   {
+    "question": "How do you handle the objection 'It is too expensive'?",
+    "skill": "negotiation",
+    "tip": "Ask what they are comparing it with, then show value before giving any discount."
+   },
+   {
+    "question": "How do you plan your month to reach a sales target?",
+    "skill": "targets",
+    "tip": "Work backwards from the target to calls and meetings needed each week."
+   },
+   {
+    "question": "Tell us about a sale you are proud of.",
+    "skill": "sales",
+    "tip": "Situation, what you did differently, and the result."
+   },
+   {
+    "question": "How do you keep a key account happy after the first sale?",
+    "skill": "account management",
+    "tip": "Regular check-ins, solving issues fast, and finding new needs."
+   },
+   {
+    "question": "A customer is unhappy with a delivery delay. What do you do?",
+    "skill": "customer service",
+    "tip": "Own it, give a real date, and follow up before they have to call you."
+   },
+   {
+    "question": "How do you find new customers in a new territory?",
+    "skill": "marketing",
+    "tip": "Lists, referrals, local associations and visiting the market in person."
+   },
+   {
+    "question": "How do you handle rejection?",
+    "skill": "communication",
+    "tip": "Show resilience with a real example and what you learned."
+   },
+   {
+    "question": "What do you know about our products and competitors?",
+    "skill": "retail",
+    "tip": "Visit a store or website before the interview and mention something specific."
+   },
+   {
+    "question": "How would you negotiate when a big customer demands a large discount?",
+    "skill": "negotiation",
+    "tip": "Trade, do not give: a discount in exchange for volume or a longer contract."
+   }
+  ],
+  "Testing": [
+   {
+    "question": "Write test cases for withdrawing cash from an ATM.",
+    "skill": "test cases",
+    "tip": "Cover valid, invalid and boundary cases, plus what happens if the network drops mid-way."
+   },
+   {
+    "question": "Explain the Selenium framework you built or used. Why the Page Object Model?",
+    "skill": "selenium",
+    "tip": "Explain how it keeps locators in one place so a UI change breaks fewer tests."
+   },
+   {
+    "question": "Which tests should be automated, and which should stay manual?",
+    "skill": "automation",
+    "tip": "Automate stable, repeated checks; keep exploratory and one-off checks manual."
+   },
+   {
+    "question": "What goes into a test plan?",
+    "skill": "test plans",
+    "tip": "Scope, approach, environments, entry and exit criteria, risks and schedule."
+   },
+   {
+    "question": "How do you choose which tests go into a regression suite?",
+    "skill": "regression testing",
+    "tip": "Core user flows, areas that broke before, and code that changed."
+   },
+   {
+    "question": "Write a SQL query to check that an order saved through the UI has the right total.",
+    "skill": "sql",
+    "tip": "Join orders and items, sum the item prices, and compare with the stored total."
+   },
+   {
+    "question": "Walk us through a bug's life cycle in Jira.",
+    "skill": "jira",
+    "tip": "New, assigned, fixed, retest, closed or reopened, and who moves each step."
+   },
+   {
+    "question": "How does testing fit into a two-week sprint?",
+    "skill": "agile",
+    "tip": "Testers join refinement, test stories as they finish, and do not wait for the sprint end."
+   },
+   {
+    "question": "An automated test passes sometimes and fails sometimes. What do you do?",
+    "skill": "automation",
+    "tip": "Look for timing issues and shared test data; use explicit waits, not sleeps."
+   },
+   {
+    "question": "The developer says they cannot reproduce your bug. What do you do?",
+    "skill": "jira",
+    "tip": "Add exact steps, test data, environment, logs and a screen recording."
+   }
+  ],
+  "Web Designing": [
+   {
+    "question": "Explain the CSS box model.",
+    "skill": "css",
+    "tip": "Content, padding, border, margin, and what box-sizing: border-box changes."
+   },
+   {
+    "question": "How would you make a desktop layout work on a phone?",
+    "skill": "responsive",
+    "tip": "Mobile-first CSS, flexible grids, media queries, and testing on a real phone."
+   },
+   {
+    "question": "Why does semantic HTML matter?",
+    "skill": "html",
+    "tip": "Accessibility, SEO and readable code; give a few example elements."
+   },
+   {
+    "question": "When would you use Flexbox and when CSS Grid?",
+    "skill": "css",
+    "tip": "Flexbox for one direction, Grid for rows and columns together."
+   },
+   {
+    "question": "Write JavaScript to check that a sign-up form's email and password are valid before submit.",
+    "skill": "javascript",
+    "tip": "Show clear error messages next to each field, and still validate on the server."
+   },
+   {
+    "question": "Is jQuery still needed today? When would you use it?",
+    "skill": "jquery",
+    "tip": "Modern JavaScript covers most of it; jQuery is common in older sites and WordPress themes."
+   },
+   {
+    "question": "How do you turn a Photoshop mockup into a web page?",
+    "skill": "photoshop",
+    "tip": "Measure spacing and type, export optimised images, and build the layout before details."
+   },
+   {
+    "question": "How would you build a client site in WordPress so they can edit it themselves?",
+    "skill": "wordpress",
+    "tip": "A child theme or block theme, few plugins, and editable blocks for their content."
+   },
+   {
+    "question": "A website loads slowly. How would you speed it up?",
+    "skill": "seo",
+    "tip": "Compress images, lazy-load, cache, and remove unused scripts; check with PageSpeed Insights."
+   },
+   {
+    "question": "What would you do to help a new page rank on Google?",
+    "skill": "seo",
+    "tip": "Clear title and headings, good content for the search intent, fast loading and internal links."
+   }
+  ],
+  "Software Development Engineer (Fresher)": [
+   {
+    "question": "Reverse a singly linked list. Then do it without extra space.",
+    "skill": "data structures and algorithms",
+    "tip": "Draw the prev, current and next pointers before coding, and think aloud while you write."
+   },
+   {
+    "question": "Given an array and a target, find two numbers that add up to the target.",
+    "skill": "data structures and algorithms",
+    "tip": "Start with brute force, improve it with a hash map, and state the time complexity of both."
+   },
+   {
+    "question": "Find the first non-repeating character in a string.",
+    "skill": "data structures and algorithms",
+    "tip": "Count characters in one pass and scan again; mention edge cases like an empty string."
+   },
+   {
+    "question": "Explain the four pillars of OOP with examples from your own project.",
+    "skill": "object-oriented programming",
+    "tip": "Encapsulation, abstraction, inheritance, polymorphism; a real example beats a textbook animal class."
+   },
+   {
+    "question": "What is the difference between stack and heap memory?",
+    "skill": "c++",
+    "tip": "Local variables versus dynamic allocation, who frees the memory, and what a memory leak is."
+   },
+   {
+    "question": "Write a SQL query to find the department with the highest average salary.",
+    "skill": "sql",
+    "tip": "GROUP BY department, AVG the salary, ORDER BY descending and take the first row; DBMS questions often follow."
+   },
+   {
+    "question": "A train 150 m long passes a pole in 15 seconds. What is its speed in km/h?",
+    "skill": "problem solving",
+    "tip": "Convert units first; service company aptitude rounds are timed, so practise shortcuts."
+   },
+   {
+    "question": "Your code passes the sample input but fails hidden test cases. How do you find the bug?",
+    "skill": "debugging",
+    "tip": "Try edge cases: empty input, one element, duplicates, negative numbers and very large values."
+   },
+   {
+    "question": "Explain your final-year project. What exactly did you build yourself?",
+    "skill": "b.e./b.tech",
+    "tip": "Expect deep questions on every technology you list; remove anything you cannot explain."
+   },
+   {
+    "question": "Tell us about your internship and one thing you learned there.",
+    "skill": "internship",
+    "tip": "No internship? Talk about a project or hackathon and what you would do differently now."
+   }
+  ],
+  "Data Analyst": [
+   {
+    "question": "Write a SQL query for monthly revenue and the change from the previous month.",
+    "skill": "sql",
+    "tip": "Group by month, then use LAG() to get the previous month's value."
+   },
+   {
+    "question": "When would you use XLOOKUP or INDEX-MATCH instead of VLOOKUP?",
+    "skill": "excel",
+    "tip": "Lookups to the left, inserted columns and exact-match defaults."
+   },
+   {
+    "question": "How do you clean a messy dataset before analysis?",
+    "skill": "data cleaning",
+    "tip": "Duplicates, missing values, inconsistent formats and outliers, and record what you changed."
+   },
+   {
+    "question": "When is the median a better summary than the mean?",
+    "skill": "statistics",
+    "tip": "Skewed data such as salaries or house prices; give a quick example."
+   },
+   {
+    "question": "In Power BI, what is the difference between a measure and a calculated column?",
+    "skill": "power bi",
+    "tip": "Measures are computed at query time in context; calculated columns are stored per row."
+   },
+   {
+    "question": "Design a dashboard for a store manager who has only a few minutes each morning.",
+    "skill": "dashboards",
+    "tip": "A few key numbers at the top, trends below, and filters only where they help."
+   },
+   {
+    "question": "Which chart would you use to compare sales across regions, and which to show a trend?",
+    "skill": "data visualization",
+    "tip": "Bar chart for comparison, line chart for trends; keep labels readable."
+   },
+   {
+    "question": "A shop's sales rose from 40,000 to 50,000 rupees. By what percent did they rise?",
+    "skill": "problem solving",
+    "tip": "Change divided by the starting value; data interpretation rounds test this kind of quick maths."
+   },
+   {
+    "question": "In pandas, how do you join two tables and find rows that did not match?",
+    "skill": "python",
+    "tip": "merge with how='left' and indicator=True, then filter on left_only."
+   },
+   {
+    "question": "Tell us about an analysis that changed a decision.",
+    "skill": "business intelligence",
+    "tip": "A college or internship project works; explain the question, the data and what changed."
+   }
+  ],
+  "QA/Test Engineer": [
+   {
+    "question": "Write test cases for a login page.",
+    "skill": "test cases",
+    "tip": "Valid and invalid logins, empty fields, boundaries, locked accounts and basic security checks."
+   },
+   {
+    "question": "What is the difference between severity and priority? Give an example of each combination.",
+    "skill": "bug reporting",
+    "tip": "A spelling mistake in the company logo is low severity but high priority."
+   },
+   {
+    "question": "What makes a good bug report?",
+    "skill": "bug reporting",
+    "tip": "Clear title, steps, expected versus actual result, environment and evidence."
+   },
+   {
+    "question": "What are the phases of the software testing life cycle, and what goes in a test plan?",
+    "skill": "test plans",
+    "tip": "Requirement analysis to test closure; scope, approach and exit criteria in the plan."
+   },
+   {
+    "question": "In Selenium, what are the types of waits, and why avoid Thread.sleep?",
+    "skill": "selenium",
+    "tip": "Implicit, explicit and fluent waits; fixed sleeps make tests slow and flaky."
+   },
+   {
+    "question": "What is the difference between regression testing and retesting?",
+    "skill": "regression testing",
+    "tip": "Retesting checks the fixed bug; regression checks that nothing else broke."
+   },
+   {
+    "question": "How are unit tests different from the tests a QA engineer writes?",
+    "skill": "unit testing",
+    "tip": "Developers test small pieces in isolation; QA tests flows across the system."
+   },
+   {
+    "question": "Write a SQL query to check that a newly registered user was saved correctly.",
+    "skill": "sql",
+    "tip": "Select by email and compare each field with what you entered in the form."
+   },
+   {
+    "question": "Write a Java program to find duplicate elements in an array.",
+    "skill": "java",
+    "tip": "Use a HashSet; automation fresher rounds often include one basic coding question like this."
+   },
+   {
+    "question": "How would you test a feature that has no written requirements?",
+    "skill": "manual testing",
+    "tip": "Ask the product owner, explore the feature, and write down your assumptions as test cases."
+   }
+  ],
+  "Technical Support Engineer": [
+   {
+    "question": "A user says their Windows account is locked. What do you do?",
+    "skill": "active directory",
+    "tip": "Verify identity first, unlock in Active Directory, and find out why it locked."
+   },
+   {
+    "question": "What do ping, ipconfig, tracert and nslookup tell you?",
+    "skill": "networking",
+    "tip": "Give one problem each command helps you find."
+   },
+   {
+    "question": "The VPN connects, but internal websites do not open. How do you troubleshoot?",
+    "skill": "vpn",
+    "tip": "Check DNS settings, routes and whether the user has access to that network."
+   },
+   {
+    "question": "How do you prioritise tickets and meet the SLA?",
+    "skill": "ticketing",
+    "tip": "Impact and urgency decide priority; update the ticket so the user knows the status."
+   },
+   {
+    "question": "A laptop shows a blue screen on start-up. What steps do you take?",
+    "skill": "windows",
+    "tip": "Note the stop code, try safe mode, check recent updates and drivers."
+   },
+   {
+    "question": "A printer shows online but nothing prints. How would you fix it?",
+    "skill": "hardware",
+    "tip": "Clear the print queue, check the driver and the network connection, then test a page."
+   },
+   {
+    "question": "Explain to a non-technical user why they should restart their computer for updates.",
+    "skill": "communication",
+    "tip": "Plain language, one reason they care about, and no jargon."
+   },
+   {
+    "question": "A customer is angry because the same issue keeps coming back. How do you handle it?",
+    "skill": "customer service",
+    "tip": "Acknowledge it, look at the ticket history, and escalate for a root cause fix."
+   },
+   {
+    "question": "What is your general approach to troubleshooting an unknown problem?",
+    "skill": "troubleshooting",
+    "tip": "Gather details, reproduce, isolate one change at a time, fix, and document."
+   },
+   {
+    "question": "What is the difference between an incident and a problem in ITIL?",
+    "skill": "help desk",
+    "tip": "An incident is restoring service now; a problem is finding the root cause."
+   }
+  ],
+  "Graduate Engineer Trainee (Mechanical)": [
+   {
+    "question": "State Bernoulli's equation and its assumptions.",
+    "skill": "fluid mechanics",
+    "tip": "Steady, incompressible, non-viscous flow along a streamline; give one real application."
+   },
+   {
+    "question": "Draw the shear force and bending moment diagrams for a simply supported beam with a central point load.",
+    "skill": "strength of materials",
+    "tip": "Maximum bending moment is WL/4 at the centre; draw neatly and label values."
+   },
+   {
+    "question": "Compare the Otto and Diesel cycles.",
+    "skill": "mechanical engineering",
+    "tip": "Heat addition at constant volume versus constant pressure, and which is more efficient for the same compression ratio."
+   },
+   {
+    "question": "What is the difference between first angle and third angle projection?",
+    "skill": "engineering drawing",
+    "tip": "India follows first angle projection; know the symbol for each."
+   },
+   {
+    "question": "Explain annealing, normalising and hardening.",
+    "skill": "mechanical engineering",
+    "tip": "Heating, cooling method and the property each one gives the steel."
+   },
+   {
+    "question": "How do you go from part models to an assembly in Creo or SolidWorks?",
+    "skill": "creo",
+    "tip": "Explain mates or constraints, and checking for interference."
+   },
+   {
+    "question": "A can finish a job in 10 days and B in 15 days. How long will they take working together?",
+    "skill": "problem solving",
+    "tip": "Add the work each does per day; core company written tests mix aptitude with core basics."
+   },
+   {
+    "question": "What is the Reynolds number, and what does it tell you about flow?",
+    "skill": "fluid mechanics",
+    "tip": "Ratio of inertial to viscous forces; explain laminar and turbulent flow."
+   },
+   {
+    "question": "What did you see and learn during your industrial training or internship?",
+    "skill": "internship",
+    "tip": "Describe one process or machine in detail; it shows real interest in core work."
+   },
+   {
+    "question": "Why do you want a core mechanical job instead of an IT job?",
+    "skill": "b.e./b.tech",
+    "tip": "Interviewers check that you will stay; give a genuine reason tied to a subject or project."
+   }
+  ],
+  "Graduate Engineer Trainee (Electrical)": [
+   {
+    "question": "State Thevenin's theorem and use it on a simple circuit.",
+    "skill": "circuit analysis",
+    "tip": "Remove the load, find the open-circuit voltage and the equivalent resistance."
+   },
+   {
+    "question": "Why are transformers rated in kVA and not in kW?",
+    "skill": "electrical machines",
+    "tip": "Losses depend on voltage and current, not on the load's power factor."
+   },
+   {
+    "question": "Why is power transmitted at high voltage?",
+    "skill": "power systems",
+    "tip": "Lower current means lower I squared R losses and thinner conductors."
+   },
+   {
+    "question": "What is back EMF in a DC motor?",
+    "skill": "electrical machines",
+    "tip": "Explain how it limits armature current as the motor speeds up."
+   },
+   {
+    "question": "What types of earthing do you know, and why is earthing needed?",
+    "skill": "electrical safety",
+    "tip": "Plate and pipe earthing, and how earthing protects people from shock."
+   },
+   {
+    "question": "How do you test insulation resistance, and what does a low reading mean?",
+    "skill": "electrical testing",
+    "tip": "Explain the megger test and what you would check before using it."
+   },
+   {
+    "question": "What circuits and protection would you plan for a house's wiring?",
+    "skill": "electrical wiring",
+    "tip": "Separate lighting and power circuits, MCBs, an RCCB and proper earthing."
+   },
+   {
+    "question": "How does a transistor work as a switch?",
+    "skill": "electronics",
+    "tip": "Cut-off and saturation regions, with a small relay-driver example."
+   },
+   {
+    "question": "If 6 workers can wire a building in 12 days, how long will 8 workers take?",
+    "skill": "problem solving",
+    "tip": "Workers times days stays the same; practise these for the written aptitude round."
+   },
+   {
+    "question": "Tell us about your internship or plant visit. What did you learn?",
+    "skill": "internship",
+    "tip": "Talk about one piece of equipment and how it was operated or maintained."
+   }
+  ],
+  "Graduate Engineer Trainee (Civil)": [
+   {
+    "question": "What does M20 concrete mean, and where is it used?",
+    "skill": "civil engineering",
+    "tip": "Give the meaning of the number and the nominal mix ratio."
+   },
+   {
+    "question": "How do you estimate the number of bricks and the cement needed for a wall?",
+    "skill": "quantity surveying",
+    "tip": "Volume of the wall, brick size with mortar, then the dry volume of mortar."
+   },
+   {
+    "question": "Explain back sight, fore sight and reduced level in levelling.",
+    "skill": "surveying",
+    "tip": "Work through a small example with the height of instrument method."
+   },
+   {
+    "question": "What do you check every day as a site engineer?",
+    "skill": "site supervision",
+    "tip": "Safety, quality of work, materials received, labour and progress against the plan."
+   },
+   {
+    "question": "When can formwork be removed from slabs and beams, and what decides it?",
+    "skill": "construction methods",
+    "tip": "Quote the IS 456 guidance and say how cement type and weather change it."
+   },
+   {
+    "question": "How do you model a simple frame in STAAD Pro and apply loads?",
+    "skill": "staad pro",
+    "tip": "Geometry, supports, member properties, load cases and combinations, then check results."
+   },
+   {
+    "question": "How do you find the critical path in a Primavera schedule?",
+    "skill": "primavera",
+    "tip": "Activities with zero float; explain why delays there delay the whole project."
+   },
+   {
+    "question": "When would you use Revit instead of AutoCAD on a project?",
+    "skill": "revit",
+    "tip": "When drawings, quantities and coordination must come from one model."
+   },
+   {
+    "question": "A plot is 40 m by 25 m. What is its area in square feet?",
+    "skill": "problem solving",
+    "tip": "Know the unit conversions used on Indian sites, such as square metres to square feet."
+   },
+   {
+    "question": "Tell us about your site training or internship.",
+    "skill": "internship",
+    "tip": "Describe one activity you watched closely, such as a slab pour, and what you learned."
+   }
+  ]
+ }
+}

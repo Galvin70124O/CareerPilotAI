@@ -4,8 +4,7 @@ import io
 from pypdf import PdfReader
 
 import app
-from features.evidence import CLAIMED
-from features.jd_match import MAX_JD_LENGTH, MISSING, match_job
+from features.jd_match import MAX_JD_LENGTH, match_job
 
 VECTORIZER = app.model.named_steps["tfidf"]
 RESUME = ("Asha Rao\nSKILLS\nSQL, Excel\n\nPROJECTS\n"
@@ -26,21 +25,28 @@ def test_the_same_text_is_a_perfect_match():
 def test_no_shared_words_or_skills_is_zero():
     result = match("Kiran\nSkills: Excel, accounting, Tally", "Kubernetes and Docker engineers wanted")
     assert (result["percent"], result["words_percent"], result["skills_percent"]) == (0, 0, 0)
-    assert [gap["tag"] for gap in result["gaps"]] == [MISSING, MISSING]
+    assert result["gaps"] == ["Kubernetes", "Docker"]     # in the order the ad names them
 
 
 def test_reactjs_in_the_jd_matches_react_in_the_resume():
     result = match(RESUME, "Build screens in ReactJS.")
     assert "React" in result["found"]
-    assert "react" not in [gap["skill"] for gap in result["gaps"]]
+    assert "React" not in result["gaps"]
 
 
-def test_gaps_are_ranked_by_mentions_with_their_evidence_tag():
-    jd = "You will use Docker daily.\nDeploy with Docker on AWS.\nWrite SQL. Tune SQL queries. Docker too."
-    gaps = match(RESUME, jd)["gaps"]
-    assert [(gap["skill"], gap["mentions"]) for gap in gaps] == [("docker", 3), ("sql", 2), ("aws", 1)]
-    sql = gaps[1]
-    assert sql["tag"] == CLAIMED and sql["note"] == "you list it but never prove it"
+def test_each_jd_skill_shows_once_in_the_order_the_ad_names_it():
+    # RESUME lists SQL only under Skills (not proven) and uses React in a project (proven)
+    result = match(RESUME, "Docker, Kubernetes and AWS on the job.\nSQL and React a plus. Docker again.")
+    assert result["gaps"] == ["Docker", "Kubernetes", "AWS"]     # character order, not A-Z
+    assert result["unproven"] == ["SQL"]
+    assert result["found"] == ["React"]
+    assert (result["skills_in_resume"], result["skills_total"]) == (2, 5)
+
+
+def test_coursework_only_skills_are_not_proven_either():
+    resume = "EDUCATION\nB.Tech CSE, coursework in Machine Learning\n\nPROJECTS\n- Built a quiz app in Python with a score board\n"
+    result = match(resume, "Python and machine learning")
+    assert result["unproven"] == ["Machine Learning"] and result["found"] == ["Python"]
 
 
 def test_a_project_line_is_suggested_for_a_gap_and_named_honestly():
@@ -51,8 +57,8 @@ def test_a_project_line_is_suggested_for_a_gap_and_named_honestly():
 
 def test_typed_skills_get_no_evidence_tags_or_line_suggestions():
     result = match("python, sql", "Python, SQL and Docker", is_resume=False)
-    assert [(gap["skill"], gap["tag"]) for gap in result["gaps"]] == [("docker", MISSING)]
-    assert result["suggestions"] == []
+    assert result["gaps"] == ["Docker"] and result["found"] == ["Python", "SQL"]
+    assert result["unproven"] == [] and result["suggestions"] == []
 
 
 def test_a_jd_with_no_known_skills_uses_word_overlap_only():
@@ -109,7 +115,8 @@ def pdf_text(data):
 
 def test_the_pdf_has_the_jd_section_only_when_a_jd_was_checked():
     base = {"text": RESUME, "is_resume": "1", "name": "cv.txt"}
-    assert "Job description match" in pdf_text({**base, "jd": "Strong SQL for search queries and reports."})
+    text = pdf_text({**base, "jd": "Strong SQL and Docker for search queries and reports."})
+    assert "Job description match" in text and "Listed but not proven: SQL" in text
     assert "Job description match" not in pdf_text(base)
 
 

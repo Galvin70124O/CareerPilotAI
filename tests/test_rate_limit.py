@@ -19,3 +19,14 @@ def test_api_routes_answer_429_when_over_the_limit():
         response = client.post(route, json={})
         assert response.status_code == 429
         assert "Too many requests" in response.get_json()["error"]
+
+
+def test_the_pdf_report_shares_the_limit():
+    client = app.app.test_client()
+    form = {"text": "python, sql", "is_resume": "0"}
+    assert client.post("/report", data=form).status_code == 200
+    for _ in range(LIMIT - 1):
+        rate_limit.allow("127.0.0.1")
+    response = client.post("/report", data=form)
+    assert response.status_code == 429
+    assert b"Too many requests" in response.data
