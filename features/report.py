@@ -198,11 +198,13 @@ def build_report_pdf(report):
         else:
             pdf.bar_row("Match", f"{jd['percent']}%", jd["percent"] / 100, INDIGO)
             pdf.paragraph(f"Half word overlap ({jd['words_percent']}%), half skills found "
-                          f"({len(jd['found'])} of {jd['skills_total']}, {jd['skills_percent']}%).", size=9)
+                          f"({jd['skills_in_resume']} of {jd['skills_total']}, {jd['skills_percent']}%).", size=9)
         if jd["gaps"]:
             pdf.ln(1)
-            pdf.paragraph("Skills to work on, most mentioned first", size=10, color=TEXT, style="B")
-            pdf.paragraph("; ".join(f"{g['label']} ({g['note']})" for g in jd["gaps"]), size=9.5)
+            pdf.paragraph("Skills to work on, in the order the ad names them", size=10, color=TEXT, style="B")
+            pdf.paragraph(", ".join(jd["gaps"]), size=9.5)
+        if jd["unproven"]:
+            pdf.paragraph(f"Listed but not proven: {', '.join(jd['unproven'])} (add a project to prove them)", size=9.5)
         for pick in jd["suggestions"]:
             pdf.ensure_space(12)
             pdf.paragraph(f"If this work used {pick['label']}, name it here: \"{pick['line']}\"", size=9.5)

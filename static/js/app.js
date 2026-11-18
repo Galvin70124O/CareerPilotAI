@@ -397,7 +397,6 @@
   }
 
   /* ---------- 10. Job description match: POST /api/jd-match, result built with textContent ---------- */
-  var JD_SHOW_FIRST = 10;   // like the other long lists: ten, then "Show all N"
 
   function el(tag, className, text) {
     var node = document.createElement(tag);
@@ -412,19 +411,7 @@
     return section;
   }
 
-  function gapList(gaps, showCounts) {
-    var list = el("ul", "jd-gaps");
-    gaps.forEach(function (gap) {
-      var row = el("li", "jd-gap");
-      row.appendChild(el("span", "jd-gap-name", gap.label));
-      if (showCounts) row.appendChild(el("span", "jd-gap-count", gap.mentions === 1 ? "1 mention" : gap.mentions + " mentions"));
-      row.appendChild(el("span", "jd-gap-note", gap.note.charAt(0).toUpperCase() + gap.note.slice(1)));
-      list.appendChild(row);
-    });
-    return list;
-  }
-
-  function showJdMatch(result, box, chevron) {
+  function showJdMatch(result, box) {
     var noun = result.is_resume ? "resume" : "skills";
     var parts = [];
     if (!result.skills_total) {
@@ -446,33 +433,20 @@
     bar.setAttribute("aria-label", "Match: " + result.percent + "%");
     parts.push(bar);
     parts.push(el("p", "jd-parts", "Half word overlap (" + result.words_percent + "%), half skills found (" +
-      result.found.length + " of " + result.skills_total + ", " + result.skills_percent + "%)."));
+      result.skills_in_resume + " of " + result.skills_total + ", " + result.skills_percent + "%)."));
 
-    if (result.skills_total) {
-      // Counts only help when they differ (otherwise the order is by sentence, then A-Z, so we claim no order)
-      var ranked = result.gaps.some(function (gap) { return gap.mentions > 1; });
-      var gaps = jdSection(ranked ? "Skills to work on, most mentioned first" : "Skills to work on");
-      if (!result.gaps.length) {
-        gaps.appendChild(el("p", "jd-found", result.is_resume
-          ? "Your resume proves every skill this job description names."
-          : "Your skills include every skill this job description names."));
-      } else {
-        gaps.appendChild(gapList(result.gaps.slice(0, JD_SHOW_FIRST), ranked));
-        if (result.gaps.length > JD_SHOW_FIRST) {
-          var more = el("details", "show-all");
-          var toggle = el("summary", "show-all-toggle");
-          toggle.appendChild(el("span", "show-more", "Show all " + result.gaps.length));
-          toggle.appendChild(el("span", "show-less", "Show fewer"));
-          if (chevron) toggle.appendChild(chevron.cloneNode(true));
-          more.appendChild(toggle);
-          more.appendChild(gapList(result.gaps.slice(JD_SHOW_FIRST), ranked));
-          gaps.appendChild(more);
-        }
-      }
-      parts.push(gaps);
+    var gaps = jdSection("Skills to work on, in the order the ad names them");
+    gaps.appendChild(el("p", "jd-found", result.gaps.length ? result.gaps.join(", ")
+      : "Your " + noun + " names every skill this job description names."));
+    if (result.unproven.length) {
+      var unproven = el("p", "jd-unproven");
+      unproven.appendChild(el("strong", "", "Listed but not proven: "));
+      unproven.appendChild(document.createTextNode(result.unproven.join(", ") + " (add a project to prove them)"));
+      gaps.appendChild(unproven);
     }
+    parts.push(gaps);
 
-    if (result.is_resume && result.gaps.length) {
+    if (result.is_resume && (result.gaps.length || result.unproven.length)) {
       var lines = jdSection("Lines to strengthen");
       if (result.suggestions.length) {
         var list = el("ul", "jd-lines");
@@ -512,7 +486,6 @@
     var button = $("#cp-jd-button");
     var label = $("[data-button-label]", button);
     var box = $("#cp-jd-result");
-    var chevron = $(".jd-rule .chevron", form);
     var max = Number(form.getAttribute("data-max"));
     var number = function (n) { return n.toLocaleString("en-US"); };
 
@@ -556,7 +529,7 @@
           });
         })
         .then(function (result) {
-          showJdMatch(result, box, chevron);
+          showJdMatch(result, box);
           $("[data-report-jd]", reportForm).value = jd;   // the PDF now includes this match
           // On a phone the result sits under the form: bring it up so the tap visibly did something
           if (box.getBoundingClientRect().top > window.innerHeight * 0.6) {
